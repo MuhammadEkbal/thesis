@@ -1,0 +1,70 @@
+\section{Virtueller Sensorknoten}
+Um die Funktionalität der einzelnen Komponenten des PG RiO Projektes zu testen, wurden virtuelle Sensorknoten implementiert. 
+Die Entwicklerdokumentation des virtuellen Sensorknotens umfasst alle nötigen Informationen, die ein Entwickler für die Weiterentwicklung benötigt. 
+Diese umfasst die Projektstruktur, die verwendeten externen Bibliotheken sowie eine Anleitung zum Aufsetzen des Projektes auf dem lokalen Rechner des Entwicklers. Des Weiteren wird in diesem Kapitel eine Anleitung gegeben, wie ein Entwickler eine neue Strategie für einen virtuellen Sensorknoten implementieren kann.
+
+\subsection{Projektstruktur}
+In diesem Abschnitt wird die Projektstruktur näher erläutert. Dazu zählt das verwendetete Repositorium sowie die externen Abhängigkeiten, die im folgenden erläutert werden.
+
+\subsubsection{Repositorium}
+Dieser Abschnitt bezieht sich auf das Repositorium, das für die virtuellen Sensorknoten verwendet wird:
+\begin{enumerate}
+	\item Git öffnen
+	\item Das folgende Repositorium muss geklont werden 
+	\begin{itemize}
+		\item https://git.swl.informatik.uni-oldenburg.de/scm/pgrio/virtual-sensor.git
+	\end{itemize}
+\end{enumerate}
+Für die virtuellen Sensorknoten exisitieren Strategien, die innerhalb dieses Repositoriums implementiert wurden. 
+
+\subsubsection{Externe Abhängigkeiten}
+In diesem Abschnitt werden die genutzten Frameworks aufgelistet.
+\begin{table}[htb]
+	\begin{tabular}{|p{0.14\linewidth}|p{0.14\linewidth}|p{0.20\linewidth}|p{0.20\linewidth}|p{0.20\linewidth}|}
+		\hline
+		Name & Version & Lizenz & Link & Grund \\ \hline
+		@hapi/joi & 15.0.2 & BSD-3-Clause & \url{https://www.npmjs.com/package/@hapi/joi} & Validierung der Konfigurations-Dateien\\ \hline
+		mqtt & 2.18.8 & MIT & \url{https://www.npmjs.com/package/mqtt} & Nutzung des Mqtt-Protokolls \\ \hline
+	\end{tabular}
+\end{table}
+
+\subsection{Steps to Code}
+In diesem Abschnitt wird erläutert, wie ein Entwickler zum Projekt beitragen kann. Im folgenden werden die notwendigen Schritte aufgelistet: 
+\begin{enumerate}
+	\item Zugriff auf das \textit{virtual-sensor} Repositorium erlangen
+	\item textbf{Installation der Abhängigkeiten} \newline
+	Die nötigen Bibliotheken und externen Abhängigkeiten werden durch den Befehl \console{npm install} installiert.
+	\item Programmieren 
+	\item \textbf{Starten der Anwendung} \newline
+	Die Anwendung kann in verschieden Arten gestartet werden: Im Entwicklermodus oder im "Watch""=Modus. Dafür dienen die jeweiligen Befehle \console{npm run start} und \console{npm run start:dev}.
+	\item \textbf{Testen der Anwendung} \newline
+	Damit die Anwendung getestet werden kann stehen Unit"=Tests und Integrationstests (E2E) zur Verfügung. 
+	Diese können durch einen einfachen Befehle ausgeführt werden: \console{npm run test}.
+\end{enumerate}
+
+\subsection{Implementierung einer neuen Strategie}
+In diesem Abschnitt wird erklärt wie ein Entwickler eine neue Strategie für einen virtuellen Sensorknoten implementieren kann.
+ Wenn eine neue Strategie implementiert wird müssen folgende Methoden implementiert werden:
+	\begin{enumerate}
+		\item function Strategy() {} //Der Konstruktor der neuen Strategie
+		\item Strategy.prototype.end = function() {} //Die End-Funktion wird genutzt um die Strategie zu beenden.
+		\item Strategy.prototype.execute = function() {} // Die Execute-Funktion wird genutzt um die Strategie zu starten. Sie sollte niemals Argumente übernehmen.
+	\end{enumerate}
+Im Folgenden wird beschrieben wird die Konfiguration für die neue Strategie hinzugefügt wird:
+	\begin{enumerate}
+		\item Erweiterung der \textit{validateConfig} Funktion des \textit{configurationLoader.js} um die neue Strategie.
+		\item Erweiterung der \textit{loadConfiguration} Funktion des \textit{configurationLoader.js} um die neue Strategie.
+	\end{enumerate}
+Für die Registrierung der neuen Strategie an der Hauptanwendung sind folgende Schritte notwendig:
+	\begin{enumerate}
+		\item Erweiterung der \textit{loadConfiguration.js} des \textit{MqttHandler.js}, um die neue Strategie nutzen zu können.
+	\end{enumerate}
+
+
+\subsection{Steps to Deploy}
+In diesem Abschnitt wird näher erläutert, wie der aktuelle Stand des Repositoriums auf Docker-Hub veröffentlich wird.
+\begin{enumerate}
+	\item Bauen des Docker-Images durch ausführen von folgendem Befehl in der Kommandozeile: docker build -t pgrio/virtual-sensor .
+	\item Docker-Image lokal starten durch ausführen von folgendem Befehl in der Kommandozeile: docker run --rm -it pgrio/virtual-sensor:latest
+\end{enumerate}
+

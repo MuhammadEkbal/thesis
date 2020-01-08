@@ -1,0 +1,340 @@
+\section{IoT-Plattform}
+Die Entwicklerdokumentation für die IoT"=Plattform von der PG RiO fasst alle relevanten Information zusammen, die für die Weiterentwicklung der einzelnen Komponenten benötigt werden.
+Dazu gehören die verwendeten Repositorien, die externen Bibliotheken, Steps to Code, die Code-Konventionen, die Steps to Debug und die Code-Dokumentation. 
+
+\subsection{Repositorien}
+In diesem Abschnitt wird die Projektstruktur der IoT"=Plattform genauer erläutert. Dazu zählen die Repositorien, die in \Fref{sec:iot:repositorien} genauer erläutert sind, und eine Liste aller externen Abhängigkeiten in \Fref{sec:iot:extAbh}.
+
+\subsubsection{Projekte}
+\label{sec:iot:repositorien}
+In diesem Abschnitt werden alle verwendeten Repositorien der IoT"=Plattform beschrieben. Einige Projekte der IoT"=Plattform basieren auf dem TypeScript Framework NestJS und können alle durch die gleichen Befehle weiterentwickelt werden. Eine Anleitung für die Weiterentwicklung ist in \Fref{sec:iot:stepstocode} einsehbar. Dies betrifft die nachfolgenden Projekte:
+\begin{itemize}
+	\item iot"=api"=gateway
+	\item iot"=identity"=service
+	\item iot"=microservice"=humidity
+	\item iot"=microservice"=pm10
+	\item iot"=microservice"=pm25
+	\item iot"=microservice"=pressure
+	\item iot"=microservice"=sv
+	\item iot"=microservice"=temp
+	\item iot"=microservice"=template
+	\item iot"=microservice"=uis
+\end{itemize}
+Eine genaue Beschreibung der einzelnen Komponenten kann der Architekturdokumentation entnommen werden. 
+Das Ziel dieser Repositorien kann in \Tbl{iotrepos}  gefunden werden.
+
+\subsubsection{Externe Abhängigkeiten}
+\label{sec:iot:extAbh}
+Eine vollständige Tabelle samt Lizenzen, Links und Erläuterung ist der folgenden Liste zu entnehmen:
+\begin{itemize}
+	\item \textbf{iot"=api"=gateway}, \Tbl{dependenciesApiGateway} 
+	\item \textbf{iot"=collection"=creater}, \Tbl{dependenciesCollectionCreater} 
+	\item \textbf{iot"=data"=collector}, \Tbl{dependenciesDataCollector}
+	\item \textbf{iot"=identity"=service}, \Tbl{dependenciesIdentityService}
+	\item \textbf{iot"=microservice"=pm10}, \Tbl{dependenciesMicroPM10}
+	\item \textbf{iot"=microservice"=pm25}, \Tbl{dependenciesMicroPM25}
+	\item \textbf{iot"=microservice"=temp}, \Tbl{dependenciesMicroTemp}
+	\item \textbf{iot"=microservice"=sv}, \Tbl{dependenciesMicroSV}
+	\item \textbf{iot"=microservice"=uis}, \Tbl{dependenciesMicroUIS}
+\end{itemize}
+
+\subsection{Steps to Code}
+\label{sec:iot:stepstocode}
+In diesem Abschnitt wird das Vorgehen beschrieben, wie ei Entwickler zu dem Projekt beitragen kann. Die folgenden Schritte sind dafür notwendig: \newline
+\begin{enumerate}
+	\item Als Editor für die Entwicklung der IoT"=Plattform wurde Visual Studio Code genutzt. Daher sollte zuerst der Editor installiert werden. Unter folgenden Link:
+	\begin{itemize}
+		\item https://code.visualstudio.com/download
+	\end{itemize}
+	\item Alle Komponenten der IoT"=Plattform sind mit dem Framework NestJS entwickelt worden. Daher muss sichergestellt sein, dass Node.js installiert ist. Unter folgenden Link kann Node.js installiert werden: 
+	\begin{itemize}
+		\item{https://nodejs.org/en/}
+	\end{itemize}
+	\item Nach erfolgreicher Installation von Node.js kann die NestJS CLI installiert werden. Für die Installation kann das Terminal im Editor verwendet werden. Dafür ist folgender Befehl in der Kommandozeile nötig: 
+	\begin{itemize}
+		\item{\console{npm i -g @nestjs/cli}}
+	\end{itemize}
+	\item Da einige Komonenten der IoT"=Plattform Schnittstellen bereitstellen und auf eine Datenbank zugreifen ist es notwendig eine Datenbank installiert zu haben. Zum einen kann sich lokal mit einer Testdatenbank verbunden werden und zum anderen kann, nach die Plattform deployed ist, auf die Datenbank zugegriffen werden. Eine Anleitung zum Verbinden sowie Testen der Projekte mit der Datenbank wird in \Fref{sec:iot:stepstodebug} beschrieben. Unter folgendem Link steht der Download für die Datenbank bereit: 
+	\begin{itemize}
+		\item {https://www.mongodb.com/download-center/community}
+	\end{itemize}
+	\item Es ist empfehlenswert ein entsprechendes Tool für die MongoDB zu installieren. Unter folgendem Link steht der Download für MongoDB Compass bereit. 
+	\begin{itemize}
+		\item {https://www.mongodb.com/download-center/compass}
+	\end{itemize}
+	\item Außerdem wird für das Deployment der IoT"=Plattform Docker verwendet. Daher sollte, zum Überprüfen von lokalen Projekten, Docker installiert sein. Eine Anleitung, wie eine Projekt mit Docker getestet werden kann, kann in \Fref{sec:iot:stepstodebug} gefunden werden. Unter folgendem Link ist eine Anleitung zur Installation von Docker zu finden: 
+	\begin{itemize}
+		\item {https://docs.docker.com/docker-for-windows/install/}
+	\end{itemize}
+	\item Einige Projekte der IoT"=Plattform verbinden sich mit dem MQTT Broker, um beispielsweise Daten der Sensorknoten zu erhalten. Daher kann zum Testen eines Projektes ein MQTT Client verwendet werden. Unter folgendem Link steht der MQTT Explorer Download bereit. Mit diesem kann sich auf den MQTT Broker der PG RiO eingeloggt werden: 
+	\begin{itemize}
+		\item {http://mqtt-explorer.com}
+	\end{itemize}
+	\item Visual Studio Code starten und anfangen zu Programmieren.
+\end{enumerate}
+
+\subsection{Code-Konventionen}
+In diesem Abschnitt werden die Code-Konventionen beschrieben, die in den Repositorien der IoT"=Plattform verwendet werden. Zum einen wird ein Code Formatierer verwendet und zum anderen ein Tool, das den Code auf Lesbarkeit, Wartbarkeit und Funktionsfehler prüft. \newline
+Mit dem Kommandobefehl \console{npm run format} wird der Code Formatierer \textit{prettier} durchgeführt. Somit wird das ganze Projekt richtig formatiert. \newline
+Für die Überprüfung des Codes wird das Tool TSLint verwendet. Der Kommandobefehl lautet \console{npm run lint}. Alle Fehler werden nach Ausführung des Befehls angezeigt. Die gesamte Liste der Regeln können unter https://palantir.github.io/tslint/rules/ gefunden werden.
+
+\subsection{Steps to Debug}
+\label{sec:iot:stepstodebug}
+In diesem Abschnitt wird unter \Fref{sec:iot:lokal} erklärt, wie die einzelnen Projekte lokal aufgesetzt und deren Funktionalität getestet werden kann. Außerdem kann in \Fref{sec:iot:dockerdepl} eine Anleitung zum Deployment der gesamten IoT"=Plattform auf der Development Umgebung gefunden werden.
+\subsubsection{Lokale Anwendung}
+\label{sec:iot:lokal}
+In diesem Abschnitt wird erklärt, wie die einzelnen Repositorien lokal gestartet werden können und welche Einstellungen dafür vorgenommen werden müssen. Da die meisten Projekte der IoT"=Plattform mit Typescript entwickelt wurden, können folgende Befehle für diese Projekte ausgeführt werden: \newline 
+\textbf{Installation der Abhängigkeiten} \newline
+Die nötigen Bibliotheken und externen Abhängigkeiten werden durch den Befehl \console{npm install} installiert.
+\textbf{Starten der Anwendung}\newline
+Die Anwendung kann in verschieden Arten gestartet werden: Im Entwicklermodus, im "Watch""=Modus oder im Produktionsmodus. Dafür dienen die jeweiligen Befehle \console{npm run start}, \console{npm run start:dev} und \console{npm run start:prod}. 
+
+\textbf{Testen der Anwendung}\newline
+Damit die Anwendung getestet werden kann stehen Unit"=Tests und Integrationstests (E2E) zur Verfügung. 
+Diese können durch die zwei einfachen Befehle ausgeführt werden: \console{npm run test} und \console{npm run test:e2e}.
+
+Diese Befehle sind für die folgenden Projekte ausführbar: 
+\begin{itemize}
+	\item iot-api-gateway
+	\item iot-api-prototyp
+	\item iot-identity-service
+	\item iot-microservice-pm25
+	\item iot-microservice-pm10
+	\item iot-microservice-uis
+	\item iot-microservice-sv
+	\item iot-microservice-temp
+\end{itemize}
+
+Für die folgenden Projekte sind diese Befehle nicht ausführbar, weil diese mit Javascript implementiert wurden: 
+\begin{itemize}
+	\item iot-collection-creater
+	\item iot-data-collector
+\end{itemize}
+Die folgenden Befehle sind für die beiden Projekte anwendbar: \newline
+\textbf{Installation der Abhängigkeiten} \newline
+Die nötigen Bibliotheken und externen Abhängigkeiten werden durch den Befehl \console{npm install} installiert.
+
+\textbf{Starten der Anwendung}\newline
+Die Anwendung kann in verschieden Arten gestartet werden: Im Entwicklermodus oder im "Watch""=Modus. Dafür dienen die jeweiligen Befehle \console{npm run start} und \console{npm run start:dev}.
+
+\textbf{Testen der Anwendung}\newline
+Damit die Anwendung getestet werden kann stehen Unit"=Tests und Integrationstests (E2E) zur Verfügung. 
+Diese können durch einen einfachen Befehle ausgeführt werden: \console{npm run test}. Allerdings sind lediglich für das Projekt \textit{iot-data-collector} Tests vorhanden, sodass diese Befehle nur für dieses Projekt ausführbar sind. \newline
+
+Da die Projekte der IoT"=Plattform auf Docker Hub veröffentlicht werden können folgende Befehle für alle Projekte der IoT"=Plattform ausgeführt werden: \newline
+\textbf{Docker} 
+\begin{enumerate}
+	\item Für das Deployment der IoT"=Plattform wurde Docker ausgewählt. Um den aktuellen Stand eines lokalen Projekts auf Docker Hub zu veröffentlichen ist zunächst ein Login über das Terminal notwendig: \newline
+	\console{docker login}
+	Die geforderten Login Daten können nun eingegeben werden. 
+	\item Zuerst muss ein Image erstellt werden: \newline
+	\console{docker build -t pgrio/iot-testprojekt}
+	\item Danach kann das Image gestartet werden: \newline
+	\console{docker run -p 49160:8080 -d pgrio/iot-testprojekt}
+	\item Außerdem kann das Image versioniert werden: \newline
+	\console{docker tag \textit{imageid} pgrio/iot-testprojekt:tag}
+	\item Danach kann das Image auf Docker Hub veröffentlicht werden: \newline
+	\console{docker push pgrio/iot-testprojekt}
+	\item Mit folgendem Befehlt können alle aktiven Container angezeigt werden: \newline
+	\console{docker ps}
+	\item Um einen Container zu stoppen muss folgender Befehl ausgeführt werden: \newline
+	\console{docker stop \textit{containername}}
+	\item Ein Image kann mit folgendem Befehl von Docker Hub bezogen werden: \newline
+	\console{docker pull pgrio/iot-testprojekt} 
+\end{enumerate}
+
+Damit die Funktionalität der Projekte getestet werden kann, wird im folgenden für jedes Projekt die zusätzliche Konfiguration beschrieben. \newline
+Da jedes der Projekt eine Verbindung zur Datenbank aufbaut, um zum Beispiel Daten abzufragen, muss die \textit{.env} Datei angepasst werden. In \Fref{sec:iot:stepstocode} wurde bereits darauf verwiesen, dass eine MongoDB installiert sein muss. Außerdem werden in den \textit{env.} Dateien Zugangsdaten für die Authentifizierung angegeben. Diese Zugangsdaten müssen mit denen in der Datenbank übereinstimmen. Außerdem werden für einige Projekte in den \textit{env.} Dateien die Zugangsdaten für den MQTT Broker hinterlegt, die ebenfalls mit denen aus der Datenbak übereinstimmen müssen. Anderenfalls würden beim Start eines Projektes Fehler ausgegeben werden. \newline
+Die \textit{development.env} Datei der Microservices sind identisch: \newline
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+DB_URL = mongodb://localhost:27017/test-db
+API_GATEWAY_URL = http://localhost:8080
+SERVICE_USERNAME = MicroserviceTest
+SERVICE_PASSWORD = MicroservicetestPassword
+RENEW_INTERVALL = 5
+SERVICE_PORT = 3002
+\end{lstlisting}
+Für das API-Gateway sieht die \textit{development.env} Datei wie folgt aus: \newline
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+IDENTITY_SERVICE_URL = http://192.168.99.100:9090
+SERVICE_LEASE_DURATION = 30
+JWT_EXP_DURATION = 3600
+JWT_SIGNER = PGRIO
+DB_URL = mongodb://localhost:27017/test-db
+\end{lstlisting}
+Für den Identity Service sieht die \textit{development.env} Datei wie folgt aus: \newline
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+DB_URL=mongodb://192.168.99.100:27017/iot-platform
+\end{lstlisting}
+Für die Projekte \textit{iot-data-collector} und \textit{iot-collection-creater} sind keine \textit{development.env} Dateien nötig sondern \textit{config.env} Dateien. Für den Data-Collector sieht die \textit{config.env} Datei wie folgt aus: \newline
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+MQTT_BROKER_URL=mqtt://testbroker.de
+MQTT_USERNAME=pgrio-datacollector
+MQTT_PASSWORD=pgrio-datacollector
+MQTT_CLIENTID=pgrio-datacollector-test
+DB_URL=mongodb://localhost:27017/test-db
+\end{lstlisting}
+Für den Collection-Creater sieht diese wie folgt aus: \newline
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+DB_URL=mongodb://localhost:27017/test-db
+\end{lstlisting}
+Nachdem die \textit{env.} Dateien anglelegt und angepasst wurden kann ein beliebiges Projekt gestartet werden. Im folgenden werden die einzelnen Funktionalitäten der Projekte erläutert und wie diese getestet werden können. \newline
+\textbf{Collection-Creater}\newline
+Der Collection hat die Aufgabe sich mit der Datenbank zu verbinden und alle Collections mit deren Validierungsregeln zu erstellen. Nachdem das Projekt gestartet wurde und sich das Programm beendet hat sind in der Datenbank, die in der \textit{config.env} Datei angegeben wurde, alle Collections erstellt. Anhand des Datenbankschemas sowie des Skripts können die Validierungsregeln eingesehen werden. Es ist nur erlaubt ein Objekt zu einer Collection hinzuzufügen, die den Regeln entspricht. \newline
+\textbf{API Gateway und Identity Service}\newline
+Das API Gateway und der Identity Service können sehr gut zusammen getestet werden. Die beiden Projekte können gestartet werden. In der Test Datenbank können nun Zugangsdaten für einen externen Service hinterlegt werden. Da zuvor das Skript zum Erstellen sowie Validieren der Einträge ausgeführt wurde, sind nun alle Collections verfügbar. Eine manuelle Eingabe der Daten kann also erfolgen.  Nach erfolgreichem Start der beiden Projekte können nun zum Beispiel die Endpunkte des API Gateways getestet werden. Dazu gehört beispielsweise das Erhalten eines JWT Tokens oder das Abfragen aller aktiven Microservices. Zu beachten ist, dass die Datenbank für die entsprechenden Abfragen korrekt befüllt sein muss. Alle Schnittstellen können in der Architekturdokumentation in Dokument 1 gefunden werden. \newline
+\textbf{Microservices}\newline
+Die Microservices können auf zwei Arten getestet werden. Zum einen kann die Authentifizierung am API Gateway getestet werden und zum anderen kann die Abfrage von Daten getestet werden. Zu beachten ist, dass die Zugangsdaten, also Username und Passwort, in der Datenbank mit denen in der \textit{development.env} Datei übereinstimmen muss. \newline
+Zunächst kann die Authentifizierung am API Gateway getestet werden, indem die entsprechenden Zugangsdaten in der Datenbank hinterlegt wurden. Danach müssen die Projekte \textit{iot-identity-service}, \textit{iot-api-gateway} und der entsprechende Microservice gestartet werden. Nach erfolgreichem Start kann die Abfrage aller aktiven Microservices am API Gateway getestet werden. \newline
+Außerdem können die entsprechenden Endpunkte getestet werden. Dafür können die Abfragen über das API Gateway erfolgen oder direkt beim Service abgefragt werden. Zu beachten ist, dass für jede Abfrage die entsprechende Collection in der Datenbank gefüllt sein muss. Die Schnittstellen, die die einzelnen Microservices anbieten sind im Dokument 1 unter der Architektur zu finden. \newline
+\textbf{Data-Collector}\newline
+Der Data Collector hat die Aufgabe die Daten der Sensorknoten über den MQTT Broker anzunehemen und persistent in der Datenbank zu speichern. Da die \textit{env.} Datei bereits angepasst ist muss lediglich das Projekt gestartet werden. Außerdem kann sich auf den MQTT Broker eingeloggt werden, um sicherzustellen, dass die richtigen Daten gespeichert werden. Eine Anleitung dafür wurde bereits in \ref{sec:sk:stepsToCode} gegeben. Sobald das Projekt gestartet wurde, werden die Daten des MQTT Brokers in der lokalen Test Datenbank gespeichert. 
+
+\subsubsection{Deployment auf Development Umgebung}
+\label{sec:iot:dockerdepl}
+Damit nun die ganze IoT"=Plattform in der Development Umgebung gestartet werden kann, wird docker-compose verwendet. Die folgenden Schritte sind zum Starten der IoT"=Plattform mit docker-compose nötig: 
+\begin{enumerate}
+	\item Zuerst muss sich der Entwickler auf die VM einloggen
+	\item Danach müssen die \textit{env.} Datein angelegt oder gegebenenfalls angepasst werden. Die \textit{env.} Dateien wurden bereits in \Fref{sec:iot:lokal} erläutert. \newline
+	Beispielsweise müsste eine neue \textit{env.} Datei angelegt werden, wenn ein neues Microservice deployed werden soll. Unter \textit{home/pgrio/microservices/} muss nun ein neuer Ordner BeispielMicroservice angelegt werden, der die \textit{env.} Datei enthält \newline
+	Die \textit{env.} Datei muss den folgenden Inhalt haben: \newline
+	\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+	DB_URL = DevelopmentDatenbankURL
+	API_GATEWAY_URL = DevelopmentAPIGatewayURL
+	SERVICE_USERNAME = BeispielMicroservice
+	SERVICE_PASSWORD = BeispielMicroservicePassword
+	RENEW_INTERVALL = 5
+	SERVICE_PORT = 3102
+	SERVICE_HOST = beispielmicroservice
+	\end{lstlisting}
+	\begin{itemize}
+		\item DB\_URL: URL der Datenbank, die auf dem Development"=System läuft
+		\item API\_GATEWAY\_URL: URL des API Gateways, das auf dem Development"=System läuft
+		\item SERVICE\_USERNAME: Der Benutzername des Microservices, der auch in der Datenbank hinterlegt ist
+		\item SERVICE\_PASSWORD: Das Passwort des Microservices, das auch in der Datenbank hinterlegt ist
+		\item SERVICE\_PORT: Der Port des Microservices, auf dem der Microservice erreichbar ist. Dieser ist nur dür das API Gateway offen und nicht außerhalb des Docker Netzwerkes
+		\item RENEW\_INTERVAL Das Zeitintervall, in dem der Microservice ein neues Token anfragt
+		\item SERVICE\_HOST: Entspricht dem Namen des Microservices in der yaml Datei und ist notwendig, damit das API Gateway die Anfragen, an der richtigen Microservice weiterleiten kann
+	\end{itemize}
+	\item Nachdem die \textit{env.} Dateien erstellt wurden muss die yaml Datei angepasst werden. Für das zuvor genannte Beispiel, einen neuen Microservice zu deployen, ist die Anpassung der yaml Datei ab Zeile 85 notwendig. Folgend ist die aktuelle yaml Datei der Developmentumgebung gezeigt: \newline
+	\begin{lstlisting}[language=json]
+	version: '3.5'
+	services:
+	mqttbroker:
+	image: pgrio/iot-mqtt-broker-hive:latest
+	volumes:
+	- /home/pgrio/iot-platform/mqtt/config.properties:/opt/hivemq/config.properties
+	ports:
+	- "127.0.0.1:1883:1883"
+	restart: always
+	depends_on:
+	- identityservice
+	identityservice:
+	image: pgrio/iot-identity-service:latest
+	volumes:
+	- /home/pgrio/iot-platform/identityservice/production.env:/usr/src/app/production.env
+	environment:
+	- NODE_ENV=production
+	expose:
+	- "9090"
+	restart: always
+	depends_on:
+	- collection_creater
+	api_gateway:
+	image: pgrio/iot-api-gateway:latest
+	volumes:
+	- /home/pgrio/iot-platform/apigateway/production.env:/usr/src/app/production.env
+	environment:
+	- NODE_ENV=production
+	ports:
+	- "127.0.0.1:8080:8080"
+	restart: always
+	depends_on:
+	- identityservice
+	iot-data-collector:
+	image: pgrio/iot-data-collector:latest
+	volumes:
+	- /home/pgrio/iot-platform/datacollector/config.env:/usr/src/app/config.env
+	environment:
+	- NODE_ENV=production
+	restart: always
+	depends_on:
+	- collection_creater
+	collection_creater:
+	image: pgrio/iot-collection-creater:latest
+	volumes:
+	- /home/pgrio/iot-platform/collectioncreater/config.env:/usr/src/app/config.env
+	environment:
+	- NODE_ENV=production
+	pm25microservice:
+	image: pgrio/iot-microservice-pm25:latest
+	expose:
+	- "3000"
+	volumes:
+	- /home/pgrio/iot-platform/microservices/pm25/production.env:/usr/src/app/production.env
+	environment:
+	- NODE_ENV=production
+	restart: always
+	tempmicroservice:
+	image: pgrio/iot-microservice-temp:latest
+	expose:
+	- "3004"
+	volumes:
+	- /home/pgrio/iot-platform/microservices/temp/production.env:/usr/src/app/production.env
+	environment:
+	- NODE_ENV=production
+	restart: always
+	svmicroservice:
+	image: pgrio/iot-microservice-sv:latest
+	expose:
+	- "3002"
+	volumes:
+	- /home/pgrio/iot-platform/microservices/sv/production.env:/usr/src/app/production.env
+	environment:
+	- NODE_ENV=production
+	restart: always
+	uismicroservice:
+	image: pgrio/iot-microservice-uis:latest
+	expose:
+	- "3001"
+	volumes:
+	- /home/pgrio/iot-platform/microservices/uis/production.env:/usr/src/app/production.env
+	environment:
+	- NODE_ENV=production
+	restart: always
+	beispielmicroservice:
+	image: pgrio/iot-microservice-beispiel:latest
+	expose:
+	- "3102"
+	volumes:
+	- /home/pgrio/iot-platform/microservices/BeispielMicorservice/production.env:/usr/src/app/production.env
+	environment:
+	- NODE_ENV=production
+	restart: always
+	\end{lstlisting}
+	\begin{itemize}
+		\item image: Der Name des Image, wie er auf Docker-Hub veröffentlicht wurde. Außerdem wird die Versionierung angegeben
+		\item expose: Der Port unter dem der Service intern erreichbar ist
+		\item volumes: Der Pfad, unter dem die \textit{env.} Datei des Service zu finden ist
+		\item environment: Setzt die Umgebungsvariable auf eine Umgebungsdatei. Sobald der Container gestartet wird, hat die definierte Umgebungsvariable Vorrang
+		\item restart: In diesem Fall werden die Container immer neu gestartet
+	\end{itemize}
+	Für die Development Umgebung wird die Version \textit{latest} verwendet, siehe dazu unter \textit{image} in der yaml Datei
+	\item Sobald der Develop-Branch eines Repositoriums der IoT"=Plattform aktualisiert wurde veröffentlicht der Jenkins ein neues Image mit der Versionierung \textit{latest}
+	\item Für das Beispiel einen neuen Microservices zu deployen, ist es notwendig das aktuelle Image von Docker Hub zu beziehen. Dieser Schritt ist ebenfalls notwendig, wenn der Jenkins ein Image eines anderen Containers der IoT"=Plattform aktualisiert hat. Mit dem folgenden Befehl wird das aktuellste Image von Docker Hub bezogen: \newline
+	\console{docker pull pgrio/iot-microservice-beispielmicroservice:latest}
+	Auf dem Deployment-System ist die Standardversionierung \textit{latest} und muss daher nicht explizit mit angegeben werden, sondern ist optional
+	\item Mit dem Befehl \console{docker-compose up} kann nun die IoT"=Plattform auf dem Development"=System gestartet werden. \newline
+	Falls bereits Container aktiv sind, muss die IoT"=Plattform nicht komplett heruntergefahren werden, wenn ein neuer Service deployed wurde oder lediglich ein neues Image eines Containers verfügabr ist. Mit dem zuvor genannten Befehl werden nur die Container neu gestartet, die ein neues Image besitzen
+\end{enumerate}
+
+\subsection{Dokumentation}
+In diesem Abschnitt werden die Dokumentationsrichtlinienfür die IoT"=Plattform näher erläutert. Zum einen gibt es Richtlinien für die Code-Dokumentation, auf die in \Fref{sec:iot:codedoku} eiingegangen wird. Zum anderen gibt es Richtlinien für die Architektur, die in \Fref{sec:iot:archidoku} beschrieben sind.
+\subsubsection{Code-Dokumentation}
+\label{sec:iot:codedoku}
+Die Code-Dokumentation erfolgt direkt in den zugehörigen Dateien der Repositorien. Es soll mindestens eine Beschreibung jeder Methode geben sowie, falls notwendig, eine Beschreibung der zu übergebenen Parameter. Da die IoT"=Plattform viele Endpunkte bereitstellt müssen in den jeweiligen Repositorien die Anfragepfade dokumentiert werden. Dies geschieht zum einen direkt in der jeweiligen Datei, wo der Anfragepfad erläutert wird. Zum anderen werden alle Schnittstellen, die von der IoT"=Plattform bereitgestellt werden, in Confluence gepflegt. 
+
+\subsubsection{Architektur}
+\label{sec:iot:archidoku}
+Die Softwarearchitektur der IoT"=Plattform wird im Repositorium \textit{dokumentation} gepflegt. Bevor eine User-Story geeschlossen werden kann muss die Softwarearchitektur angepasst werden, laut der \textit{Definition of Done}. Es gibt in dem Repositorium \textit{dokumentation} eine Beschreibung der Softwarearchitekur sowie die zugehörige UML-Datei. 
+

@@ -1,0 +1,176 @@
+\section{Datenqualität}
+Neben den Qualitätskriterien, die für die Software erhoben wurden und umgesetzt werden, müssen auch Kriterien für die Datenqualität betrachtet werden. Die Datenqualität spielt in der Projektgruppe eine entscheidende Rolle, da das Routing anhand von Umweltdaten nur dann valide Ergebnisse liefern kann, wenn auch die zuvor erhobenen Daten einer gewissen Qualität entsprechen. Um also die Ziele hinsichtlich der hohen Datenqualität erreichen zu können, wird ein Qualitätsmodell zur Datenqualität erstellt.
+
+In der folgenden Tabelle werden unsere Datenqualitätskriterien mit Wichtigkeit, betroffenen Bereichen und Rollen sowie der Testbarkeit dargestellt und im anschließenden Abschnitt weiter erläutert. \\
+
+\begin{landscape}
+ \begin{longtable}{|p{4.5cm}|p{1.5cm}|p{4.5cm}|p{4.5cm}|p{3.5cm}|}
+	\caption{Kriterien der Datenqualität}\\%
+   \hline
+   Dimension & RiO & Teilsysteme & Relevante Rolle & Maßnahmen\\ \hline   
+   \multicolumn{5}{|c|}{System}  \\ \hline
+   Zugänglichkeit & sehr & IoT"=Plattform, Navigationsanwendung, UIS"=Anwendung & UIS"=Nutzer, Navigationsnutzer, IoT"=Administrator & Unittests \\ \hline 
+   Bearbeitbarkeit & wenig & IoT"=Plattform, Navigationsanwendung, UIS"=Anwendung & UIS"=Nutzer, Navigationsnutzer, IoT"=Administrator & Unittests \\ \hline
+   Dimension & RiO & Teilsysteme & Relevante Rolle & Maßnahmen\\ \hline   
+   \multicolumn{5}{|c|}{Nutzung}  \\ \hline
+   Aktualität & wenig & Routing, Sensorknoten & Sensorknotenbetreiber, Navigationsnutzer, UIS"=Nutzer & IoT"=Plattform oder Sensorknoten \\ \hline 
+   Wertschöpfung & - & - & - & - \\ \hline 
+   Vollständigkeit & sehr & Routing, Sensorknoten, IoT"=Plattform & Sensorknotenbetreiber, Navigationsnutzer, UIS"=Nutzer & IoT"=Plattform oder Sensorknoten \\ \hline
+   Angemessener Umfang & sehr & Routing, Sensorknoten & Sensorknotenbetreiber, Navigationsnutzer, UIS"=Nutzer & IoT"=Plattform \\ \hline
+   Relevanz & wenig & IoT"=Plattform, Sensorknoten & Sensorknotenbetreiber, IoT"=Administrator, UIS"=Nutzer & Datenanaylse \\ \hline
+   Dimension & RiO & Teilsysteme & Relevante Rolle & Maßnahmen\\ \hline   
+   \multicolumn{5}{|c|}{Inhalt}  \\ \hline
+   Hohes Ansehen & sehr & IoT"=Plattform, Sensorknoten & Sensorknotenbetreiber, Navigationsnutzer, UIS"=Nutzer & Usertests \\ \hline 
+   Fehlerfreiheit & sehr & IoT"=Plattform, Sensorknoten & Sensorknotenbetreiber, Navigationsnutzer, UIS"=Nutzer & Usertests \\ \hline
+   Glaubwürdigkeit & sehr & IoT"=Plattform, Sensorknoten & Sensorknotenbetreiber, Navigationsnutzer, UIS"=Nutzer & Usertests \\ \hline
+   Objektivität & - & - & - & - \\ \hline 
+   Dimension & RiO & Teilsysteme & Relevante Rolle & Maßnahmen\\ \hline   
+   \multicolumn{5}{|c|}{Darstellung}  \\ \hline
+   Verständlichkeit & wenig & Navigationsanwendung, UIS"=Anwendung & Navigationsnutzer, UIS"=Nutzer & Usertests \\ \hline 
+   Übersichtlichkeit & wenig & Navigationsanwendung, UIS"=Anwendung & Navigationsnutzer, UIS"=Nutzer & Usertests \\ \hline
+   Einheitliche Darstellung & wenig & Navigationsanwendung, UIS"=Anwendung & Navigationsnutzer, UIS"=Nutzer & Usertests \\ \hline
+   Eindeutige Auslesbarkeit & sehr & Navigationsanwendung, UIS"=Anwendung & Navigationsnutzer, UIS"=Nutzer & Usertests \\ \hline
+  \end{longtable}
+\end{landscape}
+
+\subsection{Nutzung}
+\textbf{Aktualität}\\
+\textit{Definition}: Daten sind für einen bestimmten Zeitpunkt relevant. \\
+\textit{Sicht der Projektgruppe}: Daten sind von dem aktuellen Zeitpunkt nicht zu weit entfernt, da die Route nur von aktuellen Werten abhängig ist.  \\
+\textit{Sollwert}: Daten sind von dem aktuellen Zeitpunkt nicht zu weit entfernt, da die Route nur von aktuellen Werten abhängig ist. \\
+\textit{Bereiche}: Routing, Sensorknoten\\
+\textit{Rollen}: Sensorknotenbetreiber, Navigationsnutzer, UIS"=Nutzer\\
+\\
+\textbf{Wertschöpfung}\\
+\textit{Definition}: Durch die Daten kann eine Wertschöpfung gewonnen werden, die direkt oder indirekt auf die Daten zurückzuführen ist. \\
+\textit{Sicht der Projektgruppe}: Hinsichtlich der Wertschöpfung muss bestimmt werden, in welchem Grad die Wertschöpfung geschehen soll. Da wir eine Berechnung über diese Daten laufen lassen werden und die Daten anders eine Wertschöpfung generieren, ist dieser Punkt nicht relevant für uns. Dieser Punkt wird über das Qualitätsmanagement überprüft, indem die Route oder ein anderes Einsatzkriterium und nicht die einzelnen Daten auf die Wertschöpfung überprüft wird.  \\
+\textit{Sollwert}: - \\
+\textit{Bereiche}: - \\
+\textit{Rollen}: - \\
+\\
+\textbf{Vollständigkeit}\\
+\textit{Definition}: Die aufgenommenen Daten sind vollständig und haben keine Lücken innerhalb der Datensätze.  \\
+\textit{Sicht der Projektgruppe}: Bei uns wird dieser Punkt selten nur durch Personeneingaben geschehen. Die Daten der Sensoren sind hinsichtlich der Vollständigkeit zu testen. Diese dürfen keine Lücken innerhalb von Datensätzen aufweisen. 
+Wichtig: Dieser Punkt ist auf einzelne Datenpunkte zu sehen. Ist ein Datensatz vollständig, ist dieser Punkt erfüllt. Dabei ist es irrelevant, ob der Sensor vorher Daten gesendet hat oder nicht. \\
+\textit{Sollwert}: Alle im Sensorknoten gespeicherten Sensoren schicken ihre aufzunehmenden Daten.  \\
+\textit{Bereiche}: Routing, IoT"=Plattform, Sensorknoten \\
+\textit{Rollen}: Sensorknotenbetreiber, Navigationsnutzer, UIS"=Nutzer, IoT"=Administrator \\
+\\
+\textbf{Angemessener Umfang}\\
+\textit{Definition}: Die gespeicherten Daten haben für das Nutzungsziel einen angemessenen Umfang.  \\
+\textit{Sicht der Projektgruppe}: Dieser Punkt hat gleich zwei für uns relevante Aspekte. Zum einen müssen die Sensoren einen angemessenen Umfang an Daten für uns aufnehmen. Es ist beispielsweise nicht ausreichend, lediglich die Feinstaubwerte zu erfassen, sondern es müssen noch andere Werte aufgenommen werden, wie beispielsweise die Luftfeuchte, welche einen Einfluss auf den erhobenen Feinstaubwert haben kann. 
+Zum anderen ist die Aufnahme von mehreren Daten innerhalb eines bestimmten Zeitraums für die Projektgruppe und den angemessenen Umfang wichtig. \\
+\textit{Sollwert Ziel 1}: Es müssen mindestens die Feinstaubdaten als auch der Zeitpunkt, die Luftfeuchte, der Luftdruck und die Temperatur gesendet werden.  \\
+\textit{Sollwert Ziel 2}: Es müssen mindestens sieben Datensätze innerhalb einer Stunde gesendet werden.  \\
+\textit{Bereiche}: Routing, Sensorknoten \\
+\textit{Rollen}: Sensorknotenbetreiber, Navigationsnutzer, UIS"=Nutzer \\
+\\
+\textbf{Relevanz}\\
+\textit{Definition}: Gesammelte und eingegebene Daten sind relevant für die Nutzung der IoT"=Plattform.  \\
+\textit{Sicht der Projektgruppe}: Gesammelte Daten von den Sensoren sind wichtig zum Routen und zum Verständnis der Qualität anderer Sensordaten. Allerdings sind nicht alle Daten relevant für unseren Fall.  \\
+\textit{Sollwert}: Hierbei ist ein Sollwert nur bedingt möglich zu definieren. Es muss von Fall zu Fall entschieden werden, welche Relevanz Daten für unsere Plattform hat, egal ob bisher aufgenommene als auch neue Daten von neuen Sensoren.
+Daten haben Relevanz, wenn eins der folgenden Dinge zutrifft:
+\begin{itemize}
+\item	Die Daten haben Korrelations"=/Kausalzusammenhänge mit anderen Daten
+\item	Die Daten sind für die Routenberechnung relevant
+\item	Daten sind für zukünftige Pläne aufzunehmen
+\end{itemize}
+\textit{Bereiche}: IoT"=Plattform, Sensorknoten \\
+\textit{Rollen}: Sensorknotenbetreiber, UIS"=Nutzer, IoT"=Administrator \\
+
+\subsection{System}
+\textbf{Zugänglichkeit}\\
+\textit{Definition}: Zugänglichkeit meint die einfache Abrufbarkeit der Daten für den Anwender.  \\
+\textit{Sicht der Projektgruppe}: Die Daten unserer Sensoren müssen für die Kunden immer aufrufbar sein. Die aktuellsten Werte sind für Nutzer wichtig, um die ausgerechnete Route überprüfen zu können oder auch die aktuelle Situation einzuschätzen. Auch Werte aus der Vergangenheit müssen für diesen abrufbar sein.  \\
+\textit{Sollwert}: Es müssen mindestens die Werte der Sensoren einer gesamten Woche für Nutzer der Navigationsanwendung müssen einsehbar sein.\\
+\textit{Bereiche}: IoT"=Plattform, Navigationsanwendung \\
+\textit{Rollen}: Sensorknotenbetreiber, UIS"=Nutzer, IoT"=Administrator \\
+\\
+\textbf{Bearbeitbarkeit}\\
+\textit{Definition}: Daten können von den Nutzern zu jederzeit bearbeitet werden.  \\
+\textit{Sicht der Projektgruppe}: Daten werden kaum von Nutzern der App verändert. Bis auf einige Werte der Logindaten muss nichts veränderbar sein. Vom Datenanalysten müssen bestimmte Korrekturen durchgeführt werden. Diese werden allerdings nicht über die Rohdaten geschrieben, sodass auch hier nur bestimmte Daten beschrieben werden.\\
+\textit{Sollwert}:
+\begin{itemize}
+\item	Die Logindaten müssen von den Nutzern bearbeitbar sein
+\item	bestimmte Datensätze müssen für Datenanalysten beschreibbar sein 
+\end{itemize}
+\textit{Bereiche}: IoT"=Plattform \\
+\textit{Rollen}: Sensorknotenbetreiber, UIS"=Nutzer, IoT"=Administrator \\
+
+\subsection{Inhalt}
+\textbf{Hohes Ansehen}\\
+\textit{Definition}: Informationen sind hoch angesehen, wenn die Informationsquelle, das Transportmedium und das verarbeitende System im Ruf einer hohen Vertrauenswürdigkeit und Kompetenz stehen. \\
+\textit{PG"=RiO"=Sicht}: Da wir alle die drei Punkte selbst in der Hand haben, teilen wir diese Ansicht in die drei Überprüfungspunkte auf:
+\begin{itemize}
+\item	Informationsquelle: Die Sensoren müssen auf ihre Richtigkeit überprüft werden. Diese Werte können durch Datenblätter oder durch Analysen von Datenanalysten überprüft und verbessert werden. (Dieser Punkt überschneidet sich mit Fehlerfreiheit und Glaubwürdigkeit)
+\item	Transportmedium: Die Verbindung und Übertragungsart müssen überprüft und überwacht werden. Wenn die Daten unzuverlässig transportiert werden sinkt das Ansehen der Daten
+\item	Verarbeitendes System: Die IoT"=Plattform muss die Daten sicher speichern und verarbeiten. Falschberechnung der Nachbearbeitung oder auch nicht konsequentes Speichern der Daten führt zu Verlust des Ansehens.
+\end{itemize}
+\textit{Sollwert}:
+\begin{itemize}
+\item	Informationsquelle: Alle uns bekannten Fehler werden verbessert.
+\item	Transportmedium. Die Verbindung von den Sensoren und der IoT"=Plattform muss regelmäßig überprüft werden. Dies muss zu 97 Prozent funktionieren.
+\item	\textit{Verarbeitendes System}: Die Berechnungen der IoT"=Plattform muss regelmäßig mit Testdaten überprüft werden. Dabei dürfen keine Fehlberechnungen von Testdaten auffallen .
+\end{itemize}
+Bereiche: Sensorknoten, IoT"=Plattform \\
+Rollen: Sensorknotenbetreiber, UIS"=Nutzer, Navigationsnutzer\\
+\\
+\textbf{Fehlerfreiheit} \\
+\textit{Definition}: Die Aussage der Daten stimmt mit der Realität überein. \\
+\textit{PG"=RiO"=Sicht}: Die Werte, die wir bei den Sensoren aufnehmen, müssen der Realität entsprechen. Dafür werden die Daten durch Datenanalysen von uns oder anderen Studien einbezogen und auf dieser Hinsicht durch die Nachbearbeitung verbessert. \\
+\textit{Sollwert}: Die Fehlertoleranzen der einzelnen Werte sind:
+\begin{itemize}
+\item	PM 2,5: 2 Mikrogramm pro Kubikmeter
+\item	PM 10: 2 Mikrogramm/m pro Kubikmeter
+\item	Temperatur: 2 Grad Celsius
+\item	Luftfeuchtigkeit: 3 Prozent
+\item	Luftdruck: 10 hPa
+\end{itemize}
+\textit{Bereiche}: Sensorknoten, IoT"=Plattform \\
+\textit{Rollen}: Sensorknotenbetreiber, UIS"=Nutzer, Navigationsnutzer \\ \\
+\textbf{Objektivität} \\
+\textit{Definition}: Informationen sind objektiv, wenn sie streng sachlich und wertfrei sind. \\
+\textit{PG"=RiO"=Sicht}: Unsere Datenstruktur hat keine wertenden Aussagen. Somit ist dieser Punkt irrelevant. \\
+Sollwert: - \\
+Bereiche: - \\
+Rollen: - \\
+\\
+\textbf{Glaubwürdigkeit}\\
+\textit{Definition}: Informationen sind glaubwürdig, wenn die Informationsgewinnung und -verbreitung mit hohem Aufwand betrieben werden.\\
+\textit{PG"=RiO"=Sicht}: Die Glaubwürdigkeit ist dann gegeben, wenn unsere Daten durch eine gut recherchierte Nachbereitungsberechnung die Daten bereinigt.  
+\textit{Sollwert}: Alle bekannten Fehlwerte außerhalb der Fehlertoleranz werden von uns in der Nachberechnung bereinigt.
+\textit{Bereiche}: Sensorknoten, IoT"=Plattform
+\textit{Rollen}: Sensorknotenbetreiber, UIS"=Nutzer, Navigationsnutzer
+
+\subsection{Darstellung}
+\textbf{Verständlichkeit}\\
+\textit{Definition}:
+\begin{itemize}
+\item	Die Datensätze stimmen in ihrer Begrifflichkeit und Struktur mit den Vorstellungen des Fachbereichs überein. 
+\item	Informationen sind verständlich, wenn sie unmittelbar von den Anwendern verstanden und für deren Zwecke eingesetzt werden können.
+\end{itemize}
+\textit{PG"=RiO"=Sicht}: Die Daten, die wir aufnehmen, müssen verständlich für den Nutzer bereitgestellt werden. Er muss ohne weitere Erklärungen verstehen, welche Daten wir ihm anzeigen und wofür diese in unseren Anwendungen genutzt werden.  \\
+\textit{Sollwert}: Hier gibt es keinen genauen Sollwert. Dies kann durch Nutzerbefragungen analysiert werden. \\
+\textit{Bereiche}: Navigationsanwendung, UIS"=Anwendung \\
+\textit{Rollen}: UIS"=Nutzer, Navigationsnutzer \\
+\\
+\textbf{Übersichtlichkeit}\\
+\textit{Definition}: Informationen sind übersichtlich, wenn genau die benötigten Informationen in einem passenden und leicht fassbaren Format dargestellt sind. \\
+\textit{PG"=RiO"=Sicht}: Für uns müssen die Daten in der Navigations- und in der UIS"=Anwendung in einer übersichtlichen Weise dargestellt werden. \\
+\textit{Sollwert}: Hier gibt es keinen genauen Sollwert. Dies kann durch Nutzerbefragungen analysiert werden. \\
+\textit{Bereiche}: Navigationsanwendung, UIS"=Anwendung \\
+\textit{Rollen}: UIS"=Nutzer, Navigationsnutzer \\
+\\
+\textbf{Einheitliche Darstellung} \\
+\textit{Definition}: Informationen sind einheitlich dargestellt, wenn die Informationen fortlaufend auf dieselbe Art und Weise abgebildet werden. \\
+\textit{PG"=RiO"=Sicht}: Die Darstellungen müssen in allen Anwendungen eine einheitliche Darstellung haben. Das bedeutet, dass die Darstellungen sowohl bei der UIS-, Navigations- als auch bei jeder weiteren Anwendung ähnlich/gleich dargestellt werden. \\
+\textit{Sollwert}: Überprüfung durch den Qualitätsmanager. Einschätzung kann durch Nutzerbefragungen unterstützt werden. \\
+\textit{Bereiche}: Navigationsanwendung, UIS"=Anwendung \\
+\textit{Rollen}: UIS"=Nutzer, Navigationsnutzer \\
+\\
+\textbf{Eindeutige Auslegbarkeit}\\
+\textit{Definition}: Informationen sind eindeutig auslegbar, wenn sie in gleicher, fachlich korrekter Art und Weise begriffen werden. \\
+\textit{PG"=RiO"=Sicht}: Unsere Daten müssen klar auslegbar sein. Für uns bedeutet das, dass die erhobenen Daten verständlich und zeitlich klar einordbar wiedergegeben werden. \\
+\textit{Sollwert}: Überprüfung durch den Qualitätsmanager. Einschätzung kann durch Nutzerbefragungen unterstützt werden. \\
+\textit{Bereiche}: Navigationsanwendung, UIS"=Anwendung \\
+\textit{Rollen}: UIS"=Nutzer, Navigationsnutzer \\

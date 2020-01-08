@@ -1,0 +1,1351 @@
+\section{IoT-Plattform}
+\label{sec:arch:iot}
+Die IoT-Plattform ist ein Teilsystem des PG RiO Projekts und bildet das Zwischenglied zwischen den Sensorknoten sowie den externen Diensten.
+Zu den externen Diensten zählen unter anderem der Routing"=Dienst, oder die Navigations"=App.
+Die Aufgabe der IoT-Plattform besteht darin, Sensorknoten und Umweltdaten zu verwalten.
+Außerdem stellt die IoT-Plattform diese Daten den externen Diensten zur Verfügung.
+Dieses Teilsystem ist besonders abhängig von Skalierbarkeit und Erweiterbarkeit, weshalb viele Design Entscheidungen auf diesen beiden grundlegenden Qualitätsattributen beruhen.
+
+
+Im Folgenden wird zunächst ein Überblick über die Software"=Architektur der IoT-Plattform gegeben und anschließend näher auf die einzelnen Komponenten sowie Schnittstellen eingegangen.
+
+\subsection{Gesamtüberblick}
+Die Software Architektur der IoT-Plattform beschreibt die einzelnen Hauptkomponenten sowie ihr Zusammenspiel untereinander und mit den Sensorknoten sowie den externen Diensten.
+Ein Überblick der Softwarearchitektur der IoT-Plattform ist in \Fig{ArcitectureIoT} gegeben.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\textwidth]{ressourcen/generiert/Architektur_IoT_iotPlatformOverview}
+	\caption{Software Architektur IoT-Plattform}
+	\label{fig:ArcitectureIoT}
+\end{figure}
+\newline 
+Die fünf Hauptkomponenten sind das API Gateway, der Identity Service, die Microservices, der Data Collector und der MQTT Broker.
+
+
+Zu Beginn nimmt die IoT-Plattform alle gemessenen Umweltdaten der Sensorknoten über den MQTT Broker an.
+Außerdem werden über diesen auch Konfigurationsdateien der Sensorknoten an die IoT-Plattform gesendet oder umgekehrt von der IoT-Plattform an die Sensorknoten.
+Somit stellt der MQTT Broker eine Schnittstelle zwischen den Sensorknoten und der IoT-Plattform bereit. \newline
+Für die Kommunikation wurde das Protokoll MQTT gewählt, da dieses die Möglichkeit einer bidirektionalen Verbindung bietet und nach dem Publish-Subscribe Protokoll arbeitet.
+Des Weiteren ist MQTT in der Lage sehr einfach Nachrichten zwischen zu speichern während Clients nicht erreichbar sind. 
+Eine eingehendere Erklärung zu Design Entscheidungen des MQTT Brokers kann in \Fref{sec:arch:iot:mqtt} eingesehen werden. 
+
+
+Die, über den MQTT Broker bereitgestellten, Daten werden von dem Data Collector persistent in der Datenbank gespeichert.
+Außerdem verfügt der Data Collector über eine Strategie, die die Konfigurationsdateien in der Datenbank speichert oder gegebenenfalls aktualisiert.
+Weitere Erläuterungen zu dem Data Collector können in \Fref{sec:arch:iot:dc} gefunden werden. 
+
+
+Damit die gespeicherten Daten nun den externen Services bereitgestellt werden können, gibt es die Microservices.
+Diese haben unterschiedliche Funktionalitäten, die in \Fref{sec:arch:iot:ms} näher beschrieben sind.
+Die Microservices können Daten direkt in der Datenbank verändern, abfragen oder neu hinzufügen.
+Außerdem können einige Microservices Daten zu dem MQTT Broker senden.
+Beispielsweise können so Konfigurationsänderungen an einen bestimmten Sensorknoten weitergeleitet werden.
+Dadurch kann der Sensorknoten die Konfigurationsänderung validieren bevor diese in der Datenbank gespeichert wird.
+Bei einer erfolgreichen Validierung wird die Änderung erneut an den MQTT Broker gesendet, welcher diese nun an den Data Collector weitergibt.
+Wie zuvor beschrieben ist der Data Collector dann in der Lage diese Änderung in der Datenbank zu aktualisieren. 
+Damit ein Microservice aufgerufen wird, muss eine Anfrage von einem externen Dienst eingehen. 
+
+
+Das API Gateway nimmt diese Anfragen an und authentifiziert zunächst die externen Dienste über den Identity Service.
+Eine detaillierte Erklärung zu dem API Gateway kann in \Fref{sec:arch:iot:api} gefunden werden. \newline
+Der Identity Service ist die zentrale Authentifizierungsstelle innerhalb der IoT-Plattform.
+Somit authentifiziert der Identity Service die externen Dienste, die Microservices und die MQTT Clients nach Anfrage des API Gateways.
+Darüber hinaus stellt der Identity Service auch die Autorisierung der MQTT Clients bereit.
+In \Fref{sec:arch:iot:is} sind weiterführende Erklärungen vorhanden.
+Nachdem der externe Dienst erfolgreich authentifiziert wurde, leitet das API Gateway die Anfrage zu dem verantwortlichen Microservice weiter.
+Es stehen ausschließlich authentifizierte Microservices für die externen Dienste bereit, weil auch diese sich an dem API Gateway authentifizieren müssen.
+
+
+In den folgenden Kapiteln wird auf die zuvor genannten Hauptkomponenten detaillierter eingegangen.
+
+\FloatBarrier
+
+\subsection{Komponenten}
+\label{sec:arch:iot:komponenteniot}
+In diesem Kapitel wird zunächst das Datenbankschema erläutert, sodass die Strukturierung der Daten innerhalb der Datenbank verdeutlicht wird. Folgend werden alle zuvor genannten Komponenten der Softwarearchitektur detaillierter erklärt. Dazu zählt das API Gateway, der Identity Service, die Microservices, der Data Collector und der MQTT Broker.
+\subsubsection{Datenbankschema}
+\label{sec:arch:iot:datenbankschema}
+Eine Aufgabe der IoT-Plattform ist es, Daten zu speichern, daher wurde als Datenbank eine MongoDB verwendet, die bereits in \Fref{sec:grundlagen:datenbank:mongodb} näher erläutert wurde. 
+In diesem Abschnitt wird das verwendete Datenbankschema näher erläutert, das in \Fig{Datenbankschema} dargestellt ist. 
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\textwidth]{ressourcen/generiert/Architektur_IoT_DBSchema}
+	\caption{Datenbankschema}
+	\label{fig:Datenbankschema}
+\end{figure}
+\afterpage{\clearpage}
+
+Im Mittelpunkt des PG RiO Projekts stehen die Sensorknoten sowie dessen gemessenen Umweltdaten. 
+Zuerst werden alle Attribute der Collection \textit{Sensornode} erläutert und danach die Collections, die die Umweltdaten speichern.
+Darauf folgend werden die Collections \textit{Event} und \textit{Microservice} erläutert.
+
+Dieser Abschnitt erklärt zunächst die Collection \textit{Sensornode} und die dazugehörigen Abhängigkeiten. 
+Ein Sensorknoten wird in der Collection \textit{Sensornode} gespeichert und besitzt verschiedene Attribute. 
+Dazu zählt unter anderem eine \textit{ID}, ein \textit{Name} und der \textit{Besitzer}. 
+Der Besitzer zeigt auf das jeweilige \textit{ApiUser} Objekt. 
+So können für den Api User ein Benutzername sowie Passwort hinterlegt werden. 
+Ein Api User ist nicht zwingend ein Besitzer eines Sensorknotens, sondern kann auch ein externer Dienst sein. 
+Mit Hilfe von Benutzername und Passwort kann sich der Api User oder auch ein externer Dienst am API Gateway authentifizieren. 
+Weiterhin verfügt der \textit{Sensornode} über einen \textit{type}, der entweder \textit{physical} oder \textit{virtual} ist. 
+Außerdem besitzt jeder \textit{Sensornode} eine Geoposition, bestehend aus \textit{Longitude}, \textit{Latitude} und \textit{Altitude}. 
+Da ein Sensorknoten aus Sensoren besteht, entält die Collection \textit{Sensornode} ein Attribut \textit{sensors}. Das ist ein Array von ID's, die auf die \textit{Sensor} Objekte zeigen. 
+In dieser Collection sind alle verfügbaren Sensoren hinterlegt, dazu zählt zum Beispiel der SDS011. 
+Insebsondere enthält der \textit{Sensor} einen Verweis auf die entsprechenden \textit{EnvType} Objekte. 
+Hier werden alle Umweltdaten gespeichert, die von den verfügbaren Sensoren gemessen werden. 
+Somit enthält beispielsweise der Sensor SDS011 ein Array mit ID's, die auf die EnvTypes PM25 und PM10 verweisen. 
+Zuletzt werden in der \textit{Sensornode} Collection die Attribute \textit{config}, die \textit{latestAction} und die \textit{mqttCredentials} hinterlegt, die folgend kurz beschrieben werden. \\
+Das Attribut \textit{config} verweist auf das Konfigurationobjekt des Sensorknotens. 
+Da jeder Sensorknoten eine Konfigurationsdatei besitzt werden diese in einer zusätzlichen Collection gespeichert auf die, in der \textit{Sensornode} Collection, mit der jeweiligen ID verwiesen wird. 
+Zur Zeit gibt es virtuelle und physische Sensorknoten, die unterschiedliche Kofigurationen besitzen. 
+Daher gibt es auch zwei Konfigurations Collections. 
+Zum einen die \textit{SensornodeConfig} Collection, die die Konfiguration eines physischen Sensorknotens speichert. 
+Und zum anderen die \textit{MockConfig} Collection, die die Konfiguration eines virtuellen Sensorknotens speichert, der die Strategie \textit{MOCK} verwendet. 
+Falls die Konfiguration von anderen Strategien gespeichert werden sollen, muss lediglich eine neue Collection mit den benötigten Attributen angelegt werden. 
+Das Attribut \textit{latestAction}, in der \textit{Sensornode} Collection, ist ein Datum, das den Zeitpunkt des zuletzt gesendeten Messwertes enthält. 
+Und zuletzt verweist das Attribut \textit{mqttCredentials} auf das Objekt in der \textit{MqttClient} Collection, in der die Zugangsdaten für den MQTT Broker hinterlegt sind. 
+So kann sich der Sensorknoten mit dem MQTT Broker verbinden. 
+
+Im Folgenden werden die Collection erläutert, die die gemessenen Umweltdaten und deren Abhängigkeiten erläutern. 
+Die gemessenen Umweltdaten der Sensorknoten werden in zwei unterschieldichen Collections pro Umweltdatum gespeichert. 
+Zum einen werden alle gemessen Umweltdaten pro Umweltdatum in der Collection \textit{Measurement\_PM25/PM10/HUM/PRES/}
+\textit{TEMP/PM25\_RLCorretion} gespeichert. 
+Diese Collection wird zum Beispiel aufgerufen, wenn die historischen Umweltdaten eines Sensorknotens im UIS Frontend angezeigt werden. 
+Zum anderen wird der zuletzt gemessene Umweltwert in der Collection \textit{LatestMeasurement\_PM25/PM10/HUM/PRES/TEMP/PM25\_RLCorretion} gespeichert. 
+Dadurch wird die Performance gesteigert, denn so muss keine zusätzliche Datenbankoperation bezüglich des Zeitpunktes durchgeführt werden. 
+Dies ist notwendig, weil der Routing Dienst immer nur den zuletzt gemessenen Wert abfragt. 
+Die beiden Collections verweisen auf das jeweilige \textit{Sensornode} Objekt sowie auf das jeweilige \textit{Sensor} Objekt. 
+
+
+Zuletzt werden die Collections \textit{Event} und \textit{Microservice} erläutert. \\
+Falls ein Sensorknoten über eine bestimmte Zeit keine Daten mehr an die IoT-Plattform gesendet hat, wird dieser Sensorknoten in der \textit{Event} Collection gespeichert. 
+Hier wird mit der ID des Sensorknotens auf das jeweilige \textit{Sensornode} Objekt verwiesen. 
+Außerdem enthält diese Collection ein Message Attribut, das das Datum des letzten Messwertes enhält. 
+Daher sind deren Zugangsdaten in der Datenbank gespeichert, sodass der Identity Service diese überprüfen kann. 
+Die Collection \textit{Microservice} enthält somit einen Benutzernamen, Passwort und einen Namen des Microservice.
+\FloatBarrier
+
+\subsubsection{API Gateway}
+\label{sec:arch:iot:api}
+Das API Gateway ist eine wichtige Komponente, denn sie ist verantwortlich für die Authentifizierung von externen Diensten und Microservices.
+Außerdem leitet das API Gateway eingehende Anfragen an den verantwortlichen Microservice weiter und verteilt die Last der Anfragen.
+\newline
+In \Fig{architectureApiGateway} ist die Softwarearchitektur des API Gateways dargestellt.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[height=0.95\textheight]{./ressourcen/generiert/Architektur_IoT_apigateway}
+	\caption{Architektur des API Gateways}
+	\label{fig:architectureApiGateway}
+\end{figure}
+\afterpage{\clearpage}
+
+Im Folgenden wird auf die einzelnen Komponenten \textit{Authentifizierung}, \textit{Routing}  und \textit{common} und \textit{Discovery} näher eingegangen.
+
+\paragraph{Routing}
+Das Routen der Anfragen löst das API Gateway, indem es die eintreffenden Anfragen mit Hilfe eines HTTP Proxies einfach an die Microservices weiterleitet.
+
+\paragraph{Authentifizierung}
+Die Authentifizierung von Anfragen wird mit Hilfe des OAuth 2.0 Resource Owner Password Credential Flow \cite[p. 37]{oauth2.0:authorizationframework} bewältigt.
+Dabei wird der anfragenden Partei ein JSON Web Token bereitstellt, welches für weitere Anfragen an Ressourcen verwendet werden kann.
+Die Validierung der Nutzerdaten wird mit Hilfe einer Anfrage an den Identity Service bewältigt, welche ebenfalls den Payload des JSON Web Tokens bereitstellt.
+
+\paragraph{discovery}
+In der Komponente \textit{discovery} werden Endpunkte bereitgestellt, mit denen alle aktiven Microservices abgefragt werden können.
+Außerdem zählt zu den weiteren Aufgaben der Komponente die Registrierung von Micorservices.
+
+\paragraph{common}
+Die Komponente \textit{common} ist dafür zuständig, dass die zuvor genannten Endpunkte ihre Aufgaben erfüllen können.
+Also enthält diese Komponente für alle Endpunkte entsprechende Service Klassen .
+So werden zum Beispiel die Microservices durch den Identity Service authentifiziert, dessen Endpunkt in der Komponente \textit{Authentifizierung} bereit gestellt wird.
+\newline
+\paragraph{Interne Schnittstellen}
+Folgend werden alle internen Schnittstellen aufgelistet.
+
+\textit{\textbf{Microservice Discovery}}
+\newline
+\textbf{POST /\_register} \\\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+"Authorization" : Base64(username:password)
+\end{lstlisting}
+
+\textbf{Request Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+  "name": "Microservice Name",
+  "version": "X.Y.Z",
+  "services": [
+    {
+      "operation": "GET | POST | DELETE | PUT",
+      "path": "test/{pathVariable}",
+      "description": "Service Description"
+    }
+  ]
+}
+\end{lstlisting}
+
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+  "leasetoken":"leasetoken",
+  "exp":"expirationDateInUTC"
+}
+\end{lstlisting} 
+
+\textit{\textbf{Renew Lease Endpoint}}
+\newline
+\textbf{POST /\_renew} \\\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+"Authorization" : leasetoken
+\end{lstlisting}
+
+\textbf{Request Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Empty
+\end{lstlisting}
+
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+  "leasetoken":"leasetoken",
+  "exp":"expirationDateInUTC"
+}
+\end{lstlisting}
+
+\subsubsection{Konfiguration}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+  "serviceConfigs": {
+    "serviceLeaseDuration": "time in seconds",
+    "serviceValidationUrl": "URL"
+  },
+  "authentication": {
+    "identityServiceUrl": "URL"
+  },
+  "loadbalancing": {
+    "type": "random | po2"
+  }
+}
+\end{lstlisting}
+
+\subsubsection{Identity Service}
+\label{sec:arch:iot:is}
+Der Identity Service ist die zentrale Authentifizierungsstelle der IoT-Plattform und zuständig für die Authentifizierung von externen Diensten, MQTT Clients und Microservices.
+Dabei wird bei einer Anfrage des API Gateways geprüft, ob der jeweilige Benutzer in der Datenbank hinterlegt ist.
+
+
+In \Fig{architectureIdentityService} ist die Softwarearchitektur des Identiy Services dargestellt.
+\begin{figure}[!htb]
+	\includegraphics[width=\textwidth]{./ressourcen/generiert/Architektur_IoT_identityservice}
+	\caption{Architektur des Identity Service}
+	\label{fig:architectureIdentityService}
+\end{figure}
+Es gibt drei unterschiedlice Komponenten, die für die Authentifizierung der verschiedenen Nutzerklassen verantwortlich sind.
+Diese werden von dem \textit{app.module} aufgerufen.
+Außerdem ruft das \textit{app.module} die Komponente \textit{config} auf, um alle benötigten Konfigurationen nutzen zu können und somit den Service zu starten.
+Die Komponente \textit{apiUser} ist für die Authentifizierung der Api User zuständig.
+Dazu gehören die externen Dienste oder auch die Besitzer der Sensorknoten.
+Die Microservices werden in der Komponente \textit{microservices} authentifiziert.
+Und letztendlich in der Komponente \textit{mqttClient} werden alle Nutzer, die den MQTT Broker nutzen, authentifiziert.
+Dazu zählen unter anderem alle Sensorknoten.
+\newline
+\FloatBarrier
+Im Folgenden wird auf die einzelnen Schnittstellen für die Authentifizierung eingegangen.
+Dabei wird zwischen API Usern, Microservices und MQTT"=Clients unterschieden.
+
+\paragraph{Endpunkte}
+Der Identity Service bietet mehrere Endpunkte zum Authentifizieren von verschiedenen Nutzerklassen an, die im Folgenden beschrieben werden.
+\newline
+
+\textit{\textbf{API User}}
+\newline
+\textbf{POST /apiuser/\{apiscope\}/authenticate} 
+\\\{apiscope\} ist der Name der API, z.B. externalapi, storageapi oder internalapi
+\\\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: Base64(username:password)
+\end{lstlisting}
+
+\textbf{Response Body - 200}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+  Additional Payload for the JWT
+}
+\end{lstlisting}
+
+\textbf{Response Body - Error}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+  "error" : "",
+  "description" : ""
+}
+\end{lstlisting}
+
+\textit{\textbf{Microservice}}
+\newline
+\textbf{POST /microservice/\{apiscope\}/authenticate} 
+\\\{apiscope\} ist der Name der API, z.B. externalapi, storageapi oder internalapi
+\\\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: Base64(username:password)
+\end{lstlisting}
+
+\textbf{Response Body - 200}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+  "type": "e.g. pmservice",
+  "description" : "Microservice Description"
+}
+\end{lstlisting}
+
+\textbf{Response Body - Error}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+  "error" : "",
+  "description" : ""
+}
+\end{lstlisting}
+
+\subsubsection{Microservices}
+\label{sec:arch:iot:ms}
+Das Ziel der Microservices ist es, den externen Diensten die Möglichkeit zu bieten, Daten abzufragen, Daten zu verändern und Daten dem System hinzuzufügen.
+Die IoT-Plattform stellt insgesamt fünf Microservices bereit.
+Dazu zählt der PM25 Microservice, der PM10 Miroservice, der Temperature Microservice, der UIS Microservice und der SV Microservice.
+Die Softwarearchitekturen werden im Folgenden dargestellt.
+Allerdings wird die Softwarearchitektur von dem genutzten Framework NestJS vorgeschrieben, daher wird diese nur sehr grob anhand der PM25 Microservice Architektur erläutert.
+\newline
+
+\paragraph{PM25 Micorservice, PM10 Micorservice, Temperature Micorservice} 
+%\label{par:pm25arch}
+Der Routing Dienst benutzt drei Microservices, dazu zählt der PM25, der PM10 und der Temperature Microservices.
+Diese Microservices stellen alle Endpunkte bereit, damit der Routing Dienst anhand der zuletzt gemessenen Umweltdaten eine Route berechnen kann.
+Die genauen Schnittstellendeklarationen können in \Fref{sec:arch:iot:schnittstelleniot} gefunden werden.
+
+
+In \Fig{pm25archi} ist die Softwarearchitektur des PM25 Services dargestellt, die im Folgenden grob erläutert wird.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\textwidth]{ressourcen/generiert/Architektur_IoT_pm25}
+	\caption{Software Architektur PM25 Microservice}
+	\label{fig:pm25archi}
+\end{figure}
+Die Softwarearchitekturen für den PM10 Microservice und den Temperature Microservice werden nicht gezeigt, weil diese übereinstimmen mit der Ausnahme, dass die Services unterschiedliche Umweldaten bereitstellen und somit eine unterschiedliche Namensgebung besitzen.
+
+
+Beim Start des PM25 Microservices wird zunächst die main.ts aufgerufen, die den Service bei dem API Gateway registriert.
+Dafür ruft die main.ts die config.service.ts auf, die die notwendigen Credentials für die Registrierung bereitstellt.
+Das app.module.ts wird ebenfalls von der main.ts beim Start des Microservices aufgerufen.
+Dieses Module ist das Wurzelverzeichnis des gesamten Microservices und stellt alle benötigten Abhängigkeiten bereit.
+Insbesondere wird hier die Verbindung zur Datenbank hergestellt.
+Wenn eine Anfrage eines externen Dienstes zu dem Microservice weitergeleitet wird, wird das pm25.module.ts aufgerufen.
+Dieses Module hingegen ist das Wurzelverzeichnis für die PM25 Endpunkte und stellt alle Abhängigkeiten bereitstellt.
+Insbesondere werden hier alle benötigten Schematas, der Service und der Controller importiert.
+Mit Hilfe von Mongoose, ein Object Document Mapper, können Objekte mit einem Schema definiert werden, die auf ein MongoDB-Dokument abgebildet werden.
+So können Objekte zu der Datenbank hinzugefügt, abgefragt oder verändert werden.
+\cite{mongoose}Der pm25.controller.ts definiert alle verfügbaren Anfragepfade, die der Microservice bereitstellt.
+Damit der pm25.controller.ts dem externen Dienst Daten zurückgeben kann, ruft dieser die pm25.service.ts auf.
+In der pm25.service.ts werden letzendlich die Datenbankoperationen bereitgestellt und dem pm25.controller.ts zur Verfügung gestellt, sodass dieser dem externen Dienst eine Antwort geben kann.
+Für die Datenbankoperationen verwendet der Service sowie der Controller ein Interface von dem benötigten Model.
+\FloatBarrier
+
+\paragraph{UIS Microservice} 
+Der UIS Microservice wird primär von dem UIS Frontend genutzt und stellt somit alle Endpunkte, entsprechend der Anforderung des UIS Frontends, bereit.
+Die genauen Schnittstellenbeschreibungen können in \Fref{sec:arch:iot:se} gefunden werden.
+In \Fig{uisarchi} ist die Software Architektur des Microservices gezeigt.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\textwidth]{ressourcen/generiert/Architektur_IoT_uis}
+	\caption{Software Architektur UIS Microservice}
+	\label{fig:uisarchi}
+\end{figure}
+Wie schon zuvor erwähnt, wird die Architektur nicht näher beschrieben, weil diese von dem Framework NestJS vorgeschrieben ist und bereits anhand der Software Architektur des PM25 Microservices erklärt wurde.
+Daher beschreibt der nächste Abschnitt, welche Aufgaben die verschiedenen Komponenten haben.
+
+
+Der UIS Microservice besitzt drei Aufgabenbereiche, die in den Komponenten \textit{config}, \textit{sensornode} und \textit{timeSeries} untergliedert sind.
+Die Komponente \textit{config} stellt Endpunkte bereit, um Konfigurationen zu ändern und aktuelle Konfigurationen der Sensorknoten abzufragen.
+Die \textit{sensornode} Komponente bietet Endpunkte, um Informationen von Sensorknoten abzufragen.
+Und die Komponente \textit{timeSeries} bietet Endpunkte an, um historische Umweltdaten abzufragen.
+Daher wurden in diesem Microservice andere Schematas und Interfaces verwendet, wodurch man auf die benötigten Collections der Datenbank zugreifen kann.
+Das Datenbankschema sowie weitere Erklärungen zu Design Entscheidungen können in \Fref{sec:arch:iot:datenbankschema} gefunden werden.
+Darüberhinaus verwendet die Komponente \textit{sensornode} zusätzlich zu den \textit{validators} die \textit{dto} Komponente.
+Diese prüft bei einer eingehenden Anfrage für eine Änderung der Geoposition, ob die benötigten Parameter mit den gültigen Werten übergeben wurden.
+Außerdem definiert dieses Objekt, wie die Daten innerhalb des Service versendet werden.
+Der Lösungsansatz für die Überprüfung hält sich auch hier, wie bei den \textit{validators}, an die Dokumentation des Frameworks \cite{validators}.
+\FloatBarrier
+
+\paragraph{SV Microservice} 
+Der SV Microservice stellt alle benötigten Endpunkte für die Sensorknotenverwaltungsoberfläche bereit.
+Eine ausführliche Beschreibung der Endpunkte sind in \Fref{sec:arch:iot:schnittstelleniot} zu finden.
+In \Fig{svarchi} ist die Software Architektur des SV Microservice dargestellt.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\textwidth]{ressourcen/generiert/Architektur_IoT_sv}
+	\caption{Software Architektur SV Microservice}
+	\label{fig:svarchi}
+\end{figure}
+Wie schon zuvor erwähnt ist diese von dem verwendeten Framwork vorgschrieben und wird im Folgenden nicht näher erläutert.
+Die Komponente \textit{sensornode} beinhaltet alle Abfragen, die die Sensorknotenverwaltungsoberfläche benötigt.
+Dazu zählen unter anderem das Abfragen aller Sensorknoten oder das Verändern von Sensorknoteninformationen.
+Die Interfaces und Schematas des Service unterscheiden sich von den anderen Microservices, weil in diesem Microservice andere Collections angesprochen werden.
+\FloatBarrier
+
+\subsubsection{MQTT Broker}
+\label{sec:arch:iot:mqtt}
+Der MQTT Broker bietet eine Schnittstelle zwischen den Sensorknoten und der IoT-Plattform an.
+Als Protokoll wurde MQTT, Message Queue Telemetry Transport, ausgewählt, weil dieses Protokoll insebsondere für instable und ressourcenarme Kommunikation geeignet ist.
+Außerdem arbeitet MQTT nach dem Publish/Subscribe Protokoll, sodass einfach Daten von der IoT-Plattform an die Sensorknoten versendet werden können und umgekehrt.
+Dafür wird lediglich ein zentraler Broker benötigt über den anhand von Topics die Nachrichten versendet und empfangen werden.
+Außerdem bietet das Protokoll weitere Vorteile, wie die Wilard Subscriptions.
+Mit Hilfe von Wildcards können zum einen durch den + - Operator eine Hierarchistufe abonniert werden und zum anderen mit dem \# - Operator beliebig viele Hierarchistufen abonniert werden.
+Die Wildcards sind in dem PG RiO Projekt sehr hilfreich, da so alle Pfade, auf die ein Sensorknoten Daten published, abonniert werden können.
+Außerdem bietet MQTT drei Qualitätslevel an.
+Diese lauten wie folgt: \cite{mqtt}
+\begin{itemize}
+	\item QoS 0: Die Nachricht wird maximal einmal versendet und es gibt keine Bestätigung des Empfängers
+	\item QoS 1: Die Nachricht wird mindestens einmal versendet sodass falls keine Bestätigung des Empfängers kommt die Nachricht neu versendet wird
+	\item QoS 2: Die Nachricht wird genau einmal versendet
+\end{itemize}
+
+Auf der IoT-Plattform werden zwei unterschiedliche MQTT Broker verwendet.
+Zum einen \textit{Eclipse Mosquitto} in der Development Umgebung und zum anderen \textit{HiveMQ} in der Produktionsumgebung.
+In der Development Umgebung wurde der MQTT Broker \textit{Eclipse Mosquitto} eingerichtet, weil dieser ein Open Source Broker ist, der das Protokoll MQTT unterstützt.
+
+
+Es werden alle zuvor genannten Vorteile des Protokolls bereitgestellt.
+Dazu zählt das abonnieren von Topics mit Wildcards, das Versenden von Nachrichten mit dem Qualitätslevel QoS 2 sowie das Last Will and Testament.
+Jedoch ist das Zusammenspiel mit diesem Open Source Broker und den restlichen IoT Komponenten schwierig, weil die Authentifizierung sowie die Autorisierung über den Identity Service nicht geht.
+
+
+Für die Authentifizierung und Autorisierung wird ein \textit{pwd File} benötigt, indem die registrierten Clients mit Username und Password aufgelistet sind.
+Der Identity Service hat also keine Möglichkeit die Clients über die Datenbank zu authentifizieren und auch nicht zu autorisieren\cite{eclipse}.
+Daher wurde auf dem Produktivsystem der Broker \textit{HiveMQ} eingsetzt.
+Für diesen Broker gibt es ebenfalls eine kommerzielle Variante, die ebenso alle zuvor genannte Vorteile des Protokolls MQTT unterstützt.
+Zusätzlich zu diesen Funktionen bietet dieser MQTT Broker die Möglichkeit Plugins, die auf das PG RiO System angepasst sind, zu implementieren.
+Diese Plugins können zum Beispiel für die Authentifizierung und Auorisierung genutzt werden.
+
+
+Aktuell werden die Clients des Brokers in einer Collection der Datenbank mit deren Username und Password gespeichert\cite{hivemq}.
+So kann der Identity Service die Clients Autorisieren und Authentifizieren.
+Die verwendeten Topics, also die Schnittstellen, die angeboten werden sind in \Fref{sec:arch:iot:schnittstelleniot} zu finden.
+
+\subsubsection{Data Collector}
+\label{sec:arch:iot:dc}
+Der Data Collector ist eine wichtige Komponente der IoT-Plattform, der für die Annahme der Daten von den Sensorknoten zuständig ist sowie diese persistent abzuspeichern.
+Zu den Daten gehören Umweltdaten, die von virtuellen sowie physischen Sensorknoten gemessen werden und Konfigurationsdaten der Sensorknoten.
+In \Fig{dc} ist die Softwarearchitektur des Data Collector dargestellt. 
+
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\textwidth]{ressourcen/generiert/Architektur_IoT_datacollector}
+	\caption{Software Architektur Data Collector}
+	\label{fig:dc}
+\end{figure}
+Der Data Collector verwendet zwei Strategien, um die Daten persisitent abzuspeichern.
+Außerdem werden über eine Strategie Ausfälle von Sensorknoten in der Datenbank hinterlegt.
+
+
+Der Data Collector wird innerhalb der app.js gestartet.
+Also werden innerhalb dieser Klasse die Stratgien gestartet sowie der configurationLoader aufgerufen, sodass die Zugangsdaten für den MQTT Broker und der Datenbank aufgerufen werden können.
+Für die Speicherung der gemessenen Umweltdaten ist die \textit{JsonCollectorStrategy} veratwortlich.
+Mit Hilfe der Models werden die Umweltdaten jeweils zu den Collection \textit{LatestMeasurement} und \textit{Measurement} abgespeichert.
+Hingehen ist die ConfigCollectorStrategy für die Speicherung der Konfigurationen der Sensorknoten verantwortlich.
+Beide Strategien abonnieren unterschiedliche Topics beim MQTT Broker, um die Daten zu erhalten.
+
+
+Die Schnittstellen können in \Fref{sec:arch:iot:schnittstelleniot} eingesehen werden.
+Die SensornodeEventStrategy ist letzendlich für die Speicherung von Ausfällen verantwortlich.
+Sobald ein Sensorknoten keine Daten innerhalb eines bestimmten Zeitfensters an den MQTT Broker gesendet hat wird dies als Event in der Datenbank hinterlegt.
+\FloatBarrier
+
+\subsection{Schnittstellen}
+\label{sec:arch:iot:schnittstelleniot}
+In diesem Kapitel werden alle Schnittstellen beschrieben, die die IoT-Plattform anbietet.
+Dabei wird zwischen Schnittstellen zu externen Diensten und Sensorknoten unterschieden.
+Die Schnittstellen zwischen externen Diensten und der IoT-Plattform sind in \Fref{sec:arch:iot:se} zu finden und die Schnittstellenerklärungen zu den Sensorknoten sind in \Fref{sec:arch:iot:ssk} zu finden.
+\\
+Folgende Hinweise sind in den nachfolgenden Kapiteln zu beachten:
+\begin{itemize}
+	\item Um die URLs in den nachfolgenden Abschnitte kurz zu halten, werden die Hostnamen ohne das Suffix \textbf{.informatik.uni-oldenburg.de} angegeben.
+	\item Die Hostnamen der Develop"=Umgebung unterscheiden sich lediglich durch ein angehängtes \textbf{-dvlp} von denen der Produktiv"=Umgebung. \textbf{pg-rio-iot} wird somit zu \textbf{pg-rio-iot-dvlp}.
+\end{itemize}
+
+\subsubsection{Schnittstellen zu externen Diensten}
+\label{sec:arch:iot:se}
+Bevor ein externer Dienst Anfragen an einen Microservice stellen kann, muss sich dieser an dem API Gateway authentifizieren.
+Nach erfolgreicher Authentifizierung bekommt der externe Dienst ein Token, das er bei jeder Anfrage eines Microservice in dem Header mit übergeben muss.
+Folgend werden zunächst die Schnittstellen für die Authentifizierung beschrieben und danach die Schnittstellen, die die Microservices bereitstellen.
+
+
+\paragraph{Authentifizierung}
+Wie zuvor beschrieben müssen sich externe Dienste an dem API Gateway authentifizieren.
+Nach erfolgreicher Authentifizierung bekommt der externe Dienst ein JWT Token, das er bei weiteren Anfragen in dem Header mitübergeben muss.
+\\
+Bei der Anfrage zur Authentifizierung muss im Header der Username sowie das Passwort in Base64 übergeben werden.
+Die Anfrage sieht wie folgt aus:
+\newline
+\\
+Produktiv - Umgebung:
+\\
+\textbf{GET https://pg-rio-iot:8443/auth/token}
+\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: Base64(username:password)
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvdXRpbmciLCJpYXQiOjE1Njg3MDk0NTIsImV4cCI6MTU2ODc0NTQ1Mn0.-HYeAqEKM0RPGNYIIiHZRTqAbpS0PvpMthafzlq0QVw
+}
+\end{lstlisting}
+
+\paragraph{PM25 Service}
+Der PM25 Service bietet Schnittstellen primär für den Routing Dienst an.
+Dabei beschränkt sich dieser Microservice darauf ausschließlich Feinstaubdaten, also PM25 Daten, bereitzustellen.
+Im Folgenden sind die beiden Endpunkte beschrieben, die der Microservice anbietet.
+\\
+Der Basispfad \{base\} ist hierbei \textbf{pg-rio-iot:8443/services/PM25Service}.
+\newline
+Zum Einen bietet der Microservice einen Endpunkt an, mit dem alle zuletzt gemessenen PM25 Daten abgefragt werden können:
+\newline
+\\
+Produktiv - Umgebung:
+\\
+\textbf{GET https://\{base\}/pm25Service/allPm25Data}
+\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  {
+    "sensornode": [
+      "5d6fc2960095837ded6c5858"
+    ],
+    "geo": {
+      "Lat": 53.165674,
+      "Lon": 8.201827
+    },
+    "Timestamp": "2019-09-17T08:41:53.000Z",
+    "Value": 2.8
+  },
+  {
+    "sensornode": [
+      "5d70c16d0095837ded6cca35"
+    ],
+    "geo": {
+      "Lat": 8.20072,
+      "Lon": 53.148816
+    },
+    "Timestamp": "2019-09-08T03:42:42.000Z",
+    "Value": 6.5
+  }
+]
+\end{lstlisting}
+Zum Anderen bietet der PM25 Service einen Endpunkt an, worüber alle zuletzt gemessenen PM25 Daten, dessen Sensorknoten sich innerhalb einer Bounding Box befinden, zurückgegeben werden.
+\\
+Produktiv - Umgebung:
+\\
+\textbf{GET https://\{base\}/pm25Service/minLon/minLat/maxLon/maxLat}
+\begin{itemize}
+	\item minLon: Start - Longitude der Bounding Box
+	\item minLat: Start - Latitude der Bounding Box
+	\item maxLon: End - Longitude der Bounding Box
+	\item maxLat: End - Latitude der Bounding Box
+\end{itemize}
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  {
+    "sensornode": [
+      "5d6fc2960095837ded6c5858"
+    ],
+    "geo": {
+      "Lat": 53.165674,
+      "Lon": 8.201827
+    },
+    "Timestamp": "2019-09-17T08:41:53.000Z",
+    "Value": 2.8
+  },
+  {
+    "sensornode": [
+      "5d70c16d0095837ded6cca35"
+    ],
+    "geo": {
+      "Lat": 8.20072,
+      "Lon": 53.148816
+    },
+    "Timestamp": "2019-09-08T03:42:42.000Z",
+    "Value": 6.5
+  }
+]
+\end{lstlisting}
+
+\paragraph{PM10 Service}
+Der PM10 Service bietet auch Schnittstellen primär für den Routing Dienst an.
+Dabei beschränkt sich dieser Microservice darauf ausschließlich Feinstaubdaten, also PM10 Daten, bereitzustellen.
+Im Folgenden sind die beiden Endpunkte beschrieben, die der Microservice anbietet.
+\\
+Der Basispfad \{base\} ist hierbei \textbf{pg-rio-iot:8443/services/PM10Service}.
+\newline
+Zum einen bietet der Microservice einen Endpunkt an, mit dem alle zuletzt gemessenen PM10 Daten abgefragt werden können:
+\newline
+\\
+Produktiv - Umgebung:
+\\
+\textbf{GET https://\{base\}/pm10Service}
+\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  {
+    "sensornode": [
+      "5d6fc2960095837ded6c5858"
+    ],
+    "geo": {
+      "Lat": 53.165674,
+      "Lon": 8.201827
+    },
+    "Timestamp": "2019-09-17T08:41:53.000Z",
+    "Value": 6.5
+  },
+  {
+    "sensornode": [
+      "5d70c16d0095837ded6cca35"
+    ],
+    "geo": {
+      "Lat": 8.20072,
+      "Lon": 53.148816
+    },
+    "Timestamp": "2019-09-08T03:42:42.000Z",
+    "Value": 6.4
+  }
+]
+\end{lstlisting}
+Zum anderen bietet der PM10 Service einen Endpunkt an, worüber alle zuletzt gemessenen PM10 Daten, dessen Sensorknoten sich innerhalb einer Bounding Box befinden, zurückgegeben werden.
+\\
+Produktiv - Umgebung:
+\\
+\textbf{GET https://\{base\}/pm10Service/minLon/minLat/maxLon/maxLat}
+\\
+\begin{itemize}
+	\item minLon: Start - Longitude der Bounding Box
+	\item minLat: Start - Latitude der Bounding Box
+	\item maxLon: End - Longitude der Bounding Box
+	\item maxLat: End - Latitude der Bounding Box
+\end{itemize}
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  {
+    "sensornode": [
+      "5d6fc2960095837ded6c5858"
+    ],
+    "geo": {
+      "Lat": 53.165674,
+      "Lon": 8.201827
+    },
+    "Timestamp": "2019-09-17T08:41:53.000Z",
+    "Value": 11.3
+  },
+  {
+    "sensornode": [
+      "5d70c16d0095837ded6cca35"
+    ],
+    "geo": {
+      "Lat": 53.165674,
+      "Lon": 8.201827
+    },
+    "Timestamp": "2019-09-08T03:42:42.000Z",
+    "Value": 10.8
+  }
+]
+\end{lstlisting}
+
+\paragraph{Temperature Service}
+Der Temperature Service bietet, wie der PM25 - und PM10 Service, auch Schnittstellen primär für den Routing Dienst an.
+Dabei beschränkt sich dieser Microservice darauf ausschließlich Temperaturdaten bereitzustellen.
+Im Folgenden sind die beiden Endpunkte beschrieben, die der Microservice anbietet.
+\\
+Der Basispfad \{base\} ist hierbei \textbf{pg-rio-iot:8443/services/TEMPService}.
+\newline
+Zum einen bietet der Microservice einen Endpunkt an, mit dem alle zuletzt gemessenen Temperatur Daten abgefragt werden können:
+\newline
+\\
+Produktiv - Umgebung:
+\\
+\textbf{GET https://\{base\}/tempService}
+\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  {
+    "sensornode": [
+      "5d6fc2960095837ded6c5858"
+    ],
+    "geo": {
+      "Lat": 53.165674,
+      "Lon": 8.201827
+    },
+    "Timestamp": "2019-09-17T08:41:53.000Z",
+    "Value": 10.0
+  },
+  {
+    "sensornode": [
+      "5d70c16d0095837ded6cca35"
+    ],
+    "geo": {
+      "Lat": 8.20072,
+      "Lon": 53.148816
+    },
+    "Timestamp": "2019-09-08T03:42:42.000Z",
+    "Value": 11.2
+  }
+]
+\end{lstlisting} 
+Zum anderen bietet der Temperature Service einen Endpunkt an, worüber alle zuletzt gemessenen Temperatur Daten, dessen Sensorknoten sich innerhalb einer Bounding Box befinden, zurückgegeben werden.
+\\
+Produktiv - Umgebung:
+\\
+\textbf{GET https://\{base\}/tempService/minLon/minLat/maxLon/maxLat}
+\begin{itemize}
+	\item minLon: Start - Longitude der Bounding Box
+	\item minLat: Start - Latitude der Bounding Box
+	\item maxLon: End - Longitude der Bounding Box
+	\item maxLat: End - Latitude der Bounding Box
+\end{itemize}
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  {
+    "sensornode": [
+      "5d6fc2960095837ded6c5858"
+    ],
+    "geo": {
+      "Lat": 53.165674,
+      "Lon": 8.201827
+    },
+    "Timestamp": "2019-09-17T08:41:53.000Z",
+    "Value": 11.3
+  },
+  {
+    "sensornode": [
+      "5d70c16d0095837ded6cca35"
+    ],
+    "geo": {
+      "Lat": 53.165674,
+      "Lon": 8.201827
+    },
+    "Timestamp": "2019-09-08T03:42:42.000Z",
+    "Value": 10.8
+  }
+]
+\end{lstlisting}
+
+\paragraph{UIS Microservice}
+Der UIS Microservice bietet Schnittstellen für das UIS Frontend an.
+Dabei orientieren sich die Schnittstellen anhand der drei Aufgabenbereiche des Service: 
+\begin{itemize}
+	\item {1: Konfiguration von Sensorknoten}
+	\item {2: Informationen von Sensorknoten}
+	\item {3: Historische Umweltdaten}
+\end{itemize}
+Folgend sind alle Schnittstellenbeschreibung, die der Microservice anbietet.
+\\
+Der Basispfad \{base\} ist hierbei \textbf{pg-rio-iot:8443/services/UISService}.
+\newline
+Zunächst werden alle Schnittstellen beschrieben, die bezüglich der Konfiguration eines Sensorknotens angeboten werden.
+\\
+Zum einen wird ein Endpunkt bereitgestellt, der alle Konfigurationen der Sensorknoten zurückgibt:
+\\
+Produktiv - Umgebung:
+\\
+\textbf{GET https://\{base\}/config}
+\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  { 
+    _id: 5d6904f1c3c2f70013c87399,
+    STRATEGY: 'MOCK',
+    STRATEGY_MOCK_INTERVAL: 30,
+    STRATEGY_MOCK_VERSION: 1,
+    STRATEGY_MOCK_PM10: 30,
+    STRATEGY_MOCK_PM25: 1,
+    STRATEGY_MOCK_TEMP: 2000,
+    STRATEGY_MOCK_HUM: 5000,
+    STRATEGY_MOCK_PRES: 101300,
+    __v: 0
+  },
+  {
+     _id: 5d6904f1c3c2f70013c8739a,
+    STRATEGY: 'MOCK',
+    STRATEGY_MOCK_INTERVAL: 30,
+    STRATEGY_MOCK_VERSION: 1,
+    STRATEGY_MOCK_PM10: 30,
+    STRATEGY_MOCK_PM25: 1,
+    STRATEGY_MOCK_TEMP: 2000,
+    STRATEGY_MOCK_HUM: 5000,
+    STRATEGY_MOCK_PRES: 101300,
+    __v: 0
+  }
+]
+\end{lstlisting}
+Und zum anderen gibt es einen Endpunkt, an dem eine Konfiguration eines bestimmten Sensorknoten abgefragt werden kann.
+\\
+Produktiv - Umgebung:
+\\
+\textbf{GET https://\{base\}/config/sensornodeid}
+\begin{itemize}
+	\item sensornodeid: ID des Sensorknotens, dessen Konfiguration abgefragt wird
+\end{itemize}
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  { 
+    _id: 5d6904f1c3c2f70013c87399,
+    STRATEGY: 'MOCK',
+    STRATEGY_MOCK_INTERVAL: 30,
+    STRATEGY_MOCK_VERSION: 1,
+    STRATEGY_MOCK_PM10: 30,
+    STRATEGY_MOCK_PM25: 1,
+    STRATEGY_MOCK_TEMP: 2000,
+    STRATEGY_MOCK_HUM: 5000,
+    STRATEGY_MOCK_PRES: 101300,
+    __v: 0
+  }
+]
+\end{lstlisting} 
+
+Außerdem bietet der Microservice einen Endpunkt an, um die Konfiguration eines bestimmten Sensorknotens zu verändern.
+Der \textit{configname} ist der Name der Config Collection, also entweder \textit{MockConfig}, wenn es ein virtueller Sensorknoten ist, oder PhysicalConfig, wenn es ein realer Sensorknoten ist.
+\\
+Produktiv - Umgebung:
+\\
+\textbf{PUT https://\{base\}/config/sensornodeId/configname/config}
+\begin{itemize}
+	\item sensornodeId: ID des Sensorknotens, dessen Konfiguration verändert werden soll
+	\item configname: Name der Collection, in der die Konfiguration des Sensorknotens hinterlegt ist
+\end{itemize}
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  { 
+    STRATEGY: 'MOCK',
+    STRATEGY_MOCK_INTERVAL: 30,
+    STRATEGY_MOCK_VERSION: 1,
+    STRATEGY_MOCK_PM10: 30,
+    STRATEGY_MOCK_PM25: 1,
+    STRATEGY_MOCK_TEMP: 2000,
+    STRATEGY_MOCK_HUM: 5000,
+    STRATEGY_MOCK_PRES: 101300,
+    __v: 0
+  }
+]
+\end{lstlisting}
+\textbf{Response Body - 200}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{}
+\end{lstlisting}
+
+Der UIS Microservice bietet Endpunkte an, um Informationen über alle Sensorknoten abzufragen.
+Dazu zählt zunächst ein Endpunkt, der alle Sensorknoten zurückgibt:
+\\
+Produktiv - Umgebung:
+\\
+\textbf{GET https://\{base\}/sensornode}
+\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  {
+    "id": "5d70c16d0095837ded6cca35",
+    "name": "pgrio-offis",
+    "owner": "5d6fc1560095837ded6c5795",
+    "geo": {
+      "lon": 8.20072,
+      "lat": 53.148816,
+      "alt": 8
+    },
+    "type": "physical",
+    "sensors": [
+      "5d6fc0940095837ded6c570a",
+      "5d6fc0a70095837ded6c5718"
+    ],
+    "timestamp": "2019-09-08T03:42:42.000Z",
+    "value": 6.5,
+    "unit": ""
+  },
+  {
+    "id": "5d6fc2960095837ded6c5858",
+    "name": "pgrio-feldstr",
+    "owner": "5d6fc1560095837ded6c5795",
+    "geo": {
+      "lon": 8.201827,
+      "lat": 53.165674,
+      "alt": 6.5
+    },
+    "type": "physical",
+    "sensors": [
+      "5d6fc0940095837ded6c570a",
+      "5d6fc0a70095837ded6c5718"
+    ],
+    "timestamp": "2019-09-17T15:06:53.000Z",
+    "value": 3,
+    "unit": ""
+  }
+]
+\end{lstlisting}
+Außerdem wird ein Endpunkt bereitgestellt, der Informationen über einen bestimmten Sensorknoten zurückgibt:
+\\
+Produktiv - Umgebung:
+\\
+\textbf{GET https://\{base\}/sensornode/sensornodeId}
+\begin{itemize}
+	\item sensornodeId: ID des Sensorknotens, dessen Informationen abgefragt werden
+\end{itemize}
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  {
+    "id": "5d70c16d0095837ded6cca35",
+    "name": "pgrio-offis",
+    "owner": "5d6fc1560095837ded6c5795",
+    "geo": {
+      "lon": 8.20072,
+      "lat": 53.148816,
+      "alt": 8
+    },
+    "type": "physical",
+    "sensors": [
+      "5d6fc0940095837ded6c570a",
+      "5d6fc0a70095837ded6c5718"
+    ],
+    "timestamp": "2019-09-08T03:42:42.000Z",
+    "value": 6.5,
+    "unit": ""
+  }
+]
+\end{lstlisting}
+
+Des Weiteren stellt der Microservice einen Endpunkt bereit, der die Geoposition eines Sensorknotens verändern kann:
+\\
+Produktiv - Umgebung:
+\\
+\textbf{PUT https://\{base\}/sensornode/sensornodeId/geo}
+\begin{itemize}
+	\item sensornodeId: ID des Sensorknotens, dessen Position verändert werden soll
+\end{itemize}
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+  "geo":{
+    "lat": 2,
+    "lon": 3,
+    "alt": 1
+  }
+}
+\end{lstlisting}
+
+\textbf{Response Body - 200}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{}
+\end{lstlisting}
+
+Zuletzt bietet der UIS Microservice einen Endpunkt, mit dem historische Umweltdaten innerhalb eines Zeitintervalls abgefragt werden können.
+Der Parameter \textit{env} beschreibt das Umweltdatum, dessen historische Daten zurückgegeben werden sollen.
+Es können \textit{pm25} (Feinstaubdaten - PM25), \textit{pm10} (Feinstaubdaten - PM10), \textit{pres} (Luftdruckdaten), \textit{temp} (Temperaturdaten), \textit{hum} (Luftfeuchtigkeitsdaten)oder \textit{pm25 \_corrected} (aufbereitete Feinstaubdaten) abgefragt werden.
+Der Parameter \textit{from} ist der Start des Zeitintervalls und \textit{to} ist das Ende des Zeitintervalls. 
+\\
+Produktiv - Umgebung:
+\\
+\textbf{GET https://\{base\}/timeSeries/env/sensornodeId/from/to}
+\begin{itemize}
+	\item env: Umweltdatum; entweder pm25\_corrected, pm25, pm10, temp, hum oder pres 
+	\item sensornodeId: ID des Sensorknotens, dessen historische Daten abgefragt werden
+	\item from: Start des Zeitintervalls
+	\item to: Ende des Zeitintervalls
+\end{itemize}
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  {
+    "timestamp": "2019-09-05T12:35:30.000Z",
+    "value": 1.7
+  },
+  {
+    "timestamp": "2019-09-05T12:36:41.000Z",
+    "value": 1.6
+  },
+  {
+    "timestamp": "2019-09-05T12:39:06.000Z",
+    "value": 1.7
+  }
+]
+\end{lstlisting}
+
+\paragraph{SV Microservice}
+Der SV Microservice bietet insgesamt sieben Endpunkte an.
+Diese werden von der Sensorknotenverwaltungsoberfläche sowie von dem Sensorknotentool verwendet.
+Im Folgenden werden die sieben Endpunkte detailliert beschrieben.
+\\
+Der Basispfad \{base\} ist hierbei \textbf{pg-rio-iot:8443/services/SVService}.
+\newline
+Mithilfe des ersten Endpunktes können alle Informationen von allen Sensorknoten abgefragt werden:
+\\
+Produktiv - Umgebung:
+\\
+\textbf{GET https://\{base\}/sensornode}
+\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  {
+    "geo": {
+      "lon": 8.201827,
+      "lat": 53.165674,
+      "alt": 6.5
+    },
+    "sensors": [
+      {
+        "_id": "5d6fc0940095837ded6c570a",
+        "name": "SDS011"
+      },
+      {
+        "_id": "5d6fc0a70095837ded6c5718",
+        "name": "BME280"
+      }
+    ],
+    "_id": "5d6fc2960095837ded6c5858",
+    "name": "pgrio-feldstr",
+    "owner": {
+      "_id": "5d6fc1560095837ded6c5795",
+      "username": "sk-manager"
+    },
+    "type": "physical"
+  },
+  {
+    "geo": {
+      "lon": 8.20072,
+      "lat": 53.148816,
+      "alt": 8
+    },
+    "sensors": [
+      {
+        "_id": "5d6fc0940095837ded6c570a",
+        "name": "SDS011"
+      },
+      {
+        "_id": "5d6fc0a70095837ded6c5718",
+        "name": "BME280"
+      }
+    ],
+    "_id": "5d70c16d0095837ded6cca35",
+    "name": "pgrio-offis",
+    "owner": {
+      "_id": "5d6fc1560095837ded6c5795",
+      "username": "sk-manager"
+    },
+    "type": "physical"
+  }
+]
+\end{lstlisting}
+Des Weiteren können alle Benutzer, die einen Sensorknoten besitzen, abgefragt werden.
+Wenn der Besitzer eines Sensorknotens verändert wird, stehen alle möglichen Benutzer zur Auswahl.
+\\
+Produktiv - Umgebung:
+\\
+\textbf{GET https://\{base\}/sensornode/apiUser}
+\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  {
+    "_id": "5d6fc1560095837ded6c5795",
+    "username": "sk-manager"
+  },
+  {
+    "_id": "5d70e6acf5b5ae915ed3db65",
+    "username": "routing"
+  }
+]
+\end{lstlisting}
+Außerdem können deswegen auch alle verfügbaren Sensoren abgefragt werden:\\
+Produktiv - Umgebung:\\
+\textbf{GET https://\{base\}/sensornode/sensors}
+\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Response Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  {
+    "_id": "5d6fc0940095837ded6c570a",
+    "name": "SDS011"
+  },
+  {
+    "_id": "5d6fc0a70095837ded6c5718",
+    "name": "BME280"
+  }
+]
+\end{lstlisting}
+Da die Sensorknotenverwlatungsoberfläche auch Sensorknoten verändern kann, bietet dieser Microservice einen Endpunkt dafür an:
+\\
+Produktiv - Umgebung:
+\\
+\textbf{PUT https://\{base\}/sensornode/sensornodeId/sensornode}
+\begin{itemize}
+	\item sensornodeId: ID des Sensorknotens, dessen Informationen verändert werden sollen
+\end{itemize}
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+  "name": "PGRIO-1",
+  "owner": "5d6fc0940095837ded6c570a",
+  "sensors": [
+    "5d6fc0940095837ded6c570b"	
+  ],
+  "geo": {
+    "lat": 1,
+    "lon": 2,
+    "alt": 3
+  },
+  type: "physical"
+}
+\end{lstlisting}
+Außerdem bietet der Microservices zwei Endpunkte an, um neue Sensorknoten zur Datenbank hinzuzufügen.
+Zum einen für die Verwaltungsoberfläche und zum anderen für das Sensorknotentool.
+Der Unterschied besteht darin, dass über das Sensorknotentool lediglich pysische und keine virtuelle Sensorknoten angelegt werden können.
+Der Endpunkt zum Neuanlegen eines Sensorknotens über die Verwaltungsoberfläche sieht wie folgt aus:\\
+Produktiv - Umgebung:
+\\
+\textbf{POST https://\{base\}/sensornode/newSensornode}
+\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+  "username": "PGRIO-1",
+  "password": "password",
+  "name": "PGRIO-1",
+  "owner": "5d6fc0940095837ded6c570a",
+  "sensors": [
+    "5d6fc0940095837ded6c570b"	
+  ],
+  "geo": {
+    "lat": 1,
+    "lon": 2,
+    "alt": 3
+  },
+  type: "physical"
+}
+\end{lstlisting}
+Der Endpunkt zum Neuanlegen eines Sensorknoten hingegen über das Sensorknotentool sieht wie folgt aus.
+Ein weitere Unterschied ist, dass in dem Token der Username und das Passwort übergeben werden müssen.
+Der Username entspricht dann den Namen des Sensorknotens, sowie dem Besitzer und dem Usernamen für den MQTT Broker.
+Das Passwort wird als Passwort für den MQTT Broker hinterlegt.
+\\
+Produktiv - Umgebung:
+\\
+\textbf{POST https://\{base\}/sensornode/newSensornodeFromTool}
+\\
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+  "name": "PGRIO-1",
+  "geo": {
+    "lat": 1,
+    "lon": 2,
+    "alt": 3
+  }
+}
+\end{lstlisting}
+Zuletzt bietet der SV Microservice einen Ednpunkt zum Verändern der Konfiguration der Sensorknoten an.
+\\
+Produktiv - Umgebung:
+\\
+\textbf{PUT https://\{base\}/sensornode/sensornodeid/type/config}
+\begin{itemize}
+	\item sensornodeid: Die ID des Sensorknotens, dessen Konfiguration verändert werden soll
+	\item type: Typ des Sensorknotens; entweder virtual(V Sensorknoten) oder physical(physischer Sensorknoten)
+\end{itemize}
+\textbf{Header}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+Authorization: JWT Token
+\end{lstlisting}
+\textbf{Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+[
+  { 
+    STRATEGY: 'MOCK',
+    STRATEGY_MOCK_INTERVAL: 30,
+    STRATEGY_MOCK_VERSION: 1,
+    STRATEGY_MOCK_PM10: 30,
+    STRATEGY_MOCK_PM25: 1,
+    STRATEGY_MOCK_TEMP: 2000,
+    STRATEGY_MOCK_HUM: 5000,
+    STRATEGY_MOCK_PRES: 101300,
+    __v: 0
+  }
+]
+\end{lstlisting}
+
+\subsubsection{Schnittstellen zu Sensorknoten}
+\label{sec:arch:iot:ssk}
+In diesem Kapitel werden alle Schnittstellen beschrieben, die der MQTT Broker anbieten, um Daten der Sensorknoten an die IoT-Plattform weiterzugeben sowie umgekehrt.
+Die Schnittstellen werden von den Sensorknoten, dem Data Collector und den Microservices genutzt.
+Die Topics, also die Schnittstellen, sind in der Development Umgebung und der Produktiv Umgebung identisch.
+Im Folgenden werden die Schnittstellen näher beschrieben.
+\newline 
+Die erste Schnittstelle bietet den Sensorknoten die Möglichkeit deren gemessenen Daten an die IoT-Plattform zu senden.
+Also published jeder Sensorknoten auf den folgendem Topic die Daten.
+Damit diese Daten in der Datenbank gespeichert werden, abonniert der Data  Collector dieses Topic, um die Daten zu erhalten und somit in der Datenbank speichern zu können.
+Die Sensorknoten versenden immer nur die Umweltdaten, die sie auch gemessen haben.
+Also falls beispielsweise kein Temperaturwert gemessen wurde ist der Parameter \textit{temp} auch nicht in dem JSON enthalten.
+\newline 
+\textbf{Topic: Sensorknotenname/measurement/jsonAll} \\
+\begin{itemize}
+	\item Sensorknotenname: Der Name des Sensorknotens, der auf diesem Topic die gemessenen Umweltdaten an den Broker sendet
+\end{itemize}
+\textbf{Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+  "timestamp": 1569243886,
+  "version": 1,
+  "pm25": 1,
+  "pm10": 1,
+  "temp": 13,
+  "pres": 101300,
+  "hum": 5000
+}
+\end{lstlisting}
+Sobald ein Messwert in der Datenbank gespeichert wurde published der Data Collector auf dem folgenden Topic den Zeitstempel, der letzten Messung.
+Dieses Topic abonnieren die Sensorknoten
+\newline
+\textbf{Topic: Sensorknotenname/measurement/latestTimestamp} \\
+\begin{itemize}
+	\item Sensorknotenname: Der Name des Sensorknotens, der den letzten Zeitstempel seiner zuletzt gemessenen Umweltdaten bekommt
+\end{itemize}
+\textbf{Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{
+1569243886
+}
+\end{lstlisting}
+Die Sensorknoten, insbesondere die virtuellen Sensorknoten, publishen auf dem folgenden Topic ihre aktuelle Konfiguration.
+Der Data Collector abonniert dieses Topic, um die Konfiguration in der Datenbank zu speichern.\\
+\textbf{Topic: Sensorknotenname/config} \\
+\begin{itemize}
+	\item Sensorknotenname: Der Name des Sensorknotens, dessen Konfiguration auf dieses Topic gepublished wird
+\end{itemize}
+\textbf{Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{ 
+  STRATEGY: 'MOCK',
+  STRATEGY_MOCK_INTERVAL: 30,
+  STRATEGY_MOCK_VERSION: 1,
+  STRATEGY_MOCK_PM10: 30,
+  STRATEGY_MOCK_PM25: 1,
+  STRATEGY_MOCK_TEMP: 2000,
+  STRATEGY_MOCK_HUM: 5000,
+  STRATEGY_MOCK_PRES: 101300,
+  __v: 0
+}
+\end{lstlisting}
+Außerdem kann die Konfiguration eines Sensorknotens verändert werden.
+Da diese Funktion von einem Microservice bereitgestellt wird, published der Microservice auf dem folgenden Topic die veränderte Konfiguration.
+Der Sensorknoten abonniert das Topic und validiert bei einem Publish auf dieses Topic die Konfiguration.
+Falls die Validierung positiv war, published der Sensorknoten die neue Konfiguration auf dem zuvor genannten Topic.\\
+\textbf{Topic: Sensorknotenname/config/change} \\
+\begin{itemize}
+	\item Sensorknotenname: Der Name des Sensorknotens, dessen Konfiguration verändert werden soll
+\end{itemize}
+\textbf{Body}
+\begin{lstlisting}[language=json,firstnumber=1,basicstyle=\footnotesize]
+{ 
+  STRATEGY: 'MOCK',
+  STRATEGY_MOCK_INTERVAL: 30,
+  STRATEGY_MOCK_VERSION: 1,
+  STRATEGY_MOCK_PM10: 3,
+  STRATEGY_MOCK_PM25: 1,
+  STRATEGY_MOCK_TEMP: 2000,
+  STRATEGY_MOCK_HUM: 5000,
+  STRATEGY_MOCK_PRES: 101300,
+  __v: 0
+}
+\end{lstlisting}
