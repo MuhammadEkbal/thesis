@@ -1,0 +1,175 @@
+\section{Rollen und Besetzungen}
+Die Rollen und ihre Besetzung haben sich über das Projekt teilweise verändert, da wir nach der Anforderungsanalyse agil mit Scrum gearbeitet haben. Deswegen wird im folgenden zu erst auf die initialen Rollenverteilung eingegangen und anschließend die neue Verteilung beschrieben.
+
+\subsection{Planungsphase}
+\subsubsection{Projektleiter} 
+\textbf{Besetzung:} Maik Appeldorn \\
+Die Rolle des Projektleiters ist in unserem Projekt nicht gleichzusetzen mit der eines herkömmlichen Projektleiters, da viele Aufgaben durch die gesamte PG abgefangen werden.
+Die Aufgaben des Projektleiters sind:
+\begin{itemize}
+	\item Er ist der Kommunikationsknoten zwischen der PG und allen daran Beteiligten
+	\begin{itemize}
+		\item Er verschickt die Einladungen für die Betreuertreffen und andere Treffen, bei denen externe Personen eingeladen werden. (Externe Personen sind diese, die nicht Mitglied der PG sind, also auch Betreuer)
+		\item Er übernimmt außerdem die Kommunikation zu den Projektpartnern/Betreuern und ist die konzentrierte Anlaufstelle
+	\end{itemize}	
+	\item Er ist in jeder Projektphase grob darüber informiert, mit welchen Aufgaben sich die einzelnen Gruppen gerade beschäftigen, sodass er bei Bedarf zwischen diesen vermitteln kann
+	\item Er übernimmt die Kontrolle des Projektfortschritts (Zeit/ Kosten/ Arbeitsfortschritt)
+\end{itemize}
+
+\subsubsection{Stellvertretender Projektleiter}
+\textbf{Besetzung:} Dennis Rupprecht \\
+\begin{itemize}
+	\item Der stellvertretende Projektleiter bleibt in stetigem Kontakt mit dem Projektleiter und übernimmt dessen Aufgaben z.B. bei Abwesenheit von eben diesem.
+	\item Welche Aufgaben damit genau in seinem Verantwortungsbereich liegen: siehe 1.1. Projektleiter
+\end{itemize}
+
+\subsubsection{Tools}
+\textbf{Besetzung:} Dennis Rupprecht \\
+\begin{itemize}
+	\item Die Vertreter der Rolle \dq Tools\dq  ist dafür zuständig, dass der Atlassian-Stack richtig konfiguriert wird.
+	\item Bei Fragen zu Tools ist er in der Verantwortung, die Fragen zu beantworten, ggf. mit Hilfe von Recherche.
+\end{itemize}
+
+\subsubsection{Qualitätsmanagement}
+\textbf{Besetzung:} Tamme Janßen, Sona Hayrapetyan, Christian Linder \\
+Die Qualitätsmanager haben diverse Aufgaben, um die Qualität des Produkts und der Prozesse zu gewährleisten:
+\begin{itemize}
+	\item Überprüfung der Jira-Tickets auf korrekte Formulierung und Pflege der Tickets
+	\begin{itemize}
+		\item Priorität, Ticketbeschreibung, Name, Bearbeiter, Aufwandsschätzung (optional), Tatsächliche Dauer (Tempo-Plugin) etc.
+		\item Ticketnummer zur Referenz in der Commit-Beschreibung
+	\end{itemize}
+	\item Sicherstellung der Qualität durch Tests (muss noch näher beschrieben werden)
+	\begin{itemize}
+		\item Mocking (Abhängigkeiten) / JUnit - Testprojekt für jedes Modul
+	\end{itemize}
+	\item Definition of Done für User Stories - Fertigstellungskritierien eines Pull-Request's
+	\item Festlegung der Workflows von Jira-Tickets
+	\item Sicherstellung der Usability
+	\begin{itemize}
+		\item Einführung eines Style-Guides (Vorgaben) in Confluence (Vorgaben über die Usability)
+		\item Spätere Evualation an Kommilitonen (Umfrage über die Usablity beim Zwischenergebnisse)
+	\end{itemize}
+	\item Einführung von Code-Conventions in Form einer Konfiguration (Wie der Code-Style zwischen den Entwicklern aussieht.)
+	\begin{itemize}
+		\item Dazu kann z. B. in Intellij das Plugin Checkstyle verwendet werden.
+	\end{itemize}
+	\item Logging mit Hilfe von Log4j2 (optional)
+	\item Fortschritt und Qualität der Dokumentation sicherstellen
+	\item Kontrolle der Dokumente, die an Personen außerhalb der Projektgruppe herausgegeben werden
+	\item Fortlaufende Weiterführung des Projekthandbuches über die gesamte Projektdauer
+\end{itemize}
+
+\subsubsection{Moderator}
+\textbf{Besetzung:} Maik Appeldorn \\
+\begin{itemize}
+	\item Der Moderator verliest ggf. das Protokoll der letzten Sitzung
+	\item Der Moderator leitet die Sitzung und ist befugt, Regeln während einer Sitzung einzuführen, z.B. Wortmeldungen zur Kommunikation
+	\item Der Moderator ist befugt ein "`time boxing"' einzuführen
+\end{itemize}
+
+\subsubsection{Protokollant}
+\textbf{Besetzung:} wechselnd \\
+\begin{itemize}
+	\item Der Protokollant verfasst eine Mitschrift der Sitzungen nach einem vorgegebenem Formular
+	\item Das Protokoll muss bis zu einem festgelegtem Datum fertig sein, damit es der Projektleiter an die Einladungen anhängen kann
+	\item Der Protokollant erstellt im Confluence eine Seite für die Besprechungsnotizen nach einer bestimmte Vorlage
+\end{itemize}
+
+\subsubsection{Infrastruktur}
+\textbf{Besetzung:} Marcell Stosun \\
+\textbf{Stellvertreter:} offen \\
+Unter die Rolle des Infrastruktur-Beauftragten fallen:
+\begin{itemize}
+	\item Die Organisation benötigter Server
+	\item Die Administration der Server
+	\item Die Sicherstellung der Erreichbarkeit der Server
+	\item Das Deployment
+\end{itemize}
+
+\subsubsection{Hardwareverwalter}
+\textbf{Besetzung:} Jan Johannes Haskamp \\
+\textbf{Stellvertreter:} offen \\
+Zu den Zuständigkeiten des Hardwareverwalters fallen alle Aufgaben rund um die Sensoren:
+\begin{itemize}
+	\item Bestandsübersicht über die Sensoren
+	\item Verwaltung und Zugriff der Sensoren
+	\item Experte im Umgang mit den Sensoren 
+	\begin{itemize}
+		\item Aufbau, Funktionalitäten
+	\end{itemize}
+	\item Übersicht über das Sensor-Netzwerk
+	\begin{itemize}
+		\item Wo besteht Wartungsbedarf?
+	\end{itemize}
+	
+\end{itemize}
+
+\subsubsection{Kassen-Manager}
+\textbf{Besetzung:} Jan Brunnberg \\
+\begin{itemize}
+	\item Der Kassen-Manager ist Verantwortlich für die Verwaltung von Geldern, die bspw. bei Strafen eingenommen werden
+	\item Eventuell Eröffnung eines Kontos zur Verwaltung von Einnahmen, wie Strafgeldern oder Projektzuschüssen
+	\item Liste mit offenen Strafen pflegen?
+\end{itemize}
+
+\subsubsection{Kassen-Prüfer}
+\textbf{Besetzung:} Gerrit Schöne \\
+\begin{itemize}
+	\item Zusätzliche Instanz zum Prüfen der Kasse/Gelder
+\end{itemize}
+
+\subsubsection{Teambuilding Beauftragter}
+\textbf{Besetzung:} Sona Hayrapetyan \\
+\begin{itemize}
+	\item Der Teambuilding-Beauftrage sorgt dafür, dass das Team sich auch privat trifft und die Team-Chemie verbessert wird
+	\item Es werden mögliche Termine vorgeschlagen und in der Gruppe beschlossen 
+\end{itemize}
+
+\subsubsection{Team-Verantwortliche}
+\begin{itemize}
+	\item In jedem Team, das eine spezielle Aufgaben, bzw. einen Teilbereich des Projektes übernimmt, wird ein Teamleiter bestimmt
+	\item Der Teamleiter informiert den Projektleiter über den Fortschritt und die Aufgaben des Teams
+\end{itemize}
+
+\subsection{Implementierungsphase}
+In der Implementierungsphase wird auf agiles Arbeiten umgestellt, wodurch sich neue Rollen ergeben haben bzw. alte Rollen angepasst oder neu besetzt werden. Beispielsweise wird die Rolle des Projektleiters verändert in die Rolle des Scrum Masters.
+
+\subsubsection{Scrum Master}
+\textbf{Besetzung:} Maik Appeldorn, Gerrit Schöne \\
+\begin{itemize}
+	\item Der Scrum Master ersetzt den Projektleiter und den Moderator und übernimmt somit deren Aufgaben.
+	\item Er trägt Verantwortung für den Scrum-Prozess und dessen korrekte Implementation.
+	\item Er ist ein Vermittler und Unterstützer.
+	\item Er sorgt für Informationsfluss zwischen Product Owner und Team.
+	\item Er moderiert Scrum-Meetings.
+	\item Er hat die Aktualität der Scrum-Artefakte (Product Backlog, Sprint Backlog, Burndown Charts) im Blick.
+	\item Er schützt das Team vor unberechtigten Eingriffen während des Sprints.
+\end{itemize}
+\subsubsection{Product Owner}
+\textbf{Besetzung:} Jan Brunnberg, Jacqueline Klimmek, Tamme Janßen \\
+\begin{itemize}
+	\item Pflege des Product Backlogs.
+	\item Priorisiert die Product Backlog Items so, dass es dem Projektplan entspricht.
+	\item Steht für Rückfragen des Teams bereit
+	\item Vorbereitung und Leitung der Refinement Termine
+\end{itemize}
+\subsubsection{Qualitätsmanager}
+\textbf{Besetzung:} Muhammad Ekbal Ahmad \\
+\begin{itemize}
+	\item Neubesetzung der Rolle, Aufgaben bleiben gleich 
+\end{itemize}
+\subsubsection{Datenanalyst}
+\textbf{Besetzung:}  Sona Hayrapetyan, Dennis Rupprecht, Marcell Stosun \\
+\begin{itemize}
+	\item Analysiert die gemessenen Daten der Sensorknoten auf Auffälligkeiten und Ausreißern. 
+	\item z.B. Verlässlichkeit der Sensoren, Bereich in dem sich die Feinstaubwerte verändern, ...
+\end{itemize}
+
+\subsubsection{Sensorknotenbeauftragter}
+\textbf{Besetzung:}  Christian Linder, Jan Johannes Haskamp\\
+\begin{itemize}
+	\item Verwaltung der Hardware
+	\item Planung der Sensorknotenabdeckung.
+	\item Ausbringung von Sensorknoten.
+\end{itemize}

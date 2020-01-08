@@ -1,0 +1,882 @@
+\chapter{Anforderungsdefinition}\label{AD}
+\section{Einleitung}\label{ADEinleitung}
+Im Rahmen der Projektgruppe soll ein System entwickelt werden, welches die Ziele des Visionsdokuments (siehe \Fref{cha:Vision}) widerspiegelt. Um die in der Vision dargestellten Teilziele Sensorknoten, IoT-Plattform, Datenqualität, Routing und Navigation umsetzen zu können, müssen detaillierte Anforderungen an das zu entwickelnde System erhoben werden. Diese Aufgabe erfordert mehrere Schritte, die in der Folge näher erläutert werden.
+
+Zuerst muss die Motivation und Zielsetzung der Anforderungserhebung und des dazugehörigen Dokuments genauer beschrieben werden (siehe Abschnitt \ref{ADMotivationZielsetzung}). Hier wird insbesondere erläutert, welche Ergebnisse von diesem Dokument zu erwarten sind.
+
+Anschließend müssen die Rollen identifiziert werden, die mit dem zu entwickelnden System interagieren. Diese Rollen werden im Abschnitt \ref{ADRollen} näher beschrieben und helfen dabei, das System aus verschiedenen Blickwinkeln zu betrachten, um so die Anforderungserhebung zu strukturieren und zu erleichtern.
+
+Des Weiteren müssen die Anforderungen erhoben werden, die zum Teil bereits zur Projektzieldefinition in den Interviews mit den Stakeholdern identifiziert wurden. Um diese weiter auszudifferenzieren, wurden weitere Interviews arrangiert, in denen die Interviewpartner aus Sicht einer oder mehrerer Rollen ihre Anforderungen an das System beschreiben. Die Durchführung der Interviews wird im Abschnitt \ref{ADInterviews} beschrieben.
+
+Im Anschluss müssen die Interviews ausgewertet werden. Da im Projekt ein agiler Ansatz verfolgt wird, werden die Anforderungen in mehrere Ebenen gegliedert. So soll dem Leser ein einfacher Einstieg in die Struktur gegeben werden. Diese Struktur wird im Abschnitt \ref{ADStruktur} näher erläutert. Zusätzlich wird der generelle Umgang mit Anforderungen dargestellt. Des Weiteren wird an dieser Stelle ein grober Überblick über die Zusammenhänge zwischen den Rollen und Anforderungen gegeben. 
+
+Nach Klärung des generellen Aufbaus der Anforderungen werden diese im Abschnitt \ref{ADSuperEpicsAndEpics} weiter konkretisiert. Hier wird der aus Abschnitt \ref{ADStruktur} vorgestellte Aufbau zur Gliederung genutzt.
+
+Abschließend werden im Abschnitt \ref{ADZusammenfassung} die wichtigsten Ergebnisse zusammengefasst. Weiterhin werden diese um einen Ausblick auf die nächsten Schritte in der Projektdurchführung ergänzt.
+
+\section{Motivation und Zielsetzung}\label{ADMotivationZielsetzung}
+Um das Projekt erfolgreich durchführen zu können, müssen die Anforderungen, die von Stakeholdern an das System gestellt werden, in Übereinstimmung mit den Projektzielen (siehe \Fref{cha:Vision}) erhoben werden, um sie angemessen in die Entwicklung mit einbeziehen zu können. Die Mittel zur Erhebung dieser Anforderungen sind Interviews, welche mit Hilfe von Rollen (siehe Abschnitt \ref{ADRollen}) strukturiert werden. Die Ergebnisse der  Interviews werden in diesem Dokument erfasst und als konkrete Anforderungen im Abschnitt \ref{ADSuperEpicsAndEpics} gegliedert. Ebenso muss sichergestellt werden, dass sich der in diesem Projekt verfolgte agile Ansatz in der Struktur (siehe Abschnitt \ref{ADStruktur}) wiederfindet.
+
+Das Ziel ist es, durch dieses Dokument eine Basis zu schaffen, die Ausgangspunkt für den technischen Entwurf des zu erstellenden Systems ist. Dazu gehört insbesondere die Architektur, welche im nächsten Kapitel behandelt wird. 
+
+
+\section{Rollen}\label{ADRollen}
+Im folgenden Kapitel werden alle Rollen beschrieben, die aus den Projektzielen in der Vision abgeleitet wurden. Die Rollen inkludieren den Sensorknotenbetreiber, den Datenanalysten, den IoT-Administrator sowie den Endnutzer des Systems, also den Navigationsnutzer und Umweltinformationssystemnutzer. Mit Hilfe dieser Rollen können Anforderungen an die Projektziele  erhoben werden. Anforderungen an das Projektziel Sensorknoten werden aus Sicht des Sensorknotenbetreibers erfasst. An das Teilziel IoT-Plattform werden diese aus Sicht des IoT-Administrators aufgenommen. Des weiteren werden Anforderungen an die Datenqualität aus Sicht des Datenanalysten und des Umweltinformationssystemnutzers erfasst und an das Routing und Navigation aus Sicht des Navigationsnutzers. \\
+Im Folgenden werden die zuvor genannten Rollen näher beschrieben.
+
+\subsection{Navigationsnutzer} \label{navigation}
+Unter einem Navigationsnutzer wird eine Personen verstanden, die die Navigationsanwendung nutzen möchten. Darunter fallen Personen, die entlang einer Route anhand ausgewählter Umweltfaktoren navigiert werden möchten. So soll ein Navigationsnutzer beispielsweise angeben können, die Strecke von der Carl von Ossietzky Universität in Oldenburg bis zum Hauptbahnhof mit dem Fahrrad und möglichst geringer Feinstaubbelastung zurücklegen zu wollen. Auf Basis dessen sollen dem Navigationsnutzer entsprechende Routen vorgeschlagen werden.
+
+\subsection{Umweltinformationssystem-Nutzer} \label{UIS}
+Unter einem Umweltinformationssystem-Nutzer (UIS-Nutzer) wird eine Personen verstanden, die sich die gemessenen Daten sowie die Standorte der Sensorknoten anschauen und exportieren lassen kann. Anders als der Datenanalyst haben UIS-Nutzer nicht die Befugnis aufbereitete Daten wieder an die IoT-Plattform zu senden. 
+
+\subsection{Datenanalyst} \label{datenanalyst}
+Unter einem Datenanalyst wird eine interne Person verstanden, also eine Person, die an der Projektgruppe direkt beteiligt ist, die in der Lage ist, Rohdaten oder historische Daten von der IoT-Plattform abfragen zu können. Das Ziel des Datenanalysten ist es, mittels Aufbereitungssystemen die Qualität der von den Sensorknoten gemessenen Daten zu verbessern. So sollen beispielsweise unplausible Daten erkannt werden oder Prognosen auf Basis von historischen Daten generiert werden. Weiterhin ist der interne Datenanalyst dazu befugt, die aufbereiteten Daten wieder an die IoT-Plattform zu senden.
+
+\subsection{Sensorknotenbetreiber} \label{sensor}
+Unter einem Sensorknotenbetreiber wird eine Person verstanden, die einen Sensorenknoten bereitstellt und betreiben möchte, um dann die gemessenen Daten zur IoT-Plattform zu senden. Sensorknotenbetreiber können sowohl Personen außerhalb der Projektgruppe als auch die Mitglieder der Projektgruppe sein. Ziel ist es, dass die Sensorknotenbetreiber Sensorknoten in Oldenburg aufstellen, um eine möglichst hohe Abdeckung von Sensorknoten in Oldenburg zu erzielen.
+
+\subsection{IoT-Administrator} \label{iotAdmin}
+Unter einem Internet of Things-Administrator (IoT-Administartor) wird eine Person verstanden, die sich um den Betrieb der IoT-Plattform kümmert. Dabei geht es primär darum sicherzustellen, dass die IoT-Plattform Daten annimmt, speichert und weitergibt. Außerdem ist der IoT-Administrator in der Lage, Rechte für Befugnisse für die Sensorknoten. Der IoT-Admin bildet einen Sonderfall der Rollen ab, da diese im eigentlichen Sinne kein Nutzer des Systems ist. Allerdings wird in der Anforderungserhebung trotzdem auf diese Rolle zurückgegriffen, um die Anforderungen an die IoT-Plattform umfassend erheben zu können.
+
+\section{Interviews}\label{ADInterviews}
+Um weitere Anforderungen zu erheben, wurden Interviews mit den einzelnen Stakeholdern geführt. Diese sind protokolliert worden, sodass sich anhand der Interview-Protokolle konkrete Anforderungen an das System extrahieren lassen. Zu den interviewten Personen zählen Andreas Winter, Oliver Theel, Dilshod Kuryazow und Ruthbetha Kateule von der Carl von Ossietzky Universität Oldenburg sowie Oliver Norkus von Embeteco und Michael Stadler von der BTC-Business Technology Consulting AG.
+
+Im Interview sollten die Interviewpartner aus Sicht von einer oder mehreren zugeteilten Rollen Anforderungen an das System stellen. Die Partner Dilshod Kuryazow und Ruthbeta Kateule wurden zu keiner speziellen Rolle, sondern zum Gesamtsystem befragt.\\
+
+\begin{tabular}{ll}
+\textbf{Interviewter} & \textbf{Rollen}\\
+Andreas Winter & UIS-Nutzer, Navigationsnutzer \\
+Oliver Theel & Sensorknotenbetreiber\\
+Dilshod Kuryazow & -\\
+Ruthbetha Kateule & -\\
+Michael Stadler & Datenanalyst, Navigationsnutzer, \\ 
+& UIS-Nutzer, Sensorknotenbetreiber\\
+Oliver Norkus & IoT-Adminstrator, Navigationsnutzer, \\ 
+& Sensorknotenbetreiber, Datenanalyst\\
+\end{tabular}
+\\
+
+Zusammenfassend können die Interviews als \textit{Brainstorming} mit den Stakeholdern angesehen werden. Aus den daraus resultierenden Ergebnissen können in weiteren Bearbeitungsschritten Anforderungen an das System definiert werden.
+
+Wie die Anforderungen strukturiert werden können, wird im Kapitel \ref{ADStruktur} aufgezeigt.
+
+
+\section{Struktur der Anforderungen}\label{ADStruktur}
+Um die Anforderungen an das Projekt zu gliedern, wird eine Struktur eingeführt, welche sich aus mehreren Ebenen zusammensetzt (siehe \Fig{Structure}). Die Abbildung ist dabei in zwei Teile gegliedert. Der obere Teil (grün) und untere Teil (rot) beinhaltet dabei jeweils zwei Ebenen. Die Granularität der Ebenen wird dabei von oben nach unten kleiner. Die Kanten stellen die Verbindungen zwischen den einzelnen Punkten der Ebenen dar. In der Abbildung ist ein Ausschnitt der gesamten hierarchischen Struktur zu sehen. Begriffe wie SuperEpic1, Epic1, UserStory1 und Task1 sind dabei nur Platzhalter für die entsprechenden Bestandteile. Die einzelnen Ebenen können darüber hinaus jeweils unterschiedlich viele Komponenten haben.
+
+Da sich die oberen beiden Ebenen (\textit{SuperEpic, Epics}) nach der initialen Anforderungsanalyse nicht oft ändern sollten, werden sie sowohl im Projektplanungstool JIRA als auch in diesem Dokument (siehe Abschnitt \ref{ADSuperEpicsAndEpics}) beschrieben. Die unteren Ebenen (\textit{UserStories, Tasks}) werden aufgrund ihrer agilen Beschaffenheit an dieser Stelle nicht weiter in diesem Dokument erläutert. Durch den verfolgten Ansatz innerhalb des Projekts werden sich die \textit{UserStories} über den Verlauf des Projekts häufiger ändern können (siehe Abschnitt \ref{ADChangemanagement}) und ausschließlich über das Tool JIRA gepflegt werden. Die \textit{Tasks} sind keine Anforderungen und werden hier nur zur Vollständigkeit der Struktur mit abgebildet. Sie resultieren aus der UserStories und beschreiben den Sachverhalt aus technischer Sicht, sodass sie von einem Entwickler implementiert werden kann.
+
+Die Gliederung der Anforderungen ist wie folgt zu verstehen: Ein \textit{SuperEpic} fasst eine Funktion auf einer hohen Abstraktionsebene für die zuvor definierten Rollen (siehe Abschnitt \ref{ADRollen}) zusammen. Diese SuperEpics lassen sich auf beliebig viele Epics aufteilen. Eine nähere Erläuterung der SuperEpics in Abschnitt \ref{ADSuperEpic} statt.
+
+Ein \textit{Epic} (siehe Abschnitt \ref{ADEpic}) kann als eine große UserStory verstanden werden, welche eine Anforderung an das System abbildet. Da ein Epic üblicherweise über mehrere Sprints bearbeitet wird, muss diese in kleinere Arbeitspakete (UserStories) zerlegt werden, um die \textit{Definition of Ready} zu erfüllen. Das Epic dient der weiteren Strukturierung der UserStories.
+
+Die \textit{UserStories} beschreiben Anforderungen auf einer detaillierten Ebene und auf eine nicht-technische Weise. Wie UserStories konkret formuliert werden und welche Eigenschaften sie erfüllen müssen, wird in Abschnitt \ref{ADUserStory} erläutert.
+
+%Während der Implementierung wird die Ebene der \textit{Tasks} (siehe Abschnitt \ref{ADTask}) zur bereits vorhandenen Struktur ergänzt. Diese dienen der weiteren Unterteilung der UserStories. Tasks beschreiben im Gegensatz zu den UserStories den Sachverhalt aus technischer Sicht, sodass sie von einem Entwickler implementiert werden kann.
+
+\begin{figure}[H] 
+\centering 
+\begin{center}
+\begin{tikzpicture} 
+\begin{umlpackage}[x=0,y=0,fill=green!20]{Anforderungsdokument + JIRA}
+\umlsimpleclass[x=0,y=0,fill=white!20]{SuperEpic1} 
+
+\umlsimpleclass[x=-4, y=-2,fill=white!20]{Epic1}
+\umlsimpleclass[x=4, y=-2,fill=white!20]{Epic2}
+\end{umlpackage}
+
+\begin{umlpackage}[x=0,y=0,fill=orange!20]{JIRA}
+\umlsimpleclass[x=-6, y=-4,fill=white!20]{UserStory1} 
+\umlsimpleclass[x=-2., y=-4,fill=white!20]{UserStory2}
+\umlsimpleclass[x=2, y=-4,fill=white!20]{UserStory3}
+\umlsimpleclass[x=6, y=-4,fill=white!20]{UserStory4} 
+\end{umlpackage}
+
+\begin{umlpackage}[x=0,y=0,fill=red!20]{JIRA}
+\umlsimpleclass[x=-7, y=-6,fill=white!20]{Task1} 
+\umlsimpleclass[x=-5, y=-6,fill=white!20]{Task2} 
+\umlsimpleclass[x=-3, y=-6,fill=white!20]{Task3} 
+\umlsimpleclass[x=-1, y=-6,fill=white!20]{Task4} 
+\umlsimpleclass[x=1, y=-6,fill=white!20]{Task5} 
+\umlsimpleclass[x=3, y=-6,fill=white!20]{Task6} 
+\umlsimpleclass[x=5, y=-6,fill=white!20]{Task7} 
+\umlsimpleclass[x=7, y=-6,fill=white!20]{Task8} 
+\end{umlpackage}
+
+\umlCNassoc{SuperEpic1}{-4,0}{Epic1} 
+\umlCNassoc{SuperEpic1}{4,0}{Epic2} 
+
+\umlCNassoc{Epic1}{-6,-2}{UserStory1} 
+\umlCNassoc{Epic1}{-2,-2}{UserStory2}
+\umlCNassoc{Epic2}{2,-2}{UserStory3} 
+\umlCNassoc{Epic2}{6,-2}{UserStory4} 
+
+\umlCNassoc{UserStory1}{-7,-4}{Task1} 
+\umlCNassoc{UserStory1}{-5,-4}{Task2}
+\umlCNassoc{UserStory2}{-3,-4}{Task3} 
+\umlCNassoc{UserStory2}{-1,-4}{Task4}
+\umlCNassoc{UserStory3}{1,-4}{Task5} 
+\umlCNassoc{UserStory3}{3,-4}{Task6}
+\umlCNassoc{UserStory4}{5,-4}{Task7} 
+\umlCNassoc{UserStory4}{7,-4}{Task8}
+
+\end{tikzpicture}
+\end{center}
+
+\caption[Ausschnitt der internen Struktur der Ebenen]{Ausschnitt der internen Struktur der Ebenen. \textit{SuperEpics}, \textit{Epics} und \textit{UserStories} sind Anforderungen in unterschiedlichen Detaillierungsgraden aus Nutzersicht. \textit{Tasks} sind keine Anforderungen und werden in diesem Dokument nicht weiter berücksichtigt.} 
+\label{fig:Structure}
+\end{figure} 
+
+Im Folgenden wird genauer auf die oben genannten Ebenen eingegangen. Da diese von allen Mitgliedern der Projektgruppe in das Projektplanungstool JIRA eingepflegt werden können, müssen Regeln für die Formulierung festgelegt werden. 
+
+Ebenso wird der Umgang mit nicht-funktionalen Anforderungen erläutert (siehe Abschnitt \ref{ADNFAnforderugen}). Durch den agilen Ansatz können auch Änderungen während des Projekts an den oben vorgestellten Ebenen vorkommen. Der Umgang damit wird im Abschnitt \ref{ADChangemanagement} aufgegriffen.
+
+\subsection{SuperEpic}\label{ADSuperEpic}
+Ein SuperEpic beschreibt eine grobe Funktion des Systems, welche von einer oder mehrerer Rollen genutzt werden kann. Unter einem SuperEpic können beliebig viele Epics untergeordnet werden. Die SuperEpics dienen der Strukturierung der Anforderungen. Sie werden im JIRA über das Stichwort \textit{Label} identifiziert und sind zudem als \glqq parent task\grqq  zu den Epics verlinkt. Die wichtigsten Attribute eines JIRA-Formulars, die zur Erhebung eines SuperEpics notwendig sind, werden im Folgenden dargestellt:
+
+\begin{flushleft}
+\begin{tabular}{ll}
+\textbf{ID:} & PGRIO-[XX] \\
+\textbf{Zusammenfassung:} & Als [Rolle] möchte ich [Funktion]\\
+\textbf{Name:} & [Objekt] [Prädikat] \\
+\textbf{Beschreibung:} & Text \\
+\end{tabular}
+\end{flushleft}
+
+\subsection{Epic}\label{ADEpic}
+Ein Epic beschreibt eine Anforderung, dessen Umsetzung mehrere Sprints andauern kann. Sie kann als \glqq große UserStory \grqq aufgefasst werden. Jedes Epic ist genau einem SuperEpic zugeordnet. Die Formulierung eines Epics folgt der eines SuperEpics:
+
+\begin{flushleft}
+\begin{tabular}{ll}
+\textbf{ID:} & PGRIO-[XX] \\
+\textbf{Zusammenfassung:} & Als [Rolle] möchte ich [Funktion]\\
+\textbf{Name:} & [Objekt] [Prädikat] \\
+\textbf{Beschreibung:} & Text \\
+\end{tabular}
+\end{flushleft}
+
+\subsection{User Story}\label{ADUserStory}
+Eine UserStory beschreibt eine Anforderung aus der Sicht einer spezifischen Rolle, welche innerhalb eines Sprints erledigt werden kann. Sie ist Teil genau eines Epics. Der wesentliche Unterschied einer User Story zu einem Epic besteht darin, dass eine User Story die \textit{Definition of Ready} (siehe Projekthandbuch) erfüllen muss. Weiterhin müssen User Stories mit Akzeptanzkriterien in der Beschreibung gepflegt werden. Die wichtigsten Attribute eines JIRA-Formulars, die zur Erhebung einer UserStory notwendig sind, werden im Folgenden dargestellt:
+
+\begin{flushleft}
+\begin{tabular}{ll}
+\textbf{ID:} & PGRIO-[XX]\\
+\textbf{Zusammenfassung:} & Als [Rolle] möchte ich [Funktion], um [Nutzen]\\
+\textbf{Beschreibung:} & Angenommen [Vorbedingungen] \\
+& wenn [Aktionen des Benutzers] \\
+& dann [Reaktion des Systems]\\
+\end{tabular}
+\end{flushleft}
+
+\subsection{Nicht-funktionale Anforderungen}\label{ADNFAnforderugen}
+Nicht-funktionale Anforderungen, wie beispielsweise Erweiterbarkeit oder auch Effizienz, werden von der oben gezeigten Struktur nicht explizit erfasst. Sie werden bei dem geplanten agilen Vorgehen als alleinstehende Anforderungen vermieden und sollen als Bestandteil der UserStories oder innerhalb der Definition of Done erfasst werden. In der Beschreibung der UserStories werden sie demnach über die Akzeptanzkriterien und/oder über die \textit{Definition of Done} abgebildet: So kann z.B. das Akzeptanzkriterium einer UserStory erst dann als erfüllt angesehen werden, wenn die in der UserStory beschriebene Funktion in einer bestimmten Zeit erfolgreich ausgeführt werden kann. Dieses Kriterium würde den Wunsch nach der funktionalen Anforderung \textit{Effizienz} abbilden. Da solche  UserStories durch Tasks realisiert werden, tauchen diese nicht-funktionalen Anforderungen hier als Aufgabe auf.
+
+\subsection{Change Management}\label{ADChangemanagement}
+Das Change Management beschreibt den Umgang mit einer Anforderungsänderung während des Projektverlaufs. Der Umgang mit Change Requests wird im Projekthandbuch (siehe Dokumentation Teil II, Abschnitt 1.10) näher behandelt.
+
+\section{SuperEpics und Epics}\label{ADSuperEpicsAndEpics}
+In diesem Kapitel werden die SuperEpics und Epics des Projekts beschrieben. In \Fig{SuperEpics} sind die SuperEpics mit den dazugehörigen Rollen (Abschnitt \ref{ADRollen}) dargestellt. Die SuperEpics und die dazugehörigen Epics werden in den folgenden Kapitel beschrieben.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./ressourcen/generiert/Anforderungen_SuperEpics}
+	\caption{Diagramm zu den SuperEpics}
+	\label{fig:SuperEpics}
+\end{figure}
+
+\subsection{Navigationsnutzer}
+Aus Sicht des Navigationsnutzers (siehe Abschnitt \ref{navigation}) werden die Anforderungen an das Teilziel der Routing und Navigationsfunktion gestellt. Der Navigationsnutzer stellt den Endnutzer der Applikation dar. In \Fig{NavigatiosnutzerEpics} sind die jeweiligen Super Epics und Epics des Navigationsnutzers in Form einer Mindmap zu sehen. Diese werden in Kapitel im Folgenden näher beschrieben.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./ressourcen/generiert/Anforderungen_Epics_Navigationsnutzer}
+	\caption{Super Epics und Epics Navigationsnutzer}
+	\label{fig:NavigatiosnutzerEpics}
+\end{figure}
+
+\subsubsection{PGRIO-260: Umweltparameter einstellen} 
+\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & SuperEpic \\ 
+\textbf{ID:} & PGRIO-260 \\ 
+\textbf{Name:} & Umweltparameter einstellen \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich Umweltparameter einstellen können \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann Umweltparameter einstellen. Dazu kann zum Beispiel gehören, dass er die Umweltparameter gewichtet oder Grenzwerte für bestimmte Umweltdaten festlegt. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-261 \\ 
+\textbf{Name:} & Umweltparameter gewichten \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich Umweltparameter gewichten  \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann die Umweltparameter gewichten, sodass diese die Routenplanung beeinflussen. So kann zum Beispiel festgelegt werden, dass die Feinstaubbelastung mehr berücksichtigt werden soll, als die Länge der Strecke. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-262 \\ 
+\textbf{Name:} & Grenzwerte festlegen \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich Grenzwerte für die Umweltparameter festlegen \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann Minimum- und Maximumwerte für die Umweltparameter einstellen. Diese Werte werden als Grenzwerte behandelt, die nicht überschritten oder unterschritten werden dürfen. So können in der Routenplanung zum Beispiel Grenzwerte für Feinstaubdaten oder andere Umweltdaten hinterlegt werden. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+	\subsubsection{PGRIO-217: Route entlang navigieren} 
+\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & SuperEpic \\ 
+\textbf{ID:} & PGRIO-217 \\ 
+\textbf{Name:} & Route entlang navigieren \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich mich entlang der Route navigieren lassen \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann entlang einer Route navigiert werden. Zur Navigation soll die Navigationsanwendung ein GNSS unterstützen, sodass der Navigationsnutzer auch während der Fahrt navigiert werden kann. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-61 \\ 
+\textbf{Name:} & Navigationsanweisungen erhalten \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich während der Navigation Anweisungen erhalten \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann während der Navigation zum Beispiel Audio-Anweisungen erhalten, die ihm die Navigation erleichtern. Zudem kann er sich die Anweisungen in einer UI anzeigen lassen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-254 \\ 
+\textbf{Name:} & Alternativ-Routen auswählen \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich nach aktuellen Daten dynamisch geroutet werden \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann während der Navigation über sich ändernde Gegebenheiten informiert werden und neu geroutet werden. Wenn sich zum Beispiel auf der vorher gewählten Route Feinstaubwerte signifikant ändern, dann kann der Nutzer alternative Routen auswählen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-255 \\ 
+\textbf{Name:} & Informationen anzeigen \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich mir Informationen anzeigen lassen können \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann sich während der Navigation weitere Informationen über die aktuelle Route anzeigen lassen. Dazu kann zum Beispiel die Reststrecke oder die verbleibende Dauer der Reststrecke gehören. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-263 \\ 
+\textbf{Name:} & Route automatisch aktualisieren \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich bei Abweichungen von der Route eine automatisch aktualisierte Route erhalten \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann während der Navigation eine automatisch aktualisierte Route erhalten und anhand dieser navigiert werden, wenn er von der vorher ausgewählten Route bewusst oder unbewusst abweicht. Dabei wird zuerst versucht, ihn wieder auf die vorherige Route zu führen. Wenn der Navigationsnutzer, bei der Zurückführung, zu der vorherigen Route wieder von der Route abweicht (nach der ersten Streckenabweichung) wird anhand einer neuen Route ermittelt. Diese neue Route wird von dem aktuellen Standpunkt zum bisherigen Zielstandort berechnet. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+	\subsubsection{PGRIO-216: Routen abrufen} 
+\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & SuperEpic \\ 
+\textbf{ID:} & PGRIO-216 \\ 
+\textbf{Name:} & Routen abrufen \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich Routen abrufen können \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann auf einer Karte geplante Routen abrufen und sich anzeigen lassen. Des Weiteren kann sich der Navigationsnutzer Routendetails anzeigen lassen und zwischen alternativen Routen auswählen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-252 \\ 
+\textbf{Name:} & Route auswählen \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich zwischen alternativen Routen wählen können \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann eine von mehreren Routen auswählen. Auf der ausgewählten Route findet die Navigation statt. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-253 \\ 
+\textbf{Name:} & Routendetails anzeigen \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich Routendetails angezeigt bekommen \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann sich vor Beginn der Navigation Informationen zu den geplanten Routen anzeigen lassen. Dazu gehört z.B. die aktuelle Entfernung zum Zielpunkt oder die aktuellen Messwerte der Feinstaubsensoren. Diese Routeninformationen dienen dazu eine Route auszuwählen, um mit der Navigation zu beginnen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-259 \\ 
+\textbf{Name:} & Routen anzeigen \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich Routen angezeigt bekommen \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann sich die geplanten Routen auf einer Karte anzeigen lassen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+	\subsubsection{PGRIO-215: Routen planen} 
+\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & SuperEpic \\ 
+\textbf{ID:} & PGRIO-215 \\ 
+\textbf{Name:} & Routen planen \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich Routen planen \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann Routen planen. Bei der Planung der Routen kann der Navigationsnutzer Einstellungen (z.B. Start- und Endpunkt, Fortbewegungsmittel) vornehmen. Unter Einbezug dieser Einstellungen werden mögliche Routen für den Navigationsnutzer generiert. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-218 \\ 
+\textbf{Name:} & Routenaktualität einstellen \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich die Aktualität der Routen einstellen können \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann die Aktualität der Daten einstellen, die für die Ermittlung der Routen als Grundlage dienen (z.B. Feinstaubbelastung). Wird z.B. ein Zeitwert von 10 Minuten gewählt, dann wird alle 10 Minuten während der Navigation überprüft, ob die Route aktuell ist. Unter dem Begriff "aktuell" wird verstanden, ob die berechnete Route mit den aktuellsten Daten berechnet wurde. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-248 \\ 
+\textbf{Name:} & Routenführung einstellen \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich eine Routenführung einstellen können \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann eine Routenführung einstellen. Das ist im einfachsten Fall eine farbliche Hervorhebung der Wegstrecke auf einer Karte. Des Weiteren kann der Navigationsnutzer bestimmen, wie die Routenführung Abweichungen von der aktuellen Route behandelt (z.B. akustische Warnung, Ermittlung alternativer Routen).    \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-249 \\ 
+\textbf{Name:} & Fortbewegungsmittel wählen \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich ein Fortbewegungsmittel wählen können \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann ein bestimmtes Fortbewegungsmittel wählen (z.B. Fahrrad, Auto, zu Fuß). Auf Grundlage dieser Wahl werden Routen ermittelt, auf dieser sich der Navigationsnutzer mit dem gewählten Fortbewegungsmittel bewegen kann. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-250 \\ 
+\textbf{Name:} & Navigationspunkte einstellen \\ 
+\textbf{Zusammenfassung:} & Als Navigationsnutzer möchte ich Navigationspunkte einstellen können \\ 
+\textbf{Beschreibung:} & Der Navigationsnutzer kann Start- und Endpunkte, sowie andere Wegpunkte auf einer Karte festlegen. Auf Grundlage dieser Navigationspunkte werden für den Navigationsnutzer Routen ermittelt. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+\subsection{Umweltinformationssystem-Nutzer}
+Aus Sicht des Umweltinsformationssystem-Nutzers (siehe Abschnitt \ref{UIS}) werden die Anforderungen an das Teilziel \textit{Datenqualität} erfasst. Der UIS-Nutzer besitzt im Gegensatz zu dem Datenanalysten nur lesenden Zugriff auf die zur Verfügung gestellten Daten. In \Fig{UISNutzerEpics} sind die Super Epics mit den zugehörigen Epics als Mindmap dargestellt. Diese werden im Folgenden mit der ID, der Zusammenfassung, dem Namen sowie der Beschreibung aufgelistet. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./ressourcen/generiert/Anforderungen_Epics_UIS-Nutzer}
+	\caption{Super Epics und Epics UIS-Nutzer}
+	\label{fig:UISNutzerEpics}
+\end{figure}
+
+\subsubsection{PGRIO-212: Umweltdaten abrufen} 
+\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & SuperEpic \\ 
+\textbf{ID:} & PGRIO-212 \\ 
+\textbf{Name:} & Umweltdaten abrufen \\ 
+\textbf{Zusammenfassung:} & Als UIS-Nutzer möchte ich Umweltdaten abrufen. \\ 
+\textbf{Beschreibung:} & Der UIS-Nutzer kann sich Umweltdaten anzeigen lassen und nach verschiedenen Kriterien filtern. Z. B. kann der Anwender die Umweltdaten nach dem Standort (Sensorknoten), Zeitraum (Zeitspanne) oder nach Niedrig-/Höchstwerten einschränken. Des Weiteren gibt es eine Kartenansicht, auf der die Messstationen und die Umweltdaten visualisiert sind und nach bestimmten Kriterien gefiltert werden können. Darüber hinaus können aus den Sensor-Rohdaten gezielt Umweltdaten für die Auswertung von Umweltszenarien (Feinstaubbelastung vor Ort) gewonnen werden. Dazu werden statistische Kennzahlen bereitgestellt und ein Export von Umweltdaten zur weiteren Analyse ermöglicht. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-94 \\ 
+\textbf{Name:} & Umweltdaten anzeigen \\ 
+\textbf{Zusammenfassung:} & Als UIS-Nuter möchte ich mir Umweltdaten anzeigen lassen. \\ 
+\textbf{Beschreibung:} & Ein UIS-Nutzer kann sich über eine grafische Schnittstelle Daten des Umweltinformationssystems anzeigen lassen. Dabei werden Umweltdaten eines Sensorknotens, wie z.B. Feinstaubwerte PM2,5 und PM10, Temperatur, Luftdruck und Luftfeuchte, zu den erfassten Messzeitpunkten angezeigt. Zusätzlich können der Messort und aggregierte Sichten über mehrere Messstationen angezeigt werden. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-145 \\ 
+\textbf{Name:} & Datendichte vorfinden \\ 
+\textbf{Zusammenfassung:} & Als UIS-Nutzer möchte Umweltdaten mit einer hohen Datendichte vorfinden. \\ 
+\textbf{Beschreibung:} & Ein UIS-Nutzer kann sich alle gemessenen Umweltdaten zu einem Sensorknoten/in einem Gebiet anzeigen lassen. Dabei wird eine angemessene zeitliche und räumliche Dichte durch das System gewährleistet. Diese Daten werden möglichst einfach und verständlich auf einer Ansicht für den UIS-Nutzer dargestellt. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-156 \\ 
+\textbf{Name:} & Kennzeichnungen an Umweltdaten anzeigen \\ 
+\textbf{Zusammenfassung:} & Als UIS-Nutzer möchte ich Kennzeichnungen an Umweltdaten angezeigt bekommen. \\ 
+\textbf{Beschreibung:} & Erhobene Umweltdaten werden ggf. mit Kennzeichnungen versehen. Dazu zählen z.B. Überschreitungen von Schwellenwerten und weiteren Qualitätsmerkmalen. Ein UIS-Nutzer hat die Möglichkeit, sich diese Kennzeichnungen zu den Umweltdaten anzeigen zu lassen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-187 \\ 
+\textbf{Name:} & Umweltdaten filtern \\ 
+\textbf{Zusammenfassung:} & Als UIS-Nutzer möchte ich angezeigte Umweltdaten filtern. \\ 
+\textbf{Beschreibung:} & Ein UIS-Nutzer kann angezeigte Umweltdaten zu z.B. Messwerten/Messstationen oder Ergebnissen filtern. Gefiltert werden die Daten nach Kriterien wie einer Zeitspanne, Datenwerten (-spannen) oder Herkunft. Diese Filtereigenschaft wird in jeder Datenansicht angeboten. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-214 \\ 
+\textbf{Name:} & Umweltdaten exportieren \\ 
+\textbf{Zusammenfassung:} & Als UIS-Nutzer möchte ich Umweltdaten exportieren. \\ 
+\textbf{Beschreibung:} & Ein UIS-Nutzer kann die angezeigten und gefilterten Umweltdaten in eine CSV-Datei exportieren und die Daten so mit Hilfe geeigneter Werkzeuge weitergehend analysieren. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-224 \\ 
+\textbf{Name:} & Statistische Kennzahlen anzeigen \\ 
+\textbf{Zusammenfassung:} & Als UIS-Nutzer möchte ich statistische Kennzahlen abrufen. \\ 
+\textbf{Beschreibung:} & Ein UIS-Nutzer sieht zur angezeigten Datenreihe statistische Kennzahlen wie Minimum, Maximum, Mittelwert und Standardabweichung. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-225 \\ 
+\textbf{Name:} & Sensorknoten anzeigen \\ 
+\textbf{Zusammenfassung:} & Als UIS-Nutzer möchte ich Sensorknoten angezeigt bekommen. \\ 
+\textbf{Beschreibung:} & Ein UIS-Nutzer kann eine Übersicht und eine Karte aller Sensorknoten eines Gebiets bekommen und sich Detail-Informationen (z.B. Sensorik, aktueller Messwert, Firmwareversion) zum Sensorknoten anzeigen lassen. Darüber hinaus kann er anhand der angezeigten Sensorknoten zu Ansichten der gemessenen Umweltdaten wechseln. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-226 \\ 
+\textbf{Name:} & Umweltgegebenheiten visualisieren \\ 
+\textbf{Zusammenfassung:} & Als UIS-Nutzer möchte ich Umweltsituationen visualisiert bekommen. \\ 
+\textbf{Beschreibung:} & Ein UIS-Nutzer bekommt die aktuelle oder historische Umweltsituation zu einem bestimmten Zeitpunkt und in einem bestimmten Gebiet angezeigt. Die Visualisierung beinhaltet eine farbliche Aufbereitung der Güte (z.B. Gesundheitsgefährdung) der ausgewählten Umweltdaten auf einer Karte des ausgewählten Gebiets. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-257 \\ 
+\textbf{Name:} & Datenvielfalt vorfinden \\ 
+\textbf{Zusammenfassung:} & Als UIS-Nutzer möchte ich eine hohe Datenvielfalt vorfinden. \\ 
+\textbf{Beschreibung:} & Ein UIS-Nutzer kann sich verschiedenartige Umweltdaten anzeigen lassen. Das System gewährleistet dabei, Daten zu möglichst vielen verschiedenen Arten von Umweltfaktoren bereitzustellen. Mindestens Werte für PM 2,5, PM10, Temperatur, relative Luftfeuchte und Luftdruck werden bereitgestellt. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+\subsection{Datenanalyst}
+Aus Sicht der Datenanalysten werden die Anforderungen an das Teilziel Datenqualität erfasst. Der Unterschied zum UIS-Nutzer besteht darin, dass der Datenanalyst nicht nur Umweltdaten abrufen kann, sondern er ist auch in der Lage die Daten aufbereiten und wieder zur Verfügung zu stellen. In \Fig{DatenanlystEpics} sind die Super Epics und die jeweils zugehörigen Epics als Mindmap dargestellt. Diese werden im Folgenden näher beschrieben.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./ressourcen/generiert/Anforderungen_Epics_Datenanalyst}
+	\caption{Super Epics und Epics Datenanalyst}
+	\label{fig:DatenanlystEpics}
+\end{figure}
+
+\subsubsection{PGRIO-266: Virtuelle Sensorknoten verwalten} 
+\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & SuperEpic \\ 
+\textbf{ID:} & PGRIO-266 \\ 
+\textbf{Name:} & Virtuelle Sensorknoten verwalten \\ 
+\textbf{Zusammenfassung:} & Als Daten-Analyst möchte ich virtuelle Sensorknoten verwalten. \\ 
+\textbf{Beschreibung:} & Ein Daten-Analyst kann virtuelle Sensorknoten verwalten. Dazu kann er die Knoten anlegen, platzieren, löschen. Er legt die bereitzustellenden Umweltparameter, die zugehörigen Berechnungsverfahren und die dabei berücksichtigten Informationen sowie Messintervalle fest. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-267 \\ 
+\textbf{Name:} & Virtuelle Sensorknoten bereitstellen \\ 
+\textbf{Zusammenfassung:} & Als Daten-Analyst möchte ich virtuelle Sensorknoten bereitstellen. \\ 
+\textbf{Beschreibung:} & Ein Daten-Analyst kann virtuelle Sensorknoten anlegen, platzieren und löschen. Die Sensorknoten können als Entwurf oder als produktiv markiert und so bereitgestellt werden. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-268 \\ 
+\textbf{Name:} & Berechnungsverfahren virtuelle Sensorknoten parametrieren \\ 
+\textbf{Zusammenfassung:} & Als Daten-Analyst möchte ich die Berechnungsverfahren virtueller Sensorknoten parametrieren. \\ 
+\textbf{Beschreibung:} & Ein Daten-Analyst kann für einen virtuellen Sensorknoten die zu berücksichtigenden Informationen festlegen. Diese können aus dem eigenen System oder aus externen Diensten/ Systemen stammen. Darüberhinaus legt er die Gewichtung der einzelnen Informationen sowie das Berechnungsverfahren für verschiedene Umweltparameter fest. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+	\subsubsection{PGRIO-211: Erweiterte Metadaten abrufen} 
+\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & SuperEpic \\ 
+\textbf{ID:} & PGRIO-211 \\ 
+\textbf{Name:} & Erweiterte Metadaten abrufen \\ 
+\textbf{Zusammenfassung:} & Als Daten-Analyst möchte ich erweiterte Metadaten zu Messwerten abrufen. \\ 
+\textbf{Beschreibung:} & Der Daten-Analyst kann mit der Anwendung Metadaten zu Messwerten abrufen. Es wird somit ermöglicht, dass der Daten-Analyst zu einem Messwert zugehörige Informationen abrufen kann. Hierbei wird z. B. der Sensorknoten mit allen angereicherten Metainformationen dargestellt. Unter den Metainformationen wird z. B. der genaue Standort der Messung, örtliche Gegebenheiten, der Akkustand der Messstation oder die Betriebszeit verstanden. Diese Daten können von dem Daten-Analyst über den Sensorknoten eingesehen werden. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-131 \\ 
+\textbf{Name:} & Metadaten zum Sensorknoten abrufen \\ 
+\textbf{Zusammenfassung:} & Als Daten-Analyst möchte ich Metadaten zu einem Sensorknoten abrufen. \\ 
+\textbf{Beschreibung:} & Ein Daten-Analyst kann zu einem ausgewählten Sensorknoten (Messstation) angereicherte Metainformationen wie z.B. den Akkustand der Messstation oder die Betriebszeit abrufen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-256 \\ 
+\textbf{Name:} & Metadaten zur Messung abrufen \\ 
+\textbf{Zusammenfassung:} & Als Daten-Analyst möchte ich Metadaten zu einer Messung abrufen. \\ 
+\textbf{Beschreibung:} & Ein Daten-Analyst kann zu einer Messung zusätzlich zu den Nutzdaten weitere Metainformationen abrufen. Dazu zählt z.B. die exakte Position der Messung. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+	\subsubsection{PGRIO-210: Aufbereitete Umweltdaten bereitstellen} 
+\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & SuperEpic \\ 
+\textbf{ID:} & PGRIO-210 \\ 
+\textbf{Name:} & Aufbereitete Umweltdaten bereitstellen \\ 
+\textbf{Zusammenfassung:} & Als Daten-Analyst möchte ich aufbereitete Umweltdaten und Aufbereitungsverfahren bereitstellen. \\ 
+\textbf{Beschreibung:} & Der Daten-Analyst kann mit der Anwendung aufbereitete Umweltdaten und Aufbereitungsverfahren zur Verfügung stellen. Bei der Bereitstellung von Umweltdaten wird dem Daten-Analysten die Möglichkeit gegeben, selektiv Ergebnisse zu korrigieren. Des Weiteren kann der Daten-Analyst unterschiedliche Dienste zur Aufbereitung der Umweltdaten/-szenarien bereitstellen. Umweltszenarien können beispielsweise Prognosen für die Umweltbelastung sein. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-227 \\ 
+\textbf{Name:} & Umweltdaten korrigieren \\ 
+\textbf{Zusammenfassung:} & Als Daten-Analyst möchte ich Umweltdaten korrigieren. \\ 
+\textbf{Beschreibung:} & Ein Daten-Analyst kann veränderte oder verfälschte Umweltdaten nachträglich korrigieren. Des Weiteren können aufbereitete Umweltdaten in ihrem Ergebnis ergänzt werden. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-228 \\ 
+\textbf{Name:} & Aufbereitungsdienste bereitstellen \\ 
+\textbf{Zusammenfassung:} & Als Daten-Analyst möchte ich Aufbereitungsdienste für die Umweltdaten bereitstellen. \\ 
+\textbf{Beschreibung:} & Ein Daten-Analyst kann Aufbereitungsdienste für Umweltdaten bereitstellen. Mit Hilfe dieser Aufbereitungsdienste werden Rohdaten von der IoT-Plattform abgefragt und mit Hilfe von bestimmten Berechnungen beispielsweise Prognosen erstellt oder fehlerhafte Daten erkannt. Anschließend werden diese aufbereiteten Daten der IoT-Plattform bereitgestellt.
+ \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-258 \\ 
+\textbf{Name:} & Aufbereitungsdienste entwerfen \\ 
+\textbf{Zusammenfassung:} & Als Daten-Analyst möchte ich Aufbereitungsdienste für die Umweltdaten entwerfen. \\ 
+\textbf{Beschreibung:} & Ein Daten-Analyst entwirft verschiedene Aufbereitungsdienste für die Umweltdaten, die die Datenqualität erhöhen sollen. Dafür muss das IoT-Plattform im Einzelfall bestimmte Daten zur Verfügung stellen und weitere Bedingungen, wie z.B. Konsistenz und Integrität, erfüllen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+\subsection{Sensorknotenbetreiber}
+Aus Sicht des Sensorknotenbetreibers, die im Kapitel \ref{sensor} bereits beschrieben wurde, werden Anforderungen an das Teilziel \textit{Sensorknoten} erfasst. In \Fig{SKBEpics} sind die Super Epics mit den zugehörigen Epics als Mind Map dargestellt. Diese werden im Folgenden mit der ID, der Zusammenfassung, dem Namen sowie der Beschreibung aufgelistet.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./ressourcen/generiert/Anforderungen_Epics_Sensorknotenbetreiber}
+	\caption{Super Epics und Epics Sensorknotenbetreiber}
+	\label{fig:SKBEpics}
+\end{figure}
+
+\subsubsection{PGRIO-235: Sensorknoten warten} 
+\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & SuperEpic \\ 
+\textbf{ID:} & PGRIO-235 \\ 
+\textbf{Name:} & Sensorknoten warten \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich meine Sensorknoten warten. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber kann einen Sensorknoten warten, sofern er der Betreiber des jeweiligen Sensorknotens ist. Zum Beispiel kann er sich alle seine Sensorknoten und die zugehörigen Sensoren anzeigen lassen. Außerdem kann der Sensorknotenbetreiber die Firmware aktualisieren. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-223 \\ 
+\textbf{Name:} & Hardware pflegen \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich die Hardware-Komponenten meiner Sensorknoten pflegen. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber kann die Hardware seiner Sensorknoten während der Laufzeit pflegen. Um diese Pflege zu betreiben, erhält der Sensorknotenbetreiber Benachrichtigungen über den aktuellen Status der Hardware-Komponenten des Sensorknotens. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-236 \\ 
+\textbf{Name:} & Sensorknotenübersicht einsehen \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich eine Übersicht meiner Sensorknoten und Sensoren einsehen. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber kann zu jedem Zeitpunkt alle Sensorknoten einsehen, die im System registriert sind und dem jeweiligen Sensorknotenbetreiber zugewiesen sind . Hierzu kann er sich eine Übersicht seiner Sensorknoten mit den zugehörigen Sensoren anzeigen lassen. Weiterhin kann der Sensorknotenbetreiber ihm zugeordnete Sensorknoten auch wieder entfernen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-237 \\ 
+\textbf{Name:} & Firmware aktualisieren \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich die Firmware meiner Sensorknoten aktualisieren. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber kann selbst entscheiden, ob er eine neue Version der Firmware installieren möchte oder nicht. Außerdem kann der Sensorknotenbetreiber einstellen, ob ein neu verfügbares Update automatisch installiert werden soll, oder ob diese Aktion aktiv vom Sensorknotenbetreiber durchgeführt werden soll. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+	\subsubsection{PGRIO-231: Sensorknoten erweitern} 
+\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & SuperEpic \\ 
+\textbf{ID:} & PGRIO-231 \\ 
+\textbf{Name:} & Sensorknoten erweitern \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich einen Sensorknoten erweitern. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber kann nach dem initialen in Betrieb nehmen eines Sensorknotens diesen erweitern. Zum Erweitern gehört es, dass der Sensorknotenbetreiber verschiedene Hardware-Komponenten hinzufügen oder entfernen kann.  Außerdem kann er Änderungen an der Konfiguration vornehmen und weitere Einstellungen vornehmen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-55 \\ 
+\textbf{Name:} & Sensorknoten erweitert konfigurieren \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich einen Sensorknoten erweitert konfigurieren. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber hat die Möglichkeit die Basiskonfiguration zu erweitern. Er kann z.B. die einzelnen Hardware-Komponenten an andere Pins anbinden als es in der Anleitung steht.
+
+Die Idee dahinter ist, dem Benutzer zwei Konfigurationslevel anzubieten, wie es von Heim-Routern (z.B. die FRITZ! Box) mit dem "Expertenmodus" bereits bekannt ist. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-232 \\ 
+\textbf{Name:} & Sensoren hinzufügen \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich meinem Sensorknoten weitere Sensoren hinzufügen. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber kann zusätzliche Sensoren in seinen Sensorknoten einbauen. Hierbei muss sowohl die Hardware erweitert werden als auch die Firmware angepasst werden. Diese Funktion wird bereitgestellt, damit der Sensorknotenbetreiber in der Lage ist, seinen Sensorknoten um zum Beispiel neu verfügbare Sensoren zu erweitern, und so weitere Umweltdaten erheben kann.  \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-234 \\ 
+\textbf{Name:} & Sensorknoten mobil machen \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich meinen Sensorknoten mobil machen. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber kann seine Sensorknoten so ausbauen, dass dieser als mobiler Sensorknoten dient. Hierzu muss zum Beispiel eine Lokalisierungs-Komponente eingebaut werden. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+	\subsubsection{PGRIO-222: Datenkonsistenz sicherstellen} 
+\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & SuperEpic \\ 
+\textbf{ID:} & PGRIO-222 \\ 
+\textbf{Name:} & Datenkonsistenz sicherstellen \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich die Datenkonsistenz sicherstellen. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber stellt die Korrektheit der Daten sicher, die der Sensorknotenbetreiber zur IoT-Plattform schickt. Korrektheit der Daten bedeutet hierbei, dass die gemessenen Werte den Zustand der Umwelt korrekt wiederspiegeln. Hierfür werden zum Beispiel die Sensoren kalibriert, sodass sie möglichst realitätsnahe Werte messen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-62 \\ 
+\textbf{Name:} & Aufbereitungsdienste installieren \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich Aufbereitungsdienste auf meinen Sensorknoten installieren. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber kann aus einer Liste Aufbereitungsdienste auswählen und installieren. Die Auswahl der Aufbereitungsdienste wird in einem entsprechenden Konfigurationstool bereitgestellt. Diese Dienste sollen die Qualität der gemessenen Umweltdaten erhöhen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-238 \\ 
+\textbf{Name:} & Sensorknoten kalibrieren \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich, dass die Sensoren kalibriert sind. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber möchte, dass die Sensoren korrekte Daten erfassen. Hierzu muss sichergestellt werden, dass die Sensoren richtig kalibriert bzw. geeicht sind. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+	\subsubsection{PGRIO-48: Sensorknoten in Betrieb nehmen} 
+\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & SuperEpic \\ 
+\textbf{ID:} & PGRIO-48 \\ 
+\textbf{Name:} & Sensorknoten in Betrieb nehmen \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich ohne Vorkentnisse einen Sensorknoten in Betrieb nehmen. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber kann auch ohne Vorkentnisse einen Sensorknoten zusammenbauen, montieren und konfigurieren. Es wird immer eine Basis Sensorknoten in Betrieb genommen. Ein Basis Sensorknoten besteht aus einer NodeMCU, einem SDS011 und einem BME280. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-54 \\ 
+\textbf{Name:} & Sensorknoten grundlegend konfigurieren \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich ohne Vorkentnisse einen Sensorknoten grundlegend konfigurieren. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber kann auch ohne besondere Vorkentnisse einen Sensorknoten so einstellen, dass die Grundfunktionalitäten des Sensorknotens funktionieren. Hierzu gehören z.B. Einstellungen, die für den Betrieb und die Wartung notwendige sind. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-229 \\ 
+\textbf{Name:} & Sensorknoten registrieren \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich eine Sensorknoten registrieren. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber muss seine Sensorknoten an der IoT-Plattform registrieren, damit die aufgenommenen Umweltdaten an diese gesendet werden können. Hierfür muss der Sensorknotenbetreiber weitere Angaben wie z.B. den Standort des Sensorknotens machen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-230 \\ 
+\textbf{Name:} & Sensorknoten aufbauen \\ 
+\textbf{Zusammenfassung:} & Als Sensorknotenbetreiber möchte ich ohne Vorkentnisse einen Sensorknoten aufbauen. \\ 
+\textbf{Beschreibung:} & Der Sensorknotenbetreiber kann einen Sensorknoten selbständig zusammenbauen und montieren. Der Aufbau ist dabei so vereinfacht, dass selbst ein Sensorknotenbetreiber ohne Vorkentnisse ihn durchführen kann. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+\subsection{IoT-Administrator}
+Aus Sicht des IoT-Administrators werden Anforderungen an das Teilziel \textit{IoT-Plattform} erhoben. Die Rolle \textit{IoT-Plattform} wurde bereits in Kapitel \ref{iotAdmin} näher erläutert. In \Fig{IoTAdminEpics} werden die Super Epics mit den zugehörigen Epics als Mind Map dargestellt. Diese werden im Folgenden mit der ID, der Zusammenfassung, dem Namen sowie der Beschreibung aufgelistet.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\linewidth]{./ressourcen/generiert/Anforderungen_Epics_IoT-Administrator}
+	\caption{Super Epics und Epics IoT-Administrator}
+	\label{fig:IoTAdminEpics}
+\end{figure}
+
+\subsubsection{PGRIO-242: Sensorknoten verwalten} 
+\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & SuperEpic \\ 
+\textbf{ID:} & PGRIO-242 \\ 
+\textbf{Name:} & Sensorknoten verwalten \\ 
+\textbf{Zusammenfassung:} & Als IoT-Administrator möchte ich Sensorknoten verwalten \\ 
+\textbf{Beschreibung:} & Der IoT-Administrator kann Sensorknoten verwalten, um eine sichere Datenquelle sicherzustellen. Des Weiteren kann der IoT-Admin Sensorknoten auditieren. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-243 \\ 
+\textbf{Name:} & Sensorknoten autorisieren \\ 
+\textbf{Zusammenfassung:} & Als IoT-Administrator möchte ich Sensorknoten autorisieren \\ 
+\textbf{Beschreibung:} & Der IoT-Administrator kann Senorknoten autorisieren, um Sensorknoten dazu zu berechtigen, ihre Daten an die IoT-Plattform zu senden. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-244 \\ 
+\textbf{Name:} & Informationen über Sensorknoten einsehen \\ 
+\textbf{Zusammenfassung:} & Als IoT-Administrator möchte ich Informationen über alle Sensorknoten einsehen können \\ 
+\textbf{Beschreibung:} & Der IoT-Administrator kann Informationen über alle Sensorknoten einsehen. Dazu zählen allgemeine Informationen des Sensorknotens, beispielsweise der Standort und welche Sensoren der Sensorknoten besitzt. Außerdem kann der IoT-Administrator den Zustand der Sensorknoten sowie Informationen über den Sensorknotenbetreiber einsehen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-247 \\ 
+\textbf{Name:} & Event-Benachrichtigungen erhalten \\ 
+\textbf{Zusammenfassung:} & Als IoT-Administrator möchte ich bei Events Benachrichtigungen erhalten \\ 
+\textbf{Beschreibung:} & Der IoT-Admin erhält Event-Benachrichtigungen. Diese Events können beispielsweise ein Verbindungsverlust zu einem Sensorknoten sein oder falls neue Informationen über einen Sensorknoten zur Verfügung stehen.  \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-264 \\ 
+\textbf{Name:} & Sensorknoten auditieren \\ 
+\textbf{Zusammenfassung:} & Als IoT-Administrator möchte ich Sensorknoten auditieren \\ 
+\textbf{Beschreibung:} & Der IoT-Admin kann Sensorknoten auditieren. Dazu gehört zum Beispiel, dass er einsehen kann, zu welchem Zeitpunkt der Sensorknoten autorisiert wurde. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+	\subsubsection{PGRIO-219: Dienste verwalten} 
+\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & SuperEpic \\ 
+\textbf{ID:} & PGRIO-219 \\ 
+\textbf{Name:} & Dienste verwalten \\ 
+\textbf{Zusammenfassung:} & Als IoT-Administrator möchte ich Dienste verwalten. \\ 
+\textbf{Beschreibung:} & Der IoT-Admin kann externe Dienste und Aufbereitungsdienste verwalten, um sicherzustellen, dass nur berechtigte Dienste auf Daten zugreifen können. Des Weiteren kann der IoT-Admin diese Dienste auditieren. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-160 \\ 
+\textbf{Name:} & Aufbereitungsdienste autorisieren \\ 
+\textbf{Zusammenfassung:} & Als IoT-Administrator möchte ich Aufbereitungsdienste autorisieren können. \\ 
+\textbf{Beschreibung:} & Der IoT-Administrator kann Aufbereitungsdienste verwalten. Er kann somit Aufbereitungsdienste, welche für die Aufbereitung der Sensordaten zuständig sind, dazu berechtigen Daten zu lesen und/oder zu schreiben. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-161 \\ 
+\textbf{Name:} & Aufbereitungsdienste auditieren \\ 
+\textbf{Zusammenfassung:} & Als IoT-Administrator möchte ich Aufbereitungsdienste auditieren können. \\ 
+\textbf{Beschreibung:} & Der IoT-Administrator kann die Aufbereitungsdienste auditieren und somit nachvollziehen, welche Daten von den Aufbereitungsdienste aus dem System gelesen wurden, bzw. welche neuen Daten in das System eingespielt wurden. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-239 \\ 
+\textbf{Name:} & Externe Dienste autorisieren \\ 
+\textbf{Zusammenfassung:} & Als IoT-Administrator möchte ich externe Dienste autorisieren können. \\ 
+\textbf{Beschreibung:} & Der IoT-Administrator kann externe Dienste, wie einen Routing-Dienst, dazu berechtigten, Daten, wie Prognosen oder auch individuelle Sensordaten, anzufragen. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+		\begin{flushleft} 
+\begin{tabular}{@{}lp{100mm}} 
+\textbf{Typ:} & Epic \\ 
+\textbf{ID:} & PGRIO-240 \\ 
+\textbf{Name:} & Externe Dienste auditieren \\ 
+\textbf{Zusammenfassung:} & Als IoT-Administrator möchte ich externe Dienste auditieren können. \\ 
+\textbf{Beschreibung:} & Der IoT-Admin kann die externen Dienste auditieren und somit in Erfahrung bringen, zu welchen Zeitpunkt welche Daten abgefragt wurden. \\ 
+\end{tabular} 
+\end{flushleft} 
+
+\section{Zusammenfassung}\label{ADZusammenfassung}
+In diesem Kapitel wurden die Motivation und Zielsetzung (Abschnitt \ref{ADMotivationZielsetzung}), die Rollen (Abschnitt \ref{ADRollen}), die Durchführung der Interviews (Abschnitt \ref{ADInterviews}) und die Struktur der Anforderungen (Abschnitt \ref{ADStruktur}) mit den unterschiedlichen Ebenen beschrieben. Insbesondere wurden die SuperEpics und Epics vorgstellt (Abschnitt \ref{ADSuperEpicsAndEpics}), die durch die Interviews erhoben wurden.
+
+Die Ergebnisse aus diesem Kapitel werden analysiert und dienen als Grundlage für den technischen Entwurf, welcher im nächsten Kapitel beschrieben wird.
+
+
+
+
+	

@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>630</x>
+      <y>440</y>
+      <w>200</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*Navigationsnutzer*
+bg=gray
+fontsize=16
+lw=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>340</y>
+      <w>220</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Route entlang navigieren
+bg=green
+valign=center
+lw=2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>470</x>
+      <y>340</y>
+      <w>220</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Umweltparameter einstellen
+bg=blue
+valign=center
+lw=2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>470</x>
+      <y>540</y>
+      <w>220</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Routen planen
+bg=orange
+valign=center
+lw=2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>540</y>
+      <w>220</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Routen abrufen
+bg=red
+valign=center
+lw=2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>360</y>
+      <w>140</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray
+lw=2</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>360</y>
+      <w>140</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray
+lw=2</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>460</y>
+      <w>140</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray
+lw=2</panel_attributes>
+    <additional_attributes>120.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>460</y>
+      <w>140</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray
+lw=2</panel_attributes>
+    <additional_attributes>10.0;80.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>780</x>
+      <y>230</y>
+      <w>200</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Navigationsanweisungen erhalten
+bg=green
+fontsize=11
+valign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1010</x>
+      <y>260</y>
+      <w>170</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Alternativ-Routen auswählen
+bg=green
+fontsize=11
+valign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1030</x>
+      <y>330</y>
+      <w>140</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Informationen anzeigen
+bg=green
+fontsize=11
+valign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1000</x>
+      <y>390</y>
+      <w>190</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Route automatisch aktualisieren
+bg=green
+fontsize=11
+valign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>860</x>
+      <y>250</y>
+      <w>50</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray</panel_attributes>
+    <additional_attributes>10.0;10.0;30.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>910</x>
+      <y>280</y>
+      <w>130</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>980</x>
+      <y>330</y>
+      <w>70</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>950</x>
+      <y>360</y>
+      <w>70</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray</panel_attributes>
+    <additional_attributes>50.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>440</x>
+      <y>240</y>
+      <w>170</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Umweltparameter gewichten
+bg=blue
+fontsize=11
+valign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>290</x>
+      <y>300</y>
+      <w>130</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Grenzwerte festlegen
+bg=blue
+fontsize=11
+valign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>260</y>
+      <w>50</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray</panel_attributes>
+    <additional_attributes>10.0;10.0;30.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>410</x>
+      <y>310</y>
+      <w>80</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>500</y>
+      <w>160</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Routenaktualität einstellen
+bg=orange
+fontsize=11
+valign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>260</x>
+      <y>590</y>
+      <w>170</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Navigationspunkte einstellen
+bg=orange
+fontsize=11
+valign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>390</x>
+      <y>660</y>
+      <w>170</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Fortbewegungsmittel wählen
+bg=orange
+fontsize=11
+valign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>580</x>
+      <y>630</y>
+      <w>150</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Routenführung einstellen
+bg=orange
+fontsize=11
+valign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>430</x>
+      <y>510</y>
+      <w>60</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>550</y>
+      <w>70</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray</panel_attributes>
+    <additional_attributes>10.0;50.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>460</x>
+      <y>560</y>
+      <w>70</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray</panel_attributes>
+    <additional_attributes>10.0;100.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>550</x>
+      <y>560</y>
+      <w>100</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray</panel_attributes>
+    <additional_attributes>80.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>860</x>
+      <y>640</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Routen anzeigen
+bg=red
+fontsize=11
+valign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1000</x>
+      <y>620</y>
+      <w>140</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Routendetails anzeigen
+bg=red
+fontsize=11
+valign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1050</x>
+      <y>550</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Route auswählen
+bg=red
+fontsize=11
+valign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>890</x>
+      <y>560</y>
+      <w>50</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray</panel_attributes>
+    <additional_attributes>30.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>960</x>
+      <y>560</y>
+      <w>80</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray</panel_attributes>
+    <additional_attributes>60.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>980</x>
+      <y>550</y>
+      <w>90</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-
+fg=gray</panel_attributes>
+    <additional_attributes>70.0;20.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

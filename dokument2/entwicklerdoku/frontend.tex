@@ -1,0 +1,159 @@
+\section{Frontend}
+In diesem Kapitel wird die Entwicklerdokumentation für die Navigationsanwendung beschrieben. Diese fasst alle relevanten Informationen zusammen, die für die Weiterentwicklung der Navigationsanwendung nötig sind. 
+
+\subsection{Programmbeschreibung}
+Die Navigations-App stellt das Ergebnis emissionsarmer Routen in einer graphischen Anwendung. 
+Aus dem Zwecke einer stetigen und mobilen Verfügbarkeit wurde die Darstellung der Routenplanung innerhalb einer mobilen Anwendung umgesetzt. 
+Diese mobile Anwendung wurde in Form einer hybriden Applikation konzipiert. 
+Aus diesem Grund kann die Basis der Entwicklung auf unterschiedliche mobile Betriebssysteme \textit{IOS} u. \textit{Android} ausgeführt werden. 
+Dabei wird der Inhalt unter Berücksichtigung eines Responsive Design in der jeweiligen Auflösung des Smartphones angepasst. 
+Im Weiteren wird die Entwicklung und das Konzept der Navigations-App in einer Entwicklungsdokumentation beschrieben. 
+Dies dient zum gemeinsamen Verständnis aller internen sowie externen Projektbeteiligten. 
+Unter Berücksichtigung dieser Beschreibung wird ein grundlegendes Wissen über die Webentwicklung vorausgesetzt.
+
+\subsection{Rahmenbedingungen}
+%Ist der Abschnitt notwendig? Die externen Abhängigkeiten, Lizenzen etc. sind eher wichtig 
+Für die Entwicklung der Navigations-App werden lediglich zwei Instrumenten benötigt. 
+Das erste Instrument ist der Arbeitsrechner. Dieser wird zur Konzeption und zur Entwicklung der Programmarchitektur sowie des Programmcodes benötigt. 
+Das zweite Instrument ist ein Android-Smartphone (+Version), welches zur Ausführung und zur Prüfung der mobilen Applikation verwendet wird. 
+Beide Instrumente wurden in der Entwicklungs- und Konzeptionsphase von dem Projektteam gestellt.
+
+\subsection{Steps to Code}
+In diesem Abschnitt wird das Vorgehen beschrieben, wie ein neuer Entwickler zum Projekt der Navigationsapplikation beitragen kann. Im Folgenden werden die erforderlichen Schritte aufgezählt: 
+\begin{enumerate}
+	\item Installieren Sie Git.
+	\item Klonen Sie das Projekt-Repository : 
+	\begin{itemize}
+		\item https://git.swl.informatik.uni-oldenburg.de/projects/PGRIO/repos/navigations-app/
+	\end{itemize}
+	\item Installieren eine IDE. Wir verwenden Visual Studio Code.
+	\item Installieren Sie node.js und npm
+	\item Installieren Sie Ionic CLI
+	\begin{itemize}
+		\item \$ npm install -g ionic
+	\end{itemize}
+	\item Installieren Sie Angular + Ionic Framework.
+	\begin{itemize}
+		\item \$ npm install @ionic/angular@latest --save
+	\end{itemize}
+	\item  Installieren Sie Cordova.
+	\begin{itemize}
+		\item \$ npm install -g cordova
+	\end{itemize}
+	\item Installieren Sie die erforderlichen Bibliotheken.
+	\begin{itemize}
+		\item \$ npm install
+	\end{itemize}
+	\item Um die Anwendung auf dem Handy zu installieren, schließen Sie Ihr Mobiltelefon an den Computer und und führen Sie diese Befehl aus:
+	\begin{itemize}
+		\item \$ ionic cordova run android
+	\end{itemize}
+\end{enumerate}
+
+\subsection{Technische Rahmenbedingungen}
+%Der Abschnitt ist doch genau das gleiche/selbe wie der darüber
+Die Entwickler der Navigations-App benutzten während der gesamten Entwicklungsphase überwiegend die ihnen zur Verfügung   stehende persönliche Hardware. 
+Neben dem eigenen Computer braucht man auch ein mobiles Gerät, um die verschiedensten mobilen Funktionen, wie zum Beispiel Navigieren anhand einer Route, testen zu können.
+\subsection{Namenskonvention}
+%Der Abschnitt sollte eigentlich unter dem Abschnitt "Code Konventionen"
+Zum Start der Implementierung hat sich das Projektteam auf eine einheitliche Code-Convention geeinigt. 
+Diese Code-Convention wurde im Laufe des Projektes von jedem der Projektbeteiligten eigenhalten. 
+Dabei wurden sich auf folgende Rahmenbedingungen geeinigt: 
+\begin{itemize}
+	\item Alle Bezeichnungen wie Variablen, Kommentare, Dateinamen und Funktionen werden sprechend in englischer Sprache beschrieben.
+	\item Die Vergabe von Namen sollte unter Berücksichtigung der Hauptfunktion beschrieben werden.
+	\item Der Standard \textit{tslint-ionic-rules} wird verwendet.
+\end{itemize}
+
+\subsection{Datenstruktur des Projektes}
+Verwendete Dateien und Ordner der Navigations-App werden in folgenden Ausprägungen strukturiert. 
+In erster Linie werden alle für das Projekt installierten Module in dem Ordner \textit{node\_modules} hinterlegt. 
+Dieser Ordner dient der strukturierten Auführung von internen sowie externen Modulen. 
+Sollten Module benötigt werden, können diese von der \textit{package.json} Konfigurationsdatei als Abhängigkeit neu importiert werden. 
+In zweiter Linie werden in dem \textit{src} Ordner, Dateien wie die \textit{index.htm}l,\textit{main.ts} und \textit{global.css} aufgeführt. 
+Primär wird die \textit{index.html} Datei für den Aufruf der mobilen Applikation verwendet. 
+Diese Datei beinhaltet den Container zur Anzeige der gesamten Applikation. 
+Neben dieser Startseite wird in der \textit{main.ts} Datei die initiale Logik zur Kompilierung der Applikation beschrieben. 
+Zur Darstellung eines globalen und individuellen Designs kann die \textit{global.css} als CSS-Datei verwendet werden. 
+Kombiniert werden diese Strukturen jedoch in dem \textit{app}Ordner. 
+In diesem Ordner befindet sich die Implementierung der einzelnen Anzeigen \textit{Pages}, den Komponenten \textit{Components}, den Service-Strukturen \textit{Services} sowie den Datenmodellen \textit{Models}. 
+Eine zugehörige \textit{app.component} Datei bringt dabei alle Strukturen für einen initialen Start der Applikation zusammen.
+Für diese Komponente wie auch den anderen Komponenten gibt eine jeweils eine Template Datei \textit{HTML} sowie einen Datenkontext \textit{TypeScript}. 
+Ergänzend zu jeder Komponente wird im Erstellungsprozess die \textit{spec.ts} Datei erstellt. 
+Diese dient dem reinen Zweck eine Komponente auf Methoden zu testen.
+
+\subsection{Funktionalität}
+In diesem Abschnitt werden die Funktionen der Navigationsapp genauer betrachtet. Zum einen werden Funktionalitäten bezüglich der Karte in \ref{sec:navigation:kartenfunktionalitaet} und zum anderen die Funktionalitäten bezüglich der Navigation in \ref{sec:navigation:navigationsfunktionaliteaten} näher erläutert. 
+\subsubsection{Kartenfunktionalität}
+\label{sec:navigation:kartenfunktionalitaet}
+In diesem Abschnitt werden die Funktionalitäten der Karte in der Navigationapplikation näher beschrieben. Im Folgenden wird auf die Karte, die Routenberechnung und Darstellung eingegangen. Außerdem werden die Funktionen der aktuellen Position, der Geosuche, dem Verlauf der gespeicherten Eingaben sowie die Heatmap erläutert. \newline
+\textbf{Karte} \newline
+Beim Start der Anwendung wird die Karte mit \textit{leaflet} geladen. 
+\textit{leaflet} ist eine JavaScript-Bibliothek für mobile-freundliche interaktive Karten. 
+Die Karte wird auf die aktuelle Position zentriert. 
+Das Laden der Karte erfolgt in \textit{home.page.ts} im Unterverzeichnis \textit{home}.
+
+\textbf{Routenberechnung und Darstellung} \newline
+Wenn Sie auf die Schaltfläche \textit{Route berechnen} klicken, wird die Funktion \textit{generateRoute()} aufgerufen. 
+Die Funktion \textit{generateRoute()} befindet sich in \textit{route.component.ts} im Unterverzeichnis \textit{route}. 
+Die Funktion \textit{generateRoute()} prüft, ob die Routenpunkte gültig sind, und sendet eine Anfrage an den Routingdienst, um eine Route zu berechnen. 
+Beim Empfang der Routen wird die Funktion \textit{addRoute()} ausgelöst, um sie auf der Karte darzustellen. 
+Die Funktion \textit{addRoute()} befindet sich in \textit{home.page.ts} im Unterverzeichnis \textit{home}.
+
+\textbf{Aktuelle Position}\newline
+Die aktuelle Position wird über den \textit{PositionService} bereitgestellt, der sich in \textit{position.service.ts} im Unterverzeichnis \textit{route} befindet. 
+Der \textit{PositionService} verwendet das Ionic Native Plugin \textit{Geolocation}, um die aktuelle Position des Geräts zu überwachen.
+
+\textbf{Geosuche} \newline
+Beim tippen auf die Start, Zwischenziel oder Ziel eingabe wird jeweils \textit{doSearchStart()}, \textit{doSearch()}, \textit{doSearchInterim()} aufgerufen. 
+Diese Funktionen finden Sie in \textit{route.component.ts} im Unterverzeichnis \textit{route}. 
+Diese Funktionen führen die GeoSuche nach der eingegebenen Textadresse durch. 
+Die Geosuche wird mit \textit{OpenStreetMapProvider} durchgeführt, der aus dem Plugin \textit{leaflet-geosearch} stammt.
+
+\textbf{Verlauf gespeicherter Eingaben}\newline 
+\begin{itemize}
+	\item Beim Tippen auf das Start-, Zwischenziel- oder Ziel Eingabefeld wird die \textit{loadItems()} Funktion aufgerufen, um den gespeicherten Verlauf von Adrees mit Hilfe des \textit{storageService} abzurufen.
+	
+	\item Wenn Sie eine Adresse in das Eingabefeld start, Zwischenziel oder Ziel eingeben, wird die Funktion \textit{addItem()} aufgerufen, um die Adresse mithilfe des \textit{storageService} zu speichern.
+	
+	\item Wenn Sie auf das Löschsymbol neben einem Adressbuch der Verlaufsliste tippen, wird die Funktion \textit{deleteItem()} aufgerufen, um die Adresse mit dem \textit{storageService} aus dem gespeicherten Adressbuch zu löschen.
+	
+\end{itemize}
+Die Funktionen \textit{addItem(), loadItems(), deleteItem()} befinden sich in \textit{route.component.ts} im Unterverzeichnis \textit{route}. 
+Der \textit{storageService} befindet sich in \textit{storage.service.ts} im Unterverzeichnis \textit{services}.
+
+\textbf{Feinstaubanzeige durch Heatmap}\newline
+Wenn Sie auf die Heatmap-Schaltfläche tippen, wird die Funktion \textit{showHeatmap()} aufgerufen. 
+Die Funktion \textit{showHeatmap()} befindet sich in \textit{home.page.ts} im Unterverzeichnis \textit{home}. 
+\textit{showHeatmap()} hat ein Intervall von \textit{300} ms. in diesem intervall wird die Anfrage an den heatmap service gesendet. 
+Beim Empfangen der Heatmap wird diese als neue Ebene auf der Karte mit Hilfe von \textit{leaflet-heatmap} Plugin gerendert.
+
+\subsubsection{Navigation Funktionalität}
+\label{sec:navigation:navigationsfunktionaliteaten}
+In diesem Abschnitt werden die Funktionen der Navigation näher betrachtet. Dazu zählen der Navigationsalgorithmus sowie das dynamische Routing und die Abbiegehinweise. \newline
+\textbf{Navigationsalgorithmus}\newline
+beim Tippen auf die Navigationstaste wird die Funktion \textit{startNavigation()} aufgerufen. 
+Die Funktion \textit{startNavigation()} befindet sich in \textit{home.page.ts} im Unterverzeichnis \textit{home}. 
+Diese Funktion behält die ausgewählte Route bei, entfernt die anderen Routen, ruft die \textit{navigationAlgorithm()} Funktion zum Navigieren auf der ausgewählten Route auf und startet das dynamische Routing. 
+Der \textit{navigationAlgorithm()} hat ein Intervall von 500 ms. 
+In diesem Intervall wird die aktuelle Position mit den Abschnitten der gewählten Route verglichen, um festzustellen, auf welchem Abschnitt die aktuelle Position ist. 
+Die aktuelle Position befindet sich auf einem Segment, wenn der Abstand zwischen der aktuellen Position und dem Segment kleiner als 15 Meter ist. 
+Wenn sich die aktuelle Position auf einem Segment befindet, gilt Folgendes:
+\begin{itemize}
+	\item Die Abbiegeanweisung wird angezeigt.
+	\item Der Abstand zum Ende des Segments wird berechnet.
+	\item Der übergebene Teil des Segments wird grau dargestellt.
+\end{itemize}
+
+\textbf{Dynamisches Routing} \newline
+Die Funktion \textit{startNavigation()} ruft die Funktion \textit{reRoute()} auf, um das dynamische Routing zu starten. 
+Diese Funktion verfügt über ein Intervall, das über das Eingabefeld \textit{Zeitintervall} eingestellt wird. 
+In diesem Intervall wird eine Anfrage an den Routing-Dienst gesendet, um eine Route zwischen der aktuellen Position und dem Ziel zu berechnen. 
+Wenn sich diese neue Route von dem verbleibenden Teil der aktuell gefahrenen Route unterscheidet, wird diese neue Route als aktive Route festgelegt und zum Navigieren verwendet.
+
+\textbf{Abbiegehinweise Liste} \newline
+Wenn Sie auf die Anweisung für eine einzige Abbiegung tippen, wird die Liste aller Anweisungen für die Abbiegung angezeigt. 
+Die Ansicht und die Logik dieser Liste finden Sie im \textit{tturnsinfo} Unterverzeichnis. 
+In \textit{Turnsinfo.page.ts} wird auf der aktiven Route iteriert, um die Turn-Anweisungen zu extrahieren und in die Liste zu laden.
+
+%Der Abschnitt für Code-Konventionen sollte noch eingefügt werden, da ihr ja auch ein tslint verwendet habt; siehe dafür Abschnitt Namenskonventionen

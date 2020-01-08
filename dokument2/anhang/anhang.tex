@@ -1,0 +1,219 @@
+
+\section{Tabellen}
+
+	\begin{table}[htb]
+	\caption{Repositorien der IoT-Plattform und ihr Zweck}
+	\begin{tabular}{|p{45mm}|p{93mm}|}
+		\hline
+		Name & Zweck \\ \hline
+		iot"=api"=prototyp & Prototyp der IoT-Plattform, die im Rahmen des \schit entwickelt wurde (veraltet) \\ \hline
+		iot"=api"=gateway & Zentrale Anlaufstelle für Anfragen von externen Diensten \\ \hline
+		iot"=collection"=creater & Beinhaltet ein Skript zum Anlegen der MongoDB Collections mit den dazugehörigen Validierungsregeln \\ \hline
+		iot"=data"=collector & Zentraler Dienst zum Sammeln der Daten (Messdaten, Konfigurationsdateien, usw.) vom MQTT Broker \\ \hline
+		iot"=deployment"=skripte & Enthält Docker Compose Dateien und beispielhafte Konfigurationsdateien zum Bereitstellen der IoT-Plattform in jeglicher Umgebung \\ \hline
+		iot"=hivemq"=extensions & Enthält Erweiterung für den verwendeten MQTT Broker HiveMQ, z.B. Authentifizierungs- und Autorisierungserweiterung \\ \hline
+		iot"=identity"=service & Zentrale Authentifizierungsstelle für Microservices, externen API Nutzern oder MQTT Klienten. \\ \hline
+		iot"=microservice"=humidity & Microservice für das Abfragen von gemessenen Luftfeuchte-Werten \\ \hline
+		iot"=microservice"=pm10 & Microservice für das Abfragen von gemessenen PM10-Werten \\ \hline
+		iot"=microservice"=pm25 & Microservice für das Abfragen von gemessenen PM25-Werten \\ \hline
+		iot"=microservice"=pressure & Microservice für das Abfragen von gemessenen Luftdruck-Werten \\ \hline
+		iot"=microservice"=sv & Microservice für die Funktionen der Sensorknotenverwaltungsoberfläche \\ \hline
+		iot"=microservice"=temp & Microservice für das Abfragen von gemessenen Temperatur-Werten \\ \hline
+		iot"=microservice"=template & Vorlage für das Erstellen neuer Microservices \\ \hline
+		iot"=microservice"=uis & Microservice für die Funktionen der UIS Nutzeroberfläche \\ \hline
+		iot"=mqtt"=broker"=hive & Ein Fork des HiveMQ Brokers mit den nötigen Erweiterungen \\ \hline
+	\end{tabular}
+	\label{tbl:iotrepos}
+\end{table}
+
+\begin{landscape}
+	
+
+
+\begin{table}[htb]
+	\caption{Externe Abhängigkeiten der \skfw mit Links und Lizenzen}
+	\begin{tabular}{|p{0.18\linewidth}|p{0.06\linewidth}|p{0.34\linewidth}|p{0.33\linewidth}|}
+		\hline
+		Name & Lizenz & Erläuterung & Weblink \\ \hline
+		esp8266 & LGPL & Enthält Core-Funktionalitäten für den ESP8266. & \small\url{https://github.com/esp8266/Arduino} \\ \hline
+		Esp""Software""Serial & LGPL & Erweitert die Core-Funktionalitäten für den ESP8266 um eine Software-basierte serielle Schnittstelle. & \url{https://github.com/plerup/espsoftwaerserial} \\ \hline
+		make""Esp""Arduino & LGPL 2.1 & Enthält ein Make-File für den ESP8266. & \small\url{https://github.com/plerup/makeEspArduino} \\ \hline
+		SparkFun BME""280 Arduino Library & MIT & Enthält Arduino-Library für den BME280. & \small\url{https://github.com/sparkfun/SparkFun_BME280_Arduino_Library} \\ \hline
+		pubsubclient & MIT & Enthält Arduino-Client für MQTT. & \small\url{https://github.com/knolleary/pubsubclient} \\ \hline
+		libserial & MIT & Enthält Funktionalität zur Kommunikation via serielle Schnittstelle auf Linux-Systemen. & \small\url{https://github.com/wjwwood/serial} \\ \hline
+		paho.mqtt.c & EPL, EDL & Enthält Funktionalitäten zur Kommunikation via MQTT. Wird von paho.mqtt.cpp benötigt. & \small\url{https://github.com/eclipse/paho.mqtt.c} \\ \hline
+		paho.mqtt.cpp & EPL, EDL & Enthält Client für MQTT unter Linux. & \small\url{https://github.com/eclipse/paho.mqtt.cpp} \\ \hline
+		ArduinoJSON & MIT & Enthält Funktionalitäten zum Schreiben und Lesen von JSON"=Objekten. & \url{https://github.com/bblanchon/ArduinoJson} \\ \hline
+		googletest & BSD3 & Unittest-Framework mit Testrunner. & \small\url{https://github.com/google/googletest} \\ \hline
+		Fakeit & MIT & Mocking-Framework für Unittests. & \small\url{https://github.com/eranpeer/FakeIt} \\ \hline
+	\end{tabular}
+	\label{tbl:skextfwfull}
+\end{table}
+
+\begin{table}[htb]
+	\caption{Lizenzen in der \skfw}
+	\begin{tabular}{|p{0.06\linewidth}|p{0.34\linewidth}|p{0.53\linewidth}|}
+		\hline
+		Kürzel & Lizenz & Weblink \\ \hline
+		LGPL 2.1 & GNU Lesser General Public License, version 2.1 & \url{https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html} \\ \hline
+		MIT & The MIT License & \url{https://mit-license.org/} \\ \hline
+		EPL & Eclipse Public License - v 1.0 & \url{http://www.eclipse.org/legal/epl-v10.html} \\ \hline
+		EDL & Eclipse Distribution License - v 1.0 & \url{http://www.eclipse.org/org/documents/edl-v10.php} \\ \hline
+		BSD3 & The 3-Clause BSD License & \url{https://opensource.org/licenses/BSD-3-Clause} \\ \hline
+	\end{tabular}
+	\label{tbl:sklicenses}
+\end{table}
+
+\begin{table}[htb]
+	\caption{Externe Abhängigkeiten iot"=api"=gateway mit Links und Lizenzen}
+	\begin{tabular}{|p{0.18\linewidth}|p{0.06\linewidth}|p{0.06\linewidth}|p{0.28\linewidth}|p{0.33\linewidth}|}
+		\hline
+		Name & Version & Lizenz & Erläuterung & Weblink \\ \hline
+		@nestjs/common & 6.0.0 & MIT & Benötigt für NestJS & \small\url{https://www.npmjs.com/package/@nestjs/common} \\ \hline
+		@nestjs/core & 6.0.0 & MIT & Benötigt für NestJS & \small\url{https://www.npmjs.com/package/@nestjs/core} \\ \hline
+		@nestjs/jwt & 6.0.0 & MIT & Benötigt für JWT in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/jwt} \\ \hline
+		@nestjs/mongoose & 6.1.2 & MIT & Benötigt für mongoose in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/mongoose} \\ \hline
+		@nestjs/platform-express & 6.0.0 & MIT & Benötigt für NestJS mit ExpressJS & \small\url{https://www.npmjs.com/package/@nestjs/platform-express} \\ \hline
+		@nestjs/swagger & 3.0.2 & MIT & Benötigt für Swagger Dokumentation in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/swagger} \\ \hline
+		dotenv & 7.0.0 & BSD-2-Clause & Benötigt für das Laden von .env Konfigurationsdateien & \small\url{https://www.npmjs.com/package/dotenv} \\ \hline
+		joi & 14.3.1 & BSD-3-Clause & Benötigt zum Validieren der Konfigurationsdateien & \small\url{https://www.npmjs.com/package/joi} \\ \hline
+		mongoose & 5.6.11 & MIT & Benötigt zum Verbinden zur MongoDB & \small\url{https://www.npmjs.com/package/mongoose} \\ \hline
+		request & 2.88.0 & Apache-2.0 & Benötigt für HTTP Requests zu den Microservices & \small\url{https://www.npmjs.com/package/request} \\ \hline
+		request-promise-native & 1.0.7 & ISC & Wrapper zum Nutzen von nativen Promises bei HTTP Requests & \small\url{https://www.npmjs.com/package/request-promise-native} \\ \hline
+		uuid & 3.3.2 & MIT & Generierung von einzigartigen IDs & \small\url{https://www.npmjs.com/package/uuid} \\ \hline
+	\end{tabular}
+	\label{tbl:dependenciesApiGateway}
+\end{table}
+
+\begin{table}[htb]
+	\caption{Externe Abhängigkeiten iot"=collection"=creater mit Links und Lizenzen}
+	\begin{tabular}{|p{0.18\linewidth}|p{0.06\linewidth}|p{0.06\linewidth}|p{0.28\linewidth}|p{0.33\linewidth}|}
+		\hline
+		Name & Version & Lizenz & Erläuterung & Weblink \\ \hline
+		mongoose & 5.5.7 & MIT & Benötigt zum Verbinden zur MongoDB & \small\url{https://www.npmjs.com/package/mongoose} \\ \hline
+		dotenv & 8.0.0 & BSD-2-Clause & Benötigt für das Laden von .env Konfigurationsdateien & \small\url{https://www.npmjs.com/package/dotenv} \\ \hline
+		@hapi/joi & 15.0.2 & BSD-3-Clause & Benötigt zum Validieren der Konfigurationsdateien & \small\url{https://www.npmjs.com/package/@hapi/joi} \\ \hline
+	\end{tabular}
+	\label{tbl:dependenciesCollectionCreater}
+\end{table}
+
+\begin{table}[htb]
+	\caption{Externe Abhängigkeiten iot"=data"=collector mit Links und Lizenzen}
+	\begin{tabular}{|p{0.18\linewidth}|p{0.06\linewidth}|p{0.06\linewidth}|p{0.28\linewidth}|p{0.33\linewidth}|}
+		\hline
+		Name & Version & Lizenz & Erläuterung & Weblink \\ \hline
+		mongoose & 5.5.7 & MIT & Benötigt zum Verbinden zur MongoDB & \small\url{https://www.npmjs.com/package/mongoose} \\ \hline
+		dotenv & 8.0.0 & BSD-2-Clause & Benötigt für das Laden von .env Konfigurationsdateien & \small\url{https://www.npmjs.com/package/dotenv} \\ \hline
+		@hapi/joi & 15.0.2 & BSD-3-Clause & Benötigt zum Validieren der Konfigurationsdateien & \small\url{https://www.npmjs.com/package/@hapi/joi} \\ \hline
+		mqtt & 2.18.8 & MIT & MQTT Client zur Nutzung eines MQTT Broker & \small\url{https://www.npmjs.com/package/mqtt} \\ \hline
+		@mongoosejs/double & 0.1.2 & MIT & Nutzung des Double Datentyps für die MongoDB & \small\url{https://www.npmjs.com/package/@mongoosejs/double} \\ \hline
+	\end{tabular}
+	\label{tbl:dependenciesDataCollector}
+\end{table}
+
+\begin{table}[htb]
+	\caption{Externe Abhängigkeiten iot"=identity"=service mit Links und Lizenzen}
+	\begin{tabular}{|p{0.18\linewidth}|p{0.06\linewidth}|p{0.06\linewidth}|p{0.28\linewidth}|p{0.33\linewidth}|}
+		\hline
+		Name & Version & Lizenz & Erläuterung & Weblink \\ \hline
+		@nestjs/common & 6.0.0 & MIT & Benötigt für NestJS & \small\url{https://www.npmjs.com/package/@nestjs/common} \\ \hline
+		@nestjs/core & 6.0.0 & MIT & Benötigt für NestJS & \small\url{https://www.npmjs.com/package/@nestjs/core} \\ \hline
+		@nestjs/mongoose & 6.1.2 & MIT & Benötigt für mongoose in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/mongoose} \\ \hline
+		@nestjs/platform-express & 6.0.0 & MIT & Benötigt für NestJS mit ExpressJS & \small\url{https://www.npmjs.com/package/@nestjs/platform-express} \\ \hline
+		@nestjs/swagger & 3.0.2 & MIT & Benötigt für Swagger Dokumentation in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/swagger} \\ \hline
+		dotenv & 7.0.0 & BSD-2-Clause & Benötigt für das Laden von .env Konfigurationsdateien & \small\url{https://www.npmjs.com/package/dotenv} \\ \hline
+		joi & 14.3.1 & BSD-3-Clause & Benötigt zum Validieren der Konfigurationsdateien & \small\url{https://www.npmjs.com/package/joi} \\ \hline
+		mongoose & 5.6.11 & MIT & Benötigt zum Verbinden zur MongoDB & \small\url{https://www.npmjs.com/package/mongoose} \\ \hline
+	\end{tabular}
+	\label{tbl:dependenciesIdentityService}
+\end{table}
+
+\begin{table}[htb]
+	\caption{Externe Abhängigkeiten iot"=microservice"=pm10 mit Links und Lizenzen}
+	\begin{tabular}{|p{0.18\linewidth}|p{0.06\linewidth}|p{0.06\linewidth}|p{0.28\linewidth}|p{0.33\linewidth}|}
+		\hline
+		Name & Version & Lizenz & Erläuterung & Weblink \\ \hline
+		@nestjs/common & 6.0.0 & MIT & Benötigt für NestJS & \small\url{https://www.npmjs.com/package/@nestjs/common} \\ \hline
+		@nestjs/core & 6.0.0 & MIT & Benötigt für NestJS & \small\url{https://www.npmjs.com/package/@nestjs/core} \\ \hline
+		@nestjs/mongoose & 6.1.2 & MIT & Benötigt für mongoose in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/mongoose} \\ \hline
+		@nestjs/platform-express & 6.0.0 & MIT & Benötigt für NestJS mit ExpressJS & \small\url{https://www.npmjs.com/package/@nestjs/platform-express} \\ \hline
+		@nestjs/swagger & 3.0.2 & MIT & Benötigt für Swagger Dokumentation in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/swagger} \\ \hline
+		dotenv & 7.0.0 & BSD-2-Clause & Benötigt für das Laden von .env Konfigurationsdateien & \small\url{https://www.npmjs.com/package/dotenv} \\ \hline
+		joi & 14.3.1 & BSD-3-Clause & Benötigt zum Validieren der Konfigurationsdateien & \small\url{https://www.npmjs.com/package/joi} \\ \hline
+		mongoose & 5.6.11 & MIT & Benötigt zum Verbinden zur MongoDB & \small\url{https://www.npmjs.com/package/mongoose} \\ \hline
+	\end{tabular}
+	\label{tbl:dependenciesMicroPM10}
+\end{table}
+
+\begin{table}[htb]
+	\caption{Externe Abhängigkeiten iot"=microservice"=pm25 mit Links und Lizenzen}
+	\begin{tabular}{|p{0.18\linewidth}|p{0.06\linewidth}|p{0.06\linewidth}|p{0.28\linewidth}|p{0.33\linewidth}|}
+		\hline
+		Name & Version & Lizenz & Erläuterung & Weblink \\ \hline
+		@nestjs/common & 6.0.0 & MIT & Benötigt für NestJS & \small\url{https://www.npmjs.com/package/@nestjs/common} \\ \hline
+		@nestjs/core & 6.0.0 & MIT & Benötigt für NestJS & \small\url{https://www.npmjs.com/package/@nestjs/core} \\ \hline
+		@nestjs/mongoose & 6.1.2 & MIT & Benötigt für mongoose in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/mongoose} \\ \hline
+		@nestjs/platform-express & 6.0.0 & MIT & Benötigt für NestJS mit ExpressJS & \small\url{https://www.npmjs.com/package/@nestjs/platform-express} \\ \hline
+		@nestjs/swagger & 3.0.2 & MIT & Benötigt für Swagger Dokumentation in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/swagger} \\ \hline
+		dotenv & 7.0.0 & BSD-2-Clause & Benötigt für das Laden von .env Konfigurationsdateien & \small\url{https://www.npmjs.com/package/dotenv} \\ \hline
+		joi & 14.3.1 & BSD-3-Clause & Benötigt zum Validieren der Konfigurationsdateien & \small\url{https://www.npmjs.com/package/joi} \\ \hline
+		mongoose & 5.6.11 & MIT & Benötigt zum Verbinden zur MongoDB & \small\url{https://www.npmjs.com/package/mongoose} \\ \hline
+	\end{tabular}
+	\label{tbl:dependenciesMicroPM25}
+\end{table}
+
+\begin{table}[htb]
+	\caption{Externe Abhängigkeiten iot"=microservice"=temp mit Links und Lizenzen}
+	\begin{tabular}{|p{0.18\linewidth}|p{0.06\linewidth}|p{0.06\linewidth}|p{0.28\linewidth}|p{0.33\linewidth}|}
+		\hline
+		Name & Version & Lizenz & Erläuterung & Weblink \\ \hline
+		@nestjs/common & 6.0.0 & MIT & Benötigt für NestJS & \small\url{https://www.npmjs.com/package/@nestjs/common} \\ \hline
+		@nestjs/core & 6.0.0 & MIT & Benötigt für NestJS & \small\url{https://www.npmjs.com/package/@nestjs/core} \\ \hline
+		@nestjs/mongoose & 6.1.2 & MIT & Benötigt für mongoose in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/mongoose} \\ \hline
+		@nestjs/platform-express & 6.0.0 & MIT & Benötigt für NestJS mit ExpressJS & \small\url{https://www.npmjs.com/package/@nestjs/platform-express} \\ \hline
+		@nestjs/swagger & 3.0.2 & MIT & Benötigt für Swagger Dokumentation in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/swagger} \\ \hline
+		dotenv & 7.0.0 & BSD-2-Clause & Benötigt für das Laden von .env Konfigurationsdateien & \small\url{https://www.npmjs.com/package/dotenv} \\ \hline
+		joi & 14.3.1 & BSD-3-Clause & Benötigt zum Validieren der Konfigurationsdateien & \small\url{https://www.npmjs.com/package/joi} \\ \hline
+		mongoose & 5.6.11 & MIT & Benötigt zum Verbinden zur MongoDB & \small\url{https://www.npmjs.com/package/mongoose} \\ \hline
+	\end{tabular}
+	\label{tbl:dependenciesMicroTemp}
+\end{table}
+
+\begin{table}[htb]
+	\caption{Externe Abhängigkeiten iot"=microservice"=sv mit Links und Lizenzen}
+	\begin{tabular}{|p{0.18\linewidth}|p{0.06\linewidth}|p{0.06\linewidth}|p{0.28\linewidth}|p{0.33\linewidth}|}
+		\hline
+		Name & Version & Lizenz & Erläuterung & Weblink \\ \hline
+		@nestjs/common & 6.0.0 & MIT & Benötigt für NestJS & \small\url{https://www.npmjs.com/package/@nestjs/common} \\ \hline
+		@nestjs/core & 6.0.0 & MIT & Benötigt für NestJS & \small\url{https://www.npmjs.com/package/@nestjs/core} \\ \hline
+		@nestjs/mongoose & 6.1.2 & MIT & Benötigt für mongoose in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/mongoose} \\ \hline
+		@nestjs/platform-express & 6.0.0 & MIT & Benötigt für NestJS mit ExpressJS & \small\url{https://www.npmjs.com/package/@nestjs/platform-express} \\ \hline
+		@nestjs/swagger & 3.0.2 & MIT & Benötigt für Swagger Dokumentation in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/swagger} \\ \hline
+		dotenv & 7.0.0 & BSD-2-Clause & Benötigt für das Laden von .env Konfigurationsdateien & \small\url{https://www.npmjs.com/package/dotenv} \\ \hline
+		joi & 14.3.1 & BSD-3-Clause & Benötigt zum Validieren der Konfigurationsdateien & \small\url{https://www.npmjs.com/package/joi} \\ \hline
+		mongoose & 5.6.11 & MIT & Benötigt zum Verbinden zur MongoDB & \small\url{https://www.npmjs.com/package/mongoose} \\ \hline
+		jwt-decode & 2.2.0 & MIT & Benötigt zum dekodieren von JWT & \small\url{https://www.npmjs.com/package/jwt-decode} \\ \hline
+		mqtt & 3.0.0 & MIT & MQTT Client zur Nutzung eines MQTT Broker & \small\url{https://www.npmjs.com/package/mqtt} \\ \hline
+	\end{tabular}
+	\label{tbl:dependenciesMicroSV}
+\end{table}
+
+\begin{table}[htb]
+	\caption{Externe Abhängigkeiten iot"=microservice"=uis mit Links und Lizenzen}
+	\begin{tabular}{|p{0.18\linewidth}|p{0.06\linewidth}|p{0.06\linewidth}|p{0.28\linewidth}|p{0.33\linewidth}|}
+		\hline
+		Name & Version & Lizenz & Erläuterung & Weblink \\ \hline
+		@nestjs/common & 6.0.0 & MIT & Benötigt für NestJS & \small\url{https://www.npmjs.com/package/@nestjs/common} \\ \hline
+		@nestjs/core & 6.0.0 & MIT & Benötigt für NestJS & \small\url{https://www.npmjs.com/package/@nestjs/core} \\ \hline
+		@nestjs/mongoose & 6.1.2 & MIT & Benötigt für mongoose in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/mongoose} \\ \hline
+		@nestjs/platform-express & 6.0.0 & MIT & Benötigt für NestJS mit ExpressJS & \small\url{https://www.npmjs.com/package/@nestjs/platform-express} \\ \hline
+		@nestjs/swagger & 3.0.2 & MIT & Benötigt für Swagger Dokumentation in NestJS & \small\url{https://www.npmjs.com/package/@nestjs/swagger} \\ \hline
+		dotenv & 7.0.0 & BSD-2-Clause & Benötigt für das Laden von .env Konfigurationsdateien & \small\url{https://www.npmjs.com/package/dotenv} \\ \hline
+		joi & 14.3.1 & BSD-3-Clause & Benötigt zum Validieren der Konfigurationsdateien & \small\url{https://www.npmjs.com/package/joi} \\ \hline
+		mongoose & 5.6.11 & MIT & Benötigt zum Verbinden zur MongoDB & \small\url{https://www.npmjs.com/package/mongoose} \\ \hline
+		mqtt & 3.0.0 & MIT & MQTT Client zur Nutzung eines MQTT Broker & \small\url{https://www.npmjs.com/package/mqtt} \\ \hline
+	\end{tabular}
+	\label{tbl:dependenciesMicroUIS}
+\end{table}
+
+\end{landscape}

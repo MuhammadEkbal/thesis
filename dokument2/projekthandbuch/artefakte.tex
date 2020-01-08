@@ -1,0 +1,164 @@
+\newcommand{\textbi}[1]{\textit{\textbf{#1}}}
+
+\section{Verwaltung von Artefakten}
+\subsection{Aufgaben}
+Die anstehenden, laufenden und fertiggestellten Aufgaben der Projektgruppe werden im PGRIO-Projekt des JIRA-Servers gepflegt. (\url{https://jira.swl.informatik.uni-oldenburg.de}) Zugang haben alle Projektgruppenmitglieder. Die Verwaltung der Zugänge wird von der Rolle Atlassian übernommen, in Kommunikation mit Marco Grawunder. (\mailaddr{marco.grawunder@uol.de})
+
+\paragraph{Aufgabenboard}
+In der Anfangsphase des Projekts (Definitionsphase) wird das Aufgabenboard verwendet. Darin werden Tickets vom Typ Task erfasst und um Sub-Tasks ergänzt, um die Bearbeitung der anstehenden Aufgaben zu organisieren. Im Aufgabenboard gibt es die Spalten "`To Do"', "`In Progress"', "`In Review"', "`Done"'. Der Workflow ist unter Entwicklungsworkflow erklärt.
+
+\paragraph{Weitere Boards}
+Mit Beginn der Anforderungsanalyse wird ein weiteres Board zur Organisation der Anforderungen innerhalb des Backlogs verwendet. Dieses ist noch zu erstellen und zu erläutern.
+
+\subsection{Dokumentation}
+\paragraph{Source Code Dokumentation}
+Der Source Code der einzelnen Teilprojekte ist jeweils zu dokumentieren. Hier werden die Richtlinien festgehalten, welche Code-Bestandteile wie zu dokumentieren sind. Beschreibung der Richtlinien folgt spätestens vor Beginn der Entwicklungsphase.
+
+\paragraph{Weitere Dokumentation}
+Weitere Dokumentation ist soweit möglich in Confluence zu pflegen. Die Dokumentation muss folgende Bestandteile beinhalten:
+\begin{itemize}
+	\item Benutzerdokumentation
+	\begin{itemize}
+		\item Installation und Hilfe zur Routinganwendung
+		\item Einrichtung, Inbetriebnahme und Wartung von Sensoren
+	\end{itemize}
+	\item Testdokumentation
+	\begin{itemize}
+		\item Definition Testfälle
+		\item Durchführung von Tests
+	\end{itemize}
+	\item Infrastruktur/ Deployment
+	\begin{itemize}
+		\item Beschreibung der Systeminfrastruktur (Testumgebung/ Produktivumgebung)
+		\item Anleitung zur Durchführung eines Deployments
+		\item Beschreibung automatischer Deployment-Verfahren
+	\end{itemize}
+	\item Schnittstellenbeschreibung
+	\begin{itemize}
+		\item Protokolle
+		\item Endpunkte
+	\end{itemize}
+	\item Methodendokumentation
+	\begin{itemize}
+		\item z.B. Beschreibung verwendeter Algorithmen
+	\end{itemize}
+\end{itemize}
+
+\subsection{Source Code}
+\paragraph{Überblick}
+Der Source Code des Projekts wird in der Bitbucket Quellcode-Verwaltung abgelegt. (\url{https://git.swl.informatik.uni-oldenburg.de/projects/PGRIO}) Durch die Verwendung der Quellcode-Verwaltung mit Git wird die gemeinsame Arbeit am Code erleichtert und sicherer gestaltet.\\
+Der Source Code teilt sich auf verschiedene Teilprojekte auf, die im Folgenden erläutert und ggf. ergänzt werden.
+
+\paragraph{Wie lege ich ein Teilprojekt an?}
+Zum Anlegen eines Teilprojektes gehören folgende Schritte:
+\begin{itemize}
+	\item Anlegen des Git-Repositories im PGRIO-Projekt
+	\item Bestimmung eines Teilprojekt-Verantwortlichen und ggf. eines Stellvertreters
+	\item Festlegen der verwendeten Technologien
+	\begin{itemize}
+		\item Programmiersprache
+		\item Frameworks
+		\item Entwicklungstools und -umgebung
+	\end{itemize}	
+	\item Festlegen der Branching-Strategie
+	\item Festlegen der Code-, Test- und Dokumentationsrichtlinien für das Teilprojekt
+	\begin{itemize}
+		\item Standard-Konventionen der verwendeten Technologie bevorzugen
+	\end{itemize}
+	\item Ggf. Festlegen besonderer Qualitätssicherungsmaßnahmen
+	\item Initialen Commit und ggf. initiales branchen vornehmen (Erste Projektstruktur)
+	\item CI/CD einrichten
+	\item Dokumentation des Teilprojektes im Projekthandbuch
+	\begin{itemize}
+		\item Name
+		\item Verantwortlicher (und Stellvertreter)
+		\item Verwendete Technologien (mit kurzer Begründung)
+		\item Branch-Strategie
+		\item Code-Richtlinien
+		\item Test-Richtlinien
+		\item Dokumentations-Richtlinien
+		\item Erläuterung zum CI/CD
+		\item Qualitätssicherungsmaßnahmen
+	\end{itemize}	
+	\item Feedback zu diesem Kapitel des Projekthandbuchs
+\end{itemize}
+
+\paragraph{Wie beginne ich die Arbeit am Source Code?}
+Zum Beginnen der Arbeit an einem Teilprojekt sind folgende Schritte notwendig:
+\begin{itemize}
+	\item Rücksprache mit Verantwortlichem
+	\item Einrichtung der Entwicklungsumgebung
+	\item Pull des Quellcodes
+	\item Einlesen in Branching-Strategie, Code- und Dokumentationsrichtlinien sowie Qualitätssicherungsmaßnahmen
+	\item Einarbeitung in den Code
+	\item Rückfragen stellen
+	\item Gemeinsam loslegen
+\end{itemize}
+
+\paragraph{Wie wird die Codequalität gesichert?}
+Der Code wird durch den Entwicklungsworkflow (Pull-Requests), durch gemeinsame Code Reviews und durch automatische Tests gesichert, die durch Pipelines automatisch nach einem Push ausgeführt werden. Beim Review eines Merge-Requests und bei Durchführung eines gemeinsamen Code Reviews sind die Einhaltung der Code-, Test- und Dokumentationsrichtlinien zu überprüfen. Zudem werden die Implementation und automatische Tests gegenüber der Spezifikation der umgesetzten Aufgabe überprüft. Zu den einzelnen Teilprojekten können weitere Qualitätssicherungsmaßnahmen festgelegt werden.
+
+\paragraph{Teilprojekte}
+Hier werden die einzelnen Teilprojekte, wie oben beschrieben, dokumentiert.
+
+\begin{enumerate}
+	\item dokumentation
+	\begin{itemize}
+		\item Verantwortlich: Gerrit Schöne
+		\item Technologien: Latex
+		\item Branch-Strategie: Jeder Task/Subtask wird in einem eigenen Branch bearbeitet.
+		\item Qualitätssicherung: Änderungen werden über einen Pull-Request in den master Branch eingespielt. Der Pull-Request ist von einer anderen Person zu überprüfen, kleine Anpassungen wie Rechstschreibkorrektur dürfen vom Prüfer vorgenommen werden. Danach kann der Pull-Request akzeptiert oder mit Anmerkungen abgewiesen werden.
+	\end{itemize}
+\end{enumerate}
+
+\subsection{Modelle}
+Folgende Modelle der Software werden in Confluence hinterlegt und sind stets aktuell zu halten:
+\begin{itemize}
+	\item Systementwurf
+	\item Softwarearchitektur
+\end{itemize}
+
+\subsection{Sitzungsprotokolle}
+\paragraph{Überblick}
+Zu allen Besprechungsterminen wird ein Sitzungsprotokoll angefertigt und im Confluence abgelegt. Dafür gibt es die Oberseite Sitzungen, unter der die Protokolle abgelegt werden. Die Namenskonvention zum Abspeichern ist „YYYY-MM-DD \{Art der Besprechung\}“.
+
+\paragraph{Welche Arten von Sitzungen gibt es?}
+\begin{itemize}
+	\item Teamsitzung
+	\item Betreuertreffen
+	\item \textit{Backlog Refinement}
+	\item \textit{Sprint Planning}
+	\item \textit{Sprint Review}
+	\item \textit{Sprint Retrospektive}
+	\item \textit{Code Review}
+\end{itemize}
+Die kursiv dargestellten Sitzungen sind derzeit noch nicht beschrieben.
+
+\paragraph{Wer schreibt das Protokoll?}
+Die Protokolle werden reihum von verschiedenen Teammitgliedern geschrieben. Der Protokollant wird wochenweise für alle Sitzungen der Woche festgelegt. Wer in welcher Woche Protokollant ist, wird in einer Übersicht auf der Oberseite Sitzungen festgehalten.
+
+\paragraph{Wie wird das Protokoll vom Protokollanten vorbereitet?}
+Der Protokollant legt die Seite im Confluence frühzeitig vor der Besprechung an. Die Agenda wird anhand des letzten Protokolls in Rücksprache mit dem Moderator festgelegt. Zum Anlegen gibt es verschiedene Vorlagen im Confluence. Die Namenskonvention ist zu berücksichtigen und Moderator sowie Protokollant sind in das Protokoll einzutragen. \\
+\textbi{Teamsitzung / Betreuertreffen}:
+Für diese Besprechungen gibt es die Confluence-Vorlage Besprechungsnotizen. Bei Teamsitzungen findet kein Weekly Scrum statt, dieser Abschnitt kann für diese Besprechungen also entfernt werden.
+
+\paragraph{Wie bereiten sich die Teammitglieder auf Sitzungen vor?}
+Allgemein gilt es, sich auf die Themen der Besprechung ausreichend vorzubereiten. Dazu zählt insbesondere das Vorbereiten von Themen, die man selbst vorstellt. Dazu kann auch im Vorfeld ein Dokument an die anderen Teilnehmer versendet werden. Das Durchlesen dieser Dokumente zählt genauso zur Vorbereitung auf die Sitzung.\\
+\textbi{Teamsitzung}:
+Hier kann jedes Teammitglied im Vorfeld unter Diskussionspunkte Themen mit einbringen, die innerhalb von ca. 5 Minuten besprochen werden können.\\
+\textbi{Betreuertreffen}:
+Hier ist von jedem Mitglied die Tabelle des Weekly Scrums im Vorfeld auszufüllen.
+
+\paragraph{Wie wird protokolliert?}
+Protokolliert werden die Ergebnisse und Entscheidungen der Sitzung. Dazu wird zu jedem Punkt der Agenda eine Übersicht der besprochenen Ergebnisse und der getroffenen Entscheidungen dargestellt. Ergänzend werden bei Diskussionen wichtige Argumente für und gegen eine Variante festgehalten. Bleiben offene Fragen oder Entscheidungen werden vertagt, ist dies ebenfalls zu protokollieren. Abgeleitete Aufgaben aus der Sitzung werden am Ende des Protokolls in einer Übersicht mit Bearbeiter der Aufgabe zusammengefasst.
+
+\paragraph{Wie wird das Protokoll nachgearbeitet?}
+Das Protokoll wird vom Protokollanten aufbereitet, um korrekte Rechtschreibung und eine gute Formulierung zu gewährleisten. Zusätzlich soll das Protokoll von einer weiteren Person auf Rechtschreibung und Formulierung geprüft werden. Danach wird das Protokoll freigegeben und als PDF exportiert, damit es mit der nächsten Einladung an die Projektbeteiligten verschickt werden kann. Jedes Projektgruppenmitglied erstellt eigenverantwortlich JIRA-Tickets für seine Aufgaben.
+
+\subsection{Sonstige Artefakte}
+Folgende Artefakte werden mittels Latex im Repository dokumentation der Source Code-Verwaltung gepflegt:
+\begin{itemize}
+	\item Visionsdokument
+	\item Projekthandbuch
+\end{itemize}
+Entstehen im Entwicklungsprozess weitere Artefakte, so ist hier zu dokumentieren, wo und in welcher Form sie zu hinterlegen sind. Bestenfalls werden sonstige Artefakte in Confluence oder in der Quellcode-Verwaltung hinterlegt.

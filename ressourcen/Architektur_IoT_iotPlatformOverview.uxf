@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>296</x>
+      <y>96</y>
+      <w>112</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>External Services</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>184</y>
+      <w>408</w>
+      <h>344</h>
+    </coordinates>
+    <panel_attributes>IoT-Platform
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>232</x>
+      <y>216</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>API Gateway</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>400</x>
+      <y>216</y>
+      <w>104</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Identity Service</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>232</x>
+      <y>312</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Microservices</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>232</x>
+      <y>384</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Data Collector</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>232</x>
+      <y>480</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>MQTT Broker</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>608</x>
+      <y>184</y>
+      <w>120</w>
+      <h>344</h>
+    </coordinates>
+    <panel_attributes>Storage</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>624</x>
+      <y>296</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>MongoDB</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>264</x>
+      <y>112</y>
+      <w>112</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+HTTPS
+m1=1
+m2=*</panel_attributes>
+    <additional_attributes>10.0;130.0;10.0;70.0;110.0;70.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>304</x>
+      <y>208</y>
+      <w>112</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+HTTP
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>120.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>264</x>
+      <y>232</y>
+      <w>48</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;
+HTTP
+m1=*
+m2=1</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>264</x>
+      <y>400</y>
+      <w>56</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;
+MQTT
+m1=1
+m2=*</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>176</x>
+      <y>312</y>
+      <w>72</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+MQTT
+m1=1
+m2=*</panel_attributes>
+    <additional_attributes>70.0;220.0;10.0;220.0;10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>496</x>
+      <y>216</y>
+      <w>240</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+mongoose
+
+
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>210.0;100.0;210.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>304</x>
+      <y>288</y>
+      <w>336</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+mongoose
+
+
+
+m1=1
+m2=*</panel_attributes>
+    <additional_attributes>400.0;20.0;240.0;20.0;240.0;40.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>304</x>
+      <y>312</y>
+      <w>432</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1
+m2=*
+mongoose</panel_attributes>
+    <additional_attributes>450.0;10.0;450.0;100.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>296</x>
+      <y>584</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Sensorknoten</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>264</x>
+      <y>496</y>
+      <w>96</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;
+MQTT
+m1=*
+m2=1</panel_attributes>
+    <additional_attributes>90.0;110.0;90.0;70.0;10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>152</x>
+      <y>88</y>
+      <w>584</w>
+      <h>528</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+</diagram>

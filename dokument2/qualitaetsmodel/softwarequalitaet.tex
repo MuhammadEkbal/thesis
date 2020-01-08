@@ -1,0 +1,89 @@
+\section{Softwarequalitaet}
+Im Folgenden werden die Kriterien für Softwarequalität nach Dimension und Sub"=Dimension tabellarisch aufgezählt. In der Spalte RiO wird dargestellt, ob und wie sehr wir das Kriterium berücksichtigen. In der Spalte Teilsysteme wird aufgelistet, welche Aspekte des Produktivsystems betrachtet werden sollen. In der nächsten Spalte sind die Artefakte und Ressourcen aufgelistet, die zur Sicherstellung der Qualität erstellt und verwendet werden. Unter Maßnahmen werden Vorgehen und Prüfmechanismen zur Sicherung der Qualität bezüglich der betroffenen Dimension aufgelistet.
+Zur Nutzbarkeit gibt es einen Sonderfall, da die Unterkriterien für verschiedene Teilkriterien unterschiedlich ausgeprägt sind. Daher wird diese Dimension für jedes betroffene Teilsystem beschrieben.
+
+\begin{landscape}
+ \begin{longtable}{|p{4.5cm}|p{1.5cm}|p{4.5cm}|p{4.5cm}|p{3.5cm}|}
+ 	\caption{Kriterien der Softwarequalität}\\%
+   \hline
+   Dimension & RiO & Teilsysteme & Artefakte/ Ressourcen & Maßnahmen\\ \hline
+   \multicolumn{5}{|c|}{Funktionalität} \\ \hline
+   Vollständigkeit & sehr & alle &  Anforderungsdokument & Abnahme Anforderungsdokument, Aufteilung Epics in User Stories\\
+   \hline
+   Korrektheit & sehr & alle &  Product"=Backlog & User"=Stories, Akzeptanzkriterien, DoD\\ \hline
+   Angemessenheit & sehr & alle &  Product"=Backlog & User"=Stories, Akzeptanzkriterien, DoD\\ \hline
+   \multicolumn{5}{|c|}{Performance}  \\ \hline
+   Zeitliches Verhalten & sehr & Routenberechnung und -bereitstellung, Sensordaten"=Verarbeitung, Services &  Testumgebung, CI/CD"=Server & Performancetests\\ \hline
+   Ressourcennutzung & - & - & - & - \\ \hline
+   Kapazitäten & - & - & - & - \\ \hline   
+   \multicolumn{5}{|c|}{Kompatibilität}  \\ \hline
+   Co"=Existenz & - & - & - & - \\ \hline
+   Interoperabilität & sehr & IoT"=Plattform & Testumgebung & Integration luftdaten.info \\ \hline
+   Dimension & RiO & Teilsysteme & Artefakte/ Ressourcen & Maßnahmen\\ \hline
+   \multicolumn{5}{|c|}{Nutzbarkeit (Navigationsanwendung)} \\ \hline
+   Angemessene Erkennbarkeit & - & - & - & - \\ \hline
+   Lernbarkeit & wenig & - & Testprotokolle & Usertests \\ \hline
+   Operabilität & sehr & - & Testprotokolle, Product Backlog & Usertests \\ \hline
+   Ästhetik der Nutzeroberfläche & sehr & - & Testprotokolle, Product Backlog & Usertests, Review \\ \hline
+   Schutz vor Fehlern & - & - & - & - \\ \hline
+   Zugänglichkeit & - & - & - & - \\ \hline  
+   \multicolumn{5}{|c|}{Nutzbarkeit (UIS - Anwendung)} \\ \hline
+   Angemessene Erkennbarkeit & - & - & - & - \\ \hline
+   Lernbarkeit & - & - & - & - \\ \hline
+   Operabilität & sehr & - &  & Usertests, Review \\ \hline
+   Ästhetik der Nutzeroberfläche & wenig & - & - & Review \\ \hline
+   Schutz vor Fehlern & - & - & - & Usertests \\ \hline
+   Zugänglichkeit & - & - & - & - \\ \hline   
+   Dimension & RiO & Teilsysteme & Artefakte/ Ressourcen & Maßnahmen\\ \hline   
+   \multicolumn{5}{|c|}{Wartbarkeit} \\ \hline
+   Modularität & sehr & - & Architekturdokument, Source Code & Entwurf Architektur, TDD, Code"=Konventionen \\ \hline 
+   Wiederverwendbarkeit & wenig & - & Architekturdokument & Entwurf Architektur \\ \hline    
+   Analysierbarkeit & sehr & - & Architekturdokument, IDE, CI/CD"=Server & Entwurf Architektur, TDD \\ \hline
+   Modifizierbarkeit & sehr & - & Source Code, CI/CD"=Server & Git, TDD \\ \hline  
+   Testbarkeit & sehr & - & Source Code, CI/CD"=Server, Testprotokolle & Akzeptanztests, TDD, DoD \\ \hline   
+   \multicolumn{5}{|c|}{Portabilität} \\ \hline    
+   Installierbarkeit & sehr & Sensorknoten, Navigations"=App & Testprotokolle & Usertests \\ \hline
+   Austauschbarkeit & sehr & IoT"=Plattform & Testumgebung & Integration luftdaten.info \\ \hline   
+   Anpassungsfähigkeit & wenig & Sensorknoten & Testumgebung & Integration luftdaten.info \\ \hline 
+   \multicolumn{5}{|c|}{Zuverlässigkeit} \\ \hline
+   Reife & - & - & - & - \\ \hline
+   Fehlertoleranz & - & - & - & - \\ \hline
+   Wiederherstellbarkeit & - & - & - & - \\ \hline
+   Verfügbarkeit & sehr & Routing, Navigation & - & Log"=Analyse, Benachrichtigungen \\ \hline
+   \multicolumn{5}{|c|}{Sicherheit} \\ \hline
+   Unwiderruflichkeit & - & - & - & - \\ \hline   
+   Vertraulichkeit & sehr & IoT"=Plattform & - & Rollen- und Rechtemanagement \\ \hline 
+   Integrität & sehr & IoT"=Plattform & - & Rollen- und Rechtemanagement \\ \hline 
+ \end{longtable}
+\end{landscape}
+
+\begin{itemize}
+    \item	\textit{Anforderungsdokument}: Hier werden die Anforderungen an das System aus Nutzersicht in Form von Epics dargestellt.
+    \item	\textit{Product"=Backlog}: Im Product"=Backlog werden die User"=Storys beschrieben und priorisiert, die die Anforderungen der Epics detaillierter beschreiben. Das Backlog wird mittels JIRA gepflegt.
+    \item	\textit{Testumgebung}: Die Testumgebung ist eine Spiegelung des sich im produktiven Einsatz befindenden Gesamtsystems. In ihr können neue Funktionalitäten und Anwendungsfälle getestet und überprüft werden. Auf sie kann nur von Projektgruppenmitgliedern zugegriffen werden und sie ist vom Produktivsystem strikt getrennt.
+    \item	\textit{CI/CD"=Server}: Dieser Server ermöglicht eine automatische Erstellung der Programme/Komponenten des Systems auf Grundlage des Source"=Codes. Darüber hinaus lassen sich die erstellten Artefakte in der Testumgebung bzw. im Produktivsystem bereitstellen.
+    \item	\textit{Testprotokolle}: Zur Beschreibung und Dokumentation der Durchführung werden Testprotokolle verwendet. Sie enthalten eine Beschreibung der vorbereitenden Maßnahmen, der durchzuführenden Tätigkeiten und des erwarteten Systemverhaltens. Zudem werden Testdurchläufe mit Datum, verwendeter Version und Tester protokolliert.
+    \item	\textit{Architekturdokument}: In diesem Dokument wird die entworfene und verwendete Architektur des Systems und der Teilsysteme dokumentiert. Der Source"=Code muss den Vorgaben der Architektur entsprechen. Anpassungen sind stets zu pflegen
+    \item	\textit{Source"=Code}: Der Source"=Code wird von den Mitgliedern der Projektgruppe auf Grundlage der Anforderungen und der Architektur geschrieben. Er wird über die Quellcode"=Verwaltung Git im BitBucket"=Server der Universität verwaltet.
+    \item	\textit{IDE (Integrated Development Environment)}: IDEs werden zur Erstellung des Source"=Codes verwendet. Sie liefern erweiterte Funktionalitäten, mit deren Hilfe Analysen des Codes sowie die Ausführung des Programms und der Unit"=Tests möglich sind.
+\end{itemize}
+
+
+Um die Qualitätskriterien umsetzen zu können, wird in diesem Abschnitt der Zusammenhang zwischen den genannten Maßnahmen und dem daraus resultierenden Effekt auf die jeweiligen Dimensionen und Sub"=Dimensionen hergestellt.
+\begin{itemize}
+    \item	\textit{Abnahme Anforderungsdokument}: Das Anforderungsdokument wird von der Projektgruppe in mehreren Iterationen erstellt. Nach jeder Iteration wird von den Stakeholdern Feedback hinsichtlich Strukturierung und Vollständigkeit eingeholt. So soll mit der Abnahme des Dokuments sichergestellt werden, dass die darin aufgelisteten Anforderungen das System möglichst vollständig umfassen. Das Anforderungsdokument kann bei Bedarf jederzeit ergänzt werden.
+    \item	\textit{Aufteilung der Epics in User Stories}: Um die Anforderungen zu strukturieren werden Super Epics und Epics als Abstraktionsebenen über den User Stories eingeführt. Diese Struktur soll die Übersichtlichkeit und somit auch die Vollständigkeit der funktionalen Anforderungen gewährleisten.
+    \item	\textit{User Stories}: User Stories spielen eine entscheidende Rolle bei der Angemessenheit und der Korrektheit der Anforderungen. Durch den Fokus der Anforderung auf den jeweiligen Nutzer soll sichergestellt werden, dass der Mehrwert für den Nutzer erkennbar ist und erfüllt wird.
+    \item	\textit{Akzeptanzkriterien}: Für jede User Stories wird mindestens ein Akzeptanzkriterium erfasst, welches angibt, wann die User Story hinsichtlich der geforderten Funktionalität die jeweilige Anforderung erfüllt. Ein Akzeptanzkriterium beschreibt demnach einen Akzeptanztest, der zur Abnahme der User Story durchgeführt werden muss.
+    \item	\textit{Definition of Done (DoD)}: Die DoD ist eine Liste von Kriterien, die erfüllt sein müssen, damit eine User Story als "'done"' deklariert werden kann. Sie wird in jedem Story"=Ticket als eigenes Feld angelegt und muss für jede Story überprüft werden. Sie beinhaltet zum Beispiel die Erfüllung der Akzeptanzkriterien. So wird mit Hilfe der DoD sichergestellt, dass die jeweilige User"=Storiy mehrere Qualitätsbedingungen erfüllt, bevor sie abgeschlossen wird.
+    \item	\textit{Performancetest}: Performancetest können genutzt werden, um zum Beispiel die Performance der Navigationsanwendung unter verschiedenen Lasten zu testen. So kann überprüft werden, ob die vorhandene Performance den Anforderungen entspricht.
+    \item	\textit{Usertests}: Usertests sind einfache Tests durch entsprechende Nutzer. Diese können insbesondere genutzt werden, um die Nutzbarkeit der grafischen Oberflächen und deren Funktionalität zu bewerten. So kann überprüft werden, ob zum Beispiel die intuitive Bedienung der Navigationsanwendung gewährleistet ist.
+    \item	\textit{Review}: Ein Review kann sowohl das Sprint Review sein, bei dem die Aktivitäten des letzten Sprints vor dem Team und den Stakeholdern vorgestellt werden, als auch ein Vier"=Augen"=Prinzip, sodass zum Beispiel ein anderes Mitglied der Projektgruppe die Qualität (insb. in Bezug auf die Nutzbarkeit) überprüft und bewertet.
+    \item	\textit{Entwurf Architektur}: Durch die Architektur werden Qualitätskriterien hinsichtlich der Wartung betrachtet. Es wird beschrieben, wie die Software aufgebaut werden soll, sodass zum Beispiel die Modularität ebendieser sichergestellt wird.
+    \item	\textit{Code"=Konventionen}: Die Code"=Konventionen legen Kriterien fest, für die Gestaltung des Quellcodes. Sie umfassen unter anderem das Layout des Codes sowie Namenskonventionen. Die Einhaltung der Code"=Konventionen wird in der DoD zugesichert. Da die einzelnen Teile des Produktes in unterschiedlichen Programmiersprachen erstellt werden, gibt es mehrere Code"=Konventionen, die jeweils für eine bestimmte Sprache eingehalten werden müssen.
+    \item	\textit{Log"=Analyse und Benachrichtigungen}: Falls es während des produktiven Betriebs zu unerwarteten Systemausfällen kommt, soll eine entsprechende Benachrichtigung abgeschickt werden. Analog dazu soll eine Log"=Ausgabe gepflegt werden, um den jeweiligen Fehler nachvollziehen zu können.
+    \item   \textit{Rollen- und Rechtemanagement}: Das Rollen- und Rechtemanagement kann genutzt werden, um das System vor unbefugten Zugriffen zu schützen und so die Sicherheit zu gewährleisten. Es werden daher verschiedene Rollen eingeführt und mit entsprechenden Rechten versehen. So kann zum Beispiel festgelegt werden, dass eine spezifische Rolle nur einen lesenden Zugriff auf Dateien hat.
+    \item	\textit{Integration Luftdaten.info}: Durch die Integration der Daten von Luftdaten.info kann aufgezeigt werden, dass zum Beispiel die IoT"=Plattform in der Lage ist, auch Daten von anderen Plattformen entgegen zu nehmen und zu verarbeiten. So können weitere Daten von dem System abgefragt werden, die nicht von der Projektgruppe selbst bereitgestellt werden. Hinsichtlich der Qualitätskriterien wird so insbesondere die Portabilität gewährleistet.
+    \item	\textit{GIT}: GIT ist eine Software zur Versionsverwaltung, mit Hilfe dessen das Softwareprodukt weiterentwickelt werden kann, ohne das produktive System zu beeinflussen. Daher ermöglicht es GIT das Qualitätskriterium der Modifizierbarkeit zu erfüllen.
+    \item	\textit{Test Driven Developement (TDD)}: Beim Vorgehen mit TDD werden konsequent automatisch ausführbare Tests geschrieben, bevor die zugehörige Implementierung vorgenommen wird. Die Umsetzung von TDD wird durch die Disziplin jedes einzelnen Entwicklers sichergestellt. TDD soll zu einer hohen Testabdeckung sowie einer sinnvollen Modularität des Source"=Codes führen und somit die Wartbarkeit des Systems verbessern.
+\end{itemize}

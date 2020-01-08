@@ -1,0 +1,35 @@
+\chapter{Projektumsetzung}
+In dem einjährigen Projekt der Projektgruppe Routing in Oldenburg gibt es verschiedene Phasen in der Erarbeitung und Umsetzung der Projektziele.
+Die Projektumsetzung unterteilt sich grundsätzlich in zwei verschiedene Phasen.
+Zum einen die Vorbereitungsphase, in denen Dinge wie ein Visionsdokument, ein Anforderungsdokument, die Architektur der Softwarekomponenten und Ähnliches erarbeitet werden.
+Zum anderen gibt es die anschließende Umsetzungsphase (auch Implementierungs- oder Entwicklungsphase), in der die erarbeiteten Dokumente aus der Vorbereitungsphase genutzt werden, um die Software auf Basis mehrerer Meilensteine zu implementieren.
+Das Ziel eines jeden Meilensteins ist es dabei, die Software nach dem grundsätzlichen Setup und dem technischen Durchstich, um Features zu erweitern, welche soweit wie möglich zwischen den einzelnen Komponenten abgestimmt sind.
+So soll mit jedem Meilenstein das Produkt um ein in sich sinnvolles und vollständiges Paket beziehungsweise Release erweitert werden.
+Dabei muss berücksichtigt werden, dass die Arbeitsweise der Projektgruppe auf dem agilen Vorgehensmodell SCRUM beruht.
+Es wird also agil mit Anfoderungen und Projektumsetzung umgegangen (siehe dazu Dokumentation Teil III, Abschnitt 1.7)
+
+In den folgenden Kapiteln soll der Fokus auf die praktische Umsetzung der einzelnen Softwarekomponenten gelegt werden.
+Hierzu wird beschrieben, wie die Implementierungsphase gegliedert ist, auf welche Aspekte zu welchem Zeitpunkt besonderen Wert gelegt wird und welche Ziele tatsächlich in den Meilensteinen verfolgt und erreicht wurden.
+Neben den Kapiteln zur Entwicklungsphase gibt es ein gesondertes Kapitel zum Schülerinformationstag 2019.
+Für diesen Tag wurde während der Vorbereitungsphase bereits ein funktionierendes System inklusive IoT"=Plattform, Frontend und Sensorknoten mit Firmware aufgesetzt.
+So wird es beteiligten Schulen ermöglicht, ihre gemessenen Sensordaten auf einer Webseite einzusehen.
+
+% Nasty Hack to use old document without reformatting it.
+\let\oldchapter\chapter
+\let\oldsection\section\
+\let\oldsubsection\subsection
+\renewcommand{\chapter}[1]{\oldsection{#1}}
+\renewcommand{\section}[1]{\oldsubsection{#1}}
+\renewcommand{\subsection}[1]{\subsubsection{#1}}
+\input{./dokument1/projektumsetzung/schit}
+\let\chapter\oldchapter
+\let\section\oldsection\
+\let\subsection\oldsubsection
+% Hack end.
+
+\input{./dokument1/projektumsetzung/meilenstein1}
+\input{./dokument1/projektumsetzung/meilenstein2}
+\input{./dokument1/projektumsetzung/meilenstein3}
+\input{./dokument1/projektumsetzung/meilenstein4}
+\input{./dokument1/projektumsetzung/meilenstein5}
+

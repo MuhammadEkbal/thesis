@@ -1,0 +1,70 @@
+\chapter{Ausblick}
+Bereits im Visionsdokument wurde die Erweiterbarkeit des Systems als Ziel ausgegeben. 
+Darauf aufbauend gab es konkrete Ziele im Qualitätsmodell und im Anforderungsdokument sowie in den jeweiligen Architekturen, mit denen die Erweiterbarkeit erreicht werden soll.
+Aufgrund der wichtigen Rolle in diesem Projekt soll in dem folgendem Kapitel eine Zusammenfassung zur Erweiterbarkeit stattfinden, in welcher rekapituliert wird, um welche Aspekte das System sinnvoll erweitert werden könnte.
+
+
+Diese Erweiterungen und Ergänzungen können in internen Systemrollen verortet werden.   
+Die Systemrollen dienen (wie auch bei der Erhebung der Anforderungen) zur Abgrenzung der Systembereiche mit ihren Verantwortlichkeiten. Darunter fällt der Navigationsnutzer, der Datenanalyst (UIS-Benutzer), der IoT-Administrator,   Routing sowie der Sensorknotenbetreiber.
+Diese Rollen werden dabei nacheinander in Hinblick auf ihre sinnvolle Erweiterbarkeit betrachtet und bewertet. 
+Besonders wichtig sind dabei Aspekte, die es Umweltanalysten oder ähnlichen Rollen ermöglichen, unser System um sinnvolle Algorithmen zu erweitern, sodass zum Beispiel das Umweltinformationssystem auf neue Erkenntnisse in Form einer Heatmap reagieren kann.
+
+
+Für den Navigationsnutzer sind Anpassungen in der Darstellung von Zwischenrouten (Start-, Zwischen- und Endpunkt) notwendig. 
+Unter Berücksichtigung der bestehenden Form bietet die Navigations-Applikation keine Darstellungsmöglichkeit von Alternativroute für Routen mit Zwischenzielen. 
+Eine Darstellung von Alternativrouten ist lediglich bei Standardrouten (Start- und Endpunkt) möglich. 
+Zusätzlich zeigt sich beim Navigationsnutzer, dass die Metainformationen für die Navigation nicht ausgeschöpft wurden. 
+Hierbei können diese um Elemente wie die Ankunftszeit oder verbleibende Kilometeranzahl erweitert werden. 
+Zusätzlich können Erweiterungen und Ergänzungen in der Benutzergestaltung sowie dem Informationsgehalt der Anwendung verortet werden. 
+Die Benutzergestaltung kann in der Benutzerführung einheitlicher und strukturierter wirken. 
+Neben den Aspekten, die insbesondere die Benutzeroberfläche betreffen, gibt es weitere Dinge, die bereits so implementiert sind, dass sie sehr leicht erweiterbar sind. 
+So gibt es im Routing-Algorithmus die Strategien "`closest"' und "`interpolation"' (siehe hierzu \Fref{sec:arch:routing}).
+Diese Funktionen sind so implementiert, dass sie für einen Entwickler mit wenig Aufwand austauschbar sind. 
+So kann also durch Datenanalyse und weitere Erkenntnisse der Routing-Algorithmus, je nach Bedarf, um unbestimmt viele weitere Algorithmen erweitert werden. Insbesondere im Bereich der Interpolation von Messdaten können Verfahren, bei denen Messdaten verschiedener Sensoren gemeinsam betrachtet werden (Sensorfusion), für verschiedene Strategien eingesetzt werden.    
+
+
+Eine weitere zentrale Rolle ist der Datenanalyst. Über diesen können Verfahren zum Aufbereiten der Messdaten angewendet werden. Diese aufbereiteten Messdaten können dann über den erweiterbaren Routing-Algorithmus zum Ermitteln von Routen eingesetzt werden. Zur Aufbereitung können z.B. statistische Verfahren wie die Berechnung und Berücksichtigung der Standardabweichung oder des Mittelwerts eingesetzt werden. Weitere Aufbereitungsverfahren wie der Kalman-Filter können zum Beispiel dafür eingesetzt werden, um fehlende Messdaten auf einem zeitlichen Intervall, näherungsweise zu ergänzen.  
+ 
+
+Mögliche Erweiterungen können auch bei der Ermittlung von Prognosen erreicht werden. Dazu können z.B. Verfahren des Maschinellen Lernens eingesetzt werden.
+Momentan funktioniert das Routing- sowie die Heatmap-Berechnung nur auf Basis der zuletzt gemessenen Werte.
+Aufbauen darauf könnte das System um die Berücksichtigung von Prognosen erweitert werden.
+Hierbei ist es besonders relevant, die Datenanalyse zu intensivieren, sodass sinnvolle Prognosen erzeugt werden können.
+Die Vorhersagen können im Sinne einer räumlichen Datendichte sowie weiteren Sensoren erweitert und verbessert werden. 
+Bereits einfach erweiterbar ist das Frontend für den Datenanalysten hinsichtlich der Strategie zum Erzeugen einer Heatmap. 
+Dabei gibt es momentan die Strategien, die auch beim Routing angewandt werden. 
+Wie auch beim Routing-Algorithmus können diese Strategien auch für die Heatmap eingesetzt werden.
+Ein weiterer wichtiger Erweiterungsfaktor ist der virtuelle Sensorknoten. Momentan gibt auch hier diverese Strategien wie die des Sendens eines festen Mock-Wertes oder die Strategie, dass verschiedene reale Sensorknoten zu einem gewissen Prozentsatz berücksichtigt werden. 
+Auch hier gilt die einfach Erweiterbarkeit auf Basis von Umweltkenntnisse oder Ähnlichem, sodass eine weitere Strategie implementiert und eingesetzt werden kann.
+
+
+Im Rahmen des IoT-Administrators können Anpassungen bei der Verwaltung und Auditierung für interne sowie externe Dienste vorgenommen werden. 
+Die Anpassungen führen zur verbesserten Datenverarbeitung von IoT-Daten.
+Zudem gibt es zwar eine Verwaltungsoberfläche für die Sensorknoten, doch trotzdem gestaltet sich das Betreiben der IoT-Plattform bei steigender Sensorknotenanzahl sehr schwierig. 
+Dies könnte einfacher gestaltet werden, indem es weitere Verwaltungoberflächen für die Administration der IoT-Plattform gibt, die zum Beispiel in die Sensorknotenverwaltung eingebaut werden könnten.
+
+
+
+Zur Vervollständigung der Systemrollen wird der Sensorknotenbetreiber betrachtet. 
+Anpassungen für den Sensorknotenbetreiber bestehen in Bereichen der Wartung und Erweiterung von Sensorknoten sowie der Sicherstellung einer Datenkonsistenz. 
+Die Wartung von Sensorknoten sollte dem Betreiber erleichtert werden, indem dieser zum Einen ein Handbuch mit Wartungsempfehlungen bekommt sowie Email-Benachrichtigungen bei Störungen oder Ähnlichem. 
+Diese Funktionalität kann für den Betreiber der Sensoren ergänzt werden.
+Die Verwaltung kann durch das Hinzufügen von neuen Sensoren sowie einer Mobilmachung der Sensorknoten erweitert werden. 
+Das Hinzufügen hat zur Folge, dass die Umweltdaten jederzeit durch weitere Sensoren angereichert werden können. 
+Denkbar sind hier Sensoren, die in der Lage sind, weitere Umweltgegebenheiten zu messen. Dabei kann es sich beispielsweise um einen Radioaktivitätssensor handeln.
+Die Mobilmachung von Sensorknoten ist ein weiterer wichtiger Aspekt, der bereits in der Anforderungsanalyse eine wichtige Rolle gespielt hat. 
+Dies hat den Vorteil, dass Umweltdaten an unterschiedlichen Standorten aufgezeichnet werden können mit nur einem Sensorknoten. 
+Um dies zu erreichen muss jedoch eine Stromquelle sowie regelmäßiges WLAN zu Verfügung stehen.
+Anschließend daran kann das System um weitere Kommunikationsmöglichkeiten neben WLAN erweitert werden. 
+Eine mögliche Kommunikationsquelle hierbei wäre "Global System for Mobile Communications", welche ein Mobilfunkstandard für volldigitale Mobilfunknetze darstellt und zum Beispiel für Telefonie genutzt wird.
+Sind diese Bedingungen erfüllt, kann zum Beispiel eine feste Route abgefahren werden, indem Busse mit den Sensorknoten ausgestattet werden. 
+Weiterhin würde so der Einsatz von Drohnen ermöglicht werden, sodass viele weitere Orte und auch Höhen in die Umweltanalyse einbezogen werden können.
+Abschließend könnten für den Betrieb eines Sensorknotens weitere Aufbereitungsdienste installiert werden. 
+Diese dienen zur Glättung und Untersuchung der Umweltdaten. 
+Dieses Ziel der Erweiterbarkeit wurde unter anderem schon angegangen, indem ein bestimmtes Offset auf Grundlage einer Kalibrierung zu den gemessenen Sensordaten konfiguriert werden kann.
+Geglättete Werte gibt es ansonsten auch im UIS-Frontend zu sehen, da hier eine Zeitreihe angezeigt werden kann, welche die PM25-Werte unter Berücksichtigung der Luftfeuchte betrachtet und darstellt.
+
+
+Zusammenfassend zeigt sich, dass es noch viele Möglichkeiten gibt, das Gesamtsystem und die einzelnen Teilaspekte sinnvoll zu erweitern. Viele Ziele der Erweiterbarkeit, wie beispielsweise die Routing- und Heatmap-Strategie sind bereits erreicht worden. 
+An anderen Stellen gibt es auch noch viele Möglichkeiten, die Erweiterbarkeit zu schaffen, wo die Projektgruppe aus Zeitgründen jedoch keine Ressourcen mehr aufbringen konnte. 
+Dabei muss jedoch berücksichtigt werden, dass die einzelnen Architekturen stets so geplant wurden, dass eine Erweiterung an geeigneten Stellen so gut wie immer möglich ist.
