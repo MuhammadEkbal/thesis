@@ -1,0 +1,296 @@
+% Variable je nach dem wie sie gesetzt ist, wird die Druckversion beziehungsweise die digitale Version erstellt
+% Bedeutet Links farbig oder schwarz
+\newboolean{print_media}
+\setboolean{print_media}{true}
+
+% Ob alle Teile angezeigt werden sollen
+\newboolean{show_all}
+\setboolean{show_all}{false}
+%\includecomment{myComment}
+
+%\KOMAoption{BCOR}{7mm}
+%\KOMAoption{parskip}{yes}
+\KOMAoption{toc}{bib,index,listof}
+
+% Abstand itemize "andern
+%\setitemize{itemsep=-0.5cm}
+
+% Seitenränder
+\geometry{
+	includehead,
+	includefoot,
+	inner=3cm, % min 3 max 4
+	outer=3cm, % min 3 max 4
+	top=2cm, % min 2 max 3
+	bottom=2cm % min 2 max 3
+}
+%\geometry{showframe}
+
+% Farben
+\definecolor{gruen}{rgb}{.10, .4, .50}
+\definecolor{blau}{rgb}{.2, .2, 0.6}
+\definecolor{grau}{gray}{.75}
+%\definecolor{white}{gray}{.75}
+\definecolor{lstColor}{rgb}{0.901,0.901,0.901} %% Back (Almost White)
+\definecolor{darkred}{rgb}{0.601,0.001,0.001} %% dunkles Rot
+\definecolor{darkgreen}{rgb}{.10, .4, .20}% dunkelgruen
+\definecolor{cdc_Blue}{rgb}{0.0,0.355,0.652} %% Heading Blue (Oldenburg CD Ultramarine)
+\definecolor{cdc_BlueM}{rgb}{0.25,0.473,0.722} %% Heading Blue Medium (Oldenburg CD Ultramarine 60%)
+\definecolor{cdc_BlueL}{rgb}{0.5,0.589,0.793} %% Heading Blue Light (Oldenburg CD Ultramarine 20%)
+\definecolor{cdc_Green}{rgb}{0.390,0.695,0.285} %% Heading Green (Oldenburg CD Chartreuse)
+\definecolor{cdc_GreenM}{rgb}{0.559,0.758,0.438} %% Heading Green Medium (Oldenburg CD Chartreuse 60%)
+\definecolor{cdc_GreenL}{rgb}{0.688,0.828,0.605} %% Heading Green Light (Oldenburg CD Chartreuse 20%)
+\definecolor{color_back}{rgb}{0.941,0.941,0.941} %% Back (Almost White)
+
+% Zeilenabstand
+\onehalfspacing
+% Index
+\newindex{default}{idx}{ind}{Index}
+%\newindex{name}{adx}{and}{Namensverzeichnis}
+%\newindex{defi}{ddx}{dnd}{Definitionsverzeichnis}
+%\newindex{satz}{sdx}{snd}{Satzverzeichnis}
+%\newindex{lem}{ldx}{lnd}{Lemmataverzeichnis}
+%\newindex{kor}{kdx}{knd}{Korollarverzeichnis}
+%\newindex{bemerkung}{bdx}{bnd}{Bemerkungsverzeichnis}
+%\newindex{beispiel}{bsdx}{bsnd}{Beispielverzeichnis}
+
+%Einstellungen Code-Fragmente
+%\lstset{
+%  xleftmargin=13pt,
+%  xrightmargin = 5pt,
+%  basicstyle=\small\ttfamily,
+%  columns=fullflexible,
+%  showstringspaces=false,
+%  commentstyle=\color{gray}\upshape,
+%  literate={"a}{\"a}1 {"o}{\"o}1 {"u}{\"u}1 {"s}{\ss}1
+%  {"A}{\"A}1 {"O}{\"O}1 {"U}{\"U}1
+%}
+
+%\lstloadlanguages{Java }
+
+%% Listingstyles
+\lstdefinelanguage{pseudocode}
+{
+	alsolanguage=Java,
+	morekeywords=[1]{INPUT, OUTPUT, then, od, in, fi, foreach, begin, end, endfor, endforeach, endwhile},
+	morecomment=[s][\color{darkred}]{"}{"},
+	escapeinside={\%*}{*)},
+	commentstyle=\color{cdc_Green},
+	keywordstyle=\color{blue},
+	frame=single,
+	backgroundcolor=\color{lstColor},
+	xleftmargin=5pt,
+	xrightmargin = 5pt,
+	breaklines=true,
+}
+%\lstdefinelanguage{apt}
+%{
+%	alsolanguage=Java,
+%	morekeywords=[2]{Place, Transition, Arc, Flow, PetriNet, TransitionSystem, Marking, Node, Token, ArcKey, State, Edge, EdgeKey, IEdge, IGraph, INode, PetriNetOrTransitionSystem},
+%	keywordstyle=[2]\color{cdc_BlueM},
+%	morecomment=[s][\color{darkred}]{"}{"},
+%	commentstyle=\color{cdc_Green},
+%	keywordstyle=\color{blue},
+%	escapeinside={\%*}{*)},
+%	frame=single,
+%	%backgroundcolor=\color{lstColor},
+%	breaklines=true,
+%	xleftmargin=5pt,
+%	xrightmargin = 5pt,
+%	literate= {Ö}{{\"O}}1 {Ä}{{\"A}}1 {Ü}{{\"U}}1 {ß}{{\ss}}2 {ü}{{\"u}}1 {ä}{{\"a}}1 {ö}{{\"o}}1,
+%	extendedchars=true
+%}
+
+%\lstdefinelanguage{apt-parser}
+%{
+%	alsolanguage=Java,
+%	morekeywords=[2]{IPNParserOutput, AptPNFormatParser, AptPNFormatLexer,APTPNParserOutput,ParserContext, APTParserContext, PetriNet, ANTLRParser, TransitionSystem, SynetLTSParser, SynetPNParser, APTLTSParser, APTPNParser, APTParser,APTRenderer},
+%	keywordstyle=[2]\color{cdc_BlueM},
+%	morekeywords=[3]{CommonTokenStream, RecognitionException},
+%	keywordstyle=[3]\color{cdc_BlueL},
+%	morecomment=[s][\color{darkred}]{"}{"},
+%	commentstyle=\color{cdc_Green},
+%	keywordstyle=\color{blue},
+%	escapeinside={\%*}{*)},
+%	frame=single,
+%	%backgroundcolor=\color{lstColor},
+%	breaklines=true,
+%	xleftmargin=5pt,
+%	xrightmargin = 5pt,
+%	literate= {Ö}{{\"O}}1 {Ä}{{\"A}}1 {Ü}{{\"U}}1 {ß}{{\ss}}2 {ü}{{\"u}}1 {ä}{{\"a}}1 {ö}{{\"o}}1,
+%	extendedchars=true
+%}
+
+%\lstdefinelanguage{apt-format}
+%{
+%	morekeywords=[1]{.name, .type, .description, .transitions, .places, .flows, .initial_marking, .final_markings,
+%			.states, .labels, .arcs},
+%	alsoletter={.},
+%	keywordstyle=[1]\color{cdc_BlueM},
+%	morecomment=[s][\color{darkred}]{"}{"},
+%	morecomment=[s][\color{cdc_Green}]{/*}{*/},
+%	morecomment=[l][\color{cdc_Green}]{//},
+%	escapeinside={\%*}{*)},
+%	frame=single,
+%	%backgroundcolor=\color{lstColor},
+%	breaklines=true,
+%	xleftmargin=5pt,
+%	xrightmargin = 5pt,
+%	numbers=none,
+%}
+
+%\lstdefinelanguage{ebnf}
+%{
+%	morecomment=[s][\color{darkred}]{'}{'},
+%	escapeinside={\%*}{*)},
+%	morecomment=[s][\color{cdc_Green}]{(*}{*)},
+%	morecomment=[s][\color{cdc_BlueM}]{?}{?},
+%	frame=single,
+%	%backgroundcolor=\color{lstColor},
+%	breaklines=true,
+%	xleftmargin=5pt,
+%	xrightmargin = 5pt,
+%	showspaces=false,
+%	numbers=none  
+%}
+
+%\lstdefinelanguage{my_xml}
+%{
+%	morestring=[b]",
+%	morestring=[s]{>}{<},
+%	morecomment=[s][\color{darkred}]{"}{"},
+%	morecomment=[s]{<?}{?>},
+%	stringstyle=\color{black},
+%	identifierstyle=\color{blue},
+%	keywordstyle=\color{cdc_BlueM},
+%        morekeywords={classpathref,classname,fork, failonerror, value, path}
+%	xleftmargin=5pt,
+%	xrightmargin = 5pt,
+%	numbers=none,
+%}
+
+%\lstdefinelanguage{synet}
+%{
+%	morecomment=[s][\color{darkred}]{'}{'},
+%	escapeinside={\%*}{*)},
+%	frame=single,
+%	%backgroundcolor=\color{lstColor},
+%	breaklines=true,
+%	xleftmargin=5pt,
+%	xrightmargin = 5pt,
+%	numbers=none
+%}
+
+% Mathematik Umgebungen
+\makeatletter
+\newtheoremstyle{plainWithSeparator}
+	{\item[\hskip\labelsep \theorem@headerfont ##1\ ##2\theorem@separator]}%
+	{\item[\hskip\labelsep \theorem@headerfont ##1\ ##2\ (##3)\theorem@separator]}
+\makeatother
+\makeatletter
+\newtheoremstyle{nonumberPlainWithSeparator}
+	{\item[\hskip\labelsep \theorem@headerfont ##1\theorem@separator]}%
+	{\item[\hskip\labelsep \theorem@headerfont ##1\ (##3)\theorem@separator]}
+\makeatother
+\theoremstyle{plainWithSeparator}
+\theoremheaderfont{\normalfont\bfseries}
+\theorembodyfont{\itshape}
+\theoremseparator{}
+%\theoremindent{0.5cm}%0.8cm
+
+% theorems
+\theoremsymbol{\ensuremath{\square}}
+\newtheorem{theorem}{Theorem}[section]
+
+% Lemmata
+\theoremsymbol{\ensuremath{\diamondsuit}}
+\newtheorem{lemma}{Lemma}[section]
+
+% conventions
+\theoremsymbol{\ensuremath{\circ}}
+\newtheorem{conv}{Convention}[section]
+
+% conjectures
+\theoremsymbol{\ensuremath{\circ}}
+\newtheorem{conject}{Conjecture}[section]
+
+%% corollaries
+\theoremsymbol{\ensuremath{\square}}
+\newtheorem{cor}{Corollary}[section]
+
+%%Propositions
+%\theoremsymbol{\ensuremath{\square}}
+%\newtheorem{proposition}{Proposition}[section]
+
+% examples
+\theorembodyfont{\upshape}
+\theoremsymbol{\ensuremath{\ast}}
+\newtheorem{example}{Example}[section]
+
+% Bemerkung
+%\theoremsymbol{}
+%\newtheorem{bemerkung}{Bemerkung}[section]
+
+% Definitionen
+\theoremsymbol{\ensuremath{\ast}}
+\newtheorem{definition}{Definition}[section]
+
+% Beweise
+%\theoremstyle{plain}
+\theoremstyle{nonumberPlainWithSeparator}
+\theoremseparator{:}
+\theoremindent0cm
+\theoremsymbol{\rule{1.5ex}{1.5ex}}
+\newtheorem{prf}{Proof}
+
+% Hyperlinks
+\ifthenelse{\boolean{print_media}}{
+	\hypersetup{
+		colorlinks=false
+		,unicode=true
+		,pdfborder={0 0 0}
+		,breaklinks=true
+		%,linktocpage % falls dort Umbrueche noetig sind
+	}
+}{
+	\hypersetup{colorlinks
+		,linkcolor=blau
+		,unicode=true
+		,urlcolor=blau
+		,citecolor=gruen
+		,filecolor=gruen
+		,breaklinks=true
+		%,linktocpage % falls dort Umbrueche noetig sind
+	}
+}
+
+% Bibliographie
+% urldate-format sprachabh"angig machen
+%\setbibliographyfont{urldate}{\printdate}
+% Definition des Aussehens der Literaturlisten
+\bibliographystyle{alpha}
+
+% Erlaubt gr"o"sere Abst"ande, damit nicht "uber den Rand geschrieben wird
+%\emergencystretch=1ex
+
+% Erlaubt den Umbruch von align-Umgebungen (Seitenumbruch)
+\allowdisplaybreaks
+
+% TIKZ
+\usetikzlibrary{arrows, automata, positioning, decorations.pathmorphing}
+\tikzstyle{every state}=[draw=none, rectangle, text=black, yshift=10mm]
+\tikzstyle{sdots}=[yshift=5mm]
+\tikzstyle{ldiag}=[left=2mm,pos=0.4]
+\tikzstyle{rdiag}=[right=2mm,pos=0.4]
+\tikzstyle{dopac}=[dashed, opacity=0.35]
+\tikzstyle{every picture}=[
+				->,
+				>=stealth',
+				%shorten >=1pt,
+				%auto, % position of labels
+				node distance=3cm,
+                    		semithick, % thickness of arrows
+				initial text={},
+				initial where=above]
+
+%\typearea[current]{calc} % berechnet den Divisor für das Raster zur Berechnung des Satzspiegels

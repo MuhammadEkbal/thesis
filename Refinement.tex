@@ -1,0 +1,86 @@
+% mainfile: Refinement.tex
+%%% =============================================== Preamble BEGINN =====================================================================
+%% Lade:
+% Dokumentenklasse
+\input{settings/pre-documentclass}
+% Pakete
+\input{settings/pre-packages}
+% Neue Befehle
+\input{settings/pre-newcommands}
+% Header/Footer
+\input{settings/pre-header_footer}
+% Settings
+\input{settings/pre-settings}
+%%%  =============================================== Preamble END ======================================================================
+
+\input{glossar}
+
+%%%  =============================================== Document BEGINN ===================================================================
+\begin{document}
+
+	%% ------------------------------------------------- Main ----------------------------------------------------------------------
+	%% Titel
+	\selectlanguage{ngerman}
+	\include{title}
+	\selectlanguage{english}
+	%\cleardoublepage
+	%\include{abstract}
+	%\cleardoublepage
+	%\newpage
+	%% Inhaltsverzeichnis
+	\singlespacing
+	\tableofcontents
+	\onehalfspacing
+	% Abbildungsverzeichnis
+	\listoffigures
+	% Tabellenverzeichnis
+	%\listoftables	
+	%Listingsverzeichnis
+	%\renewcommand{\lstlistlistingname}{Listingsverzeichnis}
+	%\lstlistoflistings
+	%% Main
+	\include{chapters/introduction}
+	\include{chapters/mainpart}
+	\include{chapters/conclusion}
+	\singlespacing
+	%% ------------------------------------------------- Anhang -------------------------------------------------------------------
+	%% Anhang
+	%\appendix
+	%\include{appendix/anhang}
+	%% ------------------------------------------------- Glossar ------------------------------------------------------------------
+	% Glossar
+	%\printglossary[style=altlist,title=Glossar]
+	% Abk"urzungen
+	%\deftranslation[to=German]{Acronyms}{Abk\"urzungsverzeichnis}
+	%\printglossary[type=\acronymtype,style=long]
+	% Symbole
+	%\printglossary[type=symbolslist,style=long]
+	% Englisch-Deutsch
+	%\printglossary[type= translationlist, style=long]
+
+	%% ------------------------------------------------- Literaturverzeichnis -----------------------------------------------------
+	% Literaturverzeichnis
+	\bibliography{bib/bib}
+
+	%% ------------------------------------------------- Index --------------------------------------------------------------------
+	% Index - Schlagworte
+	\printindex
+	% Index - Namensverzeichnis
+	%\printindex[name]
+	% Eigenst"andigkeitserkl"arung
+	\newpage{}
+	\pagestyle{empty}
+	%\pagenumbering{} 
+	\selectlanguage{ngerman}
+	\section*{Erkl"arung}
+	Hiermit versichere ich, dass ich diese Arbeit selbstst"andig verfasst und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe. Au"serdem versichere ich, dass ich die allgemeinen Prinzipien wissenschaftlicher Arbeit und Ver"offentlichung, wie sie in den Leitlinien guter wissenschaftlicher Praxis der Carl von Ossietzky Universit"at Oldenburg festgelegt sind, befolgt habe.
+	
+	\vspace{1cm}
+	Oldenburg, den \today
+	
+	\vspace{0.5cm}
+	\rule{6cm}{0.5pt}
+	
+	(Manuel Gieseking)
+\end{document}
+%%%  =============================================== Document END =====================================================================

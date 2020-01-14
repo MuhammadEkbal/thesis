@@ -1,0 +1,104 @@
+% mainfile: ../../Refinement.tex
+For a placement of our developed trace semantics in the existent context, we investigate the connection of the trace semantics and the notion of simulation and bisimulation. Thus, we gain that a simulation (weak or strong) implies trace inclusion and a bisimulation (weak or strong) implies trace equality. Whereas, on the one hand, the inverse statements for bisimulation and strong simulation does not hold, we conjecture that on the other hand weak simulation is even equivalent to trace inclusion.
+
+First we show that for a pair of a weak simulation and a trace starting in the left process of the pair, there is also a process reached by the right process of the pair such that the reached processes are elements of the simulation.
+
+\begin{lemma}[Weak simulation and big-steps semantics]
+\label{lem_weak_sim_big-steps}
+Given processes $P,P',Q\in\procs$ and $t\in\tr$, then there exists a weak simulation $\simu\subseteq\procs_\alpha\times\procs_\alpha$ such that
+\begin{align*}
+	(\ec{P},\ec{Q})\in\simu \wedge \ec{P}\bigstep{t}\ec{P'} \text{ implies } \exists{}Q'\in\procs:\ec{Q}\bigstep{t}\ec{Q'} \wedge (\ec{P'},\ec{Q'})\in\simu
+\end{align*}
+holds.
+\end{lemma}
+\begin{prf}
+Let $P,P',Q\in\procs$, $t\in\tr$ and $\simu$ a weak simulation with $(\ec{P},\ec{Q})\in\simu$ and $\ec{P}\bigstep{t}\ec{P'}$. We proceed by induction over the length $n\in\N$ of trace $t$.
+\begin{description}
+\item[Base case $n=0$:] Hence, $t=\eseq{}$ and so there are processes $P_1,\ldots,P_m\in\procs$ for $m\in\N$ such that $\ec{P}\tautrans{}\ec{P_1}\wedge\cdots\wedge\ec{P_m}\tautrans{}\ec{P'}$. With the definition of the weak simulation (\refDef{def_weak_sim_bisim}) we know there is a process $Q_1\in\procs$ with $\ec{Q}\bigstep{}\ec{Q_1}$ and $(\ec{P_1},\ec{Q_1})\in\simu$. This argument applied to every further $\tau$ step yields that there is a process $Q'\in\procs$ with $\ec{Q_m}\bigstep{}\ec{Q'}$ and $(\ec{P'},\ec{Q'})\in\simu$. Thus, with the transitivity of the big-step semantics we know $\ec{Q}\bigstep{}\ec{Q'}$ and so found the claimed $Q'$.
+
+\item[Induction hypothesis:] For a given $n\in\N$ and for all processes $P,P',Q\in\procs$, $t\in\tr$ with $\len{t}\leq{}n$ and weak simulations $\simu$ with $(\ec{P},\ec{Q})\in\simu$ and $\ec{P}\bigstep{t}\ec{P'}$, there is a process $Q'\in\procs$ with $\ec{Q}\bigstep{t}\ec{Q'}$ and $(\ec{P'},\ec{Q'})\in\simu$.
+
+\item[Induction step $n\mapsto n+1$:] Thus, $t=\seqconc{t'}{\seq{\alpha}}$ with $t'\in\tr$ and $\alpha\in\actions\setminus\set{\tau}$. Hence, there are processes $P_1,P_2,P_3\in\procs$ with $\ec{P}\bigstep{t'}\ec{P_1}\bigstep{}\ec{P_2}\transs{\alpha}\ec{P_3}\bigstep{}\ec{P'}$. The induction hypothesis yields that there is a process $Q_1\in\procs$ with $\ec{Q}\bigstep{t'}\ec{Q_1}$ and $(\ec{P_1},\ec{Q_1})\in\simu$. Furthermore, since $(\ec{P_1},\ec{Q_1})\in\simu$, we know additionally from the induction hypothesis that there is a process $Q_2\in\procs$ with $\ec{Q_1}\bigstep{}\ec{Q_2}$ and $(\ec{P_2},\ec{Q_2})\in\simu$. So, \refDef{def_weak_sim_bisim} yields that there is a process $Q_3\in\procs$ with $\ec{Q_2}\bigstep{\seq{\alpha}}\ec{Q_3}$ and $(\ec{P_3},\ec{Q_3})\in\simu$. Hence, with another application of the induction hypothesis we know that there is a process $Q'\in\procs$ with $\ec{Q_3}\bigstep{}\ec{Q'}$ and $(\ec{P'},\ec{Q'})\in\simu$ and thus, $\ec{Q}\bigstep{t}\ec{Q'}$
+\end{description}
+Thus, \refLem{lem_weak_sim_big-steps} is proved by induction over the length of the trace.
+\end{prf}
+
+With the help of the previous lemma we can show that for pairs of a weak simulation the trace inclusion holds.
+
+\begin{lemma}[Weak simulation and trace inclusion]
+\label{lem_weak_sim_trace_inclusion}
+Let $P,Q\in\procs$ processes, then there exists a weak simulation $\simu\subseteq\procs_\alpha\times\procs_\alpha$ such that
+\[(\ec{P},\ec{Q})\in{}\simu \text{ implies } \traces[P] \subseteq \traces[Q]\]
+holds.
+\end{lemma}
+\begin{prf}
+Given a weak simulation $\simu\subseteq\procs_\alpha\times\procs_\alpha$ and let $P,Q\in\procs$ be processes with $(\ec{P},\ec{Q})\in{}\simu$ and $t\in\traces[P]$. Thus, there is a process $P'\in\procs$ with $\ec{P}\bigstep{t}\ec{P'}$ and \refLem{lem_weak_sim_big-steps} yields that there is a process $Q'\in\procs$ with $\ec{Q}\bigstep{t}\ec{Q'}$. Hence, $t\in\traces[Q]$.
+%For the other implication, we assume $\traces[P] \subseteq \traces[Q]$. Define $\simu\define\bigcup_{i\in\N}\simuset_i$ with $\simuset_i$ defined as in \refDef{def_weak_sim_set} for all $i\in\N$. Since $(\ec{P},\ec{Q})\in{}\simuset_0$ we only have to show that $\simu$ is a weak simulation. Therefore, let $(\ec{P'},\ec{Q'})\in\simu$. Hence, there is a number $n\in\N$ such that $(\ec{P'},\ec{Q'})\in\simuset_i$. Thus, \refLem{lem_weak_sim_set_traces} yields that there is a trace $t\in\tr$ with $\ec{P}\bigstep{t}\ec{P'}$ and $\ec{Q}\bigstep{t}\ec{Q'}$. Let $P''\in\procs$ with $\ec{P'}\tautrans\ec{P''}$. Hence, $t\in $ and so $\ec{Q'}\bigstep{}\ec{Q''}$
+\end{prf}
+
+We conjecture that also the converse of \refLem{lem_weak_sim_trace_inclusion} holds, but a proof is not yet fully developed. For an idea of a proof we define a set of process tuples, which are all good candidates to stay in a simulation if a trace inclusion is given. 
+
+\begin{definition}[Weak processes set]
+\label{def_weak_sim_set}
+For $P,Q\in\procs$ and $i\in\N$ we inductively define $\simuset_i\subseteq\procs_\alpha\times\procs_\alpha$ with
+\begin{align*}
+\simuset_0 &\define \set{(\ec{P},\ec{Q})} \\
+\simuset_{n+1} &\define \bigl\{(\ec{P''},\ec{Q''}) \;\mid\; \exists{}(\ec{P'},\ec{Q'})\in\simuset_n:\ec{P'}\tautrans\ec{P''}\wedge\ec{Q'}\bigstep{}\ec{Q''}\\
+&\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\vee\exists\alpha\in\actions\setminus\set{\tau}:\ec{P'}\transs{\alpha}\ec{P''}\wedge\ec{Q'}\bigstep{\seq{\alpha}}\ec{Q''}\bigr\},
+\end{align*}
+and call it the \findex[weak!processes set]{weak processes set}.
+\end{definition}
+
+For this set we can show that for every tuple within, there is a trace from the processes the set is conducted from to the elements of the tuple.
+
+\begin{lemma}[Weak simulation set and traces]
+\label{lem_weak_sim_set_traces}
+Let $P,Q\in\procs$ and for all $n\in\N$ let $\simuset_n$ defined as in \refDef{def_weak_sim_set}. Then
+\[\forall{}n\in\N: (\ec{P'},\ec{Q'})\in\simuset_n \text{ implies } \exists{}t\in\tr:\ec{P}\bigstep{t}\ec{P'}\wedge\ec{Q}\bigstep{t}\ec{Q'}\]
+holds.
+\end{lemma}
+\begin{prf}
+Let $P,Q\in\procs$ and for all $n\in\N$ let $\simuset_n$ be defined as in \refDef{def_weak_sim_set}. Then we proceed by induction over the index $n$ of the weak simulation sets.
+\begin{description}
+\item[Base case $n=0$:] Since the only element in $\simuset_0$ is $(\ec{P},\ec{Q})$, we chose $t\define\eseq{}$. Hence $\ec{P}\bigstep{t}\ec{P}\wedge\ec{Q}\bigstep{t}\ec{Q}$.
+
+\item[Induction hypothesis:] For a given $n\in\N$ and for all $(\ec{P'},\ec{Q'})\in\simuset_n$ there is a trace $t\in\tr$ with $\ec{P}\bigstep{t}\ec{P'}$ and $\ec{Q}\bigstep{t}\ec{Q'}$.
+
+\item[Induction step $n\mapsto n+1$:] Thus let $(\ec{P''},\ec{Q''})\in\simuset_{n+1}$. From the definition of $\simuset_{n+1}$ we know there is a tuple $(\ec{P'},\ec{Q'})\in\simuset_n$ with $\ec{P'}\tautrans\ec{P''}\wedge\ec{Q'}\bigstep{}\ec{Q''}$ or there is an action $\alpha\in\actions\setminus\set{\tau}$ with $\ec{P'}\transs{\alpha}\ec{P''}\wedge\ec{Q'}\bigstep{\seq{\alpha}}\ec{Q''}$. The induction hypothesis yields that there is a trace $t\in\tr$ with $\ec{P}\bigstep{t}\ec{P'}$ and $\ec{Q}\bigstep{t}\ec{Q'}$. Hence, either $\ec{P}\bigstep{t}\ec{P''}$ and $\ec{Q}\bigstep{t}\ec{Q''}$ or $\ec{P}\bigstep{\seqconc{t}{\seq{\alpha}}}\ec{P''}$ and $\ec{Q}\bigstep{\seqconc{t}{\seq{\alpha}}}\ec{Q''}$ holds.
+\end{description}
+Thus, \refLem{lem_weak_sim_set_traces} is proved by induction over the index of the weak simulation set.
+\end{prf}
+
+We now guess that one can minimize the union of the weak processes set such that the result is a weak simulation if the trace inclusion holds. %This minimization idea yields of the idea of the construction of simulations with a fix-point algorithm in other contexts, for example in \cite{}.\todo{cite}
+
+In general $\traces[P]\subseteq\traces[Q]$ does not imply that $\simu\define\bigcup_{i\in\N}\simuset_i$ is a weak simulation. Consider, for example, $P\define\out{a}{x}.\out{b}{x}$ and $Q\define{}\procchoice{\out{a}{x}}{\out{a}{x}.\out{b}{x}}$. Thus, $\traces[P]=\traces[Q]$, $\simuset_0=\set{\left(\ec{P},\ec{Q}\right)}$ and $\simuset_1=\set{\left(\ec{\out{b}{x}},\ec{\proczero}\right),\left(\ec{\out{b}{x}},\ec{\out{b}{x}}\right)}$. Hence, $\left(\ec{\out{b}{x}},\ec{\proczero}\right)\in\simu$ but $\ec{\out{b}{x}}$ has a visible transition and $\ec{\proczero}$ has no transitions. Such tuple has to be filtered to achieve a weak simulation, since
+\[\simu\setminus\set{\left(\ec{\out{b}{x}},\ec{\proczero}\right)}=\set{\left(\ec{P},\ec{Q}\right),\left(\ec{\out{b}{x}},\ec{\out{b}{x}}\right),\left(\ec{\proczero},\ec{\proczero}\right)}\]
+is a weak simulation.  
+
+Since a strong simulation is also a weak one, \refLem{lem_weak_sim_trace_inclusion} directly yields that the existence of a strong simulation implies the trace inclusion.
+
+\begin{cor}[Strong simulation and trace inclusion]
+\label{cor_strong_sim_trace_inclusion}
+Let $P,Q\in\procs$ processes, then there exists a strong simulation $\simu\subseteq\procs_\alpha\times\procs_\alpha$ such that
+\[(\ec{P},\ec{Q})\in{}\simu \text{ implies } \traces[P] \subseteq \traces[Q]\]
+holds.
+\end{cor}
+\begin{prf}
+Let $\simu\subseteq\procs_\alpha\times\procs_\alpha$ be a strong simulation and $P,Q\in\procs$ processes with $(\ec{P},\ec{Q})\in{}\simu$. Since $\simu$ is a strong simulation and so a weak one \cite{sangiorgi}, we know with \refLem{lem_weak_sim_trace_inclusion} that $\traces[P] \subseteq \traces[Q]$.
+\end{prf}
+
+A very simple example already shows that the converse of \refCor{cor_strong_sim_trace_inclusion} cannot hold. Consider, for example, $P\define\tau.\out{a}{x}$ and $Q\define{\out{a}{x}}$. Then $\traces[P]=\traces[Q]$ but since there is no $\tau$ transition starting in $\ec{Q}$, but $\ec{P}\tautrans{}\ec{\out{a}{x}}$, we know that no strong simulation $\simu$ can exist such that $(\ec{P},\ec{Q})\in{}\simu$.
+
+The definition of a bisimulation directly yields with \refLem{lem_weak_sim_trace_inclusion} and \refCor{cor_strong_sim_trace_inclusion} that the existence of a weak respectively strong bisimulation implies trace equality.
+
+\begin{cor}[Bisimulation and trace inclusion]
+\label{cor_bim_trace_inclusion}
+Let $P,Q\in\procs$ processes, then there exists a weak or strong bisimulation $\simu\subseteq\procs_\alpha\times\procs_\alpha$ such that
+\[(\ec{P},\ec{Q})\in{}\simu \text{ implies } \traces[P] = \traces[Q]\]
+holds.
+\end{cor}
+\begin{prf}
+Let $\simu\subseteq\procs_\alpha\times\procs_\alpha$ be a weak or a strong bisimulation. Hence, we know $\simu$ and $\simu^{-1}$ are weak respectively strong simulations. Let $(\ec{P},\ec{Q})\in{}\simu$ and so $(\ec{Q},\ec{P})\in{}\simu^{-1}$. Thus, with \refLem{lem_weak_sim_trace_inclusion} respectively \refCor{cor_strong_sim_trace_inclusion} we know $\traces[P] \subseteq \traces[Q]$ and $\traces[P] \supseteq \traces[Q]$ holds and so $\traces[P] = \traces[Q]$.
+\end{prf}
+
+The same example which is used to show that the converse of \refCor{cor_strong_sim_trace_inclusion} cannot hold also yields that the converse of the strong case for \refCor{cor_bim_trace_inclusion} cannot hold. The converse of the weak case of \refCor{cor_bim_trace_inclusion} can also not hold. Consider, for example, $P\define{}\procpar{\out{a}{x}}{\inp{a}{y}}$ and $Q\define{}\procchoice{\out{a}{x}.\inp{a}{z}}{\inp{a}{z}.\out{a}{x}}$. Then we know $\traces[P]=\pref{\set[y\in\names]{\seq{\inpa{a}{y},\out{a}{x}}}\cup\set[y\in\names]{\seq{\out{a}{x},\inpa{a}{y}}}}=\traces[Q]$. If such a weak bisimulation $\simu$ with $(\ec{P},\ec{Q})\in{}\simu$ exists, then we know $(\ec{\procpar{\proczero}{\proczero}},\ec{Q})\in\simu$, since $\ec{P}\tautrans{}\ec{\procpar{\proczero}{\proczero}}$ and $\ec{Q}\bigstep{}\ec{Q}$. Thus, $(\ec{Q},\ec{\procpar{\proczero}{\proczero}})\in\simu^{-1}$. But since $\ec{Q}$ has a transition, for instance, labeled with $\out{a}{x}$ and in $\ec{\procpar{\proczero}{\proczero}}$ is no transition, especially no visible transition, possible, we know there is no possible way for the existence of a bisimulation $\simu$ with $(\ec{P},\ec{Q})\in{}\simu$.

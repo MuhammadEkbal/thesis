@@ -1,0 +1,240 @@
+% mainfile: ../../Refinement.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% START NOT NEEDED INDUCTIVE DEFINITION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{old}{not needed inductive definition}
+\begin{definition}[Substitution on traces]
+\label{def_substitution_traces}
+The \index{substitution!trace}\findex[application substitution!trace]{application} of a substitution $\sigma$ to a trace $t\in\tr$ is written $t\sigma\in\tr$ and is inductively defined
+	\begin{align*}
+		\begin{array}{lcl}
+			\eseq{}\sigma &\define& \eseq \\
+			\left(\seqconc{\seq{\out{a}{x}}}{t}\right)\sigma &\define& \seqconc{\seq{\out{\sigma(a)}{\sigma(x)}}}{(t\sigma)} \\
+			\left(\seqconc{\seq{\inp{a}{x}}}{t}\right)\sigma &\define& \seqconc{\seq{\inp{\sigma(a)}{p}}}{((t\subs{p}{x})\sigma)} \; for \; p\nin\fn{t}\cup\set{a}\cup\n{\sigma}\\
+			\left(\seqconc{\seq{\bout{a}{x}}}{t}\right)\sigma &\define& \seqconc{\seq{\bout{\sigma(a)}{p}}}{((t\subs{p}{x})\sigma)}\; for \; p\nin\fn{t}\cup\set{a}\cup\n{\sigma}		\end{array}
+	\end{align*}
+with $a,x,p\in\names$ and $t\in\tr$. For a set of traces $X\subseteq\tr$ we define the application of the substitution $X\sigma\define\set[t\in{}X]{t\sigma}$ as the application of the substitution to all elements of the set.
+\end{definition}
+\end{old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END NOT NEEDED INDUCTIVE DEFINITION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Since we can replace names within processes and actions, we consequently define the application of a substitution on traces.
+
+\begin{definition}[Substitution on traces]
+\label{def_substitution_traces}
+The \index{substitution!trace}\findex[application substitution!trace]{application} of a substitution $\sigma$ to a trace $t\in\tr$ with $\n{\sigma}\cap\bn{t}=\emptyset$ is written $t\sigma\in\tr$ and is defined as the application of the substitution to every action: $t\sigma\define\set[(i,\alpha)\in{}t]{(i,\substF(\alpha))}$. For a set of traces $X\subseteq\tr$ we define the application of the substitution $X\sigma\define\set[t\in{}X]{t\sigma}$ as the application of the substitution to all elements of the set.
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% START NOT NEEDED DEFINITION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{old}{not needed definition of a bound substitution}
+\todo[inline]{In some cases, we also need to replace the bound names of an action respectively trace. Therefore, we define a \findex{bound substitution} function.}
+\begin{definition}[Bound substitution]
+\label{def_bound_substitution}
+As $\bnsubstF{}:\pom{\names^2}\times\tr\rightarrow\tr$ with
+\begin{align*}
+\left(\subs{x}{y},t\right)\mapsto\left\{ \begin{array}{ll}
+					t\subs{x}{y} & \text{if } x\nin\left(\fn{t}\cup\bn{t}\right)\setminus\set{y} \\
+					t 		& \text{else}
+				\end{array}\right.
+\end{align*}
+we define the \findex{bound substitution} function and lift it with $\bnsubstF{}:\pom{\names^2}\times\pom{\tr}\rightarrow\pom{\tr}$ and
+\[ \left(\subs{x}{y}, T\right)\mapsto \set[\exists{}t\in{}T: t'=\bnsubst{x}{y}{t}]{t'\in\tr}\]
+on traces.
+\end{definition}
+\todo[inline]{The bounding substitution replaces every occurrence of a given name, apart from the name which should be replaced.}
+\end{old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END NOT NEEDED DEFINITION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% START NOT NEEDED DEFINITION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{old}{not needed definition substitution on transitions}
+\begin{definition}[Substitution on transitions]
+\label{def_substitution_transitions}
+The \index{substitution!transition}\findex[application substitution!transition]{application} of a substitution $\sigma$ to a transition $\ec{P}\transs{\alpha}\ec{Q}$ for $P,Q\in\procs$ and $\alpha\in\actions$ is written $\left(\ec{P}\transs{\alpha}\ec{Q}\right)\sigma$ and is defined
+	\begin{align*}
+		\left(\ec{P}\transs{\alpha}\ec{Q}\right)\sigma\define
+					\left\{\begin{array}{ll}
+							\ec{P}\tautrans\ec{Q} & \falls\;\alpha=\tau\\
+							\ec{P}\outtrans{\sigma(a)}{\sigma(x)}\ec{Q} & \falls\;\alpha=\out{a}{x}\\
+							\ec{P}\intrans{\sigma(a)}{p}\ec{Q\subs{p}{x}}& \falls\;\alpha=\inp{a}{x}\\
+							\ec{P}\bouttrans{\sigma(a)}{p}\ec{Q\subs{p}{x}}& \falls\;\alpha=\bout{a}{x}
+						\end{array}
+		\right.
+	\end{align*}
+with $p\nin\left(\fn{P}\cup\n{\sigma}\right)$.
+\end{definition}
+\end{old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END NOT NEEDED DEFINITION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+With \refLem{lem_subst_trans_partI} we showed a relation between $\tau$ transitions and substitutions. In the following, we lift this lemma to the big-step semantics. Thus, we know if there is an invisible big-step between two processes, there is also an invisible big-step between the processes where a substitution has been applied to.
+
+\begin{lemma}[Substitution on big-step semantics (Part I)]
+\label{lem_subst_bigstep_partI}
+For all processes $P,Q\in\procs$ and substitutions $\sigma$,
+\[\text{if } \ec{P}\bigstep{\eseq}\ec{Q} \text{ then } \ec{P\sigma}\bigstep{\eseq}\ec{Q\sigma}\]
+holds.
+\end{lemma}
+\begin{prf}
+Let $P,Q\in\procs$ and $\sigma$ a substitution, then
+\begin{align*}
+	\begin{array}{lcl}
+		\ec{P}\bigstep{\eseq}\ec{Q} & \stackrel{\{\text{\refDef{def_bigstep_semantics}\}}}{\text{impl.}} & \ec{P}\left(\tautrans\right)^*\ec{Q} \\
+			& \text{impl.} & \exists{}Q_1,\ldots,Q_n\in\procs:\ec{P}\tautrans\ec{Q_1}\wedge\ec{Q_1}\tautrans\ec{Q_2} \\
+					&&\quad\quad\quad\quad\quad\quad\quad\quad\quad \wedge \cdots\wedge\ec{Q_n}\tautrans\ec{Q} \\		
+			& \stackrel{\{\text{Lem.~\ref{lem_subst_trans_partI}\}}}{\text{impl.}} & \exists{}Q_1,\ldots,Q_n\in\procs:\ec{P\sigma}\transs{\sigma(\tau)}\ec{Q_1\sigma}\wedge\ec{Q_1\sigma}\transs{\sigma(\tau)}\ec{Q_2\sigma} \\
+					&&\quad\quad\quad\quad\quad\quad\quad\quad\quad \wedge \cdots\wedge\ec{Q_n\sigma}\transs{\sigma(\tau)}\ec{Q\sigma}\\
+			& \text{impl.} & \ec{P\sigma}\left(\tautrans\right)^*\ec{Q\sigma} \\
+			& \stackrel{\{\text{Def.~\ref{def_bigstep_semantics}\}}}{\text{impl.}} & \ec{P\sigma}\bigstep{\eseq}\ec{Q\sigma}
+	\end{array}
+\end{align*}
+holds.
+\end{prf}
+
+Since \refLem{lem_subst_trans_partI} is at the heart of this proof, we see that the converse of this lemma does not hold. Consider, for example, $P\define\procpar{\inp{a}{x}}{\out{b}{y}}$ and $\sigma\define\subs{a}{b}$. Then $\ec{P\sigma}\bigstep{}\ec{Q\sigma}$, with $Q\define\procpar{\proczero}{\proczero}$ holds, but in $\ec{P}$ no $\tau$ transition is possible. However, there is also a restricted version of the converse of this lemma presented in \refLem{lem_subst_bigstep_partIII}.
+
+%We lift the idea of \refLem{lem_subst_bigstep_partI} to traces with visible actions, we need a restriction to the trace for which the big-step between two processes leads to a big-step with an application of a substitution to all of the components. Therefore, we define traces where the bound names within are unique.
+
+We lift the idea of \refLem{lem_subst_bigstep_partI} to traces with visible actions such that the big-step between two processes leads to a big-step with an application of a substitution to all of its components. Thereby, the lifting is limited to substitutions different to the bound names of a trace. Later, we will see with \refConv{conv_uni_bn_traces} that this restriction is no longer harmful.
+
+\begin{lemma}[Substitution on big-step semantics (Part II)]
+\label{lem_subst_bigstep_partII}
+Given process"-es $P,Q\in\procs$, a trace $s\in\tr$ and a substitution $\sigma$ with $\n{\sigma}\cap\bn{s}=\emptyset$,
+\[\text{if } \ec{P}\bigstep{s}\ec{Q} \text{ then } \ec{P\sigma}\bigstep{s\sigma}\ec{Q\sigma}\]
+holds.
+\end{lemma}
+\begin{prf}
+Let $P,Q\in\procs$, $s\in\tr$ and $\sigma$ a substitution with $\n{\sigma}\cap\bn{s}=\emptyset$. We proceed by induction over the length of $s$.
+\begin{description}
+\item[Base case $s=\eseq$:] \refLem{lem_subst_bigstep_partI} directly yields the proof of this case.
+
+\item[Base case $s=\seq{\alpha}$:] Let $\alpha\in\actions\setminus\set{\tau}$ and $\ec{P}\bigstep{s}\ec{Q}$ hold. So we know from the definition of the big-step semantics (\refDef{def_bigstep_semantics}) that there have to be processes $Q_i$ and $Q_j$ such that $\ec{P}\bigstep{}\ec{Q_i}\transs{\alpha}\ec{Q_j}\bigstep{}\ec{Q}$. With \refLem{lem_subst_bigstep_partI} we know that $\ec{P\sigma}\bigstep{}\ec{Q_i\sigma}$ and $\ec{Q_j\sigma}\bigstep{}\ec{Q\sigma}$ hold. Furthermore, \refLem{lem_subst_trans_partI} yields that with $\ec{Q_i}\transs{\alpha}\ec{Q_j}$, also $\ec{Q_i\sigma}\transs{\sigma(\alpha)}\ec{Q_j\sigma}$ holds since $\n{\sigma}\cap\bn{s}=\emptyset$. So we know $\ec{P\sigma}\bigstep{\seq{\sigma(\alpha)}}\ec{Q\sigma}$, hence $\ec{P\sigma}\bigstep{s\sigma}\ec{Q\sigma}$ holds.
+
+\item[Induction hypothesis:] For a number $n\in\N$ and all traces $s\in\tr$, with $n\leq\#(s)$ holds: For all $P,Q\in\procs$ and $\sigma$ substitution with $\n{\sigma}\cap\bn{s}=\emptyset$ if $\ec{P}\bigstep{s}\ec{Q}$ then $\ec{P\sigma}\bigstep{s\sigma}\ec{Q\sigma}$. 
+
+\item[Inductive step $n\mapsto n+1$:] Let $s'\in\tr$ with $\#(s')=n+1$ and $\ec{P}\bigstep{s'}\ec{Q}$. So we know that a trace $s\in\tr$ and an action $\alpha\in\actions\setminus\set{\tau}$ exist such that $s'=\seqconc{s}{\seq{\alpha}}$. Then
+\begin{align*}
+	\begin{array}{lcl}
+		\ec{P}\bigstep{\seqconc{s}{\seq{\alpha}}}\ec{Q} & \stackrel{\{\text{\refDef{def_bigstep_semantics}\}}}{\text{impl.}} & \ec{P}\bigstep{s}\fatsemi\bigstep{\seq{\alpha}}\ec{Q} \\
+			& \text{impl.} & \exists{}Q'\in\procs:\ec{P}\bigstep{s}\ec{Q'}\wedge\ec{Q'}\bigstep{\seq{\alpha}}\ec{Q}\\
+			& \stackrel{\{\text{IH\}}}{\text{impl.}} & \exists{}Q'\in\procs:\ec{P\sigma}\bigstep{s\sigma}\ec{Q'\sigma}\wedge\ec{Q'\sigma}\bigstep{\seq{\alpha}\sigma}\ec{Q\sigma}\\
+			& \text{impl.} & \ec{P\sigma}\bigstep{s\sigma}\fatsemi\bigstep{\seq{\alpha}\sigma}\ec{Q\sigma}\\
+			& \text{impl.} & \ec{P\sigma}\bigstep{\seqconc{s\sigma}{\seq{\alpha}\sigma}}\ec{Q\sigma}\\
+			& \text{impl.} & \ec{P\sigma}\bigstep{\left(\seqconc{s}{\seq{\alpha}}\right)\sigma}\ec{Q\sigma}\\
+			& \text{impl.} & \ec{P\sigma}\bigstep{s'\sigma}\ec{Q\sigma}
+	\end{array}
+\end{align*}
+holds.
+\end{description}
+Thus, \refLem{lem_subst_bigstep_partII} holds.
+\end{prf}
+
+With another small example, we can see that the converse of this lemma does not hold either. Consider, for example, $P\define{}\procpar{\inp{a}{x}.\out{x}{c}}{\out{b}{y}.\out{c}{d}}$ and $\sigma\define{}\subs{a}{b}$. Then $\ec{P\sigma}=\ec{\procpar{\inp{a}{x}.\out{x}{c}}{\out{a}{y}.\out{c}{d}}}\tautrans\ec{\procpar{\out{y}{c}}{\out{c}{d}}}\outtrans{y}{c}\ec{\procpar{\proczero}{\out{c}{d}}}$, so $\ec{P\sigma}\bigstep{\seq{\out{y}{c}}}\ec{\procpar{\proczero}{\out{c}{d}}}$ holds. But there is no trace $s\in\tr$ with $s\sigma=\seq{\out{y}{c}}$ and no process $Q\in\procs$ with $\ec{Q\sigma}=\ec{\procpar{\proczero}{\out{c}{d}}}$ such that $\ec{P}\bigstep{s}\ec{Q}$, because every trace starting in $\ec{P}$ has right at the front an input action or $\out{b}{y}$. And since $y\nin\cosupp{\sigma}$, we know that for no trace $s$ starting in $\ec{P}$ can $s\sigma=\seq{\out{y}{c}}$ hold.
+
+Furthermore, consider, for example, $P\define\inp{y}{a}$ and $\sigma\define\subs{b}{x}$, then $\ec{P\sigma}=\ec{P}\bigstep{\seq{\inpa{y}{x}}}\ec{\proczero}$. Thus, the converse would yield that there must be a trace $s\in\tr$ and a process $Q$ with $\ec{P}\bigstep{s}\ec{Q}$ and $s\subs{b}{x}=\seq{\inpa{y}{x}}$. But we cannot find a trace $s$ such that we can apply a substitution to $s$ which replaces the name $x$ and results in a trace where the name $x$ occurs free.
+
+But as in the operational semantics case there are restricted converses such that we gain a connection between big-steps with and without the application of a substitution.
+
+\begin{lemma}[Substitution on big-step semantics (Part III)]
+\label{lem_subst_bigstep_partIII}
+Given $a,b\in\names$, $P\in\procs$ and 
+\begin{itemize}
+\item[(I)] $\sigma=\subs{a}{b}$ a substitution with $a\nin\fn{P}$ or
+\item[(II)] $\sigma=\transp{a}{b}$ a transposition,
+\end{itemize} then
+\[\ec{P\sigma}\bigstep{}\ec{Q'} \text{ implies } \exists Q\in\procs:\ec{P}\bigstep{}\ec{Q}\]
+with $\ec{Q\transp{a}{b}}=\ec{Q'}$ holds.
+\end{lemma}
+\begin{prf}
+Let $a,b\in\names$, $P\in\procs$ and $\sigma=\subs{a}{b}$ substitution with $a\nin\fn{P}$ or $\sigma=\transp{a}{b}$ transposition. Furthermore, there is a $Q'\in\procs$ such that $\ec{P\sigma}\bigstep{}\ec{Q'}$. We proceed by induction over the number $n\in\N$ of $\tau$ steps within $\bigstep{}$.
+\begin{description}
+\item[Base case $n=0$:] Thus, $\ec{P\sigma}=\ec{Q'}$. Chose $Q\define{}P$, so we know $\ec{P}\bigstep{}\ec{Q}$ and $\ec{Q\transp{a}{b}}=\ec{P\transp{a}{b}}=\ec{P\sigma}=\ec{Q'}$ holds.
+
+\item[Base case $n=1$:] Thus, $\ec{P\sigma}\tautrans{}\ec{Q'}$. \refCor{cor_subst_trans_partIII} respectively \refCor{cor_subst_trans_partIV} yields that there is an action $\alpha\in\actions$ and a process $Q\in\procs$ such that $\ec{P}\transs{\alpha}\ec{Q}$ and $\transp{a}{b}(\alpha)=\tau$ and $\ec{Q\transp{a}{b}}=\ec{Q'}$. Hence, $\alpha=\tau$ and so $\ec{P}\bigstep{}\ec{Q}$.
+
+\item[Induction hypothesis:] For all $a,b\in\names$, $P\in\procs$ and $\sigma=\subs{a}{b}$ a substitution with $a\nin\fn{P}$ or $\sigma=\transp{a}{b}$ transposition and $\ec{P\sigma}\bigstep{}\ec{Q'}$ with some number of $\tau$ transitions $n\in\N$, exists a process $Q\in\procs$ with $\ec{P}\bigstep{}\ec{Q}$ and $\ec{Q\transp{a}{b}}=\ec{Q'}$.
+
+\item[Induction step:] Let $\ec{P\sigma}\bigstep{}\ec{Q'}$ with a number of $\tau$ steps of $n+1$. Thus, we know there is a process $Q_1'\in\procs$ such that $\ec{P\sigma}\bigstep{}\ec{Q_1'}$ in a number of $\tau$ steps of $n$ and $\ec{Q_1'}\tautrans{}\ec{Q'}$. From the induction hypothesis we know that there is a process $Q_1\in\procs$ such that $\ec{P}\bigstep{}\ec{Q_1}$ with $\ec{Q_1\transp{a}{b}}=\ec{Q_1'}$. So we know $\ec{Q_1\transp{a}{b}}\tautrans{}\ec{Q'}$ and with \refCor{cor_subst_trans_partIII} respectively \refCor{cor_subst_trans_partIV} we know there is an action $\alpha\in\actions$ and a process $Q\in\procs$ such that $\ec{Q_1}\transs{\alpha}\ec{Q}$ and $\transp{a}{b}(\alpha)=\tau$ and $\ec{Q\transp{a}{b}}=\ec{Q'}$. Thus, $\alpha=\tau$ and due to that $\ec{P}\bigstep{}\ec{Q}$.
+\end{description}
+Thus, \refLem{lem_subst_bigstep_partIII} holds.
+\end{prf}
+
+With the help of \refCor{cor_subst_trans_partIII} we extend the previous lemma for big-steps with visible actions.
+
+\begin{lemma}[Substitution on big-step semantics (Part IV)]
+\label{lem_subst_bigstep_partIV}
+Given names $a,b\in\names$, a process $P\in\procs$, a trace $s'\in\tr$, and 
+\begin{itemize}
+\item[(I)] $\sigma=\subs{a}{b}$ a substitution with $a\nin\fn{P}$ or
+\item[(II)] $\sigma=\transp{a}{b}$ a transposition
+\end{itemize}
+with $\n{\sigma}\cap\bn{s'}=\emptyset$, then 
+\[\ec{P\sigma}\bigstep{s'}\ec{Q'} \text{ implies } \exists Q\in\procs,s\in\tr:\ec{P}\bigstep{s}\ec{Q}\]
+with $s\transp{a}{b}=s'$ and $\ec{Q\transp{a}{b}}=\ec{Q'}$.
+\end{lemma}
+\begin{prf}
+Let $a,b\in\names$, $P\in\procs$, $s'\in\tr$, and $\sigma=\subs{a}{b}$ a substitution with $a\nin\fn{P}$ or $\sigma=\transp{a}{b}$ transposition with $\n{\sigma}\cap\bn{s'}=\emptyset$ and $\ec{P\sigma}\bigstep{s'}\ec{Q'}$. We proceed by induction over the length of $s'$.
+\begin{description}
+\item[Base case $\len{s'}=0$:] Thus, $s'=\eseq{}$ holds. Hence, in this case \refLem{lem_subst_bigstep_partIV} directly follows from \refLem{lem_subst_bigstep_partIII}.
+
+\item[Base case $\len{s'}=1$:] So $s'=\seq{\beta}$ for an action $\beta\in\actions\setminus\set{\tau}$ and there are processes $Q_1',Q_2'\in\procs$ such that $\ec{P\sigma}\bigstep{}\ec{Q_1'}$, $\ec{Q_1'}\transs{\beta}\ec{Q_2'}$, and $\ec{Q_2'}\bigstep{}\ec{Q'}$. \refLem{lem_subst_bigstep_partIII} yields that there is a process $Q_1\in\procs$ with $\ec{P}\bigstep{}\ec{Q_1}$ and $\ec{Q_1\transp{a}{b}}=\ec{Q_1'}$. With $\ec{Q_1\transp{a}{b}}=\ec{Q_1'}\transs{\beta}\ec{Q_2'}$ and \refCor{cor_subst_trans_partIII} respectively \refCor{cor_subst_trans_partIV}, we know that there is an action $\alpha\in\actions$ and a process $Q_2\in\procs$ such that $\ec{Q_1}\transs{\alpha}\ec{Q_2}$ with $\transp{a}{b}(\alpha)=\beta$ and $\ec{Q_2\transp{a}{b}}=\ec{Q_2'}$. \refLem{lem_subst_bigstep_partIII} with $\ec{Q_2\transp{a}{b}}=\ec{Q_2'}\bigstep{}\ec{Q'}$ yields that there is a process $Q\in\procs$ with $\ec{Q_2}\bigstep{}\ec{Q}$ and $\ec{Q\transp{a}{b}}=\ec{Q'}$. Hence, $\ec{P}\bigstep{\seq{\alpha}}\ec{Q}$. Let $s\define\seq{\alpha}$, then also $s\transp{a}{b}=s'$ holds.
+
+\item[Induction hypothesis:] For a number $n\in\N$ and all traces $t'\in\tr$, with $n\leq\len{t'}$ and $a,b\in\names$, $P\in\procs$, $\sigma=\subs{a}{b}$ a substitution with $a\nin\fn{P}$ or $\sigma=\transp{a}{b}$ transposition with $\n{\sigma}\cap\bn{t'}=\emptyset$ and $\ec{P\sigma}\bigstep{t'}\ec{Q'}$, exists a process $Q\in\procs$ and a trace $t\in\tr$ with $\ec{P}\bigstep{t}\ec{Q}$ and $t\transp{a}{b}=t'$ and $\ec{Q\transp{a}{b}}=\ec{Q'}$.
+
+\item[Induction step:] So $\len{s'}=n+1$ and so there is a trace $t'\in\tr$, a process $Q_1'\in\procs$ and an action $\beta\in\actions\setminus\set{\tau}$ with $\ec{P\sigma}\bigstep{t'}\ec{Q_1'}$ and $\ec{Q_1'}\bigstep{\seq{\beta}}\ec{Q'}$ and $s'=\seqconc{t'}{\seq{\beta}}$. The induction hypothesis yields that there is a process $Q_1\in\procs$ and a trace $t\in\tr$ with $\ec{P}\bigstep{t}\ec{Q_1}$ and $t\transp{a}{b}=t'$ and $\ec{Q_1\transp{a}{b}}=\ec{Q_1'}$. Since $\ec{Q_1\transp{a}{b}}=\ec{Q_1'}\bigstep{\seq{\beta}}\ec{Q'}$ we know from the second base case that there is a process $Q\in\procs$ and an action $\alpha\in\actions$ with $\ec{Q_1}\bigstep{\seq{\alpha}}\ec{Q}$ and $\seq{\alpha}\transp{a}{b}=\seq{\beta}$ and $\ec{Q\transp{a}{b}}=\ec{Q'}$. Thus, define $s\define{}\seqconc{t}{\seq{\alpha}}$ then we know $s\transp{a}{b}=s'$ and $\ec{P}\bigstep{s}\ec{Q}$.
+\end{description}
+Thus, \refLem{lem_subst_bigstep_partIV} is proved by induction over the length of the trace.
+\end{prf}
+
+Thereby, we see that the example given after \refLem{lem_subst_bigstep_partII} for the non-existence of the converse is fixed by the previous lemma by the usage of a transposition. Again, consider $P\define\inp{y}{a}$ and $\sigma\define\subs{b}{x}$, then $\ec{P\sigma}=\ec{P}\bigstep{\seq{\inpa{y}{x}}}\ec{\proczero}$. This time, with $s\define\seq{\inpa{y}{b}}$ and $Q\define\proczero$, there is a trace $s\in\tr$ and a process $Q$ with $\ec{P}\bigstep{s}\ec{Q}$ and $s\transp{b}{x}=\seq{\inpa{y}{x}}$ and $\ec{Q\transp{b}{x}}=\ec{\proczero}$.
+
+Since the application of a substitution is only defined on traces with bound names different to the names of the substitution, it is useful to take a closer look at the bound names of a trace. Obviously, we would like to apply a given substitution to an arbitrary trace without destroying anything of its semantics. Intuitively, since those names are bound, we should be able to change the bound names within a trace starting in a process $P$ and the resulting trace is still a valid behavior of $P$.
+
+Furthermore, we would like to abstract from traces where the bound names within are not unique for reasons of simplicity.
+
+\begin{definition}[Unique traces]
+\label{def_unique_traces}
+We call a trace $t\in\tr$ \findex[uniqueness of bound names!trace]{unique} if 
+\begin{enumerate}
+\item[(1)] $t_i=\bouta{a}{b}$ implies $\nexists{}c\in\names,j\in\N: i\neq{}j \wedge t_j=\bouta{c}{b}$,
+\item[(2)] $t_i=\bouta{a}{b}$ implies $b\nin\n{\seq{t_1,\ldots, t_{i-1}}}$
+\end{enumerate}
+holds.
+\end{definition}
+
+This definition is helpful for determine the scope of a name within a trace. Consider, for example, $P\define{}\procres{c}{\inp{b}{x}.\out{b}{c}.\inp{b}{y}}$. We know $\ec{P}\intrans{b}{a}\ec{\procres{c}{\out{b}{c}.\inp{b}{y}}}\bouttrans{b}{a}\ec{\inp{b}{y}}\intrans{b}{a}\ec{\proczero}$, since $\procres{a}{\out{b}{a}.\inp{b}{y}}\in\ec{\procres{c}{\out{b}{c}.\inp{b}{y}}}$. Thus, $\ec{P}\bigstep{\seq{\inpa{b}{a},\bouta{b}{a},\inpa{b}{a}}}\ec{\proczero}$ with different names $a$. In particular, for $\seq{\inpa{b}{a},\bouta{b}{a},\inpa{b}{a}}$ we know that on the hand the first $a$ is a name visibly to the environment and on the other hand the second one is a different name $a$ and till this moment invisibly for the environment.
+
+It is for this reason that we define the \findex{bound substitution} function, which suitably replaces the bound names within a trace.
+
+\begin{definition}[Bound substitution]
+\label{def_bound_substitution}
+As $\bnsubstF{}:\pom{\names^2}\times\tr\rightarrow\tr$ we define the \findex{bound substitution} such that\newline
+if $\exists{} i\in\N{},x\in\names\nexists{}j\in\N,y\in\names: i<j\wedge{}t_i=\bout{x}{a}\wedge{}t_j=\bout{y}{a}\wedge\len{t}=n$ then
+\[\bnsubst{b}{a}{t}=\seqconc{\seq{t_1,\ldots,t_{i-1}}}{\seqconc{\seq{\bout{x}{b}}}{(\seq{t_{i+1},\ldots,t_n}\subs{b}{a})}},\]
+if $\exists{} i,j\in\N{},x,y\in\names: i<j\wedge{}t_i=\bout{x}{a}\wedge{}t_j=\bout{y}{a}\wedge\len{t}=n$ then 
+\[\bnsubst{b}{a}{t}=\seqconc{\seq{t_1,\ldots,t_{i-1}}}{\seqconc{\seq{\bout{x}{b}}}{\seqconc{(\seq{t_{i+1},\ldots,t_{j-1}}\subs{b}{a})}{\seq{t_j,\ldots,t_n}}}},\]
+otherwise
+\[\bnsubst{b}{a}{t}=t\]
+holds.
+\end{definition}
+
+We now show with the previous definition that if there is a big-step with a trace $t$ starting in a process, then there is still a big-step starting in the process for a trace $t'$ if we suitably changed the bound names within the trace $t$ to obtain $t'$.
+
+\begin{lemma}[Big-step semantics under bound name changes]
+\label{lem_bn_changes_traces}
+\begin{old} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OLD preservation for trace semantics %%%%%%%%%%%%%%%%%%%%%%%%%
+For a name $a\in\names$ and process $P\in\procs$
+\[t\in\traces[\procres{a}{P}] \text{ implies } \bnsubst{b}{a}{t}\in\traces[\procres{a}{P}]\]
+holds for all $b\nin\fn{\procres{a}{P}}\cup\n{t}$.
+\end{old} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OLD end preservation for trace semantics %%%%%%%%%%%%%%%%%%%%%%%
+For a name $a\in\names$, a trace $t\in\tr$ and processes $P,Q\in\procs$
+\[\ec{P}\bigstep{t}\ec{Q} \text{ implies } \exists{}Q'\in\procs: \ec{P}\bigstep{\bnsubst{b}{a}{t}}\ec{Q'}\]
+holds for all $b\nin\fn{P}\cup\n{t}$.
+\end{lemma}
+\begin{prf}
+Let $b\nin\fn{P}\cup\n{t}$, $a\in\names$, $P,Q\in\procs$, and $t\in\tr$ with $\len{t}=n$ for some $n\in\N$, and $\ec{P}\bigstep{t}\ec{Q}$. If $a\nin\bn{t}$ then $t=\bnsubst{b}{a}{t}$. Hence $\ec{P}\bigstep{\bnsubst{b}{a}{t}}\ec{Q}$. If $a\in\bn{t}$ there must be a number $i\in\N$ and a name $x\in\names$ such that $t=\seqconc{t'}{\seqconc{\seq{\bout{x}{a}}}{t''}}$ with $t'\define{}\seq{t_1,\ldots,t_{i-1}}$ and $t''\define\seq{t_{i+1},\ldots,t_n}$. Without loss of generality, we assume that this index is the first occurrence of a bound output with object $a$ within the trace. So there are processes $Q_1,Q_2\in\procs$ with $\ec{P}\bigstep{t'}\ec{Q_1}\transs{\bout{x}{a}}\ec{Q_2}\bigstep{t''}\ec{Q}$. \refLem{lem_bigstep_fn} yields that $\fn{Q_1}\subseteq\fn{P}\cup\n{t'}$ and so $b\nin\fn{Q_1}$. Hence, with \refLem{lem_bn_trans} and since $\fn{\procres{a}{Q_1}}\subseteq\fn{Q_1}$ we know $\ec{Q_1}\transs{\bout{x}{b}}\ec{Q_2\subs{b}{a}}$. If there is no number $j\in\N$ and name $y\in\names$ with $t_j=\bout{y}{a}$ and $j>i$ we know from \refLem{lem_subst_bigstep_partII} that $\ec{Q_2\subs{b}{a}}\bigstep{t''\subs{b}{a}}\ec{Q\subs{b}{a}}$. Furthermore, since in this case $\bnsubst{b}{a}{t}=\seqconc{t'}{\seqconc{\seq{\bout{x}{b}}}{t''\subs{b}{a}}}$ we know $\ec{P}\bigstep{\bnsubst{b}{a}{t}}\ec{Q\subs{b}{a}}$. Otherwise, there is a number $j\in\N$ and a name $y\in\names$ such that $t_j=\bout{y}{a}$ and $j>i$. With $s\define{}\seq{t_{i+1},\ldots,t_{j-1}}$ and $s'\define\seq{t_j,\ldots,t_n}$ we know there is a process $Q_2'\in\procs$ such that $\ec{P}\bigstep{t'}\ec{Q_1}\transs{\bout{x}{a}}\ec{Q_2}\bigstep{s}\ec{Q_2'}\bigstep{s'}\ec{Q}$. Without loss of generality, we assume that this index is the second occurrence of a bound output with object $a$ within the trace. Thus, with \refLem{lem_subst_bigstep_partII} we know $\ec{Q_2\subs{b}{a}}\bigstep{s\subs{b}{a}}\ec{Q_2'\subs{b}{a}}$ holds. If $a\in\fn{Q_2'}$ we know from \refConv{conv_uni_bn} that $a\nin\bn{Q_2'}$. Furthermore, there is no process $R\in\procs$ such that $R=_\alpha{}Q_2'$ and $a\in\bn{R}$, since with $a\in\fn{Q_2'}$ we know $a\in\fn{R}$ for all $R=_\alpha{}Q_2'$ and so the name $a$ would violate \refConv{conv_uni_bn} because $a\in\fn{R}\cup\bn{R}$. But if there is no process $R\in\ec{Q_2'}$ with $a\in\bn{R}$, there is no possibility for a transition $\transs{\bout{y}{a}}$ to start in $\ec{Q_2'}$. Thus, $a\nin\fn{Q_2'}$ and so $\ec{Q_2'\subs{b}{a}}=\ec{Q_2'}$. Hence, $\ec{P}\bigstep{t'}\ec{Q_1}\transs{\bout{x}{b}}\ec{Q_2\subs{b}{a}}\bigstep{s\subs{b}{a}}\ec{Q_2'\subs{b}{a}}\bigstep{s'}\ec{Q}$ and thus, $\ec{P}\bigstep{\bnsubst{b}{a}{t}}\ec{Q}$.
+\end{prf}
+
+Thus, we can change the bound names within a trace with any fresh name without changing its semantics. This justifies the following convention.
+
+\begin{conv}[Uniqueness of bound names in traces]
+\label{conv_uni_bn_traces}
+For a trace $t\in\tr$ and substitutions $\sigma_1,\ldots,\sigma_n$ for some $n\in\N$ under consideration, we stipulate that $t$ is unique and $\n{\sigma_i}\cap\bn{t}=\emptyset$ for every $i\in{}\set{1,\ldots,n}$.
+\end{conv}
+
+Note that with this convention the constraint $\n{\sigma}\cap\bn{t}=\emptyset$ in \refLem{lem_subst_bigstep_partII} and \refLem{lem_subst_bigstep_partIV} is no longer harmful.

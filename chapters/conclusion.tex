@@ -1,0 +1,49 @@
+% mainfile: ../Refinement.tex
+\chapter{Conclusion and future work}
+\label{sec_conclusion}
+In this thesis we developed a trace refinement for the \picalc{} and investigated its properties and limitations.
+
+The aim of the definition is that the trace semantics preserves some of the advantages of the set-theoretical denotation of the \gls{CSP} approach in \cite{roscoe}. Unfortunately, we found out that our trace semantics are most likely not compositional in general. On the one hand, we showed that the $\tau$ and output prefixes and the choice are compositional in the way the corresponding in \gls{CSP} are. On the other hand, we explained that, according to the specialty of the \picalc{} to transmit channels through channels, the possibly newly generated communications most likely limit the compositionality of the input prefix. In spite of that, we sketched a straightforward algorithmic idea to calculate prefix processes for a finite set of names coming from the environment. This approach takes advantage of the set equality for the application of a transposition within the trace semantics or outside of it. Furthermore, we proved the compositionality of the parallel composition limited to recursion- and restriction-free processes. For an algorithmic approach we invented a new standard form for processes and showed that every process can be transformed to a structurally equal one in this form. Therefore, the limitation to restriction-free processes is not harmful for the algorithmic calculation. Furthermore, we stated an idea for the compositionality of the restriction operator, but could not completely prove it within the scope of this thesis. Finally, we detected that the existence of a weak or strong simulation implies trace refinement and showed that the converse for strong simulations does not hold. Furthermore, we conjecture that the concept of trace refinement should be equivalent to weak simulation.
+
+%The aim of the definition is that the trace semantics should preserve some of the advantages of the \gls{CSP} approach. For example, the features following of the set-theoretical denotation. Therefore, our approach bases on the early semantics in \cite{sangiorgi}. Thus, for a start, we have defined a big-step semantics with the early semantics at its heart to follow entire ways through the transition system while collecting their labels. Furthermore, we have gained that the free names of the resulting process of a trace are a subset of the free names of the trace and the process it is starting from. With this, we have shown that if there exists a big-step between some process, we also have a big-step between the components where an arbitrary substitution is applied to. For the converse we have discovered that the substitution has to be limited to a transposition to gain the result.
+%
+%Subsequently, we have shown that the traces collected in a set defines the desired set-theoretical denotation, called trace semantics. Afterwards, the results of the big-step semantics concerning the application of a substitution has been lifted to the trace semantics.
+
+The two conjectures mentioned above and the restrictions of the compositionality are a good start for future work. Furthermore, it would be promising to distinguish processes by their different behaviour in the degree of nondeterminism and divergence like the failures and failures divergence refinement described in \cite{roscoe} for \gls{CSP}. Since there are many other definitions of simulation and bisimulation, for example the barbed and full one \cite{sangiorgi}, it would be interesting to investigate their connection to the trace semantics. For example, consider the full bisimulation, which contains processes which are bisimilar regardless of the application of substitutions. This could be related to the lemma, which states that the application of a transposition to the traces of a process results the same as first applying the transposition to the process and then calculating the traces. Considering this lemma it would be of further interest to investigate whether this trace equivalence for the application of a transposition can be extended to substitutions injective on the free names of the process, since the heart of the trace equivalence proof is a lemma in \cite{sangiorgi} with those premises. In the case the compositionality of the parallel composition and the restriction is given, it could be promising to investigate the preservation of the trace inclusion under these operators, like it is done for the output prefix and the choice. Considerably more work will need to be done to determine if we can develop another operational semantics to reduce the number of transitions and thus the number of traces. Since we know that we can replace the bound names of a trace without changing its affiliation to a trace set, it could be possible to change something within the rules which use the restriction operator. Therefore, \cite{paolaExplicitSubs} could be an interesting approach, since they invented explicit substitutions and state that they can reduce the transition system to a standard structured operational semantics framework. Apart from that, the definition of the compositionality of the parallel composition seems to be a bit complex. Furthermore, the direct implementation led to a huge amount of data. Maybe there is a more convincing way of a non-inductive definition. Generally, a complete or at least less rudimentary implementation than the existing one would be useful to have, especially for the case of an input process and the parallel composition. This work could be inspired by the FDR model checking tool, which has algorithms for checking refinements of CSP processes \cite{fdr}. Furthermore, it would be recommended to use a framework like OpenCL\footnote{\url{http://www.khronos.org/opencl/} visited \today.}, since the setting of the algorithm is highly concurrent. Finally, it would be interesting to investigate the usability of a combination of the \picalc{} and the formal specification language Z \cite{zNotation, spivey} to model data in an easier way. Since there is an approach using Object-Z \cite{Object-Z,OZSmith} and CSP to model data in CSP (CSP-OZ \cite{fischerCsp}) and this notion bases on the failure-divergence semantics and takes advantage of the set-theoretical approach and refinement, it would be interesting to determine whether some kind of $\pi$-OZ is suitable.
+
+Another view on handling bound names is presented in \cite{caires}, where they define a so-called safe substitution, which changes the bound names of a process to fresh ones while applying the substitution. This approach does not suitably fit our setting, since it complicates the application of substitutions on traces and their concatenations. Otherwise, they take advantage of the transposition of names to preserve some features while applying a substitution. This also turned out to be a good idea for our approach. Furthermore, they define the so-called property sets for having more information about names during the handling of their formula. This approach could be interesting for extending the semantics with some sets, which saves suitable names for a better handling of our denotational semantics. A connection between CCS and CSP is given in \cite{cspRetract1,cspRetract2}, where they state that CSP is a retract of CCS. They can derive the denotational semantics of CSP by operationally defined links of the operational semantics of CCS. Since we found this paper late in the elaboration of this thesis, there could be interesting ideas for defining a denotational semantics in a different manner. This paper also led to the consideration of observation equivalence (e.g. weak bisimulation) as testing equivalence \cite{testEquiv}. Such equivalences are regarded in \cite{testingCCS} for CCS and for mobile processes in \cite{testingCSP}. In \cite{testingCSP} they gain a fully abstract denotational model of the \picalc{} related to a weak testing-based behavioral relation. This approach differs to ours, since they use a so-called testing equivalence view. This requires observers and especially they extended the original \picalc{} by a mismatch operator to gain the needed observational power. Since the mismatch operator violates \refLem{lem_subst_trans_partI}, which is in some sense a foundation of our theory, we did not want to integrate the mismatch prefix. Apart from that it is interesting that they also only consider a finite variant of the \picalc{}. They may also provide some good ideas for future improvement. This statement also fits to \cite{hennessy} where two set-theoretical semantics for the \picalc{} are constructed, by extending the syntax of the \picalc{}.
+
+%\listoftodos
+\begin{old}[Some more minor ideas] %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OLD MORE MINOR IDEAS
+Hoare constitute CSP is Retract of CCS maybe we can learn more from this for the approach of the refinement in \picalc{}.
+
+esparza 2010 2011 regulaere sprachen fuer ccs oder teilklasse concurrency conference
+
+to the best of our knowledge
+
+orginal paper zu jeder einzelnen refiment begriff 
+
+hoare buch wie paper zitieren
+
+fdr chekcer 
+
+notes references von sangiorgi ansehen
+
+Roscoe 214 other process algebras capture failure style equivalences: testing equivalences for CCS hennessy and de Nicola [29,46].
+
+Roscoe 214 failures hoaere brooks roscoe [17]
+
+devergence 91 14 18
+
+\cite{sangiorgi_phd}
+
+failures similar model valmari in [116] roscoe 216
+
+Trace model first defined in \cite{hoareTraceOriginal} and more specified in \cite{hoare}\cite{roscoe}.
+
+nur endlich viele nachfolger \cite{sangiorgi} Seite 45
+
+Does something like $\traces[P]\subseteq{}\traces[Q]$  implies $\fn{P}\subseteq\fn{Q}$ holds?
+
+\end{old}
+

@@ -1,1 +1,0 @@
-for %%I in ("%~dp0..\*.uxf") do java -jar "%UMLET%\umlet.jar" -action=convert -filename="%~dp0..\%%~nxI" -format=svg -output="%~dp0..\generiert\%%~nI.svg"

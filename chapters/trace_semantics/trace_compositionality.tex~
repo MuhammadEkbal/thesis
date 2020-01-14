@@ -1,0 +1,348 @@
+% mainfile: ../../Refinement.tex
+In this section we investigate the compositionality of the trace semantics. That is, for a binary operator $\circ$ on processes, we have a binary operation $\circ{}_{\mathcal T}$ on the trace sets such that $\traces[P\circ{}Q]=\traces[P]\circ{}_{\mathcal T}\traces[Q]$ holds. By this investigation, we get that a formal compositionality of every operator most likely does not exist. For example, consider an input process $\inp{a}{x}.P$, then the new communications, which can be established by the incoming name, can possibly not be obtained by the traces of $P$. Therefore, we develop a algorithmic notion for calculating a subset of the traces compositional. That is, we can algorithmically calculate the traces of a process compositional, if we assume that only a finite number of names can be send from the outside to the process.
+%\todo{also guess otherwise not possible}
+
+Furthermore, we restrict the compositionality of the parallel operator to the class of restriction-free and recursion-free processes for reasons of simplicity. This is of minor influence, since we know with \refLem{lem_extended_standard_form} that every process can be transformed in extended standard form such that all restriction operators are right at the front of the process. Additionally, by a suitable unfolding technique of the process calls, we assume that we can possibly get rid of the restriction to recursion-free process as long as we can find some kind of fix-point algorithm for the unfolding. However, this investigation was out of the scope of this thesis. For practically usage of this semantics, the following results appear to be helpful.
+
+\subsubsection{Inaction, $\tau$ and output process, choice}
+We start the investigation of the compositionality of the trace semantics with the unproblematic cases for the inaction, the $\tau$ and output process, and the choice.
+
+\begin{lemma}[Compositionality: $\tau$ processes/output processes/choices]
+\label{lem_compositionality_traces}
+Given processes $P,Q\in\procs$ and names $a,x\in\names$, then
+	\begin{align*}
+		\traces[\proczero] &= \set{\eseq} \tag{INACTION}\label{eq_compo_inaction}\\
+		\traces[\tau.P] &= \traces[P] \tag{TAU}\label{eq_compo_tau}\\
+		\traces[\out{a}{x}.P] &= \set{\eseq}\cup\seqconc{\set{\seq{\outa{a}{x}}}}{\traces[P]} \tag{OUTPUT}\label{eq_compo_output}\\%\set[{s\in\traces[P]}]{\seqconc{\seq{\out{a}{x}}}{s}}
+		\traces[\procchoice{P}{Q}] &= \traces[P] \cup \traces[Q]	\tag{CHOICE}\label{eq_compo_choice}\\
+		%\traces[\proccall{A}{\vec{v}}] &= \traces[P\subs{\vec{v}}{\vec{w}}] \text{ with } \procdef{A}{\vec{w}}\define{}P\tag{CALL}\label{eq_compo_call}
+	\end{align*}
+holds.
+%\item \todo{Für parallel reicht nicht. Problem: zuviel Verhalten bei gebundenem Output}Let $T_P\define\set[\nexists\bout{a}{x}\in{}s:x\in\fn{Q}]{s\in\traces[P]}$ and \newline
+%$T_Q\define\set[\nexists\bout{a}{x}\in{}s:x\in\fn{P}]{s\in\traces[Q]}$, then
+%			\begin{align*}
+%			\traces[\procpar{P}{Q}] = \bigcup_{(s,t)\in{}T_P\times{}T_Q}{s\seqcom{}t}.
+%			\end{align*}
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% THIRD VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%		\item Let $T_B\define\bind{a}{\traces[P]}$ and with that \newline$T_P\define{}T_B\setminus\bigl(\left\{s\in{}T_B \; \mid \; \exists{}i,j\in\N:a\in\sub{s_i}\wedge{}a\in\obj{s_j}\wedge{}i\leq{}j\right\}$\newline{} $\cup \set[\exists{}i\in\N\nexists{}j\in\N:a\in\sub{s_i}\wedge{}a\in{}\obj{s_j}]{s\in{}T_B}\bigr)$, then
+%\set[\exists{}i,j\in\N:a\in\sub{s_i}\wedge{}a\in\obj{s_j}\wedge{}i\leq{}j]{s\in{}T_B}
+%			\[\traces[\procres{a}{P}] = \bigcup_{a'\in\names}\left(T_P\subs{a'}{a}\right)\]			
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECOND VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			\begin{old}{second version}		
+				Let $T_P\define\traces[P]\setminus\bigl(\set[a\in_c s]{s\in\traces[P]}\cup\set[\out{b}{a}\in s,b\in\names]{s\in\traces[P]}\bigr)\cup \set[{s\in\traces[P]}]{s\subs{\left(a\right)}{\langle{}a\rangle}}$, then
+					\[\traces[\procres{a}{P}] = \bigcup_{a'\in\names}\left(T_P\subs{a'}{a}\right)\]
+			\end{old}
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END SECOND VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIRST VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			\begin{old}{first version}		
+				\begin{align*}
+				\traces[\procres{a}{P}] = \bigcup_{a'\in\names}\bigl(\traces[P]\subs{a'}{a}&\setminus\bigl(\set[a'\in_c s]{s\in\traces[P]\subs{a'}{a}} \\
+							& \quad\quad\cup \set[\outa{b}{a'}\in s,b\in\names]{s\in\traces[P]\subs{a'}{a}}\bigr) \\
+							&\cup \set[{s\in\traces[P]\subs{a'}{a}}]{s\subs{\left(a'\right)}{\langle{}a'\rangle}}\bigr).
+				\end{align*}
+			\end{old}
+			%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END FIRST VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{lemma}
+\begin{prf}
+To prove \refLem{lem_compositionality_traces} we handle every case individually.
+\begin{description}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ZERO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item[Case {$\traces[\proczero]$}:]
+From the definition of the trace semantics (\refDef{def_trace_semantics}) we know that
+\begin{align*}
+\label{eq_trace_proc_zero}
+	\traces[\proczero] = \set[\exists{}Q\in\procs:\ec{\proczero}\bigstep{t}\ec{Q}]{t\in\tr}
+\end{align*}
+holds. Furthermore, with \refLem{lem_empty_trace} we know $\eseq\in\traces[\proczero]$ so that
+\begin{align}
+\label{eq_trace_proc_zero}
+	\traces[\proczero] = \set{\eseq{}}\cup \underbrace{\set[\exists{}Q\in\procs:\ec{\proczero}\bigstep{t}\ec{Q}]{t\in\tr\setminus\set{\eseq}}}_{Y\define{}}.
+\end{align}
+Let us assume that $Y\neq\emptyset$ and therefore let $t\in{}Y$. Then, from \refEq{eq_trace_proc_zero}, we know that a process $Q\in\procs$ must exist such that $\ec{\proczero}\bigstep{t}\ec{Q}$. Since $t\neq\eseq$, there has to be an action $\alpha\in{}t$ with $\alpha\neq\tau$ and a trace $s\in\tr$ due to the definition of the big-step semantics (\refDef{def_bigstep_semantics}) such that $\ec{\proczero}\bigstep{}\fatsemi\transs{\alpha}\fatsemi\bigstep{s}\ec{Q}$ holds and $t=\seqconc{\seq{\alpha}}{s}$. But there is no rule of the operational semantics (\refDef{def_early_trans_system}), such that for a process $Q'\in\procs$, there is a transition like $\ec{\proczero}\tautrans\ec{Q'}$ or $\ec{\proczero}\transs{\alpha}\ec{Q'}$. This is a contradiction, thus, $Y=\emptyset$. Hence with \refEq{eq_trace_proc_zero} we know that all in all 
+\[\traces[\proczero]=\set{\eseq}\]
+holds.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% START LONG VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{old}{long version}
+	\begin{align*}
+		\begin{array}{lcl}
+		\traces[\proczero] &\eq{\text{def.}}& \set[\exists{}Q\in\procs:\ec{\proczero}\bigstep{t}\ec{Q}]{t\in\tr} \\
+				&\eq{\proczero\in\procs}& \set{\eseq} \cup \set[\exists{}\proczero\neq{}Q\in\procs:\ec{\proczero}\bigstep{t}\ec{Q}\wedge{}t\neq\eseq]{t\in\tr}\\
+				&\eq{}& \set{\eseq} \cup \bigl\{t\in\tr\;\mid\;\exists{}\proczero\neq{}Q\in\procs,\tau\neq\alpha\in{}t,s\in\tr:\\&&\quad\quad\quad\quad\quad\quad\quad\quad\quad\ec{\proczero}\bigstep{}\fatsemi\transs{\alpha}\fatsemi\bigstep{s}\ec{Q}\wedge{}t=\seqconc{\seq{\alpha}}{s}\bigr\}\\
+				&\eq{(*)}& \set{\eseq} \cup \emptyset\\
+				&\eq{}& \set{\eseq}
+		\end{array}
+	\end{align*}
+$(*)$ No rule in \refFig{fig_ts_early} exists, such as for $Q\in\procs$ and $\alpha\in\actions$ there is a transition like $\ec{\proczero}\transs{\tau}\ec{Q}$ or $\ec{\proczero}\transs{\alpha}\ec{Q}$.
+\end{old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END LONG VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TAU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item[Case {$\traces[\tau.P]$}:]
+Let $P\in\procs$. As in the prior case we know from \refDef{def_trace_semantics} that
+\begin{align*}
+	\traces[\tau.P] = \set[\exists{}Q\in\procs:\ec{\tau.P}\bigstep{t}\ec{Q}]{t\in\tr}
+\end{align*}
+From the definition of the operational semantics (\refDef{def_early_trans_system}) we know that there is only one rule, which handles a $\tau$ prefix. Hence with the \etau{} rule we know that
+	\[\traces[\tau.P] =\set[\exists{}Q\in\procs:\ec{\tau.P}\tautrans\ec{P}\wedge\ec{P}\bigstep{s}\ec{Q}\wedge t = \seqconc{\eseq}{s}]{t\in\tr}\]
+holds, due to the fact that $\tau$ actions are omitted in traces. Since $\ec{\tau.P}\tautrans\ec{P}$ is true for all $P\in\procs$, it can be omitted so that
+	\[\traces[\tau.P]=\set[\exists{}Q\in\procs:\ec{P}\bigstep{s}\ec{Q}\wedge t = \seqconc{\eseq}{s}]{t\in\tr}\]
+holds. This leads with the definition of the concatenation of traces and the definition of the trace semantics to $\traces[\tau.P]=\traces[P]$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% START SHORT VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{old}{short version}
+	\begin{align*}
+		\begin{array}{lcl}
+			\traces[\tau.P] &\eq{\text{def.}}& \set[\exists{}Q\in\procs:\ec{\tau.P}\bigstep{t}\ec{Q}]{t\in\tr} \\
+					&\eq{\tau.P\in\procs}& \set{\eseq} \cup \set[\exists{}\ec{\tau.P}\ni{}Q\in\procs:\ec{\tau.P}\bigstep{t}\ec{Q}]{t\in\tr}\\
+					&\eq{\text{\etau}}& \set{\eseq}\cup \seqconc{\set{\eseq}}{\set[\exists{}Q\in\procs:\ec{P}\bigstep{t}\ec{Q}]{t\in\tr}}\\
+					&\eq{\text{def.}}& \set{\eseq}\cup \seqconc{\set{\eseq}}{\traces[P]}\\
+					&\eq{\text{def.}}& \set{\eseq}\cup \traces[P]\\
+					&\eq{\text{ref}}& \traces[P]
+		\end{array}
+	\end{align*}	
+\end{old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END SHORT VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OUTPUT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item[Case {$\traces[\out{a}{x}.P]$}:]
+Let $P\in\procs$ be a process and $a,x\in\names$ be names. From \refDef{def_trace_semantics} and \refLem{lem_empty_trace} we, analogously to the stop process case, know that
+\begin{align}
+\label{eq_trace_out}
+	\traces[\out{a}{x}.P] = \set{\eseq{}}\cup \underbrace{\set[\exists{}Q\in\procs:\ec{\out{a}{x}.P}\bigstep{t}\ec{Q}]{t\in\tr\setminus\set{\eseq}}}_{Y\define{}}
+\end{align}
+holds and once again there is only one rule -- the \eout{} rule -- in \refDef{def_early_trans_system}, which handles an output prefix. So we get
+	\begin{align*}
+		Y=\bigl\{t\in\tr\setminus\set{\eseq} \;\mid\; \exists{}Q\in\procs:&\ec{\out{a}{x}.P}\outtrans{a}{x}\ec{P} \\
+					&\wedge\ec{P}\bigstep{s}\ec{Q}\wedge t = \seqconc{\seq{\out{a}{x}}}{s}\bigr\}.
+	\end{align*}
+Since we know from the operational semantics that $\ec{\out{a}{x}.P}\outtrans{a}{x}\ec{P}$ is true for every process $P$ and furthermore, we know that the empty trace has already been excluded, we have
+	\[Y=\set[\exists{}Q\in\procs:\ec{P}\bigstep{s}\ec{Q}\wedge t = \seqconc{\seq{\out{a}{x}}}{s}]{t\in\tr}.\]
+By the definition of the concatenation of trace sets (\refDef{def_seqs_ops}) we get
+	\[Y=\seqconc{\set{\seq{\out{a}{x}}}}{\set[\exists{}Q\in\procs:\ec{P}\bigstep{t}\ec{Q}]{t\in\tr}}.\]
+Now from the definition of the trace semantics (\refDef{def_trace_semantics})
+	\[Y=\seqconc{\set{\seq{\out{a}{x}}}}{\traces[P]}\]
+holds. Hence, all together we know that
+	\[\traces[\out{a}{x}.P]\eq{\text{Eq.~\ref{eq_trace_out}}}\set{\eseq}\cup{}Y=\set{\eseq}\cup\seqconc{\set{\seq{\out{a}{x}}}}{\traces[P]}\]
+holds.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% START SHORT VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{old}{short version}
+	\begin{align*}
+		\begin{array}{lcl}
+			\traces[\out{a}{x}.P] &\eq{\text{def.}}& \set[\exists{}Q\in\procs:\ec{\out{a}{x}.P}\bigstep{t}\ec{Q}]{t\in\tr} \\
+					&\eq{\out{a}{x}.P\in\procs}& \set{\eseq} \cup \set[\exists{}\ec{\out{a}{x}.P}\ni{}Q\in\procs:\ec{\out{a}{x}.P}\bigstep{t}\ec{Q}]{t\in\tr}\\
+					&\eq{\text{\eout}}& \set{\eseq}\cup \seqconc{\set{\seq{\out{a}{x}}}}{\set[\exists{}Q\in\procs:\ec{P}\bigstep{t}\ec{Q}]{t\in\tr}}\\
+					&\eq{\text{def.}}& \set{\eseq}\cup \seqconc{\set{\seq{\out{a}{x}}}}{\traces[P]}\\
+					&\eq{\text{def.}}& \set{\eseq}\cup \set[{s\in\traces[P]}]{\seqconc{\seq{\out{a}{x}}}{s}}
+		\end{array}
+	\end{align*}	
+\end{old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END SHORT VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CHOICE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item[Case {$\traces[\procchoice{P}{Q}]$}:]
+Let $P,Q\in\procs$. From the definition of the trace semantics (\refDef{def_trace_semantics}) we know, like in all the other cases, that
+\[\traces[\procchoice{P}{Q}] = \set[\exists{}Q'\in\procs:\ec{\procchoice{P}{Q}}\bigstep{t}\ec{Q'}]{t\in\tr}\]
+holds. Furthermore, the definition of the operational semantics shows us that there are only two rules which handle the choice operator. Thus, with the \esuml{} rule we know, that for all $Q'\in\procs$ if $\ec{P}\bigstep{t}\ec{Q'}$ holds, then also $\ec{\procchoice{P}{Q}}\bigstep{t}\ec{Q'}$ holds. Hence we have the following subset relation:
+	\begin{align*}
+			\set[\exists{}Q\in\procs:\ec{P}\bigstep{t}\ec{Q}]{t\in\tr}\\
+			\subseteq\set[\exists{}Q'\in\procs:\ec{\procchoice{P}{Q}}\bigstep{t}\ec{Q'}]{t\in\tr},
+	\end{align*}
+which means no more than $\traces[P]\subseteq\traces[\procchoice{P}{Q}]$. Analogously, from the \esumr{} rule we get $\traces[Q]\subseteq\traces[\procchoice{P}{Q}]$, thus, we know that $\traces[P]\cup\traces[Q]\subseteq\traces[\procchoice{P}{Q}]$ holds.
+
+Since there is no further rule which handles the choice operator, the behavior of both cases must have been at least all of the behavior of a choice so that $\traces[\procchoice{P}{Q}]\subseteq\traces[P]\cup\traces[Q]$. Which all together shows that
+	\[\traces[\procchoice{P}{Q}]=\traces[P]\cup\traces[Q]\]
+holds.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% START SHORT VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{old}{short version}
+	\begin{align*}
+		\begin{array}{lcl}
+			\traces[\procchoice{P}{Q}] &\eq{\text{def.}}& \set[\exists{}Q'\in\procs:\ec{\procchoice{P}{Q}}\bigstep{t}\ec{Q'}]{t\in\tr} \\
+					&\overset{\text{\esuml}}{\underset{\text{\esumr}}{=}}& \set[\exists{}Q'\in\procs:\ec{P}\bigstep{t}\ec{Q'}]{t\in\tr} \\
+					&&\cup \set[\exists{}Q'\in\procs:\ec{Q}\bigstep{t}\ec{Q'}]{t\in\tr}\\
+					&\eq{\text{def.}}& \traces[P] \cup \traces[Q]
+		\end{array}
+	\end{align*}
+\end{old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END SHORT VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CALL %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{old}[call case]
+\item[Case {$\traces[\proccall{A}{\vec{v}}]$}:] Let $P\in\procs$ and $\procdef{A}{\vec{w}}\define{}P$, then we can start -- analogously to all the other cases -- with the definition of the trace semantics (\refDef{def_trace_semantics}), thus we have
+	\[\traces[\proccall{A}{\vec{v}}] = \set[\exists{}Q\in\procs:\ec{\proccall{A}{\vec{v}}}\bigstep{t}\ec{Q}]{t\in\tr}.\]
+Since there exists -- like in the cases for the prefixes -- just one rule which handles a function call, we know from the \ecall{} rule that
+	\[\traces[\proccall{A}{\vec{v}}] = \set[\exists{}Q\in\procs:\ec{\proccall{A}{\vec{v}}}\tautrans{}\ec{P\subs{\vec{v}}{\vec{w}}}\bigstep{s}\ec{Q}\wedge t = \seqconc{\eseq}{s}]{t\in\tr}\]
+holds.
+The same arguments as in the $\tau$ prefix case leads to
+\[\traces[\proccall{A}{\vec{v}}] = \set[\exists{}Q\in\procs:\ec{P\subs{\vec{v}}{\vec{w}}}\bigstep{s}\ec{Q}\wedge t = s]{t\in\tr}.\]
+And so all in all we know 
+\[\traces[\proccall{A}{\vec{v}}]=\traces[P\subs{\vec{v}}{\vec{w}}]\]
+holds.
+\end{old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% START SHORT VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{old}{short version}
+	\begin{align*}
+		\begin{array}{lcl}
+			\traces[\proccall{A}{\vec{v}}] &\eq{\text{def.}}& \set[\exists{}Q\in\procs:\ec{\proccall{A}{\vec{v}}}\bigstep{t}\ec{Q}]{t\in\tr} \\
+					&\eq{\proccall{A}{\vec{v}}\in\procs}& \set{\eseq} \cup \set[\exists{}\ec{\proccall{A}{\vec{v}}}\ni{}Q\in\procs:\ec{\proccall{A}{\vec{v}}}\bigstep{t}\ec{Q}]{t\in\tr}\\
+					&\eq{\text{\ecall}}& \set{\eseq}\cup \seqconc{\set{\eseq}}{\set[\exists{}Q\in\procs:\ec{P\subs{\vec{v}}{\vec{w}}}\bigstep{t}\ec{Q}]{t\in\tr}}\\
+					&\eq{\text{def.}}& \set{\eseq}\cup \seqconc{\set{\eseq}}{\traces[P\subs{\vec{v}}{\vec{w}}]}\\
+					&\eq{\text{def.}}& \set{\eseq}\cup \traces[P\subs{\vec{v}}{\vec{w}}]\\
+					&\eq{\text{ref}}& \traces[P\subs{\vec{v}}{\vec{w}}]
+		\end{array}
+	\end{align*}	
+\end{old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END SHORT VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{description}
+Thus, \refLem{lem_compositionality_traces} is proved.
+\end{prf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END UNPROBLEMATIC CASES
+
+\subsubsection{Input process}
+\label{sec_comp_in}
+Before giving a set notation for the traces of an input process, which simplifies its trace calculation, we present an idea why the trace semantics is most likely not compositional for input processes. Consider, for example, $P\define\procpar{\out{x}{z}}{\inp{y}{b}}$. Hence, $\traces[P]=\pref{\set[b\in\names]{\seq{\outa{x}{z},\inpa{y}{b}}}\cup\set[b\in\names]{\seq{\inpa{y}{b},\outa{x}{z}}}}$. Furthermore, consider $Q\define\inp{a}{x}.P=\inp{a}{x}.(\procpar{\out{x}{z}}{\inp{y}{b}})$. We recognize that if $Q$ receives the name $y$, new communication can be established. This additional behavior has to be calculated from the traces of $P$ and added in a compositional way. As a first intuition, we can think of gaining the behavior by applying all possible substitutions for $x$ to the traces of $P$. Afterwards, we would collect the traces where the input action directly succeeds the corresponding output action and vice versa. In these cases, we can think of a possible communication and so delete those actions, since the communication would result in a $\tau$ step. Now, if we consider $P'\define\procchoice{\out{x}{z}.\inp{y}{b}}{\inp{y}{b}.\out{x}{z}}$ we know $\traces[P]=\traces[P']$. However, if we examine $\inp{a}{x}.P'$ we are not allowed to add those traces. So it seems to be a problem to detect the possible additional behavior just by knowing the traces of $P$, since we do not have enough information within $\traces[P]$.
+
+Consequently, we just show an equality of the traces of an input process $\inp{a}{x}.P$ to a set with the empty trace and the traces from $P\subs{y}{x}$ prepended by an $\inpa{a}{y}$ action for all $y\in\names$. Since we calculate directly the traces of $P\subs{y}{x}$, the possible new communications are within the trace set of $P\subs{y}{x}$.
+
+\begin{lemma}[Calculation of input processes]
+\label{lem_calc_input}
+Given a process $P\in\procs$ and names $a,x\in\names$, then
+\[\traces[\inp{a}{x}.P] = \set{\eseq}\cup\set[{s\in\traces[P\subs{y}{x}],y\in\names}]{\seqconc{\seq{\inpa{a}{y}}}{s}}\]
+holds.
+\end{lemma}
+\begin{prf}
+Let $P\in\procs$ and $a,x\in\names$. Analogously to the case of the output action of \refLem{lem_compositionality_traces}, we know from \refDef{def_trace_semantics} and \refLem{lem_empty_trace} that
+%\[\traces[\inp{a}{x}.P] = \set[\exists{}Q\in\procs:\ec{\inp{a}{x}.P}\bigstep{t}\ec{Q}]{t\in\tr} \]
+\begin{align}
+\label{eq_trace_in}
+	\traces[\inp{a}{x}.P] = \set{\eseq{}}\cup \underbrace{\set[\exists{}Q\in\procs:\ec{\inp{a}{x}.P}\bigstep{t}\ec{Q}]{t\in\tr\setminus\set{\eseq}}}_{Y\define{}}
+\end{align}
+holds. Furthermore, there is also just one rule in \refDef{def_early_trans_system} which handles an input action. Thus, with the \ein{} rule we know
+	\begin{align*}
+		Y=\bigl\{t\in\tr\setminus\set{\eseq}\;\mid\;\exists{}Q\in\procs,y\in\names:&\ec{\inp{a}{x}.P}\intrans{a}{y}\ec{P\subs{y}{x}} \\
+							\wedge&\ec{P\subs{y}{x}}\bigstep{s}\ec{Q}\wedge t = \seqconc{\seq{\inpa{a}{y}}}{s}\bigr\}
+	\end{align*}
+holds. Since every trace has the prefix $\inpa{a}{y}$ for some $y\in\names$, there is -- as in the output case of \refLem{lem_compositionality_traces} -- no possibility for the empty trace. Moreover, the input transition is no further condition due to the fact that the substitution is applicable for every name $y\in\names$, so we can safely omit it. Thus, we know that
+	\[Y=\set[\exists{}Q\in\procs,y\in\names:\ec{P\subs{y}{x}}\bigstep{s}\ec{Q}\wedge t = \seqconc{\seq{\inpa{a}{y}}}{s}]{t\in\tr}\]
+holds. With the definition of the trace semantics (\refDef{def_trace_semantics}) we can also write
+	\[Y=\set[{\exists{}s\in\traces[P\subs{x}{y}],y\in\names:t = \seqconc{\seq{\inpa{a}{y}}}{s}}]{t\in\tr}.\]
+Thus, all in all we know
+\[\traces[\inp{a}{x}.P]\eq{\text{Eq.~\ref{eq_trace_in}}}\set{\eseq}\cup{}Y=\set{\eseq}\cup\set[{s\in\traces[P\subs{y}{x}],y\in\names}]{\seqconc{\seq{\inpa{a}{y}}}{s}}\]
+holds.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% APPLYING SUBSTITUTION LATER VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{old}{applying substitution later version}
+\item[Case {$\traces[\inp{a}{x}.P]$}:] Let $P\in\procs$ and $a,x\in\names$. Analogously to the case of the output action, we know from \refDef{def_trace_semantics} and \refLem{lem_empty_trace} that
+%\[\traces[\inp{a}{x}.P] = \set[\exists{}Q\in\procs:\ec{\inp{a}{x}.P}\bigstep{t}\ec{Q}]{t\in\tr} \]
+\begin{align}
+\label{eq_trace_in}
+	\traces[\inp{a}{x}.P] = \set{\eseq{}}\cup \underbrace{\set[\exists{}Q\in\procs:\ec{\inp{a}{x}.P}\bigstep{t}\ec{Q}]{t\in\tr\setminus\set{\eseq}}}_{Y\define{}}
+\end{align}
+holds. Furthermore, there is also just one rule in \refDef{def_early_trans_system} which handles an input action. Thus, with the \ein{} rule we know
+	\begin{align*}
+		Y=\bigl\{t\in\tr\setminus\set{\eseq}\;\mid\;\exists{}Q\in\procs,y\in\names:&\ec{\inp{a}{x}.P}\intrans{a}{y}\ec{P\subs{y}{x}} \\
+							\wedge&\ec{P\subs{y}{x}}\bigstep{s}\ec{Q}\wedge t = \seqconc{\seq{\inpa{a}{y}}}{s}\bigr\}
+	\end{align*}
+holds. Since every trace has the prefix $\inpa{a}{y}$ for some $y\in\names$, there is -- as in the output case -- no possibility for the empty trace. Moreover, the input transition is no further condition due to the fact that the substitution is applicable for every name $y\in\names$, so we know that
+	\[Y=\set[\exists{}Q\in\procs,y\in\names:\ec{P\subs{y}{x}}\bigstep{s}\ec{Q}\wedge t = \seqconc{\seq{\inpa{a}{y}}}{s}]{t\in\tr}\]
+holds. With the definition of the trace semantics (\refDef{def_trace_semantics}) we can also write
+	\[Y=\set[{\exists{}s\in\traces[P\subs{x}{y}],y\in\names:t = \seqconc{\seq{\inpa{a}{y}}}{s}}]{t\in\tr}.\]
+From \refLem{lem_subs} we know that it yields the same if we apply a substitution to a process $P$ or apply this substitution to the traces of $P$, thus
+	\[Y=\set[{\exists{}s\in\traces[P]\subs{x}{y},y\in\names:t = \seqconc{\seq{\inpa{a}{y}}}{s}}]{t\in\tr}\]
+holds. Furthermore, a substitution on a set of traces is no more than a substitution on the single traces. So we know it holds
+%\[Y=\set[\exists{}Q\in\procs,y\in\names:\ec{P}\bigstep{s}\ec{Q}\wedge t = \seqconc{\seq{\inpa{a}{y}}}{s\subs{y}{x}}]{t\in\tr}.\]
+\[Y=\set[{\exists{}s\in\traces[P],y\in\names: t = \seqconc{\seq{\inpa{a}{y}}}{s\subs{y}{x}}}]{t\in\tr}.\]
+Thus, all in all we know
+\[\traces[\inp{a}{x}.P]\eq{\text{Eq.~\ref{eq_trace_in}}}\set{\eseq}\cup{}Y=\set{\eseq}\cup\set[{s\in\traces[P],y\in\names}]{\seqconc{\seq{\inpa{a}{y}}}{s\subs{y}{x}}}\]
+holds.
+\end{old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END APPLYING SUBSTITUTION LATER VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% START SHORT VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{old}{short version}
+	\begin{align*}
+		\begin{array}{lcl}
+			\traces[\inp{a}{x}.P] &\eq{\text{def.}}& \set[\exists{}Q\in\procs:\ec{\inp{a}{x}.P}\bigstep{t}\ec{Q}]{t\in\tr} \\
+					&\eq{\inp{a}{x}.P\in\procs}& \set{\eseq} \cup \set[\exists{}\ec{\inp{a}{x}.P}\ni{}Q\in\procs:\ec{\inp{a}{x}.P}\bigstep{t}\ec{Q}]{t\in\tr}\\
+					&\eq{\text{\ein}}& \set{\eseq}\cup \bigl\{t\in\tr\;\mid\;\exists{}s\in\tr,y\in\names\setminus\left(\fn{P}\setminus\set{x}\right),Q\in\procs:\\
+					&&\quad\quad\quad\quad\quad\quad\quad\quad\quad\ec{P\subs{y}{x}}\bigstep{s}\ec{Q}\wedge t=\seqconc{\seq{\inpa{a}{y}}}{s}\bigr\}\\\\
+					&\eq{}& \set{\eseq}\cup \bigl\{t\in\tr\;\mid\;\exists{}s\in\tr,y\in\names\setminus\left(\fn{P}\setminus\set{x}\right),Q\in\procs:\\
+					&&\quad\quad\quad\quad\quad\quad\quad\quad\quad\ec{P}\bigstep{s}\ec{Q}\wedge t=\seqconc{\seq{\inpa{a}{y}}}{s\subs{y}{x}}\bigr\}\\
+					&\eq{\text{def.}}& \set{\eseq}\cup \set[{s\in\traces[P]\wedge{}y\in\names\setminus\left(\fn{P}\setminus\set{x}\right)}]{\seqconc{\seq{\inpa{a}{y}}}{s\subs{y}{x}}}\\
+		\end{array}
+	\end{align*}	
+\end{old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END SHORT VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{prf}
+
+Note that we know from \refSec{sec_de_sem_trace_prop_subst} that $\traces[P\subs{y}{x}]=\traces[P]\subs{y}{x}$ does not hold for every $y\in\names$ and thus, $\traces[P\subs{y}{x}]$ cannot be replaced by $\traces[P]\subs{y}{x}$ in \refLem{lem_calc_input}.
+
+\input{./chapters/trace_semantics/trace_compo_par}
+
+\input{./chapters/trace_semantics/trace_compo_res}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% IDEAS AND LATER WORK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{old}{Other idea for defining parallel compositionality not inductivly}
+\begin{align*}
+	s_1\seqcom{}s_2\define{}\set[\exists{}n\in\N,X\subset\N,s\in{}s_1\shuffle{}s_2,\forall{}i\in{}X:s_i\simeq{}s_{i+1}\wedge{}s'=\seq{s_1,\dots,s_{i-1},s_{i+2},s_{i+3}, \dots}]{s'}
+\end{align*}
+\todo{not enough since we do not know from which trace the single parts are so that we do not know if a communication is possible.}
+\end{old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END IDEAS AND LATER WORK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Applications}
+\label{sec_trace_comp_apps}
+As an application of the compositionality of some operators, we can show that the prefix and the sum operator are distributive.
+
+\begin{lemma}[Distributivity of prefix and sum operator]
+\label{lem_distributivity}
+For an arbitrary prefix $\pi$ and sums $M_1,M_2\in\sums$ the trace equality
+\[\traces[\procchoice{\pi.M_1}{\pi.M_2}]=\traces[\pi.\left(\procchoice{M_1}{M_2}\right)]\]
+holds.
+\end{lemma}
+\begin{prf}
+Let $\pi$ be a prefix and $M_1,M_2\in\sums$ sums. If we consider $\pi=\tau$, then we know
+	\begin{align*}
+		\traces[\procchoice{\tau.M_1}{\tau.M_2}] &\stackrel{\{\text{Lem.~\ref{lem_compositionality_traces}}\}}{=}\traces[\tau.M_1]\cup\traces[\tau.M_2] \\
+							&\stackrel{\{\text{Lem.~\ref{lem_compositionality_traces}}\}}{=}\traces[M_1]\cup\traces[M_2] \\
+							&\stackrel{\{\text{Lem.~\ref{lem_compositionality_traces}}\}}{=}\traces[\procchoice{M_1}{M_2}] \\
+							&\stackrel{\{\text{Lem.~\ref{lem_compositionality_traces}}\}}{=}\traces[\tau.\left(\procchoice{M_1}{M_2}\right)] 
+	\end{align*}
+holds. Otherwise, if $\pi=\out{a}{x}$, the equations
+	\begin{align*}
+		\traces[\procchoice{\out{a}{x}.M_1}{\out{a}{x}.M_2}] &\stackrel{\{\text{Lem.~\ref{lem_compositionality_traces}}\}}{=}\traces[\out{a}{x}.M_1]\cup\traces[\out{a}{x}.M_2] \\
+							&\stackrel{\{\text{Lem.~\ref{lem_compositionality_traces}}\}}{=}\set{\eseq{}}\cup\seqconc{\set{\outa{a}{x}}}{\traces[M_1]}\cup\seqconc{\set{\outa{a}{x}}}{\traces[M_2]} \\
+							&\stackrel{\{\text{Lem.~\ref{lem_seq_props}}\}}{=}\set{\eseq{}}\cup\seqconc{\set{\outa{a}{x}}}{\left(\traces[M_1]\cup\traces[M_2]\right)} \\
+							&\stackrel{\{\text{Lem.~\ref{lem_compositionality_traces}}\}}{=}\set{\eseq{}}\cup\seqconc{\set{\outa{a}{x}}}{\traces[\procchoice{M_1}{M_2}]} \\
+							&\stackrel{\{\text{Lem.~\ref{lem_compositionality_traces}}\}}{=}\traces[\out{a}{x}.\left(\procchoice{M_1}{M_2}\right)] 
+	\end{align*}
+hold. Finally, if $\pi=\inp{a}{x}$, then
+	\begin{align*}
+		\traces[\procchoice{\inp{a}{x}.M_1}{\inp{a}{x}.M_2}] \stackrel{\{\text{Lem.~\ref{lem_compositionality_traces}}\}}{=}&\traces[\inp{a}{x}.M_1]\cup\traces[\inp{a}{x}.M_2] \\
+							\stackrel{\{\text{Lem.~\ref{lem_calc_input}}\}}{=}&\set{\eseq}\cup\set[{s\in\traces[M_1\subs{y}{x}],y\in\names}]{\seqconc{\seq{\inpa{a}{y}}}{s}} \\
+								&\quad\quad\cup \set[{s\in\traces[M_2\subs{y}{x}],y\in\names}]{\seqconc{\seq{\inpa{a}{y}}}{s}} \\
+							\stackrel{\{\text{set union}\}}{=}&\set{\eseq}\cup\bigl\{\seqconc{\seq{\inpa{a}{y}}}{s}\;\mid\; s\in\bigl(\traces[M_1\subs{y}{x}] \\
+									& \quad\quad\quad\quad\quad\quad\quad\quad\quad\cup\traces[M_2\subs{y}{x}]\bigr),y\in\names\bigr\} \\
+							\stackrel{\{\text{Lem.~\ref{lem_compositionality_traces}}\}}{=}&\set{\eseq}\cup\bigl\{\seqconc{\seq{\inpa{a}{y}}}{s}\;\mid\;s\in\traces[\procchoice{M_1\subs{y}{x}}{M_2\subs{y}{x}}], \\
+							& \quad\quad\quad\quad\quad\quad\quad\quad\quad{}y\in\names\bigr\} \\
+							\stackrel{\{\text{Def.~\ref{def_substitution}}\}}{=}&\set{\eseq}\cup\bigl\{\seqconc{\seq{\inpa{a}{y}}}{s}\;\mid\;s\in\traces[\left(\procchoice{M_1}{M_2}\right)\subs{y}{x}], \\
+							& \quad\quad\quad\quad\quad\quad\quad\quad\quad{}y\in\names\bigr\} \\
+							\stackrel{\{\text{Lem.~\ref{lem_calc_input}}\}}{=}&\traces[\inp{a}{x}.\left(\procchoice{M_1}{M_2}\right)] 
+	\end{align*}
+holds. Thus, for every possible prefix \refLem{lem_distributivity} holds.
+\end{prf}
+
+Another application is the preservation of the trace inclusion for the output prefix and the choice composition.
+
+\begin{lemma}[Trace inclusion for choice composition and output prefix]
+\label{lem_pres_out_choice}
+Given processes $P,Q\in\procs$, $M_1,M_2,M_3,M_4\in\sums$, and names $a,x\in\names$, then
+\begin{itemize}
+\item[(1)] $\traces[P]\subseteq\traces[Q]$ is equivalent to $\traces[\out{a}{x}.P]\subseteq\traces[\out{a}{x}.Q]$,
+\item[(2)] $\traces[M_1]\subseteq\traces[M_2]$ and $\traces[M_3]\subseteq\traces[M_4]$ implies 
+\[\traces[\procchoice{M_1}{M_3}]\subseteq\traces[\procchoice{M_2}{M_4}]\]
+\end{itemize}
+holds.
+\end{lemma}
+\begin{prf}
+Let $P,Q\in\procs$ and $a,x\in\names$ with $\traces[P]\subseteq\traces[Q]$ and let $s\in\traces[\out{a}{x}.P]=\set{\eseq}\cup\seqconc{\set{\seq{\outa{a}{x}}}}{\traces[P]}$ with \refLem{lem_compositionality_traces}. If $s=\eseq{}$, then we know with \refLem{lem_empty_trace} that $s\in\traces[\out{a}{x}.Q]$. Otherwise, if $s\in\seqconc{\set{\seq{\outa{a}{x}}}}{\traces[P]}$ we know there is a trace $s'\in\traces[P]$ such that $s=\seqconc{\seq{\outa{a}{x}}}{s'}$. Hence, $s'\in\traces[Q]$ and so $s\in\seqconc{\set{\seq{\outa{a}{x}}}}{\traces[Q]}=\traces[\out{a}{x}.Q]$. The other direction can be proved by using the same lemmas.
+
+Let $M_1,M_2,M_3,M_4\in\sums$ with $\traces[M_1]\subseteq\traces[M_2]$ and $\traces[M_3]\subseteq\traces[M_4]$. Hence, \refLem{lem_compositionality_traces} yields that $\traces[\procchoice{M_1}{M_3}]=\traces[M_1]\cup\traces[M_3]\subseteq\traces[M_2]\cup\traces[M_4]=\traces[\procchoice{M_2}{M_4}]$ holds.	
+\end{prf}
+
+Thus, a few applications of the compositionality of some operators are given. We now compare our semantics to simulations and bisimulations.

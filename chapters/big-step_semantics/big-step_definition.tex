@@ -1,0 +1,48 @@
+% mainfile: ../../Refinement.tex
+Since we would like to follow a chain of transitions and its labels through the transition system, we define a formal construct which collects actions in an ordered way. Moreover, we abstract from the internal behavior. Thus, we are only collecting visible actions.
+
+\begin{definition}[Traces]
+\label{def_traces}\index{trace}
+	We define a set containing all sequences of external actions by
+		\[\tr \define \seqset{\actions\setminus\set{\tau}}\]
+	and call each of its elements a \findex{trace}. In particular, we call $\eseq\in\tr$ the \findex{empty trace}.
+\end{definition}
+
+Thus, with a trace, it is possible to describe the progression of external actions. In the big-step semantics this is combined with the operational semantics to easily notate by which external actions a process can evolve to another.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% START OLD DEFINITION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{old}{old definition}
+\begin{definition}[Big-step semantics]
+\label{def_bigstep_semantics}
+	The \findex{bigstep semantics} $\set[s\in\tr]{\bigstep{s}}\subseteq\procs\times\procs$ is inductively defined. For processes $P,Q\in\procs$:
+		\[P\bigstep{\eseq}Q, \falls \ec{P}(\tautrans)^*\ec{Q}\]
+	where $(\tautrans)^*$ is the reflexive and transitive closure of $\tautrans$.
+		\begin{align*}
+			P\bigstep{\seq{a}}Q,\falls& P',Q'\in\procs\text{ exists such that} \\
+			&P\bigstep{\eseq}P'\;and\;\ec{P'}\transs{a}\ec{Q'}\;and\;Q'\bigstep{\eseq}Q
+		\end{align*}
+	with $a\in\actions\setminus\set{\tau}$.
+		\[P\bigstep{\seqconc{s}{t}}Q,\falls P\bigstep{s}\fatsemi\bigstep{t}Q\]
+	with $s,t\in\tr$ and $\fatsemi$ the composition of relations.
+\end{definition}
+\end{old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END OLD DEFINITION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{definition}[Big-step semantics]
+\label{def_bigstep_semantics}
+	We inductively define the \findex{big-step semantics} $\set[s\in\tr]{\bigstep{s}}\subseteq\procs_\alpha\times\procs_\alpha$ for processes $P,Q\in\procs$ by
+		\[\ec{P}\bigstep{\eseq}\ec{Q},\;\gdw\;\ec{P}(\tautrans)^*\ec{Q}.\]
+	As a shorter notion it is also possible to write $\ec{P}\bigstep{}\ec{Q}$.
+		\begin{align*}
+			\ec{P}\bigstep{\seq{\alpha}}\ec{Q},\;\gdw\;\ec{P}\bigstep{\eseq}\fatsemi\transs{\alpha}\fatsemi\bigstep{\eseq}\ec{Q}
+		\end{align*}
+	with $\alpha\in\actions\setminus\set{\tau}$.
+		\[\ec{P}\bigstep{\seqconc{s}{t}}\ec{Q},\;\gdw\;\ec{P}\bigstep{s}\fatsemi\bigstep{t}\ec{Q}\]
+	with $s,t\in\tr$.
+
+	Furthermore, we call $\bigstep{\eseq{}}$ an \findex[invisible big-step]{invisible big-step} and $\bigstep{t}$ for a trace $t\in\tr$ a \findex{visible big-step}.
+\end{definition}
+
+Thus, we now have the possibility to write $\ec{\procpar{\inp{a}{x}.\out{x}{z}}{\out{a}{y}}}\bigstep{\seq{\inpa{a}{b},\out{a}{y},\out{b}{z}}}\ec{\procpar{\proczero}{\proczero}}$, since $\ec{\procpar{\inp{a}{x}.\out{x}{z}}{\out{a}{y}}}\intrans{a}{b}\ec{\procpar{\out{b}{z}}{\out{a}{y}}}\outtrans{a}{y}\ec{\procpar{\out{b}{z}}{\proczero}}\outtrans{b}{z}\ec{\procpar{\proczero}{\proczero}}$. Furthermore, we abbreviate $\ec{\procpar{\inp{a}{x}.\out{x}{z}}{\out{a}{y}}}\bigstep{\seq{\inpa{a}{b},\out{a}{y}}}\ec{\procpar{\out{b}{z}}{\proczero}}$ and $\ec{\procpar{\out{b}{z}}{\proczero}}\bigstep{\seq{\out{b}{z}}}\ec{\procpar{\proczero}{\proczero}}$ by $\ec{\procpar{\inp{a}{x}.\out{x}{z}}{\out{a}{y}}}\bigstep{\seq{\inpa{a}{b},\out{a}{y}}}\ec{\procpar{\out{b}{z}}{\proczero}}\bigstep{\seq{\out{b}{z}}}\ec{\procpar{\proczero}{\proczero}}$.
+
+Note that $\ec{P}\bigstep{t}\ec{P_1}\transs{\alpha}\ec{Q}$ for some $\alpha\in\actions$ and $\ec{P}\bigstep{t}\ec{P_1'}$ in general does not imply that $\ec{P_1'}$ must have a possibility for a transition labeled with $\alpha$. Consider, for example, $P\define\procchoice{\out{a}{x}}{\out{a}{x}.\out{b}{y}}$. Then $\ec{P}\bigstep{\seq{\outa{a}{x}}}\ec{\out{b}{y}}\outtrans{b}{y}\ec{\proczero}$ and $\ec{P}\bigstep{\seq{\outa{a}{x}}}\ec{\proczero}$.

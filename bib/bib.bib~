@@ -1,0 +1,326 @@
+% mainfile: ../Refinement.tex
+%  AUTHOR    = {Robin Milner},
+@BOOK{milner,
+  AUTHOR    = {R. Milner},
+  TITLE     = {Communicating and Mobile Systems: the $\pi$-Calculus},
+  PUBLISHER = {Cambridge University Press},
+  YEAR      = {1999},
+  ADDRESS   = {Cambridge, England},
+  ISBN      = {0-521-65869 (pbk)},
+  TOPIC     = {distributed-systems;concurrent-actions;
+                 concurrence;theory-of-computation;},
+  LANGUAGE  = {english}
+}
+
+%  AUTHOR    = {Davide Sangiorgi and David Walker},
+@book{sangiorgi,
+  AUTHOR    = {D. Sangiorgi and D. Walker},
+  TITLE     = {The $\pi$-calculus: a Theory of Mobile Processes},
+  PUBLISHER = {Cambridge University Press},
+  YEAR      = {2001},
+  ADDRESS   = {Cambridge, England},
+  ISBN      = {0-521-54327 (pbk)},
+  LANGUAGE  = {english}
+ }
+
+%  AUTHOR    = {Roland Meyer},
+@phdthesis{meyer,
+  AUTHOR    = {R. Meyer},
+  TITLE     = {Structural Stationarity in the $\pi$-Calculus},
+  PUBLISHER = {Carl von Ossietzky Universit\"at Oldenburg},
+  YEAR      = {2009},
+  LANGUAGE  = {english}
+}
+
+% -------------------------------------------------->
+@book{roscoe,
+  AUTHOR    = {A. W. Roscoe},
+  TITLE     = {The Theory and Practice of Concurrency},
+  PUBLISHER = {Prentice Hall},
+  YEAR      = {1998},
+  ISBN      = {0-13-6774409-5 (pbk)},
+  LANGUAGE  = {english}
+}
+
+%  AUTHOR    = {Carlos Canal and Ernesto Pimentel and Jos\'e M. Troya},
+@ARTICLE{canal,
+  AUTHOR    = {C. Canal and E. Pimentel and J. M. Troya},
+  TITLE     = {Compatibility and inheritance in software architectures},
+  PUBLISHER = {Elsevier North-Holland, Inc.},
+  ADDRESS   = {Amsterdam, The Netherlands, The Netherlands},
+  JOURNAL   = {Science of Computer Programming},
+  YEAR      = {2001},
+  VOLUME    = {41},
+  NUMBER    = {2},
+  PAGES     = {105-138},
+  LANGUAGE  = {english}
+}
+
+%  AUTHOR    = {Marco Pistore and Davide Sangiorgi},
+@inproceedings{pistore,
+  AUTHOR    = {M. Pistore and D. Sangiorgi},
+  TITLE     = {A Partition Refinement Algorithm for the $\pi$-Calculus},
+  BOOKTITLE = {Computer Aided Verification},
+  PAGES     = {38--49},
+  YEAR      = {1996},
+  PUBLISHER = {Springer},
+  LANGUAGE  = {english}
+}
+
+% author={Milner, Robin and Parrow, Joachim and Walker, David}, ----------------->
+@article{milnerParrowWalker,
+  AUTHOR    = {R. Milner and J. Parrow and D. Walker},
+  TITLE     = {A calculus of mobile processes, Parts I and II},
+  PUBLISHER = {Elsevier},
+  JOURNAL   = {Information and Computation},
+  YEAR      = {1992},
+  VOLUME    = {100},
+  NUMBER    = {1},
+  PAGES     = {1--77},
+  LANGUAGE  = {english}
+}
+
+% AUTHOR    = {Davide Sangiorgi},
+@phdthesis{sangiorgi_phd,
+  AUTHOR    = {D. Sangiorgi},
+  TITLE     = {Expressing mobility in process algebras: first-order and higher-order paradigms},
+  PUBLISHER = {The University of Edinburgh},
+  YEAR      = {1993},
+  LANGUAGE  = {english}
+}
+
+%author={Engberg, Uffe and Nielsen, Mogens},
+@article{engbertNielsen,
+  AUTHOR    = {U. Engberg and M. Nielsen},
+  TITLE     = {A calculus of communicating systems with label passing},
+  JOURNAL   = {DAIMI Report Series},
+  YEAR      = {1986},
+  VOLUME    = {15},
+  NUMBER    = {208},
+  LANGUAGE  = {english}
+}
+
+%author={Caires, Lu{\i}s and Cardelli, Luca},
+@article{caires,
+  AUTHOR    = {L. Caires and L. Cardelli},
+  TITLE     = {A Spatial Logic for Concurrency (Part I)},
+  PUBLISHER = {Elsevier},
+  JOURNAL   = {Information and Computation},
+  YEAR      = {2003},
+  VOLUME    = {186},
+  NUMBER    = {2},
+  PAGES     = {194--235},
+  LANGUAGE  = {english}
+}
+
+%author={Alexandru, Andrei and Ciobanu, Gabriel},  
+@article{alexandru,
+  AUTHOR    = {A. Alexandru and G. Ciobanu},  
+  TITLE     = {Nominal Semantics of Mobility},
+  PUBLISHER = {editura acad romane calea 13 septembrie nr 13, sector 5, bucuresti 050711, romania},
+  JOURNAL   = {Romanian journal of information science and technology},
+  YEAR      = {2012},
+  VOLUME    = {15},
+  NUMBER    = {3},
+  PAGES     = {171--214},
+  LANGUAGE  = {english}
+}
+
+%  author={Hoare, Charles Antony Richard},
+@misc{hoareTraceOriginal,
+  AUTHOR    = {C. A. R. Hoare},
+  TITLE     = {A model for communicating sequential process},
+  PUBLISHER = {Cambridge University Press},
+  JOURNAL   = {On the construction of programs},
+  YEAR      = {1980},
+  LANGUAGE  = {english}
+}
+
+%  author={Hoare, Charles Antony Richard},
+@book{hoare,
+  AUTHOR    = {C. A. R. Hoare},
+  TITLE     = {Communicating sequential processes},
+  VOLUME    = {178},
+  YEAR      = {1985},
+  PUBLISHER = {Prentice-hall Englewood Cliffs},
+  LANGUAGE  = {english}
+}
+
+@article{hoareOriginalCSP,
+  TITLE     = {Communicating sequential processes},
+  AUTHOR    = {C. A. R. Hoare},
+  JOURNAL   = {Communications of the ACM},
+  VOLUME    = {21},
+  NUMBER    = {8},
+  PAGES     = {666--677},
+  YEAR      = {1978},
+  PUBLISHER = {ACM},
+  LANGUAGE  = {english}
+}
+
+@article{milnerCCS,
+  AUTHOR    = {R. Milner},
+  TITLE     = {A Calculus of Communicating Systems},
+  PUBLISHER = {Springer-Verlag, New York},
+  JOURNAL   = {Lecture Notes in Computer Science},
+  VOLUME    = {92},
+  YEAR      = {1980},
+  LANGUAGE  = {english}
+}
+
+@article{hoareWhyCSP,
+  title={Why ever CSP?},
+  author={C. A. R. Hoare},
+  journal={Electronic Notes in Theoretical Computer Science},
+  volume={162},
+  pages={209--215},
+  year={2006},
+  publisher={Elsevier},
+  LANGUAGE  = {english}
+}
+
+@misc{fdr,
+  TITLE     = {Failures-Divergence Refinement: FDR2 Manual},
+  AUTHOR    = {Formal Systems (Europe) Ltd},
+  YEAR      = {1997},
+  LANGUAGE  = {english}
+}
+
+@article{zNotation,
+  AUTHOR    = {J. Abrial and S. A. Schuman and B. Meyer},
+  TITLE     = {A Specification Language},
+  PUBLISHER = {Cambridge University Press},
+  JOURNAL   = {On the Construction of Programs, R. M. McKeag A. M. Macnaghten},
+  YEAR      = {1980},
+  LANGUAGE  = {english}
+}
+
+@book{spivey,
+  title={The Z Notation: a reference manual},
+  author={M. Spivey},
+  PUBLISHER={Prentice Hall},
+  year={1989}
+}
+
+
+%  author={Carrington, David A and Duke, David J and Duke, Roger and King, Paul and Rose, Gordon A and Smith, Graeme},
+@inproceedings{Object-Z,
+  title={Object-Z: An object-oriented extension to Z},
+  author={D. A. Carrington and D. J. Duke and R. Duke and P. King and G. A. Rose and G. Smith},
+  booktitle={Proceedings of the IFIP TC/WG6. 1 Second International Conference on Formal Description Techniques for Distributed Systems and Communication Protocols},
+  pages={281--296},
+  year={1989},
+  organization={North-Holland Publishing Co.},
+  LANGUAGE  = {english}
+}
+
+@article{OZSmith,
+  title={The Object-Z specification language},
+  author={G. Smith},
+  journal={Advances in Formal Methods. Kluwer Academic Publishers, Dordrecht},
+  year={2000},
+  LANGUAGE  = {english}
+}
+
+%  author={Fischer, Clemens},
+@article{fischerCsp,
+  title={CSP-OZ: A Combination of Object-Z and CSP},
+  author={C. Fischer},
+  journal={Formal methods for open object-based distributed systems},
+  volume={2},
+  pages={423--438},
+  year={1997},
+  LANGUAGE  = {english}
+}
+
+%  author={Ferrari, Gian-Luigi and Montanari, Ugo and Quaglia, Paola},
+@article{paolaExplicitSubs,
+  title={A $\pi$-calculus with explicit substitutions},
+  author={G.-L. Ferrari and U. Montanari and P. Quaglia},
+  journal={Theoretical Computer Science},
+  volume={168},
+  number={1},
+  pages={53--103},
+  year={1996},
+  publisher={Elsevier}
+}
+
+
+%  author={Abramsky, Samson},
+@article{testEquiv,
+  title={Observation equivalence as a testing equivalence},
+  author={S. Abramsky},
+  journal={Theoretical Computer Science},
+  volume={53},
+  number={2},
+  pages={225--241},
+  year={1987},
+  publisher={Elsevier}
+}
+
+%  author={He, Jifeng and Hoare, Tony}, ------------------->
+@article{cspRetract1,
+  title={CSP is a retract of CCS},
+  author={J. He and C. A. R. Hoare},
+  journal={Theoretical Computer Science},
+  volume={411},
+  number={11},
+  pages={1311--1337},
+  year={2010},
+  publisher={Elsevier}
+}
+
+@incollection{cspRetract2,
+  title={CSP is a retract of CCS},
+  author={J. He and C. A. R. Hoare},
+  booktitle={Unifying Theories of Programming},
+  pages={38--62},
+  year={2006},
+  publisher={Springer}
+}
+
+%  author={Boreale, Michele and Denicola, Rocco},
+@article{testingCSP,
+  title={Testing equivalence for mobile processes},
+  author={M. Boreale and R. De Nicola},
+  journal={Information and Computation},
+  volume={120},
+  number={2},
+  pages={279--303},
+  year={1995},
+  publisher={Elsevier}
+}
+
+%  author={Hennessy, Matthew},
+@article{hennessy,
+  title={A fully abstract denotational semantics for the $\pi$-calculus},
+  author={M. Hennessy},
+  journal={Theoretical Computer Science},
+  volume={278},
+  number={1},
+  pages={53--89},
+  year={2002},
+  publisher={Elsevier}
+}
+
+%  author={De Nicola, Rocco and Hennessy, Matthew CB},
+@article{testingCCS,
+  title={Testing equivalences for processes},
+  author={R. De Nicola and M. Hennessy},
+  journal={Theoretical Computer Science},
+  volume={34},
+  number={1},
+  pages={83--133},
+  year={1984},
+  publisher={Elsevier}
+}
+
+@phdthesis{paolaDiss,
+  AUTHOR    = {P. Quaglia},
+  TITLE     = {The $\pi$-calculus with explicit substitutions},
+  PUBLISHER = {Universit`a di Pisa-Genova-Udine},
+  YEAR      = {1996},
+  LANGUAGE  = {english}
+}
+
+

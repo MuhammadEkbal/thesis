@@ -1,0 +1,16 @@
+% mainfile: ../../Refinement.tex
+For retrieving the whole behavior of a process, we investigate the transition system produced by the rules of \refFig{fig_ts_early}. In particular, we follow the way of the transitions and collect their labels. Thus, some kind of transition-chains -- so-called \findex[trace]{traces} -- are produced. In this chapter we define a big-step semantics by stringing together the steps of the early semantics as well as the formal meaning of traces. The ideas of the definition of the big-steps and traces base upon the trace model for \gls{CSP} introduced by Hoare in \cite{hoareTraceOriginal} and \cite{hoare}.\todo{or \cite{roscoe}. justify}
+
+Additionally, in this chapter some of the definitions and properties explained in \refSec{sec_pi_calculus} are lifted to traces, since the early transition system is at the heart of the big-step semantics.
+
+\section{Definition}
+\label{sec_big-step_def}
+\input{chapters/big-step_semantics/big-step_definition}
+
+\section{Names and binding}
+\label{sec_big-step_name_binding}
+\input{chapters/big-step_semantics/big-step_names_binding}
+
+\section{Substitution}
+\label{sec_big-step_substitution}
+\input{chapters/big-step_semantics/big-step_substitution}

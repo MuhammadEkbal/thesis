@@ -1,0 +1,151 @@
+% for better fitting on a4 paper
+%\usepackage{a4} % kein guter Stil
+% Umlaute erm"oglichen
+\usepackage[utf8]{inputenc}
+% Erm"oglicht beim markieren/kopieren des Textes auch die Umlaute
+% au"serdem funktioniert damit auch das Trennen von W"ortern mit Umlauten
+% Dadurch aber sehr h"assliche Schrift und Schriftbild, aber mit \usepackage{lmodern}
+% l"asst es sich wieder heile machen
+\usepackage[T1]{fontenc}
+% bindet neue Schriften ein und l"asst das Dokument wieder vom Schriftbild normal aussehen
+% was durch \usepackage[T1]{fontenc} zerst"ort wurde
+\usepackage{lmodern}
+% Neue Rechtschreibung %english f"ur Bibliographie
+% letztes Argument legt die Sprache des Dokuments fest
+%\usepackage[english,ngerman]{babel}
+\usepackage[english]{babel}
+% Eigentlich veraltet, aber babel kann anscheinend keine richtige Silbentrennung
+\usepackage{ngerman}
+% F"ur Seitenlayout und Darstellung (vorallem eigener Seitenstil) und header und footer
+\usepackage[automark,headsepline]{scrpage2}
+% Urls umbrechen
+\usepackage{breakurl}
+% f"ur den Zeilenabstand
+\usepackage{setspace}
+% f"ur farbigen Text
+\usepackage{color}
+\usepackage{xcolor}
+% Times Roman (Microsoft's Times New Roman)
+%\usepackage{txfonts}
+% Helvetica (Microsoft's Arial)
+%\usepackage{helvet}
+% Matheumgebungen
+%\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{amsfonts}
+%\usepackage[mathcal]{euscript}
+%\usepackage{mathrsfs}
+%\usepackage{MnSymbol} % attention overwrites many math symbols for example the frown is very short an object with ^ appear very low.
+%% for xLeftarrow and so on and mathclap for spaces
+\usepackage{mathtools}
+% for a fat ;
+\usepackage{stmaryrd}
+% f"ur nicefrac
+\usepackage{units}
+% der Shuffle Operator
+\usepackage{shuffle}
+%\usepackage{amsthm}
+% f"ur die theoreme
+\usepackage[amsmath,amsthm,thmmarks]{ntheorem}
+
+% Bilder
+%% zwei Bilder in einer Umgebung
+%\usepackage{subfig} putt
+%\usepackage{subfigure} putt
+%\usepackage{subcaption}
+% Graphiken einbinden
+%\usepackage{graphicx}
+
+% Tabellen
+% Um zeilenweise Tabellen zu formatieren
+%\usepackage{hhline}
+% Tabellen mit einstellbarer Breite
+%\usepackage{tabularx}
+% Tabellen "uber mehrere Seiten
+%\usepackage{longtable}
+% passt longtable so an, dass auch die Eigenschaften von tabularx verwandt werden k"onnen
+%\usepackage{ltxtable}
+% Entzerrt Tabellenzeilen
+%\usepackage{booktabs}
+% Tabellen farblich markieren
+%\usepackage{colortbl}
+% Figuren und tables mit "H" exakt an einen Platz binden
+\usepackage{float}
+
+
+% Glossar
+%\usepackage[ngerman]{translator}
+\usepackage[english]{translator}
+\usepackage[
+	nonumberlist, %keine Seitenzahlen anzeigen
+	acronym,      %ein Abkürzungsverzeichnis erstellen
+	toc]          %Einträge im Inhaltsverzeichnis
+{glossaries}
+
+% Index
+\usepackage{index}
+% Berechnungen mit Befehlen
+%\usepackage{calc}
+% deutsches Literaturverzeichnis
+%\usepackage{babelbib}
+% sprachabh"angiges Datum
+\usepackage[english,ngerman]{isodate}
+% Einzelne Seiten landscape anzeigen
+%\usepackage{lscape}
+% Tabellen rotieren k"onnen
+%\usepackage{rotating}
+% F"ur etwas besser einstellbare Listen
+%\usepackage{enumerate} kann weniger als enumitem
+%\usepackage{enumitem}
+
+%Umgebung für Code-Fragmente
+\usepackage{listings} \lstset{	
+	morecomment=[s][\color{darkred}]{"}{"},
+	escapeinside={\%*}{*)},
+	commentstyle=\color{cdc_Green},
+	keywordstyle=\color{blue},
+	frame=single,
+	backgroundcolor=\color{lstColor},
+	breaklines=true,
+	tabsize=4
+}
+
+
+% f"ur Hyperlinks
+\usepackage[
+	plainpages=false,
+	pdfpagelabels,
+	breaklinks=true,
+	a4paper,
+	bookmarks,
+	bookmarksopen=true,
+	bookmarksnumbered=true,
+	pdfauthor={Manuel Gieseking},
+	pdftitle={Refinement of pi-calculus processes},
+]{hyperref}
+
+% f"ur for-Schleifen
+%\usepackage{forloop}
+% f"ur if-then-else
+\usepackage{ifthen}
+% for margins foot header titlepage
+\usepackage[a4paper]{geometry}
+
+% TODO notes
+%\usepackage[disable]{todonotes} % notes not showed
+\usepackage[draft]{todonotes}   % notes showed
+
+% Lorem ipsum blindtext \lipsum or lipsum[n]
+\usepackage{lipsum}
+
+% Block comments
+%\usepackage{comment}
+\usepackage{verbatim}
+
+% Seitenlinien
+%\usepackage{framed}
+%\usepackage{mdframed}
+
+%% Tikz
+\usepackage{pgf}
+\usepackage{tikz}

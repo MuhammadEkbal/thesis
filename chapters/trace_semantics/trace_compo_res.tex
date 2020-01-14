@@ -1,0 +1,213 @@
+% mainfile: ../../Refinement.tex
+\subsubsection{Restriction}
+\label{sec_comp_res}
+To show an idea for the compositionality of the trace semantics for the restriction operator, we firstly define a function called \findex{restriction set} for two names and a set of traces. The idea of this approach is to take the traces of $P$ for a process $\procres{a}{P}$ and replace the name $a$ by every fresh name $a'\nin\fn{P}$. This does not cause any trouble because of \refLem{lem_subst_trace_partII} respectively \refLem{lem_subst_bigstep_partIII} and \refLem{lem_subst_bigstep_partIV}. We have to consider every $a'\nin\fn{P}$ since we know that $\procres[()]{a'}{P\subs{a'}{a}}\in\ec{\procres{a}{P}}$ holds for all of such $a'$. Then, we can change the first occurrence of an output action $\outa{x}{a'}$ to $\bouta{x}{a'}$ if existent. This yields from the \eopen{} rule of \refFig{fig_ts_early} and from \refConv{conv_uni_bn_traces}. After that work is done, we can filter out the desired traces. That is, we know that after an application of the \eopen{} rule the restriction operator is omitted, thus every possible behavior is allowed. Otherwise, the name $a'$ is not allowed to occur as subject of an action. Hence, we only collect those traces, where something is send over the channel $a'$ if $a'$ has firstly been an object of a bound output action. The proof of the equality of the union of this restriction sets to the trace set of the restricted process, is not completely finish. So we only give ideas and limitations for this case.  %This idea leads to the definition of the \findex{restriction set} for two names and a set of traces.
+
+\begin{old}[Old trace association which does not hold] %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OLD
+\todo[inline]{Beschreibe warum am Beispiel Problem wenn a nicht der restricted name zu dem Trace ist. Deswegen Def. dann beweisen, dass es so einen namen a immer gibt. Der ist nur nicht eindeutig}
+\begin{definition}[Trace-Process association]\index{trace-process association}
+\label{def_trace_belonging}\todo{evtl. no negation?}
+Given a name $a\in\names$ and a process $P\in\procs$. We say a trace $t\in\traces[\procres{a}{P}]$ \findex[trace!belongs to process]{belongs} to the process $\procres{a}{P}$ or the process $\procres{a}{P}$ is \index{association}\findex[trace!associated to process]{associated} to the the trace $t\in\traces[\procres{a}{P}]$ if $\nexists{}x\in\names\setminus\bn{\procres{a}{P}}: t\in\traces[\procres{x}{P\subs{x}{a}}] \wedge x\in\n{t}$ holds.
+\end{definition}
+That is, $\procres{a}{P}$ is the process out of the equivalence class, which is really used to create the trace $t$ since we cannot find another name such that the name occurs bound in $t$ and we can replace $a$ by it \todo{bla write s.th. meaningful} 
+\todo[inline]{restriction to bound names harmful since other bsp zettel}
+\end{old} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OLD
+
+\begin{definition}[Restriction set]
+\label{def_res_set}
+For $a,a'\in\names$ and $P\in\procs$ we define $\texttt{res}:\names\times\names\times\pom{\tr}\rightarrow\pom{\tr}$ with
+\begin{align*}
+	\res{a}{a'}{P}\define&\bigl\{s\in\bind{a'}{\left(\traces[P]\transp{a'}{a}\right)} \;\mid \\
+				& \quad \forall{}i\in\N: a'\in\sub{s_i} \Rightarrow \exists{}j\in\N: a'\in\bn{s_j}\wedge{}j<i \bigr\}
+\end{align*}
+as the \findex{restriction set} of $a$, $a'$, and $\traces[P]$.
+\end{definition}
+%a function which interchanges $a$ and $a'$ and restricts the name $a'$ to the trace set $\traces[P]$.
+
+%\begin{old}[Not finished proof] %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% NOT FINISHED PROOF %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\todo[inline]{ACHTUNG: dieses Lemma konnte ich so nicht zeigen}
+%\begin{lemma}[From restriction to restriction set]
+%\label{lem_from_res_to_resset}
+%Given $a\in\names$, $P,Q\in\procs$ and $t\in\tr$, then
+%\begin{align*}
+%  \ec{\procres{a}{P}}\bigstep{t}\ec{Q} \text{ implies it exists } a'\in\names\setminus\fn{\procres{a}{P}},Q'\in\procs,s\in\tr
+%\end{align*}
+%with
+%\[t\in\res{a}{a'}{P},\ec{P}\bigstep{s}\ec{Q'}, t=\bind{a'}{s\transp{a'}{a}}\] and 
+%\begin{itemize}
+%\item[(I)] $\ec{Q}=\ec{\procres[()]{a'}{Q'\transp{a'}{a}}}$ with $a'\nin\n{t}$ or
+%\item[(II)] $\ec{Q}=\ec{Q'\transp{a'}{a}}$ with $a'\in\bn{t}$
+%\end{itemize}
+%holds.
+%\end{lemma}
+%\begin{prf}
+%Let $a\in\names$, $P,Q\in\procs$ and $t\in\traces$ with $\ec{\procres{a}{P}}\bigstep{t}\ec{Q}$. Then we prove \refLem{lem_from_res_to_resset} by induction over the length $n\in\N$ of trace $t$. 
+%\begin{description}
+%\item[Base case $n=0$:] Hence, $t=\eseq{}$ and so $\ec{\procres{a}{P}}\bigstep{}\ec{Q}$.\todo{ref Lemma, or prove it with more hand-waving here.} This yields $\ec{P}\bigstep{}\ec{Q_1}$ with $\ec{Q}=\ec{\procres{a}{Q_1}}$. We chose $s\define{}\eseq{}$ and $Q'\define{Q_1}$. Hence, $t=\bind{a'}{s\transp{a}{a'}}$ 
+%and $\ec{Q}=\ec{\procres{a}{Q'}}=\ec{\procres{a'}{Q'\transp{a'}{a}}}$ with $a'\nin\n{t}$ for all $a'\nin\fn{\procres{a}{P}}$. Thus, $t\in\res{a}{a'}{P}$.
+
+%\item[Induction hypothesis:] For a number $n\in\N$, processes $P,Q\in\procs$, a name $a\in\names$ and a trace $t\in\tr$ with $\len{t}=n$ we know $\ec{\procres{a}{P}}\bigstep{t}\ec{Q}$ implies the existence of $a'\in\names\setminus\fn{\procres{a}{P}},Q'\in\procs,s\in\tr$ with $t\in\res{a}{a'}{P},\ec{P}\bigstep{s}\ec{Q'}, t=\bind{a'}{s\transp{a'}{a}}$ and $\ec{Q}=\ec{\procres[()]{a'}{Q'\transp{a'}{a}}}$ with $a'\nin\n{t}$ or $\ec{Q}=\ec{Q'\transp{a'}{a}}$ with $a'\in\bn{t}$.
+
+%\item[Induction step $n\mapsto n+1$:] Thus, it exists a trace $t'\in\tr$ and a visible action $\alpha\in\actions\setminus\set{\tau}$ with $t=\seqconc{t'}{\seq{\alpha}}$. Hence, there is a process $Q_1\in\procs$ with $\ec{\procres{a}{P}}\bigstep{t'}\ec{Q_1}\bigstep{\seq{\alpha}}\ec{Q}$. The induction hypothesis yields that there is a name $a'\in\names\setminus\fn{\procres{a}{P}}$, a process $Q_1'\in\procs$ and a trace $s'\in\tr$ with $t'\in\res{a}{a'}{P},\ec{P}\bigstep{s'}\ec{Q_1'}, t'=\bind{a'}{s'\transp{a'}{a}}$ and $(I): \ec{Q_1}=\ec{\procres[()]{a'}{Q_1'\transp{a'}{a}}}$ with $a'\nin\n{t'}$ or $(II): \ec{Q_1}=\ec{Q_1'\transp{a'}{a}}$ with $a'\in\bn{t'}$. 
+%\begin{description}
+
+%	\item[Case $(I)$:] Since $\ec{Q_1}=\ec{\procres[()]{a'}{Q_1'\transp{a'}{a}}}$ and $\ec{Q_1}\bigstep{\seq{\alpha}}\ec{Q}$ we know there are processes $Q_2, Q_3\in\procs$ with $\ec{\procres[()]{a'}{Q_1'\transp{a'}{a}}}\bigstep{}\ec{Q_2}\transs{\alpha}\ec{Q_3}\bigstep{}\ec{Q}$. As in the base case we do not have to investigate the $\tau$ steps separately, since they preserve the restriction operator and all the other properties. %Furthermore, since there are just two rules in \refFig{fig_ts_early} which produce a transition from a restricted process (the \eres{} and the \eopen{} rule), we know there is either an $x=a'$ such that $\alpha=\bout{x}{a'}$ and or .\todo{Hier fiel mir ein Fehler auf.}
+%Thus, there is a process $Q_2'\in\procs$ such that $\ec{\procres[()]{a'}{Q_1'\transp{a'}{a}}}\bigstep{}\ec{\procres[()]{a'}{Q_2'\transp{a'}{a}}}$ and $\ec{Q_1'\transp{a'}{a}}\bigstep{}\ec{Q_2'\transp{a'}{a}}$ with the \eres{} rule of \refFig{fig_ts_early}. With \refLem{lem_subst_bigstep_partIII} we know there is a process $Q_2''\in\procs$ with $\ec{Q_1'}\bigstep{}\ec{Q_2''}$ and $\ec{Q''\transp{a'}{a}}=\ec{Q_2'}$.
+
+%if $a'\nin\n{\alpha}$, then
+
+%if $a'\in\obj{\alpha}$ and it exists $x\in\names$ with $x\neq{}a'$ and $\alpha=\bouta{x}{a'}$, then
+
+%if $a'\in\obj{\alpha}$ and it exists $x\in\names$ with $x\neq{}a'$ and $\alpha=\outa{x}{a'}$, then choose another name for $a'$. \todo{assumption}
+
+%if $a'\in\sub{\alpha}$, then choose another name for $a'$. \todo{assumption}
+
+%	\item[Case $(II)$:] Since $\ec{Q_1}\bigstep{\seq{\alpha}}\ec{Q}$ and $\ec{Q_1}=\ec{Q_1'\transp{a'}{a}}$ we know with \refLem{lem_subst_bigstep_partIV} that there is an action $\alpha'\in\actions$ and a process $Q'\in\procs$ such that $\ec{Q_1'}\bigstep{\seq{\alpha'}}\ec{Q'}$ with $\ec{Q}=\ec{Q'\transp{a'}{a}}$ and $\alpha=\transp{a'}{a}(\alpha')$. Since $\ec{P}\bigstep{s'}\ec{Q_1'}$ we know there is a trace $s\in\tr$ with $\ec{P}\bigstep{s}\ec{Q'}$ and $s=\seqconc{s'}{\seq{\alpha'}}$. Since $a'\in\bn{t'}$ we know $t=\seqconc{t'}{\seq{\alpha}}=\bind{a'}{\seqconc{s'\transp{a'}{a}}{\seq{\alpha}}}=\bind{a'}{(\seqconc{s'}{\seq{\alpha'}})\transp{a'}{a}}=\bind{a'}{s\transp{a'}{a}}$ and $a'\in\bn{t}$. Since $t'\in\res{a}{a'}{P}$ and $a'\in\bn{t'}$ we know $t\in\res{a}{a'}{P}$ holds.
+%\end{description}
+%\end{description}
+%\end{prf}
+
+%\begin{lemma}[Compositionality of restriction (Part I)]
+%\label{lem_compositionality_traces_res_I}
+%	Given $P\in\procsrecf$ and $a\in\names$, then
+%	\[\traces[\procres{a}{P}]\subseteq\bigcup_{a'\in\names\setminus\fn{\procres{a}{P}}}\res{a}{a'}{P}\]
+%	holds.
+%	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% THIRD VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%	\begin{old}{third version}			
+%%	Let $P\in\procsrecf$ and $a\in\names$, then define $T_B\define\bind{a}{\traces[P]}$ and with that define 
+%%	\begin{align*}
+%%		T_P\define{}T_B\setminus\bigl(&\left\{s\in{}T_B \; \mid \; \exists{}i,j\in\N:a\in\sub{s_i}\wedge{}a\in\obj{s_j}\wedge{}i\leq{}j\right\} \\
+%%				&\cup \set[\exists{}i\in\N\;\nexists{}j\in\N:a\in\sub{s_i}\wedge{}a\in{}\obj{s_j}]{s\in{}T_B}\bigr).
+%%	\end{align*}
+%%	 Then the compositionality of the restriction operator
+%%				\[\traces[\procres{a}{P}] = \bigcup_{a'\in\names}\left(\bnsubst{a'}{a}{T_P}\right)\]			
+%%	holds.
+%%	\end{old}
+%%	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END THIRD VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% THIRD VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%	\begin{old}{third version}			
+%%		Let $T_B\define\bind{a}{\traces[P]}$ and with that \newline$T_P\define{}T_B\setminus\bigl(\left\{s\in{}T_B \; \mid \; \exists{}i,j\in\N:a\in\sub{s_i}\wedge{}a\in\obj{s_j}\wedge{}i\leq{}j\right\}$\newline{} $\cup \set[\exists{}i\in\N\nexists{}j\in\N:a\in\sub{s_i}\wedge{}a\in{}\obj{s_j}]{s\in{}T_B}\bigr)$, then
+%%%\set[\exists{}i,j\in\N:a\in\sub{s_i}\wedge{}a\in\obj{s_j}\wedge{}i\leq{}j]{s\in{}T_B}
+%%			\[\traces[\procres{a}{P}] = \bigcup_{a'\in\names}\left(T_P\subs{a'}{a}\right)\]			
+%%	\end{old}
+%%	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END THIRD VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECOND VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%	\begin{old}{second version}		
+%%		Let $T_P\define\traces[P]\setminus\bigl(\set[a\in_c s]{s\in\traces[P]}\cup\set[\out{b}{a}\in s,b\in\names]{s\in\traces[P]}\bigr)\cup \set[{s\in\traces[P]}]{s\subs{\left(a\right)}{\langle{}a\rangle}}$, then
+%%					\[\traces[\procres{a}{P}] = \bigcup_{a'\in\names}\left(T_P\subs{a'}{a}\right)\]
+%%	\end{old}
+%%	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END SECOND VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIRST VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%	\begin{old}{first version}		
+%%		\begin{align*}
+%%			\traces[\procres{a}{P}] \define \bigcup_{a'\in\names}\bigl(\traces[P]\subs{a'}{a}&\setminus\bigl(\set[a'\in_c s]{s\in\traces[P]\subs{a'}{a}} \\
+%%							& \quad\quad\cup \set[\out{b}{a'}\in s,b\in\names]{s\in\traces[P]\subs{a'}{a}}\bigr) \\
+%%							&\cup \set[{s\in\traces[P]\subs{a'}{a}}]{s\subs{\left(a'\right)}{\langle{}a'\rangle}}\bigr).
+%%		\end{align*}
+%%	\end{old}
+%	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END FIRST VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\end{lemma}
+%\end{old} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% NOT FINISHED PROOF %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+To investigate the equality of a union of restriction sets to the traces of a corresponding restricted process, we list a lemma which reduces one inclusion of this problem to the big-step semantics.
+
+\begin{lemma}[From restriction set to restriction]
+\label{lem_from_resset_to_res}
+Given $P\in\procsrecf$ and $a\in\names$. For a name $a'\in\names\setminus\fn{\procres{a}{P}}$ we know
+
+\begin{align*}
+t\in\res{a}{a'}{P}, \ec{P}\bigstep{s}\ec{Q} \text{ with } t=\bind{a'}{s\transp{a'}{a}} \text{ and }\\
+ a'\nin\bn{t}\Rightarrow\nexists{} i\in\N\colon{}a'\in\obj{t_i}\wedge{}t_i\in\inA
+\end{align*}
+implies
+\begin{itemize}
+  \item[(I)] $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t}\ec{\procres[()]{a'}{Q\transp{a'}{a}}}$ with $a'\nin\bn{t}$  or
+  \item[(II)] $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t}\ec{Q\transp{a'}{a}}$ with $a'\in\bn{t}$
+\end{itemize}
+holds.
+\end{lemma}
+\begin{prf}
+Let $P\in\procsrecf$, $a\in\names$, $a'\in\names\setminus\fn{\procres{a}{P}}$, $t\in\res{a}{a'}{P}$ and $\ec{P}\bigstep{s}\ec{Q}$ with $t=\bind{a'}{s\transp{a'}{a}}$ and $a'\nin\bn{t}\Rightarrow\nexists{} i\in\names\colon{}a'\in\obj{t_i}\wedge{}t_i\in\inA$. We proceed by induction over the length $n\in\N$ of trace $s$.
+\begin{description}
+\item[Base case $n=0$:] Hence, $s=\eseq{}$ and so $t=\bind{a'}{\eseq{}\transp{a'}{a}}=\bind{a'}{\eseq}=\eseq{}$. Since $\ec{P}\bigstep{\eseq{}}\ec{Q}$ holds, we know with \refLem{lem_subst_bigstep_partI} that $\ec{P\transp{a'}{a}}\bigstep{\eseq{}}\ec{Q\transp{a'}{a}}$. With multiple application of the \eres{} rule of \refFig{fig_ts_early}, we know $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{\eseq{}}\ec{\procres[()]{a'}{Q\transp{a'}{a}}}$ with $a'\nin\n{t}$.
+
+\item[Induction hypothesis:] For an arbitrary number $n\in\N$, we know for all processes $P\in\procs$ and names $a\in\names$ that for a name $a'\in\names\setminus\fn{\procres{a}{P}}$ that if a trace $t\in\res{a}{a'}{P}$ with $t=\bind{a'}{s\transp{a'}{a}}$ such that $a'\nin\bn{t}\Rightarrow\nexists{} i\in\names\colon{}a'\in\obj{t_i}\wedge{}t_i\in\inA$ holds and $\ec{P}\bigstep{s}\ec{Q}$ and $\len{s}\leq{}n$ exists, then $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t}\ec{\procres[()]{a'}{Q\transp{a'}{a}}}$ with $a'\nin\bn{t}$ or $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t}\ec{Q\transp{a'}{a}}$ with $a'\in\bn{t}$ holds.
+
+\item[Induction step $n\mapsto n+1$:] Thus, there is a trace $s'\in\tr$ and a visible action $\alpha'\in\actions\setminus\set{\tau}$ with $s=\seqconc{s'}{\seq{\alpha'}}$. Thus, $t=\bind{a'}{(\seqconc{s'}{\seq{\alpha'}})\transp{a'}{a}}=\bind{a'}{\seqconc{s'\transp{a'}{a}}{\seq{\alpha'}\transp{a'}{a}}}$. Since $\ec{P}\bigstep{s}\ec{Q}$ we know there exists processes $Q_1,Q_2\in\procs$ with $\ec{P}\bigstep{s'}\ec{Q_1}\transs{\alpha'}\ec{Q_2}\bigstep{}\ec{Q}$. With \refConv{conv_uni_bn_traces} we know $a,a'\nin\bn{s'}\cup\bn{\alpha'}$. Let $t'\define\bind{a'}{s'\transp{a'}{a}}$ and $\alpha\define\transp{a'}{a}(\alpha')$. Since $t\in\res{a}{a'}{P}$ and $t'$ is a prefix of $t$ we know $t'\in\res{a}{a'}{P}$ and so the induction hypothesis yields that (I) $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t'}\ec{\procres[()]{a'}{Q_1\transp{a'}{a}}}$ with $a'\nin\bn{t'}$ or (II) $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t'}\ec{Q_1\transp{a'}{a}}$ with $a'\in\bn{t'}$ holds.
+
+\begin{description}
+\item[Case $a'\in\bn{t'}$:] Thus, $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t'}\ec{Q_1\transp{a'}{a}}$. Since the $\texttt{bind}$ function just binds the first occurrence of the given name in a trace and leaves the rest of the trace unaltered, $t=\seqconc{t'}{\seq{\alpha}}$ with $\seq{\alpha}\define\seq{\alpha'}\transp{a'}{a}$ and $a'\nin\bn{\alpha}$ holds. Since $\ec{Q_1}\bigstep{\seq{\alpha'}}\ec{Q}$ holds, we know with \refLem{lem_subst_bigstep_partII} that $\ec{Q_1\transp{a'}{a}}\bigstep{\seq{\alpha'}\transp{a'}{a}}\ec{Q\transp{a'}{a}}$ holds and so $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t}\ec{Q\transp{a'}{a}}$. Since, we have seen $a'\in\bn{t'}$ and $a'\nin\bn{\alpha}$, we know $a'\in\bn{t}$.
+
+\item[Case $a'\nin\bn{t'}$:] Hence, $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t'}\ec{\procres[()]{a'}{Q_1\transp{a'}{a}}}$. Furthermore, $t'=s'\transp{a'}{a}$, since $a'\nin\bn{t'}$. Since $\ec{Q_1}\transs{\alpha'}\ec{Q_2}$ we know with \refLem{lem_subst_trans_partI} that $\ec{Q_1\transp{a'}{a}}\transs{\alpha}\ec{Q_2\transp{a'}{a}}$ holds and analogously \refLem{lem_subst_bigstep_partI} yields $\ec{Q_2\transp{a'}{a}}\bigstep{}\ec{Q\transp{a'}{a}}$.
+
+If $a'\nin\n{\alpha}$ the \eres{} rule of \refFig{fig_ts_early} yields $\ec{\procres[()]{a'}{Q_1\transp{a'}{a}}}\transs{\alpha}\ec{\procres[()]{a'}{Q_2\transp{a'}{a}}}$. Similarly, we know with multiple application of the \eres{} rule that $\ec{\procres[()]{a'}{Q_2\transp{a'}{a}}}\bigstep{}\ec{\procres[()]{a'}{Q\transp{a'}{a}}}$ and since $a'\nin\n{\alpha}$ we know $\bind{a'}{\alpha}=\alpha$ and so $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t}\ec{\procres[()]{a'}{Q\transp{a'}{a}}}$ with $a'\nin\bn{t}$.
+
+If $a'\in\n{\alpha}$, we know that $a'\nin\sub{\alpha}$, because otherwise $a'$ must have been bound in $t'$, since $a'\nin\n{t'}$, $t=\seqconc{t'}{\bind{a'}{\seq{\alpha}}}$ and $t\in\res{a}{a'}{P}$ and so $\forall{}i\in\N: a'\in\sub{t_i} \Rightarrow \exists{}j\in\N: a'\in\bn{t_j}\wedge{}j<i$ holds. Thus, $a'\in\obj{\alpha}$ and as we already know $a'\nin\bn{\alpha}$. Hence, there is a name $x\in\names\setminus\set{a'}$ with $\alpha=\out{x}{a'}$ or $\alpha=\inpa{x}{a'}$. Since we know there is no input action $\alpha'$ within $t$ with $a'\in\obj{\alpha'}$ from the side condition of \refLem{lem_from_resset_to_res}, $\alpha=\inpa{x}{a'}$ is not possible. Thus, $\alpha=\out{x}{a'}$. Then we know with the \eopen{} rule from \refFig{fig_ts_early} that $\ec{\procres[()]{a'}{Q_1\transp{a'}{a}}}\transs{\bout{x}{a'}}\ec{Q_2\transp{a'}{a}}$, since $\ec{Q_1\transp{a'}{a}}\transs{\out{x}{a'}}\ec{Q_2\transp{a'}{a}}$ holds. Since we already showed that $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t'}\ec{\procres[()]{a'}{Q_1\transp{a'}{a}}}$ holds and furthermore that $\ec{Q_2\transp{a'}{a}}\bigstep{}\ec{Q\transp{a'}{a}}$ holds and we know in this case $\bind{a'}{\alpha}=\bout{x}{a'}$ holds, we know $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t}\ec{Q\transp{a'}{a}}$ with $a'\in\bn{t}$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OLD
+\begin{old}[old unvollstaendiger beweis. nun andere Fall unterschiedung]
+\item[Case $a\in\obj{s'}$:] Define $t'\define\bind{a'}{s'\transp{a'}{a}}$, then we know $a'\in\bn{t'}$ since $a\in\obj{s'}$ and $a\nin\bn{s'}$\todo{hier fehlt der input case}. Since the $\texttt{bind}$ function just binds the first occurrence of the given name in a trace and leaves the rest of the trace unaltered, $t=\seqconc{t'}{\seq{\alpha}}$ with $\seq{\alpha}\define\seq{\alpha'}\transp{a'}{a}$ and $a'\nin\bn{\alpha}$ holds. Since $t\in\res{a}{a'}{P}$ and $t'$ is a prefix of $t$ and $t'=\bind{a'}{s'\transp{a'}{a}}$ we know $t'\in\res{a}{a'}{P}$ and so with the induction hypothesis (I) or (II) holds. Since $a'\in\bn{t'}$ we know $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t'}\ec{Q_1\transp{a'}{a}}$. Since $\ec{Q_1}\bigstep{\seq{\alpha'}}\ec{Q}$ we know with \refLem{lem_subst_bigstep_partII} $\ec{Q_1\transp{a'}{a}}\bigstep{\seq{\alpha'}\transp{a'}{a}}\ec{Q\transp{a'}{a}}$ and so $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t}\ec{Q\transp{a'}{a}}$. Since as we have seen $a'\in\bn{t'}$ and $a'\nin\bn{\alpha}$, we know $a'\in\bn{t}$.
+
+\item[Case $a\nin\obj{s'}$:] Let $t'\define{}\bind{a'}{s'\transp{a'}{a}}$. Since $a\nin\obj{s'}$ we know $t'=s'\transp{a'}{a}$ and $t=\seqconc{t'}{\bind{a'}{\seq{\alpha'}\transp{a'}{a}}}$. Since $t\in\res{a}{a'}{P}$ and $t'$ is a prefix of $t$ we know $t'\in\res{a}{a'}{P}$ and so the induction hypothesis yields (I) or (II) holds. Since $a\nin\obj{s'}$ and $t'=s'\transp{a'}{a}$ we know $a'\nin\obj{t'}$ and so in particular $a'\nin\bn{t'}$. Hence, $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t'}\ec{\procres[()]{a'}{Q_1\transp{a'}{a}}}$ with $a'\nin\n{t'}\setminus\set[\exists\alpha\in{}t': \alpha \text{ input action}\wedge n=\obj{\alpha}]{n\in{}\n{t'}}$ holds. Since $\ec{Q_1}\transs{\alpha'}\ec{Q_2}$ we know with \refLem{lem_subst_trans_partI} that $\ec{Q_1\transp{a'}{a}}\transs{\alpha}\ec{Q_2\transp{a'}{a}}$ with $\alpha\define\transp{a'}{a}(\alpha')$ holds and analogously \refLem{lem_subst_bigstep_partI} yields $\ec{Q_2\transp{a'}{a}}\bigstep{}\ec{Q\transp{a'}{a}}$.
+
+If $a'\nin\n{\alpha}$ we know with the \eres{} rule of \refFig{fig_ts_early} that $\ec{\procres[()]{a'}{Q_1\transp{a'}{a}}}\transs{\alpha}\ec{\procres[()]{a'}{Q_2\transp{a'}{a}}}$. Similarly, we know with a multiple application of the \eres{} rule that $\ec{\procres[()]{a'}{Q_2\transp{a'}{a}}}\bigstep{}\ec{\procres[()]{a'}{Q\transp{a'}{a}}}$ and since $a'\nin\n{\alpha}$ we know $\bind{a'}{\alpha}=\alpha$ and so $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t}\ec{\procres[()]{a'}{Q\transp{a'}{a}}}$ with $a'\nin\n{t}\setminus\set[\exists\alpha\in{}t: \alpha \text{ input action}\wedge n=\obj{\alpha}]{n\in{}\n{t}}$.
+
+If $a'\in\n{\alpha}$ we know, $a'\nin\sub{\alpha}$, because otherwise $a'$ must has been bound in $t'$, since $t=\seqconc{t'}{\bind{a'}{\seq{\alpha}}}$ and $t\in\res{a}{a'}{P}$ and so $\forall{}i\in\N: a'\in\sub{t_i} \Rightarrow \exists{}j\in\N: a'\in\bn{t_j}\wedge{}j<i$ holds. Thus, $a'\in\obj{\alpha}$ and as we already know $a'\nin\bn{\alpha}$. Hence, there is a name $x\in\names\setminus\set{a'}$ with $\alpha=\out{x}{a'}$ or $\alpha=\inpa{x}{a'}$. If $\alpha=\out{x}{a'}$ we know with the \eopen{} rule from \refFig{fig_ts_early} that $\ec{\procres[()]{a'}{Q_1\transp{a'}{a}}}\transs{\bout{x}{a'}}\ec{Q_2\transp{a'}{a}}$, since $\ec{Q_1\transp{a'}{a}}\transs{\out{x}{a'}}\ec{Q_2\transp{a'}{a}}$ holds. Since we showed that $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t'}\ec{\procres[()]{a'}{Q_1\transp{a'}{a}}}$ and $\ec{Q_2\transp{a'}{a}}\bigstep{}\ec{Q\transp{a'}{a}}$ holds and we know in this case $\bind{a'}{\alpha}=\bout{x}{a'}$ holds, we know $\ec{\procres[()]{a'}{P\transp{a'}{a}}}\bigstep{t}\ec{Q\transp{a'}{a}}$ with $a'\in\bn{t}$.\todo{hier fehlt der input case}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OLD
+\end{old}
+\end{description}
+\end{description}
+Thus, all cases of \refLem{lem_from_resset_to_res} are proved.
+\end{prf}
+
+We conjecture that the restriction in \refLem{lem_from_resset_to_res} to the traces $t$, which do not have an input action $\alpha$ with $a'\in\obj{\alpha}$ if $a'\nin\bn{t}$, is no restriction for the set inclusion of the union of the restricted sets and the set of traces of the corresponding restricted process. Furthermore, we assume that also the other inclusion holds, since there is only a similar case in which we have not been able to prove this inclusion yet. 
+
+%\todo[inline]{außen substitution keni Problem, da nur gebundene ersetzt werden und nach Convention geb. und freie unterschiedlich sind und damit lemma}
+\begin{conject}[Compositionality of restriction]
+\label{conj_compositionality_traces_res}
+	Given $P\in\procsrecf$ and $a\in\names$, then
+	\[\traces[\procres{a}{P}]=\bigcup_{a'\in\names\setminus\fn{\procres{a}{P}}}\res{a}{a'}{P}\]
+	holds.
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% THIRD VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{old}{third version}			
+	Let $P\in\procsrecf$ and $a\in\names$, then define $T_B\define\bind{a}{\traces[P]}$ and with that define 
+	\begin{align*}
+		T_P\define{}T_B\setminus\bigl(&\left\{s\in{}T_B \; \mid \; \exists{}i,j\in\N:a\in\sub{s_i}\wedge{}a\in\obj{s_j}\wedge{}i\leq{}j\right\} \\
+				&\cup \set[\exists{}i\in\N\;\nexists{}j\in\N:a\in\sub{s_i}\wedge{}a\in{}\obj{s_j}]{s\in{}T_B}\bigr).
+	\end{align*}
+	 Then the compositionality of the restriction operator
+				\[\traces[\procres{a}{P}] = \bigcup_{a'\in\names}\left(\bnsubst{a'}{a}{T_P}\right)\]			
+	holds.
+	\end{old}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END THIRD VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% THIRD VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{old}{third version}			
+		Let $T_B\define\bind{a}{\traces[P]}$ and with that \newline$T_P\define{}T_B\setminus\bigl(\left\{s\in{}T_B \; \mid \; \exists{}i,j\in\N:a\in\sub{s_i}\wedge{}a\in\obj{s_j}\wedge{}i\leq{}j\right\}$\newline{} $\cup \set[\exists{}i\in\N\nexists{}j\in\N:a\in\sub{s_i}\wedge{}a\in{}\obj{s_j}]{s\in{}T_B}\bigr)$, then
+%\set[\exists{}i,j\in\N:a\in\sub{s_i}\wedge{}a\in\obj{s_j}\wedge{}i\leq{}j]{s\in{}T_B}
+			\[\traces[\procres{a}{P}] = \bigcup_{a'\in\names}\left(T_P\subs{a'}{a}\right)\]			
+	\end{old}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END THIRD VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECOND VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{old}{second version}		
+		Let $T_P\define\traces[P]\setminus\bigl(\set[a\in_c s]{s\in\traces[P]}\cup\set[\out{b}{a}\in s,b\in\names]{s\in\traces[P]}\bigr)\cup \set[{s\in\traces[P]}]{s\subs{\left(a\right)}{\langle{}a\rangle}}$, then
+					\[\traces[\procres{a}{P}] = \bigcup_{a'\in\names}\left(T_P\subs{a'}{a}\right)\]
+	\end{old}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END SECOND VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIRST VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{old}{first version}		
+		\begin{align*}
+			\traces[\procres{a}{P}] \define \bigcup_{a'\in\names}\bigl(\traces[P]\subs{a'}{a}&\setminus\bigl(\set[a'\in_c s]{s\in\traces[P]\subs{a'}{a}} \\
+							& \quad\quad\cup \set[\out{b}{a'}\in s,b\in\names]{s\in\traces[P]\subs{a'}{a}}\bigr) \\
+							&\cup \set[{s\in\traces[P]\subs{a'}{a}}]{s\subs{\left(a'\right)}{\langle{}a'\rangle}}\bigr).
+		\end{align*}
+	\end{old}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END FIRST VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{conject}
+
+To give an idea of a possible proof of the $\supseteq$-direction, we take $P\in\procsrecf$, $a\in\names$ and $t\in\bigcup_{a'\in\names\setminus\fn{\procres{a}{P}}}\res{a}{a'}{P}$. Thus, there is a name $a'\in\names\setminus\fn{\procres{a}{P}}$ such that $t\in\res{a}{a'}{P}$ and so there is a trace $s\in\traces[P]$ such that $t=\bind{a'}{s\transp{a'}{a}}$. So, if there is no input action $\alpha\in{}t$ with $a'\in\obj{\alpha}$ in the case that $a'\nin\bn{t}$, we get with \refLem{lem_from_resset_to_res} that $t\in\traces[{\procres[()]{a'}{P\transp{a'}{a}}}]$. Since $a'\nin\fn{\procres{a}{P}}$ and so $a'\nin\fn{P}$, we know $\procres[()]{a'}{P\transp{a'}{a}}=\procres[()]{a'}{P\subs{a'}{a}}$ and by applying $\alpha$-conversion we know $\ec{\procres[()]{a'}{P\subs{a'}{a}}}=\ec{\procres{a}{P}}$ and so $t\in\traces[\procres{a}{P}]$. If there is an input action $\alpha\in{}t$ with $a'\in\obj{\alpha}$ and $a'\nin\bn{t}$, we assume that we can chose another name $a''\nin\fn{\procres{a}{P}}$ such that for $t$ all premises of \refLem{lem_from_resset_to_res} are fulfilled.
+
+To evaluate the assumption of the possibility to chose another name with which all the premises are fulfilled, we consider, for example, $P\define\procres{a'}{\inp{x}{y}.\out{b}{a'}}$. Thus, $\ec{\procres{a'}{\inp{x}{y}.\out{b}{a'}}}\intrans{x}{a'}\ec{\procres{a'}{\out{b}{a'}}}$, since for example $\procres{a''}{\inp{x}{y}.\out{b}{a''}}\in\ec{P}$ and $\procres{a''}{\out{b}{a''}}\in\ec{\procres{a'}{\out{b}{a'}}}$. So it seems meaningful that the restriction mention above only take effect in the cases, where we did not chose the corresponding restricted name to the trace. So we can chose another one without harming anything of the properties.
+
+The same problem arises for the other set inclusion. We can prove a similar lemma to the converse of \refLem{lem_from_resset_to_res} as far as we stuck in the case that the restricted name occurs as object of an input action. Furthermore, we tried to develop a term of trace association to restricted processes. That is, we can associate the name $a$ of a restriction $\procres{a}{P}$ to a trace $t$ if $\procres{a}{P}$ is the process of the equivalence class which is used to create the trace $t$. This is especially interesting if we consider, for example, $P\define\procres[()]{a}{\inp{x}{y}.\procres[()]{a'}{\out{b}{a'}.\out{b}{a}}}$. If we interchange the names $a$ and $a'$ we know $\ec{P}\bigstep{\seq{\inpa{x}{y},\bout{b}{a},\bout{b}{a'}}}\ec{\proczero}$. But this approach has also not solved the problem yet.
+
+%Let $P\in\procsrecf$ and $a\in\names$. The $\supseteq$ direction follows from \refLem{lem_from_resset_to_res}. So let $t\in\bigcup_{a'\in\names\setminus\fn{\procres{a}{P}}}\res{a}{a'}{P}$. Thus, there is a name $a'\in\names\setminus\fn{\procres{a}{P}}$ such that $t\in\res{a}{a'}{P}$ and so there is a trace $s\in\traces[P]$ such that $t=\bind{a'}{s\transp{a'}{a}}$. So, we get with \refLem{lem_from_resset_to_res} that $t\in\traces[{\procres[()]{a'}{P\transp{a'}{a}}}]$. Since $a'\nin\fn{\procres{a}{P}}$ and so $a'\nin\fn{P}$ we know $\procres[()]{a'}{P\transp{a'}{a}}=\procres[()]{a'}{P\subs{a'}{a}}$ and with $\alpha$-conversion we know $\ec{\procres[()]{a'}{P\subs{a'}{a}}}=\ec{\procres{a}{P}}$ and so $t\in\traces[\procres{a}{P}]$.
+% If there is an input action $\alpha\in{}t$ with $a'\in\obj{\alpha}$ and $a'\nin\bn{t}$, we know that we can chose a name $a''\nin\fn{\procres{a}{P}}$ such that there is no input action $\alpha'\in{}t$ with $a''\in\obj{\alpha}$. Thus, with the same argumentation than before, we know $t\in\traces[\procres{a}{P}]$.

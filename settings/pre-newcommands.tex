@@ -1,0 +1,384 @@
+% Punkte auch bei section
+%\renewcommand\l@section{\@dottedtocline{1}{1.5em}{2.3em}}
+
+% buffer commands
+%\newcommand\todo[1]{{\marginpar{\color{red}TODO: #1}}}
+%\newcommand\todoI[1]{{\color{red}TODO: #1}}
+\newcommand\bla{\todo[inline]{Erkl"arung/Beschreibung/F"ulltext}}
+%\newcommand\lorem{Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.}
+
+% partition commands
+\newcommand{\newpart}[1]{{\color{darkred}\noindent\rule{0.5\textwidth-1cm}{1pt} #1 new \rule{0.5\textwidth-1cm}{1pt}}\newline}
+\newenvironment{old}[1]
+{
+	\ifthenelse{\boolean{show_all}}{
+		\begin{color}{darkgreen}
+		\par\noindent\rule{\textwidth}{1pt}
+		\begin{center}\underline{#1}\end{center}
+	}{\comment{}}
+}
+{
+	\ifthenelse{\boolean{show_all}}{
+		\par\noindent\rule{\textwidth}{1pt}\newline
+		\end{color}
+	}{\endcomment{}}
+}
+\newenvironment{new}{
+%   \begin{mdframed}[outerlinewidth=2,leftmargin=10,%
+%     rightmargin=-10pt,backgroundcolor=white,hidealllines=true,leftline=true,%
+%     innertopmargin=0pt,splittopskip=\topskip,skipbelow=\baselineskip,innerbottommargin=0pt%
+%     skipabove=\baselineskip]%
+	%\begin{leftbar}
+%\def\FrameCommand{\vrule width 1pt \hspace{1cm}}%
+%\MakeFramed {\advance\hsize\width \FrameRestore}
+	\marginpar{\color{darkred}\rule{0.5cm}{1pt} $\downarrow$new \rule{0.5cm}{1pt}}
+} {
+	\marginpar{\color{darkred}\rule{0.5cm}{1pt} $\uparrow$new \rule{0.5cm}{1pt}}
+%\endMakeFramed
+	%\end{leftbar}
+	%\end{mdframed}
+}
+% Notizen die bei druckversion nicht angezeigt werden
+\newcommand\note[1]{\ifthenelse{\boolean{print_media}}{}{{\color{darkgreen}<Note: #1>}}}
+
+% Referenzieren
+\newcommand{\refDef}[1]{Definition~\ref{#1}}
+\newcommand{\refFig}[1]{Figure~\ref{#1}}
+\newcommand{\refSec}[1]{Section~\ref{#1}}
+\newcommand{\refChap}[1]{Chapter~\ref{#1}}
+\newcommand{\refLem}[1]{Lemma~\ref{#1}}
+\newcommand{\refTheo}[1]{Theorem~\ref{#1}}
+\newcommand{\refConv}[1]{Convention~\ref{#1}}
+\newcommand{\refConj}[1]{Conjecture~\ref{#1}}
+\newcommand{\refEq}[1]{Equation~\ref{#1}}
+\newcommand{\refEx}[1]{Example~\ref{#1}}
+\newcommand{\refCor}[1]{Corollary~\ref{#1}}
+% Referenzieren auf Textstelle
+%\newcommand\fullRef[1]{Abschnitt \ref{#1} \glqq\nameref{#1}\grqq{} auf Seite~\pageref{#1}}
+%% Referenz auf Bild
+%\newcommand\imgRef[1]{Abbildung \ref{#1} auf Seite~\pageref{#1}}
+%% Referenz auf Tabelle
+%\newcommand\tabRef[1]{Tabelle \ref{#1} auf Seite~\pageref{#1}}
+%% Referenz auf Definition
+%\newcommand\defRef[1]{Definition \ref{#1} auf Seite~\pageref{#1}}
+
+%Funktionale Anforderungen
+%\newcounter{functCounter}
+%\newcounter{subFunctCounter}[functCounter]
+%\renewcommand\thesubFunctCounter{\Alph{functCounter}\arabic{subFunctCounter}}
+
+%\newcommand\functRequirementPackage{
+%\refstepcounter{functCounter}
+%\setcounter{subFunctCounter}{0}
+%}
+%\newcommand\functRequirement[4][\empty]{%%% \empty: Standardwert des optionalen Parameters
+%\refstepcounter{subFunctCounter}
+%\begin{description}
+%\itemsep-0.7cm
+%\item[\thesubFunctCounter:] #2 \label{fa_\thesubFunctCounter}
+%\item[Eingabe:] #3
+%\item[Ausgabe:] #4
+%\ifthenelse{\NOT\equal{#1}{\empty}}%%
+%		{\item[Optional:] #1}%%
+%{}
+%\end{description}
+%}
+
+% Absatz
+%\newcommand\abs{\par\medskip}
+
+% Fetter Index
+\newcommand{\findex}[2][\empty]{%%% \empty: Standardwert des optionalen Parameters
+	\ifthenelse{\equal{#1}{\empty}}%%
+		{\index{#2}\emph{#2}}%%
+		{\index{#1}\emph{#2}}%%
+	}
+
+% In enumerate-Umgebung (a) solche item
+\newcommand{\alphaEnums}{\renewcommand{\labelenumi}{(\alph{enumi})}}
+
+%% Mathematik
+\newcommand{\nin}{\not\in}
+% Elementzeichen mit anschlie"sendem Mengenzeichen
+\newcommand\isin{\in \mathbb}
+% Potenzmenge
+\newcommand{\pom}[1]{\mathbb P\left(#1\right)}
+% Komplexe Zahlen
+\newcommand\K{\mathbb C}
+% Reelle Zahlen
+\newcommand\R{\mathbb R}
+% Rationale Zahlen
+\newcommand\Q{\mathbb Q}
+% Ganze Zahlen
+\newcommand\Z{\mathbb Z}
+% Nat"urliche Zahlen
+\newcommand\N{\mathbb N}
+% Kaligraphische Zeichen
+\newcommand\calN{\mathcal N}
+\newcommand\calL{\mathcal L}
+%% backard-Matrix
+%\newcommand\B{\mathbb B}
+%% forward-Matrix
+%\newcommand\F{\mathbb F}
+% Menge
+\newcommand{\set}[2][\empty]{%%% \empty: Standardwert des optionalen Parameters
+	\ifthenelse{\equal{#1}{\empty}}
+		{\left\{#2\right\}}
+		{\left\{#2\; \mid \; #1 \right\}}
+}
+\newcommand{\setmulti}[2][\empty]{%%% \empty: Standardwert des optionalen Parameters
+	\ifthenelse{\equal{#1}{\empty}}
+		{\bigl\{#2\bigr\}}
+		{\bigl\{#2\; \mid \; #1 \bigr\}}
+}
+\newcommand{\card}[1]{\left|#1\right|}
+% Betrag
+%\newcommand{\betrag}[1]{\left\lvert #1 \right\rvert}
+% Das zu zeigen - Zeichen ZZ
+%\newcommand{\zz}{Z\kern-.3em\raise-0.5ex\hbox{Z}:}
+% Kongruenz
+%\newcommand{\kong}[3]{#1\equiv#2\; mod \;#3}
+%\newcommand{\inkong}[3]{#1\nequiv#2\; mod \;#3}
+% Vektoren
+%\newcommand{\vect}[1]{
+%	\left(\begin{array}{c}
+%			#1
+%		\end{array}
+%	\right)
+%}
+% Matritzen
+%\newcommand{\mat}[2]{
+%	\left(\begin{array}{#1}
+%			#2
+%		\end{array}
+%	\right)
+%}
+
+%% Petri-Netz
+% Pre-/Postset
+\newcommand{\preset}[1]{{^\bullet{}#1}}
+\newcommand{\postset}[1]{{#1^\bullet{}}}
+
+% scalable arrows
+\makeatletter
+\def\slashedarrowfill@#1#2#3#4#5{%
+  $\m@th\thickmuskip0mu\medmuskip\thickmuskip\thinmuskip\thickmuskip
+   \relax#5#1\mkern-7mu%
+   \cleaders\hbox{$#5\mkern-2mu#2\mkern-2mu$}\hfill
+   \mathclap{#3}\mathclap{#2}%
+   \cleaders\hbox{$#5\mkern-2mu#2\mkern-2mu$}\hfill
+   \mkern-7mu#4$%
+}
+% already defined in mathtools
+%\makeatother
+%\makeatletter
+%\renewcommand{\xLeftrightarrow}[2][]{\ext@arrow 0359\Leftrightarrowfill@{#1}{#2}}
+%\makeatother
+%\makeatletter
+%\renewcommand{\xleftrightarrow}[2][]{\ext@arrow 0359\leftrightarrowfill@{#1}{#2}}
+%\makeatother
+%\makeatletter
+%\renewcommand{\xLeftarrow}[2][]{\ext@arrow 0359\Leftarrowfill@{#1}{#2}}
+%\makeatother
+%\makeatletter
+%\renewcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
+%\makeatother
+%\makeatletter
+\newcommand*{\simfill@}{\arrowfill@\cdot\sim\succ}
+\newcommand{\xsimrightarrow}[2][]{\ext@arrow 0359\simfill@{#1}{#2}}
+\makeatother
+%% negations
+\makeatletter
+\newcommand*{\nrightarrowfill@}{\slashedarrowfill@\relbar\relbar{\raisebox{.12em}{\tiny/}}\rightarrow}
+\newcommand{\nxrightarrow}[2][]{\ext@arrow 0359\nrightarrowfill@{#1}{#2}}
+\makeatother
+
+\newcommand{\functText}[1]{\mathtt{#1}}
+
+\newcommand{\ebnf}{\;\bigm|\;}
+\newcommand{\gdw}{\mathrm{iff}}
+\newcommand{\falls}{\mathrm{if}}
+\newcommand{\eq}[1]{\stackrel{#1}{=}}
+\newcommand{\pref}[1]{\functText{pref}(#1)}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\true}{\functText{true}}
+\newcommand{\false}{\functText{false}}
+
+%% pi-calculus
+\newcommand{\names}{\calN}
+\newcommand{\relNames}{\mathfrak{N}}
+\newcommand{\conames}{\overline{\calN}}
+\newcommand{\labels}{\calL}
+\newcommand{\actions}{\functText{Act}}
+\newcommand{\outA}{\functText{Out}}
+\newcommand{\inA}{\functText{In}}
+\newcommand{\boutA}{\functText{Bout}}
+\newcommand{\picalc}{$\pi$-calculus}
+\newcommand{\syntdef}{::=}
+\newcommand{\define}{=_{\mathrm{def}}}
+\newcommand{\fnF}{\functText{fn}}
+\newcommand{\bnF}{\functText{bn}}
+\newcommand{\fn}[1]{\functText{fn}(#1)}
+\newcommand{\bn}[1]{\functText{bn}(#1)}
+\newcommand{\nF}{\functText{n}}
+\newcommand{\n}[1]{\functText{n}(#1)}
+\newcommand{\subF}{\functText{sub}}
+\newcommand{\objF}{\functText{obj}}
+\newcommand{\bindF}{\functText{bind}}
+\newcommand{\sub}[1]{\functText{sub}(#1)}
+\newcommand{\obj}[1]{\functText{obj}(#1)}
+%\newcommand{\objbn}[1]{\functText{obj}_\functText{bn}(#1)}
+\newcommand{\bind}[2]{\functText{bind}(#1,#2)}
+\newcommand{\bnsubstF}{\functText{bn}_{\functText{subst}}}
+\newcommand{\bnsubst}[3]{\functText{bn}_{\functText{subst}}(\subs{#1}{#2},#3)}
+\newcommand{\struc}{\equiv{}}
+\newcommand{\struct}[2]{#1\struc{}#2}
+% sequences
+\newcommand{\seqset}[1]{\functText{seq}(#1)}
+\newcommand{\eseq}{\langle\rangle}
+\newcommand{\seq}[1]{\langle#1\rangle}
+\newcommand{\seqconc}[2]{{#1}^{\,\frown{}\,}{#2}}
+\newcommand{\seqcom}[2]{#1\leftrightharpoons{}#2}
+\newcommand{\subsetsim}{\mathrel{\substack{\textstyle\subset\\[-0.5ex]\textstyle\sim}}}
+\newcommand{\simcirc}{\mathrel{\substack{\textstyle\sim\\[-0.4ex]\textstyle\circ}}}
+\newcommand{\ec}[1]{\left[#1\right]}%_{\alpha}}
+\newcommand{\bigstep}[1]{\xRightarrow{#1}}
+\newcommand{\len}[1]{\#(#1)}
+%\newcommand{\parl}[1]{\overrightarrow{#1}}
+\newcommand{\parl}[1]{\vec{#1}}
+\newcommand{\substF}{\sigma}
+\newcommand{\subst}[1]{\left(#1\right)\sigma}
+\newcommand{\subs}[2]{\left\{\nicefrac{#1}{#2}\right\}}
+% prefix
+\newcommand{\singleout}[1]{\bar{#1}}
+\newcommand{\out}[2]{\overline{#1}\langle#2\rangle}
+\newcommand{\outa}[2]{\overline{#1}\langle#2\rangle}
+\newcommand{\bout}[2]{\overline{#1}(#2)}
+\newcommand{\bouta}[2]{\overline{#1}(#2)}
+\newcommand{\inp}[2]{#1(#2)}
+\newcommand{\inpa}[2]{#1\,#2}
+% processes
+\newcommand{\procs}{\mathcal P^{\pi}}
+\newcommand{\sums}{\procs_{M}}
+\newcommand{\procsesf}{\procs_{\functText{esf}}}
+\newcommand{\procsresf}{\procs_{\functText{resf}}}
+\newcommand{\procsrecf}{\procs_{\functText{recf}}}
+\newcommand{\procchoice}[2]{#1 + #2}
+\newcommand{\procsum}{\sum_{i\in I}{\pi_i.P_i}}
+\newcommand{\procpar}[2]{#1 \mid #2}
+%\newcommand{\procres}[3][\empty]{%%% \empty: Standardwert des optionalen Parameters
+%	\ifthenelse{\equal{#1}{\empty}}{
+%		\ifthenelse{\equal{#2}{\empty}}{
+%			\textnormal{\underline{\texttt{new}}}
+%		}{
+%			\textnormal{\underline{\texttt{new}}}\,#2\;#3
+%		}
+%	}{
+%		\textnormal{\underline{\texttt{new}}}\,#2\left(#3\right)
+%	}
+%}
+\newcommand{\procres}[3][\empty]{%%% \empty: Standardwert des optionalen Parameters
+	\ifthenelse{\equal{#1}{\empty}}{
+		\ifthenelse{\equal{#2}{\empty}}{
+			\underline{\functText{new}}
+		}{
+			\underline{\functText{new}}\,#2\;#3
+		}
+	}{
+		\underline{\functText{new}}\,#2\left(#3\right)
+	}
+}
+\newcommand{\proccall}[2]{#1\langle#2\rangle}
+\newcommand{\procdef}[2]{#1(#2)}
+\newcommand{\proczero}{\mathbf{0}}
+% substitution
+\newcommand{\transp}[2]{\left\{#1\leftrightarrow{}#2\right\}}% substitution
+\newcommand{\transpT}[2]{\theta_{#1}(#2)}
+\newcommand{\supp}[1]{\functText{supp}(#1)}
+\newcommand{\cosupp}[1]{\functText{cosupp}(#1)}
+% alpha conversion
+\newcommand{\alphaeq}{=_\alpha}
+% transitions
+%% sangiorgi
+\newcommand{\transs}[1]{\xrightarrow{#1}}
+\newcommand{\intrans}[2]{\transs{\inpa{#1}{#2}}}
+\newcommand{\outtrans}[2]{\transs{\out{#1}{#2}}}
+\newcommand{\bouttrans}[2]{\transs{\bout{#1}{#2}}}
+\newcommand{\tautrans}{\transs{\tau}}
+%% mine
+\newcommand{\trans}[1]{\xsimrightarrow{#1}}
+%\newcommand{\trans}[1]{\rightsquigarrow}
+\newcommand{\transin}[2]{\trans{\inp{#1}{#2}}}
+\newcommand{\transout}[2]{\trans{\out{#1}{#2}}}
+\newcommand{\transbout}[2]{\trans{\bout{#1}{#2}}}
+\newcommand{\transtau}{\trans{\tau}}
+% rules name, pr"amisse1, pr"amisse2, konklusion, optional Anwendungsbedingung
+\newcommand{\kalRule}[5][\empty]{%%% \empty: Standardwert des optionalen Parameters
+	\underline{\scriptstyle#2}:\;
+	\ifthenelse{\equal{#3}{\empty}}{
+		\ifthenelse{\equal{#4}{\empty}}{
+			\dfrac{}{#5}
+		}{
+			\dfrac{#4}{#5}
+		}
+	}{
+		\dfrac{#3 \quad #4}{#5}
+	}
+	\ifthenelse{\NOT\equal{#1}{\empty}}{\;\;#1}{}
+}
+% names of rules
+\newcommand{\rulename}[1]{$#1$}
+\newcommand{\etau}{\rulename{E-TAU}}
+\newcommand{\ecall}{\rulename{E-CALL}}
+\newcommand{\eout}{\rulename{E-OUT}}
+\newcommand{\ein}{\rulename{E-IN}}
+\newcommand{\esuml}{\rulename{E-SUM_L}}
+\newcommand{\esumr}{\rulename{E-SUM_R}}
+\newcommand{\eres}{\rulename{E-RES}}
+\newcommand{\eparl}{\rulename{E-PAR_L}}
+\newcommand{\eparr}{\rulename{E-PAR_R}}
+\newcommand{\eopen}{\rulename{E-OPEN}}
+\newcommand{\ecoml}{\rulename{E-COM_L}}
+\newcommand{\ecomr}{\rulename{E-COM_R}}
+\newcommand{\eclosel}{\rulename{E-CLOSE_L}}
+\newcommand{\ecloser}{\rulename{E-CLOSE_R}}
+% strong / weak Bisimulation
+\newcommand{\sbisim}{\sim}
+\newcommand{\wbisim}{\approx}
+\newcommand{\simu}{\mathcal{S}}
+\newcommand{\weaksimuset}[2]{\simu^{#1,#2}}
+\newcommand{\simuset}{\weaksimuset{P}{Q}}
+% denotational semantics
+\newcommand{\tr}{\functText{Traces}}
+\newcommand{\trI}[1]{\mathcal{T_I}(\ec{#1})}
+\newcommand{\tracesI}[3]{\mathcal T_{#1}(\ec{\procpar{#2}{#3}})}
+\newcommand{\traces}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\mathcal T}
+		{\mathcal T(\ec{#1})}
+}
+
+\newcommand{\tracesR}[1]{\mathcal{T}_\relNames(\ec{#1})}
+
+\newcommand{\res}[3]{\functText{res}(#1,#2,\traces[#3])}
+\newcommand{\failures}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\mathcal F}
+		{\mathcal F(#1)}
+}
+\newcommand{\fd}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\mathcal{FD}}
+		{\mathcal{FD}(#1)}
+}
+% refinement
+\newcommand{\refi}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\,\sqsubseteq_{\mathcal T}\,}
+		{\,\sqsubseteq_{\mathcal{#1}}\,}
+}
+\newcommand{\rrefi}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\,\sqsupseteq_{\mathcal T}\,}
+		{\,\sqsupseteq_{\mathcal{#1}}\,}
+}

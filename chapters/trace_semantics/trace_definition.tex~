@@ -1,0 +1,14 @@
+% mainfile: ../../Refinement.tex
+With the big-step semantics the ability to take an external view of a process' behavior is given. Between every single action in a given sequence there can be as many internal actions as needed. The trace semantics just collects all those traces a process can possibly perform in one set.
+
+\begin{definition}[Trace semantics]
+\label{def_trace_semantics}
+	For every process $P\in\procs$ the \findex{trace semantics} $\mathcal{T}:\procs_\alpha\rightarrow\pom{\tr}$ with
+		\[\traces[P] \define \set[\exists Q\in\procs: \ec{P} \bigstep{t} \ec{Q}]{t\in \tr}\]
+	is a set of all possible external behavior of the process $P$.
+\end{definition}
+
+In this way, processes can be distinguished by their external behavior. We now introduce some properties of this denotational semantics before defining the refinement, which bases upon this semantics.
+\begin{old}[Sven says: ist ein gewagter Vergleich] %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OLD: gewagter Vergleich %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Another understanding of the traces could be in the view of languages. Thus, $\traces[P]$ stands for the language which could be retrieved from the automaton which is constructed with the operational semantics where every state is a final state by omitting the internal transitions.
+\end{old} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% end OLD: gewagter Vergleich %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

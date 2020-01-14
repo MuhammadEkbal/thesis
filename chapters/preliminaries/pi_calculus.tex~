@@ -1,0 +1,34 @@
+% mainfile: ../../Refinement.tex
+The \findex[\picalc{}|(]{\picalc{}} belongs to the family of \findex[process!algebra]{process algebras} and is used to model communicating and concurrent systems of mobile processes with changing structure. The roots of process algebras can be found in Tony Hoare's \gls{CSP} from the late $70$'s and Milner's \gls{CCS} invented around $1980$ \cite{milnerCCS}. Moreover, the \picalc{} can be seen as a continuation and extension of \gls{CCS} and is inspired by the work of Engberg and Nielsen in \cite{engbertNielsen}, where they extended \gls{CCS} with mobility \cite{milnerParrowWalker}. 
+
+The first published paper treating the \picalc{} is called ``A calculus of mobile processes'' \cite{milnerParrowWalker} written by Robin Milner, Joachim Parrow, and David Walker in the late $80$'s \cite{milner}. While in \gls{CCS} only messages can be sent over a channel during a communication, in this paper they developed the capability to send a channel over a channel. In particular, messages and channels have the same type.%Therein the \picalc{} is defined and it is presented how the calculus can be used to model communicating systems with processes with changing structure; also notions like \findex{strong bisimilarity} and \findex{strong equivalence} are already defined.
+
+Hence, the main advantage of the \picalc{} is its capability to send names over a channel during a communication which can later be used as channels themselves. This provides the ability to change the connection structure of a system.
+
+In this thesis we choose a \picalc{} variant which uses parameterized recursion instead of the replication operator. Thereby, we have no loss in expressiveness, since there is a transformation from recursion to replication and vice versa \cite{milner,sangiorgi}. But since the definition of the examples in the topic of computer science with recursion appeared to be more intuitive to us and recursion is present in \gls{CCS}, we decided to use a variant with recursion rather than replication.%We use this variant at the expense of loosing the possibility of using structural induction \cite{sangiorgi}\todo{instead: fixed point induction?}, because the definition of the examples in the topic of computer science seemed more intuitive to us with recursion.
+
+Furthermore, we define a variant without the match prefix, since ``[m]atch, and especially mismatch, prefixes are seldom useful for describing systems''\footnote{\cite{sangiorgi}, page $13$.}, but inflating the proofs and definitions.
+
+Apart from that, the definition of the syntax as well as the definition of the semantics and the treatment of the \picalc{} refers to \cite{sangiorgi}. Especially the \findex[guarded choice]{guarded choice} -- which means every process in a choice has to perform a prefix action first -- differs from Milner's, Parrow's and Walker's syntax in \cite{milnerParrowWalker}. This restriction is well-accepted in literature \cite{meyer}, since non-guarded choice ``is considered of minor practical importance''\footnote{\cite{meyer}, page $15$.} and ``complicates the theory''\footnote{\cite{sangiorgi}, page $13$.}. However, using guarded choice ``does not delimit the computational expressiveness of the calculus''\footnote{\cite{meyer}, page $15$.}. We slightly differ from the standard definition of the guarded choice. That is, we are not only allowed to have prefix processes in a choice, but we additionally allow that such processes may be wrapped in restrictions. This syntactically extension is needed to transform an arbitrary process into a process in our extended standard form. But this adaption is of minor influence for the remaining theory.
+
+Finally, we use the \index{\picalc{}!monadic}\findex[monadic \picalc{}]{monadic} \picalc{} -- meaning just a single name can be sent (respectively received) by an output (respectively input) action --, since Milner also gave a transformation from the \index{\picalc{}!polyadic}\findex[polyadic \picalc{}]{polyadic} to the monadic version, which proves their equal expressiveness \cite{milner} and the monadic variant simplifies the handling of processes in this thesis.
+
+\subsection{Syntax}
+\label{sec_pi_syntax}
+\input{chapters/preliminaries/pi_syntax}
+
+\subsection{Names and substitution}
+\label{sec_pi_names_substitution}
+\input{chapters/preliminaries/pi_names_substitution}
+
+\subsection{Structural congruence and extended standard form}
+\label{sec_pi_struct_cong}
+\input{chapters/preliminaries/pi_structural_congruence}
+
+\subsection{Operational semantics}
+\label{sec_pi_op_sem}
+\input{chapters/preliminaries/pi_operationalSemantics}
+
+\subsection{Simulation and bisimulation}
+\label{sec_pi_simulation}
+\input{chapters/preliminaries/pi_simulation}

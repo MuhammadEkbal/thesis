@@ -1,0 +1,20 @@
+% mainfile: ../../Refinement.tex
+In the \findex[trace!semantics]{trace semantics} every single trace -- meaning all possible sequences of external behavior -- of a process is collected. Thereby, the internal steps are omitted. Thus, the trace semantics is a \index{semantics!denotational}\findex{denotational semantics}, which represents the communication a process offers to its environment. In \refChap{sec_big-step_semantics} with the big-step semantics we regarded one possible external behavior of a process. Now with the trace semantics we introduce a denotational semantics, which is a collection of all these possible big-steps of a process. Intuitively, the big-step semantics follows \textit{one} way through the transition system produced from the rules of \refFig{fig_ts_early} and collects the visible actions. Whereas the trace semantics collects \textit{all} of those ways through the transition system. This idea is an adaption of the trace semantics for CSP, for example, described in \cite{roscoe}.
+
+%This semantics differs from Roscoe's only by its definition on \picalc{} processes and the corresponding operational semantics.
+
+\section{Definition}
+\label{sec_de_sem_trace_def}
+\input{./chapters/trace_semantics/trace_definition}
+
+\section{Properties}
+\label{sec_de_sem_trace_prop}
+\input{./chapters/trace_semantics/trace_properties}
+
+\section{Refinement}
+\label{sec_de_sem_trace_ref}
+\input{./chapters/trace_semantics/trace_refinement}
+
+\section{Example}
+\label{sec_de_sem_trace_example}
+\input{./chapters/trace_semantics/trace_examples}

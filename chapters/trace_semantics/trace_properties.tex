@@ -1,0 +1,41 @@
+% mainfile: ../../Refinement.tex
+In this section we investigate the trace semantics and some of its properties for gaining results for the refinement defined in \refSec{sec_de_sem_trace_ref}. Furthermore, these properties help in understanding the trace semantics and its applicability. Especially, we examine its behavior while applying a substitution and its relationship to simulation and bisimulation to classify the new semantics in the established context. The main part takes the investigation, whether the trace semantics is compositional or not, resulting by the fact that already the subclass of recursion-free processes is indeed not compositional for every operator.
+
+As a first result we achieve that every set of traces is at most countably infinite. This is because we know that every trace is produced out of a countably infinite set of symbols. In other words, traces are words over a countably infinite alphabet. More precisely, for every $P\in\procs$ we know $\traces[P]\subseteq\left(\names\cup\conames\cup\mathtt{SYMB}\right)^*$ where $\mathtt{SYMB}$ denotes the set containing the angle brackets, the parenthesis, and the comma. Furthermore, we know that the countably infinite sets are closed under union and Kleene star. So, since $\names$ and $\conames$ are countably infinite, we know that the set $\traces[P]$ is countably infinite. Hence, we can define a function $\mathcal{T_I}:\procs_\alpha\rightarrow\pom{\N\times\tr}$, named \findex{indexed trace set}, such that every trace in the trace set of a equivalence class of a process is uniquely mapped to a natural number.
+
+Furthermore, we know that every trace set $\traces[P]$ for a process $P\in\procs$ is closed under the prefix operator. Therefore, consider $s\in\traces[P]$. We know for every prefix $t\in\pref{\set{s}}$ that there is a trace $u\in\tr$ such that $s=\seqconc{t}{u}$. So there is a process $Q\in\procs$ such that $\ec{P}\bigstep{\seqconc{t}{u}}\ec{Q}$ and so $\ec{P}\bigstep{t}\fatsemi\bigstep{u}\ec{Q}$ holds. Hence, there is a process $Q'\in\procs$ such that $\ec{P}\bigstep{t}\ec{Q'}$ and so $t\in\traces[P]$.
+
+Since the empty sequence is a prefix of every trace, it fits that the empty trace is included in every trace set.
+
+\begin{lemma}[Empty trace]
+\label{lem_empty_trace}
+For all $P\in\procs$
+\[\eseq\in\traces[P]\]
+holds.
+\end{lemma}
+\begin{prf}
+Let $P\in\procs$. Since $\left(\tautrans\right)^*$ is reflexive, we know that $\ec{P}\left(\tautrans\right)^*\ec{P}$ holds. With the definition of the big-step semantics (\refDef{def_bigstep_semantics}) we get $\ec{P}\bigstep{\eseq}\ec{P}$. With that and from the definition of the trace semantics (\refDef{def_trace_semantics}) we know that $\eseq\in\traces[P]$ holds, since $P\in\procs$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% START LONG VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{old}{long version}
+	Let $P\in\procs$. With the definition of the trace semantics (\refDef{def_trace_semantics}), we know that
+		\[\traces[P] = \set[\exists{}Q\in\procs:\ec{P}\bigstep{t}\ec{Q}]{t\in\tr}\]
+	holds. Since $P\in\procs$ we have
+	\[\traces[P]=\underbrace{\set[\ec{P}\bigstep{t}\ec{P}]{t\in\traces}}_{Y\define} \cup \set[\exists{}Q\in\procs: Q\nin\ec{P} \wedge\ec{P}\bigstep{t}\ec{Q}]{t\in\tr}.\]
+	We know from the definition of the big-step semantics (\refDef{def_bigstep_semantics}) that $\ec{P}\bigstep{\eseq}\ec{P}$ if and only if $\ec{P}\left(\tautrans\right)^*\ec{P}$. Since $\left(\tautrans\right)^*$ is a reflexive and transitive closure, we know that $\ec{P}\left(\tautrans\right)^*\ec{P}$ holds, which means $\ec{P}\bigstep{\eseq}\ec{P}$ holds, and therefore $\eseq{}\in{}Y$ and so $\eseq\in\traces[P]$.
+\end{old}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END LONG VERSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{prf}
+
+Now, we examine the behavior of the trace semantics in the context of substitutions.
+
+\subsection{Substitution}
+\label{sec_de_sem_trace_prop_subst}
+\input{chapters/trace_semantics/trace_substitution}
+
+\subsection{Compositionality}
+\label{sec_de_sem_trace_prop_comp}
+\input{chapters/trace_semantics/trace_compositionality}
+
+\subsection{Simulation and bisimulation}
+\label{_sec_de_sem_trace_sim_bisim}
+\input{chapters/trace_semantics/trace_simulation}

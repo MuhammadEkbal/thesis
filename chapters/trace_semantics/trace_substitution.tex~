@@ -1,0 +1,56 @@
+% mainfile: ../../Refinement.tex
+%Since we proved in \refLem{lem_subst_bigstep_partII} that if we have a trace between two processes, we also can apply a substitution on the processes and the trace, and the big-step stays preserved, we can directly lift this statement upon the trace semantics.
+Due to \refLem{lem_subst_bigstep_partII}, traces between two processes are preserved under substitution. We can lift this result to the trace semantics.
+\begin{lemma}[Substitution on trace semantics (Part I)]
+\label{lem_subst_trace_partI}
+	For all $P\in\procs$ and substitutions $\sigma$ 
+		\[\traces[P]\sigma\subseteq\traces[P\sigma]\]
+	holds.
+\end{lemma}
+\begin{prf}
+Let $P\in\procs$, $\sigma$ a substitution, and $s\in\left(\traces[P]\sigma\right)$. Then we know from the definition of the substitution on traces and the trace semantics that there exists a process $Q\in\procs$ and a trace $s'\in\tr$ such that $\ec{P}\bigstep{s'}\ec{Q}$ and $s=s'\sigma$ holds. \refLem{lem_subst_bigstep_partII} yields that $\ec{P\sigma}\bigstep{s'\sigma}\ec{Q\sigma}$ holds. So we know $\ec{P\sigma}\bigstep{s}\ec{Q\sigma}$ and since $Q\sigma\in\procs$, we know from the definition of the trace semantics that $s\in\traces[P\sigma]$.
+\end{prf}
+
+From the example to \refLem{lem_subst_bigstep_partII} we already know that the converse set inclusion does not hold. Because there, we found a trace $\seq{\out{y}{c}}\in\traces[P\subs{a}{b}]$ for $P\define\procpar{\inp{a}{x}.\out{x}{c}}{\out{b}{y}.\out{c}{d}}$ and argued that no trace $s$ starting in $\ec{P}$ can satisfy $s\sigma=\seq{\out{y}{c}}$. So $\seq{\out{y}{c}}\nin\traces[P]\sigma$.
+
+But once more, we can prove a restricted version of the converse of the previous Lemma and this directly leads to a restricted version of a set equality.
+
+\begin{lemma}[Substitution on trace semantics (Part II)]
+\label{lem_subst_trace_partII}
+Given $a,b\in\names$, $P\in\procs$ then
+\[\traces[P\transp{a}{b}]=\traces[P]\transp{a}{b}\]
+holds.
+\end{lemma}
+\begin{prf}
+Let $a,b\in\names$, $P\in\procs$ and $\sigma=\transp{a}{b}$ transposition. Then, \refLem{lem_subst_trace_partI} directly yields $\traces[P\transp{a}{b}]\supseteq\traces[P]\transp{a}{b}$ since a transposition is a special case of a substitution. For the other inclusion we take a trace $s'\in\traces[P\sigma]$. Thus, there is a process $Q'\in\procs$ such that $\ec{P\sigma}\bigstep{s'}\ec{Q'}$. \refLem{lem_subst_bigstep_partIV} yields that there is a process $Q\in\procs$ and a trace $s\in\tr$ with $\ec{P}\bigstep{s}\ec{Q}$ and $s\transp{a}{b}=s'$. Hence, $s\in\traces[P]$ and so $s'\in\traces[P]\transp{a}{b}$.
+\end{prf}
+
+Thus, for a transposition the trace sets are equal no matter whether the transposition is applied to the process or to the trace set. Furthermore, for a substitution which only replaces one name which is a fresh one for the process, the trace set of the process with applied substitution is the same as the trace set of the process where a transposition of the names of the substitution is applied to every trace. This is because of $\ec{P\sigma}=\ec{P\transp{a}{b}}$ for a substitution $\sigma\define{}\subs{a}{b}$ and $a\nin\fn{P}$.
+
+Furthermore, we can see that the set inclusion is preserved under the application of a substitution.
+
+\begin{lemma}[Substitution and trace inclusion (Part I)]
+\label{lem_subst_trace_inclusion}
+For all processes\newline{}$P,Q\in\procs$ and substitutions $\sigma$,
+\[\text{if }\traces[P]\subseteq\traces[Q] \text{ then } \traces[P]\sigma\subseteq\traces[Q]\sigma\]
+holds.
+\end{lemma}
+\begin{prf}
+Let $P,Q\in\procs$, $\sigma$ a substitution, and $\traces[P]\subseteq\traces[Q]$. Given $s\in\traces[P]\sigma$, we know there has to be a trace $s'\in\traces[P]$, with $s=s'\sigma$. So $s'\in\traces[Q]$ holds and also $s=s'\sigma\in\traces[Q]\sigma$ holds.
+\end{prf}
+
+The converse of the previous lemma cannot hold. Consider, for example, $P\define{}\out{a}{x}$, $Q\define{}\out{b}{x}$ and $\sigma\define\subs{a}{b}$. Then $\traces[P]=\set{\eseq,\seq{\outa{a}{x}}}$, and $\traces[Q]=\set{\eseq,\seq{\outa{b}{x}}}$. Hence, $\traces[P]\sigma=\set{\eseq,\seq{\outa{a}{x}}}$ and $\traces[Q]\sigma=\set{\eseq,\seq{\outa{a}{x}}}$. Thus, $\traces[P]\sigma\subseteq\traces[Q]\sigma$ but $\traces[P]\not\subseteq{}\traces[Q]$.
+
+In spite of that, \refLem{lem_subst_trace_partII} and \refLem{lem_subst_trace_inclusion} yield directly a helpful connection between trace set inclusion and a transposition.
+
+\begin{cor}[Substitution and trace inclusion (Part II)]
+\label{cor_subst_trace_inclusion}
+Given $P,Q\in\procs$ and $a,b\in\names$ then,
+\[\text{if }\traces[P]\subseteq\traces[Q] \text{ then } \traces[P\transp{a}{b}]\subseteq\traces[Q\transp{a}{b}]\]
+holds
+\end{cor}
+\begin{prf}
+Let $P,Q\in\procs$ and $\sigma=\transp{a}{b}$ be a transposition with $\traces[P]\subseteq\traces[Q]$. Furthermore, let $t\in\traces[P\sigma]$. On the one hand \refLem{lem_subst_trace_partII} yields that $t\in\traces[P]\transp{a}{b}$ and on the other hand \refLem{lem_subst_trace_inclusion} yields that $\traces[P]\transp{a}{b}\subseteq\traces[Q]\transp{a}{b}$. Thus, $t\in\traces[Q]\transp{a}{b}$ and again with \refLem{lem_subst_trace_partII} we know $t\in\traces[Q\sigma]$ holds.
+\end{prf}
+
+Thus, for transpositions, the trace inclusion is preserved. Furthermore, since $\ec{P\sigma}=\ec{P\transp{a}{b}}$ for a substitution $\sigma\define{}\subs{a}{b}$ and $a\nin\fn{P}$, we know \refCor{cor_subst_trace_inclusion} is also true for a substitution which only replaces one name with a new fresh name.
