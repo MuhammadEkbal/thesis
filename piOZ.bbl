@@ -1,0 +1,13 @@
+\begin{thebibliography}{SW01}
+
+\bibitem[Mil99]{milner}
+R.~Milner.
+\newblock {\em Communicating and Mobile Systems: the $\pi$-Calculus}.
+\newblock Cambridge University Press, Cambridge, England, 1999.
+
+\bibitem[SW01]{sangiorgi}
+D.~Sangiorgi and D.~Walker.
+\newblock {\em The $\pi$-calculus: a Theory of Mobile Processes}.
+\newblock Cambridge University Press, Cambridge, England, 2001.
+
+\end{thebibliography}

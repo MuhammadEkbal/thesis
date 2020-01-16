@@ -1,8 +1,7 @@
 
 # Created by https://www.gitignore.io/api/latex
 # Edit at https://www.gitignore.io/?templates=latex
-
-*.pdf
+*/*.pdf
 
 ### LaTeX ###
 ## Core latex/pdflatex auxiliary files:
@@ -33,7 +32,7 @@ for output:"
 .pdf
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
-*.bbl
+.bbl
 *.bcf
 *.blg
 *-blx.aux
@@ -149,7 +148,7 @@ files
 # makeidx
 *.idx
 *.ilg
-*.ind
+.ind
 *.ist
 
 # minitoc
