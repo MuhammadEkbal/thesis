@@ -1,23 +1,57 @@
 % mainfile: ../../Refinement.tex
-\begin{definition}[Syntax]
-\label{def_syntax}
+\begin{definition}[Process syntax]
+\label{def_process_syntax}
 The syntax of a \picalc{} process \findex[process]{P} is defined by: 
 \begin{align*}
- P & \syntdef \procsum \ebnf \procpar{P_1}{P_2} \ebnf \procres{a}{P}.
+ P & \syntdef \procsum \ebnf \procpar{P_1}{P_2} \ebnf \procres{\vec{y}}{P}.
 \end{align*}
 where:
 \begin{itemize}
 \item $\procsum$ is the guarded sum.
 \item $\procpar{P_1}{P_2}$ is the parallel composition of processes.
-\item $\procres{a}{P}$ is the restriction of the scope of the name a to the process P
+\item $\procres{\vec{y}}{P}$ is the restriction of the scope of the names $\vec{y}$ to the process $P$
 \end{itemize}
 \end{definition}
 
-\subsubsection{guarded sum}
-\subsubsection{guarded sum}
-\subsubsection{guarded sum}
+\subsubsection{\findex{Guarded sum}:} Is the \findex{choice} between multiple guarded processes. If the guard of one process took place, other guarded processes will be discarded. For example, the processes: $\procchoice{\inp{x}{}.A}{\inp{b}{}.B}$ will evolve to the process $A$ if the guard $\inp{x}{}$ occurred.
+\subsubsection{\findex{Guard}:} Also called \findex[process]{action prefix} and denoted by $\pi$. It's syntax is defined by:
+\begin{definition}[Action prefix syntax]
+\label{def_prefix_syntax}
+\begin{align*}
+ \pi \syntdef \inp{x}{\vec{y}} \ebnf \out{x}{\vec{y}} \ebnf \tau.
+\end{align*}
+where:
+\begin{itemize}
+\item $\inp{x}{\vec{y}}$ represents the action: receive $\vec{y}$ via the channel $x$.
+\item $\out{x}{\vec{y}}$ represents the action: send $\vec{y}$ via the channel $x$.
+\item $\tau$ represents an internal non observable action.
+\end{itemize}
+\end{definition}
+ 
+\subsubsection{\findex{Parallel composition}:}
+The parallel composition operator $\procpar{}{}$ represent the concept of concurrency in the \picalc{}, where two processes can evolve in concurrent.It represents an interleaving behavior of the concurrency.
+For example let:  $P\define\procpar{P_1}{(\procpar{P_2}{P_3})}$ where: $P_1\define\inp{x}{y}.A$ , $P_2\define\out{x}{y}.B$ and $P_3\define\inp{x}{y}.C$. So $P\define\procpar{\inp{x}{y}.A}{(\procpar{\out{x}{y}.B}{\inp{x}{y}.C})}$.
+Possible evolution cases of $P$ are:
+\begin{itemize}
+\item $\procpar{P_1}{(\procpar{B}{C})}$. $P_2$ sends $y$ via $x$ to $P_3$.
+\item $\procpar{A}{(\procpar{B}{P_3})}$. $P_2$ sends $y$ via $x$ to $P_1$.
+\end{itemize}
+
+The example above illustrated the privacy nature of the parallel operator in the \picalc{}. A process can via a channel communicate with only one process pro time.$P_2$ cannot communicate with both $P_1$, $P_3$ in the same time, while in \gls{CSP} a process can communicate with multiple processes in the same time via the same channel by sending multiple copies of the same message, in other words: in CSP the channel represents a Hub.
 
 
+\subsubsection{\findex{Restriction}:}
 
+The expression $\procres{\vec{y}}{P}$ binds the names $\vec{y}$ to the process $P$. In other words: the visibility scope of the  names $\vec{y}$ is restricted to the process $P$. It is similar to declaring a private variable in programming languages. Thus the names $\vec{y}$ are not visible outside $P$ and $P$ cannot use them to communicate with outside. For example, let $P\define\procpar{P_1}{P_2}$ where: $P_1\define\procres{y}{\out{y}{z}.A}$ and $P_2\define\inp{y}{z}.B$. The process $P$ cannot evolute to $\procpar{A}{B}$, since the name $y$ in $P_1$ is only visible inside it, i.e., from the $P_2$'s point of view $P_1$ doesn't have a channel called $y$. This takes us to the definition of the Bound and free names.
 
+\begin{definition}[Free names]
+\label{def_bound_names}
+ are all the restricted names in a process.
+\end{definition}
+\begin{definition}[Bound names]
+\label{def_free_names}
+ are all the name that occur in a process except the bound names.
+\end{definition}
+
+For example, let $P_1\define\procres{x}{\out{x}{y}.P_2}$ where $P_2\define\procres{z}{\out{x}{z}.B}$. The name $x$ is bound in $P_1$ but free in $P_2$.
 
