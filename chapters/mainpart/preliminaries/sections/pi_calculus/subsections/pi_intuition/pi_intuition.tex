@@ -1,0 +1,18 @@
+% mainfile: ../../Refinement.tex
+To explain the \picalc{} inuitivly we will use the ion example as in \cite{milner}. Let us imagine a positive and a negative ion. When those two ions merge, we get a new construct. The merge operation is called a \findex{reaction}, since an ion acts and the other reacts. This reaction can be seen as communication between two processes. The two processes communicate to share some information.  One process is the sender and the other is the receiver. By doing the reaction both processes evoulte to some thing new. The reaction, information sharing and evolution concepts are the core of the \picalc{}. Using those concepts we can understand the title of Milner's book \findex{communicating and mobile processes: the} \picalc{} \cite{milner}. The word \findex{communicating} refers to the \findex{reaction} concept. The word \findex{mobile} refers to the \findex{information sharing and evolution} concepts, since the receiver process can use the received information to change its location as we will see in .. .
+\\The \picalc{} consists of: 
+\begin{itemize}
+\item a bunch of names starting with capital case letters  like $P, P_1, Q,..etc$  used to refer to a process directly.
+\item a bunch of names starting with capital case letters  like $A, B, C,..etc$  used a process identifier. The process identifier will be used to define recursion with parameters.
+\item a bunch of names starting with lower case letter like $a, b, x, y,..etc$  used as a channel and message name.
+\item a bunch of operators like:
+	\begin{itemize}
+	\item  Parallel composition operator: `` $\procpar{}{}$ ''.
+	\item  Sequential composition operator: `` $.$ ''.
+	\item  Choice operator: `` $\procchoice{}{}$ ''.
+	\item  Scope restriction operator: `` $\procres{}{}$ ''.
+	\end{itemize}
+\end{itemize}
+So a simple example of a process can be: $\out{x}{y}.\proczero$ this process simply sends the message $y$ via the channel $x$ and stops.
+The full syntax of \picalc{} process is given in \refDef{def_process_syntax}. In this thesis starting from this point, when we mention the word \findex{names} we refer to the bunch of names starting with small letters used as channel and message name.
+
