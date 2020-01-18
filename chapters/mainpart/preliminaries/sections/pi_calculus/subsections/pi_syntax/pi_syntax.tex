@@ -3,7 +3,7 @@
 \label{def_process_syntax}
 The syntax of a \picalc{} process \findex[process]{P} is defined by: 
 \begin{align*}
- P & \syntdef \procsum \ebnf \procpar{P_1}{P_2} \ebnf \procres{\vec{y}}{P} \ebnf \proccall{A}{\vec{v}}.
+ P & \syntdef \procsum \ebnf \procpar{P_1}{P_2} \ebnf \procres{\vec{y}}{P} \ebnf \proccall{A}{\vec{v}}
 \end{align*}
 where:
 \begin{itemize}
@@ -21,16 +21,20 @@ Furthermore, The process $\proczero$ is called the \index{process!stop}\findex{s
 \begin{definition}[Action prefix syntax]
 \label{def_prefix_syntax}
 \begin{align*}
- \pi \syntdef \inp{x}{\vec{y}} \ebnf \out{x}{\vec{y}} \ebnf \tau.
+ \pi \syntdef \out{x}{\vec{y}} \ebnf \inp{x}{\vec{y}} \ebnf \tau
 \end{align*}
 where:
 \begin{itemize}
-\item $\inp{x}{\vec{y}}$ represents the action: receive $\vec{y}$ via the channel $x$.
-\item $\out{x}{\vec{y}}$ represents the action: send $\vec{y}$ via the channel $x$.
+\item $\out{x}{\vec{y}}$ \footnote{$\out{x}{{}}$ means: send a signal via $x$. $\out{x}{{y}}$ means: send the name $y$ via $x$.  $\out{x}{{\vec{y}}}$ means: send the sequence $\vec{y}$ via $x$.} represents the action: send $\vec{y}$ via the channel $x$.
+\item $\inp{x}{\vec{y}}$ \footnote{$\inp{x}{{}}$ means: receive a signal via $x$. $\inp{x}{{y}}$ means: receive any name $y$ via $x$.  $\inp{x}{{\vec{y}}}$ means: receive any sequence $\vec{y}$ via $x$. ``$y$ here plays the role of parameter''} represents the action: receive $\vec{y}$ via the channel $x$.
 \item $\tau$ represents an internal non observable action.
 \end{itemize}
 \end{definition}
- 
+The set of all \index{action}\findex[action]{actions} is defined as $\actions\define\outA\cup\inA\cup\set{\tau}$, where:
+\begin{itemize}
+\item $\outA$ is the set of all \index{action!output}\findex[output!action]{output actions}, defined as $\outA\define\set[x\in\names]{\out{x}{\vec{y}}}$.
+\item $\inA$ the set of all \index{action!input}\findex[input!action]{input actions}, defined as $\inA\define\set[x\in\names]{\inp{x}{\vec{y}}}$.
+\end{itemize}
 \subsubsection{\findex{Parallel composition}:}
 The parallel composition operator $\procpar{}{}$ represent the concept of concurrency in the \picalc{}, where two processes can evolve in concurrent.It represents an interleaving behavior of the concurrency.
 For example let:  $P\define\procpar{P_1}{(\procpar{P_2}{P_3})}$ where: $P_1\define\inp{x}{y}.Q_1$ , $P_2\define\out{x}{y}.Q_2$ and $P_3\define\inp{x}{y}.Q_3$. So $P\define\procpar{\inp{x}{y}.Q_1}{(\procpar{\out{x}{y}.Q_2}{\inp{x}{y}.Q_3})}$.
@@ -60,7 +64,9 @@ For example, let $P_1\define\procres{x}{\out{x}{y}.P_2}$ where $P_2\define\procr
 
 
 \subsubsection{\findex{Process call}:}
+\label{subsubsection_process_call}
+
 Let $P$ be a process and let $A$ be a process identifier.To be able to use the process $P$ recursively we use the process identifier $A$ as follow: $\procdef{A}{\vec{w}}\define{}P$. Thus , when we write $\proccall{A}{\vec{v}}$ we are using the identifier $A$ to call the process $P$ with replacing the names $\vec{w}$ in $P$ with the names $\vec{v}$. This replacement is called the $\alpha$-conversion
 
-For example, let $P\define\out{w}{y}.\proczero$ and let $\procdef{A}{w}\define{}P$ be the recursive definition of the process $P$, then $\proccall{A}{v} = \out{v}{y}.\proczero$ 
+For example, let $P\define\out{w}{y}.\proczero$ and let $\procdef{A}{w}\define{}P$ be the recursive definition of the process $P$, then the behavior of $\proccall{A}{v}$is equlivant to $\out{v}{y}.\proczero$ 
 

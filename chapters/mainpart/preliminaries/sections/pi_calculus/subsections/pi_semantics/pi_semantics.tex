@@ -1,0 +1,15 @@
+% mainfile: ../../Refinement.tex
+We already explained the intuition of the semantics of the \picalc{} in \refSec{sec_pi_syntax}. In this section we formalize this intuition by presenting a definition of an \index{semantics!operational}\findex{operational semantics} of the \picalc{}. This definition yields a labeled transition system called the \index{transition system!early}\findex{early transition system} as presented in \cite{sangiorgi} in Table 1.5 on page 38. For this thesis, we applied only minor changes to the original presentation. %one presented in \cite{sangiorgi} for the fitting in this thesis.
+In particular, we replace the replication rules by the \ecall{} rule, which is also defined in \cite{sangiorgi}, and omit the matching rule due to the definition of our syntax. Furthermore, the labels of the transitions are adapted to the notion of this thesis.
+
+\subsubsection{Definition}
+
+
+
+\begin{definition}
+\label{def_early_trans_system}
+The relation $\set[\alpha\in\actions]{\transs{\alpha}}\subseteq\procs_\alpha\times\procs_\alpha$ is called the \index{transition system!early}\findex{early transition system} and is defined by the rules in \refFig{fig_ts_early} apart from the omission of the rules \esumr{}, \eparr{}, \ecomr{} and \ecloser{} for a shorter presentation. They can be obtained from their related rules by interchanging the roles of $P$ and $Q$.
+\end{definition}
+
+\input{./images/transitionsystems/ts_sangiorgi_early}
+

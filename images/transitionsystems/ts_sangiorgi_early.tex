@@ -1,12 +1,10 @@
 % mainfile: ../../Refinement.tex
 \begin{figure}[h!]
 \begin{gather*}
-\kalRule{E-TAU}{}{}{\ec{\tau.P} \transs{\tau} \ec{P}} \quad\quad \kalRule[\procdef{A}{\parl{w}}\define P]{E-CALL}{}{}{\ec{\proccall{A}{\parl{v}}} \tautrans \ec{P\subs{\parl{v}}{\parl{w}}}} \\\\
-\kalRule{E-OUT}{}{}{\ec{\out{x}{y}.P} \transs{\out{x}{y}} \ec{P}} \quad\quad \kalRule{E-IN}{}{}{\ec{\inp{x}{z}.P} \intrans{x}{y} \ec{P\subs{y}{z}}} \\\\
-\kalRule{E-SUM_L}{}{\ec{P} \transs{\alpha} \ec{P'}}{\ec{P+Q} \transs{\alpha} \ec{P'}} \quad\quad \kalRule[z\nin n(\alpha)]{E-RES}{}{\ec{P} \transs{\alpha} \ec{P'}}{\ec{\procres{z}{P}} \transs{\alpha} \ec{\procres{z}{P'}}} \\\\
-\kalRule[\bn{\alpha}\cap\fn{Q}=\emptyset]{E-PAR_L}{}{\ec{P} \transs{\alpha} \ec{P'}}{\ec{\procpar{P}{Q}} \transs{\alpha} \ec{\procpar{P'}{Q}}} \\\\
-\kalRule[z\neq x]{E-OPEN}{}{\ec{P} \outtrans{x}{z} \ec{P'}}{\ec{\procres{z}{P}} \bouttrans{x}{z} \ec{P'}} \quad\quad \kalRule{E-COM_L}{\ec{P} \outtrans{x}{y} \ec{P'}}{\ec{Q} \intrans{x}{y} \ec{Q'}}{\ec{\procpar{P}{Q}} \tautrans \ec{\procpar{P'}{Q'}}}\\\\
-\kalRule[z\nin\fn{Q}]{E-CLOSE_L}{\ec{P} \bouttrans{x}{z} \ec{P'}}{\ec{Q} \intrans{x}{z} \ec{Q'}}{\ec{\procpar{P}{Q}} \tautrans \ec{\procres[a]{z}{\procpar{P'}{Q'}}}}
+\underline{\scriptstyle{TAU}}: \procchoice{\tau.P}{\procsum} \transs{\tau} P\\\\
+\underline{\scriptstyle{REACT}}: \procpar{(\procchoice{\out{x}{\vec{y}}.P}{\procsum})}{(\procchoice{\inp{x}{\vec{z}}.Q}{\procsum})} \transs{\tau} \subs{\vec{y}}{\vec{z}}\procpar{P}{Q}\\\\
+\kalRule[\alpha \in ACT]{PAR}{}{P \transs{\alpha} P'}{\procpar{P}{Q} \transs{\alpha} \procpar{P'}{Q}} \quad\quad \kalRule[if\ \alpha \nin \{\overline{x},x\}]{RES}{}{P \transs{\alpha} P'}{\procres{x}{P} \transs{\alpha} \procres{x}{P'}}\\\\
+ \kalRule[if \ \struct{P}{P'} \ and\ \struct{Q}{Q'}]{STRUCT}{}{P \transs{\alpha} P'}{Q \transs{\alpha} Q'}
 \end{gather*}
 \caption{The \index{transition system!early}\findex{early transition system} \cite{sangiorgi}.}
 \label{fig_ts_early}
