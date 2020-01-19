@@ -10,4 +10,9 @@ D.~Sangiorgi and D.~Walker.
 \newblock {\em The $\pi$-calculus: a Theory of Mobile Processes}.
 \newblock Cambridge University Press, Cambridge, England, 2001.
 
+\bibitem[Star]{stargazer}
+E.~D'Osualdo.
+\newblock {\em Stargazer: A $\pi$-calculus simulator}.\\
+\newblock {\url {http://www.emanueledosualdo.com/stargazer/}}
+
 \end{thebibliography}
