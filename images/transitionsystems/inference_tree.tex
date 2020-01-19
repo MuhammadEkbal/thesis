@@ -1,9 +1,9 @@
 % mainfile: ../../piOZ.tex
 \begin{figure}[htbp]
 \begin{prooftree} 
-\infer0[by OUT]{\out{x}{{}}.\proccall{A_2}{x} \transs{\out{x}{{}}} \proccall{A_2}{x}}
+\infer0[by OUT]{\out{x}{{}}.A_2 \transs{\out{x}{{}}} \proccall{A_2}{x}}
 \infer1[by PROCESS CALL]{\proccall{A_1}{x} \transs{\out{x}{{}}} \proccall{A_2}{x}}
-\infer0[by IN]{\inp{x}{{}}.\proccall{B_2}{x} \transs{\inp{x}{{}}} \proccall{B_2}{x}}
+\infer0[by IN]{\inp{x}{{}}.B_2 \transs{\inp{x}{{}}} \proccall{B_2}{x}}
 \infer1[by PROCESS CALL]{\proccall{B_1}{x} \transs{\inp{x}{{}}} \proccall{B_2}{x}}
 \infer2[by REACT]{ \procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}} \transs{\tau} \procpar{\proccall{A_2}{x}}{\proccall{B_2}{x}} }
 \infer1[by RESTRICTION]{ \procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})} \transs{\tau} \procres{x}{(\procpar{\proccall{A_2}{x}}{\proccall{B_2}{x}})} }                       
