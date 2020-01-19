@@ -1,0 +1,13 @@
+% mainfile: ../../piOZ.tex
+\begin{figure}[htbp]
+\begin{prooftree} 
+\infer0[by OUT]{\out{x}{{}}.A' \transs{\out{x}{{}}} \proccall{A'}{x}}
+\infer1[by PROCESS CALL]{\proccall{A}{x} \transs{\out{x}{{}}} \proccall{A'}{x}}
+\infer0[by IN]{\inp{x}{{}}.B' \transs{\inp{x}{{}}} \proccall{B'}{x}}
+\infer1[by PROCESS CALL]{\proccall{B}{x} \transs{\inp{x}{{}}} \proccall{B'}{x}}
+\infer2[by REACT]{ \procpar{\proccall{A}{x}}{\proccall{B}{x}} \transs{\tau} \procpar{\proccall{A'}{x}}{\proccall{B'}{x}} }
+\infer1[by RESTRICTION]{ \procres{x}{(\procpar{\proccall{A}{x}}{\proccall{B}{x}})} \transs{\tau} \procres{x}{(\procpar{\proccall{A'}{x}}{\proccall{B'}{x}})} }                       
+\end{prooftree}
+\caption{The \index{inference tree}\findex{inference tree} \cite{milner}.}
+\label{fig_inference_tree}
+\end{figure}

@@ -1,0 +1,25 @@
+% mainfile: ../../Refinement.tex
+\begin{figure}[H]
+\begin{gather*}
+\underline{\scriptstyle{OUT}}: \out{x}{\vec{y}}.P \transs{\out{x}{\vec{y}}} P
+\quad\quad
+\underline{\scriptstyle{IN}}: \inp{x}{\vec{y}}.P \transs{\inp{x}{\vec{y}}} P
+\\\\
+\underline{\scriptstyle{TAU}}: \tau.P \transs{\tau} P
+\quad\quad
+\underline{\scriptstyle{SUM}}: \procchoice{\alpha.P}{\procsum} \transs{\alpha} P
+\\\\
+\kalRule[]{L\_PAR}{}{P \transs{\alpha} P'}{\procpar{P}{Q} \transs{\alpha} \procpar{P'}{Q}}
+\quad\quad
+\kalRule[]{R\_PAR}{}{Q \transs{\alpha} Q'}{\procpar{P}{Q} \transs{\alpha} \procpar{P}{Q'}}
+\\\\
+\kalRule[if\ \alpha \nin \{\overline{x},x\}]{RESTRICTION}{}{P \transs{\alpha} P'}{\procres{x}{P} \transs{\alpha} \procres{x}{P'}}
+\\\\
+\kalRule[if\ \procdef{A}{\vec{z}}\define{}P]{PROCESS\_CALL}{}{\subs{\vec{y}}{\vec{z}}P \transs{\alpha} P'}{\proccall{A}{\vec{y}} \transs{\alpha} P'}
+\\\\
+\kalRule[]{REACT}{P \transs{\out{x}{\vec{y}}} P'}{Q \transs{\inp{x}{\vec{z}}} Q'}{\procpar{P}{Q} \transs{\tau} \procpar{P'}{\subs{\vec{y}}{\vec{z}}Q'}}
+\end{gather*}
+\caption{The \index{transition rules}\findex{transition rules} \cite{milner}.}
+\label{fig_transition_rules}
+\end{figure}
+
