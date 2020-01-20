@@ -1,0 +1,27 @@
+\begin{figure}[H]%
+    \centering
+    \subfloat[$P$]{{\fcolorbox{black}{white}{
+    \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    semithick]
+  \tikzstyle{every state}=[]
+
+  \node[state] (A)                    {$\procres{x}{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}$};
+  \node[state]         (B) [right of=A] {$\proczero$};
+  \path (A) edge              node {$\tau$} (B);
+\end{tikzpicture}
+ }}}%
+    \qquad
+    \subfloat[$Q$]{{\fcolorbox{black}{white}{
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    semithick]
+  \tikzstyle{every state}=[]
+
+  \node[state] (A)                    {$\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$};
+  \node[state]         (B) [right of=A] {$\proczero$};
+  \path (A) edge              node {$\tau$} (B)
+        (A) edge [loop above] node {$\tau$} (A);
+\end{tikzpicture}    
+    }}}%
+    \caption{Transition graphs}%
+    \label{transition_graphs}%
+\end{figure}

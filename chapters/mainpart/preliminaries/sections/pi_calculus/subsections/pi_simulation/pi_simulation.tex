@@ -1,0 +1,37 @@
+% mainfile: ../../Refinement.tex
+For comparing processes based on their behavior there is already a notion called \index{bisimulation!strong}\findex[strong!bisimulation]{strong bisimulation} defined in \cite{milnerParrowWalker}..
+
+\begin{definition}[Strong simulation]
+\label{def_strong_sim}
+A relation $\mathcal{S}\subseteq\procs\times\procs$ is called a \index{simulation!strong}\findex[strong!simulation]{strong simulation}, if $(P,Q)\in\mathcal{S}$ implies that
+\[\text{if } P \transs{\alpha} P' \text{ then }Q'\in\procs \text{ exists such that } Q \transs{\alpha} Q' \text{ and } (P',Q')\in\mathcal{S}.\]
+\end{definition}
+
+Thereby, the internal as well as the external behavior are taken into account. To abstract from the invisible actions, the \index{bisimulation!weak}\findex[weak!bisimulation]{weak bisimulation} relates processes only according to their external behavior.
+
+An example of checking the strong simulation is:
+\\Let
+\begin{itemize}
+\item $P\define\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})}$ 
+\item $Q\define\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$
+\end{itemize}
+where:
+\begin{itemize}
+\item $\procdef{A_1}{y}\define{}\out{y}{{}}.\proczero$
+\item $\procdef{B_1}{z}\define{}\inp{z}{{}}.\proczero$
+\end{itemize}
+
+Intuitively, The behavior of $P$ and $Q$ can be illustrated using transition graphs as shown in \refFig{transition_graphs}. $Q$'s transition graph is the same as $P$'s, except one thing: $Q$ has a loop with label $\tau$. This loop is due to the $\tau$ transition in $Q$'s definition. Hence, we can notice that $Q$ can do all the transitions that $P$ can, plus an extra transition $tau$. In other words $Q$ simulates $P$, but $P$ doesn't simulate $Q$.
+\input{./images/transition_graphs}
+To check the strong simulation we will use \findex{ABC (Another Bisimilarity Checker)}\cite{abc}. ABC is a tool that checks for simulation between  \picalc{} processes. \refFig{pi_simulation_ABC_code} shows the code listing of the process $P$ and $Q$ in ABC syntax.
+\begin{figure}[ht!]
+\lstinputlisting[backgroundcolor=\color{white}]{listings/pi_simulation_ABC_code.abc}
+\caption{ABC code for $P$ and $Q$.}
+\label{pi_simulation_ABC_code}
+\end{figure}
+
+\begin{figure}[ht!]
+\lstinputlisting[backgroundcolor=\color{white}]{listings/pi_simulation_ABC_output.pi}
+\caption{ABC code for $P$ and $Q$.}
+\label{pi_simulation_ABC_code}
+\end{figure}
