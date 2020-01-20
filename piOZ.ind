@@ -1,42 +1,26 @@
 \begin{theindex}
 {\bf Symbols}\nopagebreak%
  \indexspace\nopagebreak%
-  \item $\alpha $-convertibility\dotfill \hyperpage{13\,f}
-  \item $\alpha $-convertible\dotfill \hyperpage{14}
+  \item $\alpha $-conversion\dotfill \hyperpage{13\,f}
   \item $\tau $ process\dotfill \hyperpage{10}
   \item \picalc {}\dotfill \hyperpage{5}, \hyperpage{7~--~29}
-    \subitem monadic\dotfill \hyperpage{8}
     \subitem polyadic\dotfill \hyperpage{8}
 
   \indexspace
 {\bf A}\nopagebreak%
  \indexspace\nopagebreak%
   \item action\dotfill \hyperpage{9}, \hyperpage{20}
-    \subitem bound output\dotfill \hyperpage{20}
     \subitem input\dotfill \hyperpage{10}, \hyperpage{20}
     \subitem internal\dotfill \hyperpage{10}
-    \subitem observable\dotfill \hyperpage{9}
     \subitem output\dotfill \hyperpage{10}, \hyperpage{20}
     \subitem silent\dotfill \hyperpage{10}
-    \subitem unobservable\dotfill \hyperpage{10}
-  \item application substitution
-    \subitem process\dotfill \hyperpage{13}
-    \subitem trace\dotfill \hyperpage{41}
 
   \indexspace
 {\bf B}\nopagebreak%
  \indexspace\nopagebreak%
-  \item big-step semantics\dotfill \hyperpage{38}
-  \item binding function\dotfill \hyperpage{40}
   \item bisimulation
     \subitem strong\dotfill \hyperpage{32}
     \subitem weak\dotfill \hyperpage{32}
-  \item bound name\dotfill \hyperpage{12}
-    \subitem action\dotfill \hyperpage{20}
-    \subitem process\dotfill \hyperpage{12}
-    \subitem trace\dotfill \hyperpage{39}
-  \item bound output action\dotfill \hyperpage{20}
-  \item bound substitution\dotfill \hyperpage{46}
 
   \indexspace
 {\bf C}\nopagebreak%
@@ -44,77 +28,42 @@
   \item call\dotfill \hyperpage{11}
   \item channel\dotfill \hyperpage{8}
   \item choice\dotfill \hyperpage{10}
-  \item co-names\dotfill \hyperpage{8}
-  \item co-support\dotfill \hyperpage{13}
   \item commitments\dotfill \hyperpage{33}
-  \item concatenation\dotfill \hyperpage{6}
-  \item congruence relation\dotfill \hyperpage{13}
-  \item conjugation\dotfill \hyperpage{20}
 
   \indexspace
 {\bf D}\nopagebreak%
  \indexspace\nopagebreak%
-  \item denotational semantics\dotfill \hyperpage{49}
 
   \indexspace
 {\bf E}\nopagebreak%
  \indexspace\nopagebreak%
-  \item early instantiation\dotfill \hyperpage{20}, \hyperpage{33}
-  \item early transition system\dotfill \hyperpage{20\,f}, 
-		\hyperpage{34}
-  \item empty sequence\dotfill \hyperpage{6}
-  \item empty trace\dotfill \hyperpage{37}
-  \item equivalence relation\dotfill \hyperpage{13}
-  \item extended standard form\dotfill \hyperpage{16}
 
   \indexspace
 {\bf F}\nopagebreak%
  \indexspace\nopagebreak%
   \item free name\dotfill \hyperpage{12}
     \subitem action\dotfill \hyperpage{20}
-    \subitem process\dotfill \hyperpage{12}
-    \subitem trace\dotfill \hyperpage{39}
 
   \indexspace
 {\bf G}\nopagebreak%
  \indexspace\nopagebreak%
-  \item guarded choice\dotfill \hyperpage{8}, \hyperpage{10}
 
   \indexspace
 {\bf I}\nopagebreak%
  \indexspace\nopagebreak%
-  \item inaction\dotfill \hyperpage{9}
-  \item indexed trace set\dotfill \hyperpage{50}
-  \item inductive parallel composition\dotfill \hyperpage{59}
-  \item input
-    \subitem action\dotfill \hyperpage{20}
-    \subitem prefix\dotfill \hyperpage{9}
-    \subitem process\dotfill \hyperpage{10}
-  \item input-/output experiments\dotfill \hyperpage{33}
-  \item instantiation
-    \subitem early\dotfill \hyperpage{20}, \hyperpage{33}
-    \subitem late\dotfill \hyperpage{33}
-  \item internal action\dotfill \hyperpage{10}
-  \item invisible big-step\dotfill \hyperpage{38}
-  \item iteration\dotfill \hyperpage{6}
 
   \indexspace
 {\bf K}\nopagebreak%
  \indexspace\nopagebreak%
-  \item Kleene star\dotfill \hyperpage{6}
 
   \indexspace
 {\bf L}\nopagebreak%
  \indexspace\nopagebreak%
-  \item late instantiation\dotfill \hyperpage{33}
-  \item late transition system\dotfill \hyperpage{34}
-  \item length of a sequence\dotfill \hyperpage{6}
 
   \indexspace
 {\bf M}\nopagebreak%
  \indexspace\nopagebreak%
   \item message\dotfill \hyperpage{8}
-  \item monadic \picalc {}\dotfill \hyperpage{8}
 
   \indexspace
 {\bf N}\nopagebreak%
@@ -123,20 +72,11 @@
     \subitem bound\dotfill \hyperpage{12}, \hyperpage{20}
     \subitem free\dotfill \hyperpage{12}, \hyperpage{20}
     \subitem process\dotfill \hyperpage{12}
-    \subitem restricted\dotfill \hyperpage{10}
     \subitem substitution\dotfill \hyperpage{13}
-    \subitem trace\dotfill \hyperpage{39}
 
   \indexspace
 {\bf O}\nopagebreak%
  \indexspace\nopagebreak%
-  \item object\dotfill \hyperpage{8}, \hyperpage{10}, \hyperpage{38}
-  \item observable action\dotfill \hyperpage{9}
-  \item operational semantics\dotfill \hyperpage{19}
-  \item output
-    \subitem action\dotfill \hyperpage{20}
-    \subitem prefix\dotfill \hyperpage{8}
-    \subitem process\dotfill \hyperpage{10}
 
   \indexspace
 {\bf P}\nopagebreak%
@@ -155,8 +95,6 @@
     \subitem algebra\dotfill \hyperpage{1}, \hyperpage{7}
     \subitem call\dotfill \hyperpage{11}
     \subitem choice\dotfill \hyperpage{10}
-    \subitem congruence\dotfill \hyperpage{13}
-    \subitem identifier\dotfill \hyperpage{9}
     \subitem input\dotfill \hyperpage{10}
     \subitem output\dotfill \hyperpage{10}
     \subitem parallel\dotfill \hyperpage{10}
@@ -167,84 +105,38 @@
   \indexspace
 {\bf R}\nopagebreak%
  \indexspace\nopagebreak%
-  \item recursion-free\dotfill \hyperpage{11}
-  \item recursive definition\dotfill \hyperpage{9}
-  \item refinement\dotfill \hyperpage{77}
-  \item restricted name\dotfill \hyperpage{10}
-  \item restriction\dotfill \hyperpage{10}
-  \item restriction set\dotfill \hyperpage{67\,f}
-  \item restriction-free\dotfill \hyperpage{11}
 
   \indexspace
 {\bf S}\nopagebreak%
  \indexspace\nopagebreak%
-  \item scope extrusion\dotfill \hyperpage{10}, \hyperpage{15}
-  \item semantics
-    \subitem denotational\dotfill \hyperpage{49}
-    \subitem operational\dotfill \hyperpage{19}
-  \item sequence\dotfill \hyperpage{5}
-    \subitem concatenation\dotfill \hyperpage{6}
-    \subitem empty\dotfill \hyperpage{6}
-    \subitem iteration\dotfill \hyperpage{6}
-    \subitem length\dotfill \hyperpage{6}
   \item silent
     \subitem action\dotfill \hyperpage{10}
     \subitem prefix\dotfill \hyperpage{9}
   \item simulation
     \subitem strong\dotfill \hyperpage{32}
     \subitem weak\dotfill \hyperpage{32}
-  \item standard form\dotfill \hyperpage{16}
-    \subitem extended\dotfill \hyperpage{16}
   \item stop process\dotfill \hyperpage{9}
   \item strong
-    \subitem bisimilar\dotfill \hyperpage{32}
-    \subitem bisimulation\dotfill \hyperpage{32}
     \subitem simulation\dotfill \hyperpage{32}
-  \item structural congruence\dotfill \hyperpage{15}
   \item subject\dotfill \hyperpage{10}, \hyperpage{38}
-  \item substitution\dotfill \hyperpage{12}
-    \subitem action\dotfill \hyperpage{20}
-    \subitem co-support\dotfill \hyperpage{13}
-    \subitem injective on set\dotfill \hyperpage{26}
-    \subitem process\dotfill \hyperpage{13}
-    \subitem support\dotfill \hyperpage{13}
-    \subitem trace\dotfill \hyperpage{41}
   \item sum\dotfill \hyperpage{9}
   \item summation\dotfill \hyperpage{9}
-  \item support\dotfill \hyperpage{13}
 
   \indexspace
 {\bf T}\nopagebreak%
  \indexspace\nopagebreak%
-  \item trace\dotfill \hyperpage{37}
-    \subitem equivalent\dotfill \hyperpage{77}
-    \subitem refinement\dotfill \hyperpage{77}
-    \subitem semantics\dotfill \hyperpage{49}
   \item transition system
-    \subitem early\dotfill \hyperpage{20\,f}
-    \subitem late\dotfill \hyperpage{34}
-  \item transposition\dotfill \hyperpage{13}
 
   \indexspace
 {\bf U}\nopagebreak%
  \indexspace\nopagebreak%
-  \item uniqueness of bound names
-    \subitem process\dotfill \hyperpage{14}
-    \subitem trace\dotfill \hyperpage{46}
-  \item unobservable action\dotfill \hyperpage{10}
 
   \indexspace
 {\bf V}\nopagebreak%
  \indexspace\nopagebreak%
-  \item visible big-step\dotfill \hyperpage{38}
 
   \indexspace
 {\bf W}\nopagebreak%
  \indexspace\nopagebreak%
-  \item weak
-    \subitem bisimilar\dotfill \hyperpage{32}
-    \subitem bisimulation\dotfill \hyperpage{32}
-    \subitem processes set\dotfill \hyperpage{75}
-    \subitem simulation\dotfill \hyperpage{32}
 
 \end{theindex}
