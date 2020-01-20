@@ -1,3 +1,15 @@
+% fix oz and amsmath conflitct part1
+\makeatletter
+\let\latex@dot\dot
+\usepackage{oz}
+\let\oz@implies\implies
+\let\oz@mod\mod
+\let\oz@dot\dot
+\let\implies\relax
+\let\mod\relax
+\let\dot\latex@dot
+% fix oz and amsmath conflitct end part1
+
 % for better fitting on a4 paper
 %\usepackage{a4} % kein guter Stil
 % Umlaute erm"oglichen
@@ -5,13 +17,13 @@
 % Erm"oglicht beim markieren/kopieren des Textes auch die Umlaute
 % au"serdem funktioniert damit auch das Trennen von W"ortern mit Umlauten
 % Dadurch aber sehr h"assliche Schrift und Schriftbild, aber mit \usepackage{lmodern}
+
 % l"asst es sich wieder heile machen
 \usepackage[T1]{fontenc}
 % bindet neue Schriften ein und l"asst das Dokument wieder vom Schriftbild normal aussehen
 % was durch \usepackage[T1]{fontenc} zerst"ort wurde
 \usepackage{lmodern}
 % Neue Rechtschreibung %english f"ur Bibliographie
-
 % Index
 \usepackage{index}
 % Berechnungen mit Befehlen
@@ -61,7 +73,22 @@
 \usepackage{shuffle}
 %\usepackage{amsthm}
 % f"ur die theoreme
+
+% fix oz and amsmath conflitct part2
+\let\proof\relax
+\let\endproof\relax
+\let\example\relax
+\let\endexample\relax
+% fix oz and amsmath conflitct end part2
+
 \usepackage[amsmath,amsthm,thmmarks]{ntheorem}
+
+% fix oz and amsmath conflitct part3
+\let\implies\oz@implies
+\let\mod\oz@mod
+\let\dot\oz@dot
+\makeatother
+% fix oz and amsmath conflitct end part3
 
 % Bilder
 %% zwei Bilder in einer Umgebung
@@ -154,3 +181,4 @@
 
 %% subfig package for subfigures
 \usepackage{subfig}
+

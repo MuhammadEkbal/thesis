@@ -1,4 +1,23 @@
 % mainfile: ../../Refinement.tex
 The OZ
-
+\begin{class}{Shape}
+\\c : chan[bool]
+\\Q\define\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}
+\\
+\begin{state}
+x, y : \real
+\end{state} 
+\\
+\begin{init}
+x = y = 0
+\end{init} 
+\\
+\begin{op}{Translate}
+\Delta (x,y)
+\\
+dx?, dy? : \real
+\ST
+x’ = x + dx?
+\\y’ = y + dy?
+\end{op}\end{class}
 \newpage %%%%%%%%%%%%%%% NEWPAGE!
