@@ -1,0 +1,15 @@
+The two agents are strongly related (2).
+Do you want to see the core of the simulation (yes/no) ? yes
+{
+  (
+    0
+    { }
+    0
+  )
+
+  (
+    (^x0)('x0.0 | x0.0)
+    { }
+    (^x0)(('x0.0 | x0.0) + t.Q)
+  )
+}
