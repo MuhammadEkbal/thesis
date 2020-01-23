@@ -32,33 +32,42 @@ To check the strong simulation we can use \findex{ABC (Another Bisimilarity Chec
 
 \refFig{pi_simulation_ABC_outputPsQ} and \refFig{pi_simulation_ABC_outputQsP} shows the result of running \refFig{pi_simulation_ABC_code}, where x0 stands for x, since ABC renames the channels and messages names internally.
 
-In \refFig{pi_simulation_ABC_outputPsQ} we can see the result of the command $lt\ P\ Q$, which checks if $Q$ strongly simulates $P$. The result is $yes$ and the simulation relation is $\mathcal{S} = \set{(\proczero,\proczero),(\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})},\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})})}$, where x0 stands for x. The simulation relation $S$ says that: 
+In \refFig{pi_simulation_ABC_outputPsQ} we see the result of the command $lt\ P\ Q$, which checks if $Q$ strongly simulates $P$. The result is $yes$ and the simulation relation is shown, where x0 stands for x. In \refFig{pi_simulation_ABC_outputPsQ} we see the two pairs of the simulation relation, where:
 \begin{itemize}
-\item The state $\proczero$ of $Q$ is as powerful as  $\proczero$ of $P$.
-\item The state $\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$ of $Q$ is as powerful as  $\procres{x}{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}$ of $P$.
+\item $(0\ \{\ \}\ 0)$ stands for the pair $(\proczero,\proczero)$, which means: The state $\proczero$ of $Q$ is as powerful as  $\proczero$ of $P$.
+\item $(\ (\ \widehat{}\ \text{x0})(\text{'x0.0}\ \mid\ \text{x0.0})\ \{\ \}\ (\ \widehat{}\ \text{x0})((\text{'x0.0}\ \mid\ \text{x0.0}) \text{ + t.Q} )\ )$ stands for the pair $(\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})},\procres{x}{(\procchoice{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})}{\tau.Q})})$, which means: The state $\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$ of $Q$ is as powerful as  $\procres{x}{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}$ of $P$.
+
 \end{itemize}
-Thus, $Q$ strongly simulates the behavior of $P$.
+
+Thus, $Q$ strongly simulates the behavior of $P$ and the simulation relation is $\mathcal{S} = \set{(\proczero,\proczero),(\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})},\procres{x}{(\procchoice{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})}{\tau.Q})})}$.
 \begin{figure}[H]
 \lstinputlisting[backgroundcolor=\color{white}]{listings/pi_simulation_ABC_outputPsQ.pi}
 \caption{ABC output: check if $Q$ strongly simulates $P$.}
 \label{pi_simulation_ABC_outputPsQ}
 \end{figure}
 
-In \refFig{pi_simulation_ABC_outputQsP} we can see the result of the command $lt\ Q\ P$, which checks if $P$ strongly simulates $Q$. The result is $no$, since, when:
+In \refFig{pi_simulation_ABC_outputQsP} we can see the result of the command $lt\ Q\ P$, which checks if $P$ strongly simulates $Q$. The result is $no$, since:
+
 \begin{itemize}
-\item $Q$ is in the state $\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$.
-\item $P$ is in the state $\procres{x}{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}$.
+\item when:
+	\begin{itemize}
+	\item $Q$ is in the state $\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$.
+	\item $P$ is in the state $\procres{x}{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}$.
+	\end{itemize}
+
+\item then:
+	\begin{itemize}
+	\item $Q$ can do a $\tau$ transition, which is the loop, to the state $\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$.
+	\item $P$ can do a $\tau$ transition, which is a reaction, to the state $\proczero$.
+	\end{itemize}
+
+\item then:
+	\begin{itemize}
+	\item $Q$ can do a $\tau$ transition, which is a reaction, to the state $\proczero$.
+	\item $P$ cannot go ahead, denoted by `` $*$ '', since it is in the state $\proczero$.
+	\end{itemize}
 \end{itemize}
-, then:
-\begin{itemize}
-\item $Q$ can do a $\tau$ transition, which is the loop, to the state $\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$.
-\item $P$ can do a $\tau$ transition, which is a reaction, to the state $\proczero$.
-\end{itemize}
-, then:
-\begin{itemize}
-\item $Q$ can do a $\tau$ transition, which is a reaction, to the state $\proczero$.
-\item $P$ cannot go ahead, denoted by `` $*$ '', since it is in the state $\proczero$.
-\end{itemize}
+
 
 Thus, $P$ doesn't strongly simulates the behavior of $Q$.
 \begin{figure}[ht!]
