@@ -14,10 +14,10 @@ where:
 \end{itemize}
 \end{definition}
 
-\subsubsection{\findex{Guarded sum}:} Is the \findex{choice} between multiple guarded processes. If the guard of one process took place, other guarded processes will be discarded. For example, the processes: $\procchoice{\inp{x}{}.P_1}{\inp{y}{}.P_2}$ will evolve to the process $P_1$ if the guard $\inp{x}{}$ occurred.
+\subsubsection{\findex{Guarded sum}:} The guarded sum is the \findex{choice} between multiple guarded processes. If the guard of one process took place, other guarded processes will be discarded. For example, the processes: $\procchoice{\inp{x}{}.P_1}{\inp{y}{}.P_2}$ will evolve to the process $P_1$ if the guard $\inp{x}{}$ occurred.
 
 Furthermore, The process $\proczero$ is called the \index{process!stop}\findex{stop process} or \findex{inaction} and stands for the process that can do nothing. It can be omitted.
-\subsubsection{\findex{Guard}:} Also called \findex[process]{action prefix} and denoted by $\pi$. It's syntax is defined by:
+\subsubsection{\findex{Guard}:} The guard is also called \findex[process]{action prefix} and denoted by $\pi$. It's syntax is defined by:
 \begin{definition}[Action prefix syntax]
 \label{def_prefix_syntax}
 \begin{align*}
