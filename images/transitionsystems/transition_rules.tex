@@ -15,9 +15,9 @@
 \\\\
 \kalRule[if\ \alpha \nin \{\overline{x},x\}]{RESTRICTION}{}{P \transs{\alpha} P'}{\procres{x}{P} \transs{\alpha} \procres{x}{P'}}
 \\\\
-\kalRule[if\ \procdef{A}{\vec{z}}\define{}P]{PROCESS\_CALL}{}{\subs{\vec{y}}{\vec{z}}P \transs{\alpha} P'}{\proccall{A}{\vec{y}} \transs{\alpha} P'}
+\kalRule[if\ \procdef{A}{\vec{z}}\define{}P]{PROCESS\_CALL}{}{\substitue{\vec{y}}{\vec{z}}P \transs{\alpha} P'}{\proccall{A}{\vec{y}} \transs{\alpha} P'}
 \\\\
-\kalRule[]{REACT}{P \transs{\out{x}{\vec{y}}} P'}{Q \transs{\inp{x}{\vec{z}}} Q'}{\procpar{P}{Q} \transs{\tau} \procpar{P'}{\subs{\vec{y}}{\vec{z}}Q'}}
+\kalRule[]{REACT}{P \transs{\out{x}{\vec{y}}} P'}{Q \transs{\inp{x}{\vec{z}}} Q'}{\procpar{P}{Q} \transs{\tau} \procpar{P'}{\substitue{\vec{y}}{\vec{z}}Q'}}
 \end{gather*}
 \caption{The \index{transition rules}\findex{transition rules} \cite{milner}.}
 \label{fig_transition_rules}

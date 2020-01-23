@@ -36,7 +36,7 @@ The set of all \index{action}\findex[action]{actions} is defined as $\actions\de
 \item $\inA$ the set of all \index{action!input}\findex[input!action]{input actions}, defined as $\inA\define\set[x\in\names]{\inp{x}{\vec{y}}}$.
 \end{itemize}
 \subsubsection{\findex{Parallel composition}:}
-The parallel composition operator $\procpar{}{}$ represent the concept of concurrency in the \picalc{}, where two processes can evolve in concurrent.It represents an interleaving behavior of the concurrency.
+The parallel composition operator $\procpar{}{}$ represents the concept of concurrency in the \picalc{}, where two processes can evolve in concurrent.It represents an interleaving behavior of the concurrency.
 For example let:  $P\define\procpar{P_1}{(\procpar{P_2}{P_3})}$ where: $P_1\define\inp{x}{y}.Q_1$ , $P_2\define\out{x}{y}.Q_2$ and $P_3\define\inp{x}{y}.Q_3$. So $P\define\procpar{\inp{x}{y}.Q_1}{(\procpar{\out{x}{y}.Q_2}{\inp{x}{y}.Q_3})}$.
 Possible evolution cases of $P$ are:
 \begin{itemize}
@@ -44,7 +44,7 @@ Possible evolution cases of $P$ are:
 \item $\procpar{Q_1}{(\procpar{Q_2}{P_3})}$. $P_2$ sends $y$ via $x$ to $P_1$.
 \end{itemize}
 
-The example above illustrated the privacy nature of the parallel operator in the \picalc{}. A process can via a channel communicate with only one process pro time.$P_2$ cannot communicate with both $P_1$, $P_3$ in the same time, while in \gls{CSP} a process can communicate with multiple processes in the same time via the same channel by sending multiple copies of the same message, in other words: in CSP the channel represents a Hub.
+The example above illustrated the privacy nature of the parallel operator in the \picalc{}. A process can via a channel communicate with only one process pro time, i.e., the channel represents a binary synchronization. $P_2$ cannot communicate with both $P_1$, $P_3$ in the same time, while in \gls{CSP} a process can communicate with multiple processes in the same time via the same channel by sending multiple copies of the same message, i.e., in CSP the channel represents a multiple synchronization.
 
 
 \subsubsection{\findex{Restriction}:}
