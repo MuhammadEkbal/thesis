@@ -1,6 +1,6 @@
 % mainfile: ../../Refinement.tex
 The \findex{strong simulation} is comparison of processes based on their behavior. To understand this let us start with a simple example:
-Let $P\define\tau.\tau.\proczero$ and $Q\define\tau.\proczero$. We can notice that $P$ can do two $\tau$ transitions, but $Q$ can do only one. Thus $Q$ doesn't strongly simulates $P$. The word \findex{strongly} refers to the point that: the strong simulation comparison takes the internal transition $\tau$ into account. There is another kind of comparison called the  \findex{weak simulation}, which doesn't consider the internal transition $\tau$, but this kind of comparison is not considered is this thesis. The formal definition of the \findex{strong simulation} is given in \refDef{def_strong_sim}, which is adapted from \cite{gieseking} page 32 with some changes.
+Let $P\define\tau.\tau.\proczero$ and $Q\define\tau.\proczero$. We can notice that $P$ can do two $\tau$ transitions, but $Q$ can do only one. Thus $Q$ doesn't strongly simulates $P$. The word \findex{strongly} refers to the point that: the strong simulation comparison takes the internal transition $\tau$ into account. There is another kind of comparison called the  \findex{weak simulation}, which doesn't consider the internal transition $\tau$, but this kind of comparison is not considered in this thesis. The formal definition of the \findex{strong simulation} is given in \refDef{def_strong_sim}, which is adapted from \cite{gieseking} page 32 with some changes.
 
 
 \begin{definition}[Strong simulation]
@@ -13,7 +13,7 @@ An example of checking the strong simulation is:
 \\Let
 \begin{itemize}
 \item $P\define\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})}$ 
-\item $Q\define\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$
+\item $Q\define\procres{x}{(\procchoice{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})}{\tau.Q})}$
 \end{itemize}
 where:
 \begin{itemize}
@@ -21,7 +21,7 @@ where:
 \item $\procdef{B_1}{z}\define{}\inp{z}{{}}.\proczero$
 \end{itemize}
 
-Intuitively, The behavior of $P$ and $Q$ can be illustrated using transition graphs as shown in \refFig{transition_graphs}. $Q$'s transition graph is the same as $P$'s, except one thing: $Q$ has a loop with label $\tau$. This loop is due to the $\tau$ transition in $Q$'s definition. Hence, we can notice that $Q$ can do all the transitions that $P$ can, plus an extra transition $tau$. In other words $Q$ simulates $P$, but $P$ doesn't simulate $Q$.
+Intuitively, The behavior of $P$ and $Q$ can be illustrated using transition graphs as shown in \refFig{transition_graphs}. $Q$'s transition graph is the same as $P$'s, except one thing: $Q$ has a loop with label $\tau$. This loop is due to the $\tau$ transition in $Q$'s definition. Hence, we can notice that $Q$ can do all the transitions that $P$ can, plus an extra transition $\tau$. In other words $Q$ simulates $P$, but $P$ doesn't simulate $Q$.
 \input{./images/transition_graphs}
 To check the strong simulation we can use \findex{ABC (Another Bisimilarity Checker)} \cite{abc}. ABC is a tool that checks simulation between  \picalc{} processes. \refFig{pi_simulation_ABC_code} shows the code listing of the process $P$ and $Q$ in ABC syntax.
 \begin{figure}[ht!]
@@ -34,8 +34,8 @@ To check the strong simulation we can use \findex{ABC (Another Bisimilarity Chec
 
 In \refFig{pi_simulation_ABC_outputPsQ} we can see the result of the command $lt\ P\ Q$, which checks if $Q$ strongly simulates $P$. The result is $yes$ and the simulation relation is $\mathcal{S} = \set{(\proczero,\proczero),(\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})},\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})})}$, where x0 stands for x. The simulation relation $S$ says that: 
 \begin{itemize}
-\item The state $\proczero$ of $Q$ is powerful as  $\proczero$ of $P$.
-\item The state $\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$ of $Q$ is powerful as  $\procres{x}{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}$ of $P$.
+\item The state $\proczero$ of $Q$ is as powerful as  $\proczero$ of $P$.
+\item The state $\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$ of $Q$ is as powerful as  $\procres{x}{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}$ of $P$.
 \end{itemize}
 Thus, $Q$ strongly simulates the behavior of $P$.
 \begin{figure}[H]
@@ -44,21 +44,20 @@ Thus, $Q$ strongly simulates the behavior of $P$.
 \label{pi_simulation_ABC_outputPsQ}
 \end{figure}
 
-In \refFig{pi_simulation_ABC_outputQsP} we can see the result of the command $lt\ Q\ P$, which checks if $P$ strongly simulates $Q$. The result is $no$, since:
-\\When:
+In \refFig{pi_simulation_ABC_outputQsP} we can see the result of the command $lt\ Q\ P$, which checks if $P$ strongly simulates $Q$. The result is $no$, since, when:
 \begin{itemize}
 \item $Q$ is in the state $\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$.
 \item $P$ is in the state $\procres{x}{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}$.
 \end{itemize}
 , then:
 \begin{itemize}
-\item $Q$ can do a $\tau$ transition ,which is the loop, to be in the state $\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$.
-\item $P$ can do a $\tau$ transition ,which is a reaction, to be in the state $\proczero$.
+\item $Q$ can do a $\tau$ transition, which is the loop, to the state $\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$.
+\item $P$ can do a $\tau$ transition, which is a reaction, to the state $\proczero$.
 \end{itemize}
 , then:
 \begin{itemize}
-\item $Q$ can do a $\tau$ transition ,which is a reaction, to be in the state $\proczero$.
-\item $P$ cannot go ahead,denoted by `` $*$ '', since it is in the state $\proczero$.
+\item $Q$ can do a $\tau$ transition, which is a reaction, to the state $\proczero$.
+\item $P$ cannot go ahead, denoted by `` $*$ '', since it is in the state $\proczero$.
 \end{itemize}
 
 Thus, $P$ doesn't strongly simulates the behavior of $Q$.
