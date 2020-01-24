@@ -51,11 +51,11 @@ The example above illustrated the privacy nature of the parallel operator in the
 
 The expression $\procres{\vec{y}}{P}$ binds the names $\vec{y}$ to the process $P$. In other words: the visibility scope of the  names $\vec{y}$ is restricted to the process $P$. It is similar to declaring a private variable in programming languages. Thus the names $\vec{y}$ are not visible outside $P$ and $P$ cannot use them to communicate with outside. For example, let $P\define\procpar{P_1}{P_2}$ where: $P_1\define\procres{y}{\out{y}{z}.Q_1}$ and $P_2\define\inp{y}{z}.Q_2$. The process $P$ cannot evolute to $\procpar{Q_1}{Q_2}$, since the name $y$ in $P_1$ is only visible inside it, i.e., from the $P_2$'s point of view $P_1$ doesn't have a channel called $y$. This takes us to the definition of the Bound and free names.
 
-\begin{definition}[Free names]
+\begin{definition}[Bound names]
 \label{def_bound_names}
  are all the restricted names in a process.
 \end{definition}
-\begin{definition}[Bound names]
+\begin{definition}[Free names]
 \label{def_free_names}
  are all the name that occur in a process except the bound names.
 \end{definition}

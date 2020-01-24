@@ -1,16 +1,15 @@
 % mainfile: ../../Refinement.tex
 To understand the operational semantics of \picalc{} we will use  a labelled transition system LTS. Using this LTS we can investigate \picalc{} process evolution. The definition of LTS is adapted from \cite{milner} pages 39\footnote{Transition Rules: LTS for concurrent processes not for \picalc{} processes.}, 91\footnote{Reaction Rules: no labels and no LTS.}, 132\footnote{Commitment Rules: abstractions and concretions are out of this thesis's scope.} with some changes.
 
-\begin{definition}[The LTS of \picalc{}]
+\begin{definition}[LTS of \picalc{}]
 \label{def_trans_system}
-
 The labelled transition system $(\procs,\traces)$ of \picalc{} processes over the action set $\actions$ has the process expressions $\procs$ as its states, and its transitions $\traces$ are those which can be inferred from the rules in \refFig{fig_transition_rules}.
 The rule REACT is the most important one. It shows the process evolution when a reaction occurs. The reaction requires two complementary transitions $P \transs{\out{x}{\vec{y}}} P'$ and $Q \transs{\inp{x}{\vec{z}}} Q'$, we call them commitments. so the process $P$ takes a commitment to take part in the reaction, and so does $Q$.
 \input{./images/transitionsystems/transition_rules}
 \end{definition}
 
 
-An example of using the transition rules of this LTS to infer a transition is: Let $P\define\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})}$, where: $\procdef{A_1}{y}\define{}\out{y}{{}}.\proccall{A_2}{y}$ and $\procdef{B_1}{z}\define{}\inp{z}{{}}.\proccall{B_2}{z}$. The process $P$ can do the transition $\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})} \transs{\tau} \procres{x}{(\procpar{\proccall{A_2}{x}}{\proccall{B_2}{x}})}$, which is a reaction. The inference tree of this transition is shown in \refFig{fig_inference_tree}. Thus, using the LTS we can enumerate sll possible transitions of a \picalc{} process.
+An example of using the transition rules of this LTS to infer a transition is: Let $P\define\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})}$, where: $\procdef{A_1}{y}\define{}\out{y}{{}}.\proccall{A_2}{y}$ and $\procdef{B_1}{z}\define{}\inp{z}{{}}.\proccall{B_2}{z}$. $P$ can do the transition $\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})} \transs{\tau} \procres{x}{(\procpar{\proccall{A_2}{x}}{\proccall{B_2}{x}})}$, which is a reaction. The inference tree of this transition is shown in \refFig{fig_inference_tree}. Thus, using the LTS we can enumerate sll possible transitions of a \picalc{} process.
 \input{./images/inference_tree}
 
 
