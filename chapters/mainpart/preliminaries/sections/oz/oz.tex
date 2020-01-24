@@ -1,5 +1,27 @@
 % mainfile: ../../Refinement.tex
-still under construction.OZ schema demo
+the spezifications language OZ:
+OZ is used to describe the data part of an entity. to illustrate the idea let us imagine a vending machine: it can sell coffee and tea. The initial amount is cof= 3 , and tea  = 3.pro sell the amount will be decreased bei one.(this is called a state transition)
+so we can illustrate the state space as a 2d state space with VA(3,3) for the current state. we call the state before a transition : pre state.and the state after transition :post state. the VA can traverse through its state space freely, since there is nothing prevent that: i.e VA(-1,-1) is a valid state. to restrict that, we can add conditions pro state transition , i.e conditions that will be evaluated when a transition occurs.that must evaluate to true to the transition take place. those conditions describes tge valid pre and post states. we call the pre condition and post condition. cof' > 0 and tea' > 0. and cof < 4 and tea < 4.this way a transition can occur if the post state is not negative. so the only valid part of the state space is the shown in Hashed RED. if we want to allow only the decrements transitions we can add another conditions : cof' = cof -1 and tea' = tea -1.
+
+also we can put conditions on the inintial state : foe example we can say that tea = 3 and cof = 3 to specify that we are starting with (3,3).
+
+this can be shown as a box nam2ed with VA. inside it there is another box "unnamed" used for the state variables .
+the initial state box is named with Init.
+
+restricting state transition:
+
+We restrict the state transition through binding them to behavior actions. so a state transition cannot happen without a beviuor action.in other words behavior actions triggers the state transition.
+this can be shown as a box named with the action and inside it we can write the condition for the state transition.
+so for example as shown in box 1 if the vending machine will do the action : giveCoffe so a state transition must happen with cof' = cof - 1 and tea' = tea.
+latter in chapter... we will see the benifit of this restriction. So as a result we specified a vending machine data and the changes on it.
+
+Transforming OZ into pi:
+in the last section we shaow how to specify the data part of an entity. now a question arias: can we transform OZ specifications into a pi process . The answer is yes.this will be done in three steps :
+transforming state space:
+State presitance: we use the recursive definition to represent the idea that the state space always exists.
+Variable: we can think of a variable as a memory location where we can find some value. The same idea cam be used. so to represent that VA has a variable cof and tea  as a processes, we simply make them as its parameters. i.e, VA(cof, tea) := VA<cof, tea> this is a process that knows about the channels "locations" cof and tea . but the process
+Values: we has saw that the state space consists  of state variables and their values variable. so we need to transform the values into a pi processes but how to do that:
+we can represent the value as a process 
 \begin{class}{Shape}
 \\c : chan[bool]
 \\Q\define\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}
