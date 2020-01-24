@@ -4,5 +4,15 @@
 \setcounter{page}{0}
 \pagenumbering{arabic} 
 \label{sec_introduction}
+every entity has a behavior and data. behavior actions can have effects on data. to model this idea we will break down our entity into two components: behavior component and data component.
+behavior component: represent the behavior that can an entity do during it's life cycle.
+data component: represents the data of an entity and the changes that can be made on it.
+we use pi calculus which is a specification language to model the behavior component.
+we use oz which is a specification language to model the data components.
+since pi and oz are two different languages used to descripe different aspects of entity, we need a way to put them togher to get the model a complete entity.
+this is done using a simple trick. the trick is: transforming the oz into a pi language. this way we will have :
+behavior component: in pi.
+data component: in pi too.
+this way we can let them play together to represent an entity which have two view: behavior and data.
 
 

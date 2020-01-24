@@ -24,6 +24,7 @@ where:
 Intuitively, The behavior of $P$ and $Q$ can be illustrated using transition graphs as shown in \refFig{transition_graphs}. $Q$'s transition graph is the same as $P$'s, except one thing: $Q$ has a loop with label $\tau$. This loop is due to the $\tau$ transition in $Q$'s definition. Hence, we can notice that $Q$ can do all the transitions that $P$ can, plus an extra transition $\tau$. In other words $Q$ simulates $P$, but $P$ doesn't simulate $Q$.
 \input{./images/transition_graphs}
 To check the strong simulation we can use \findex{ABC (Another Bisimilarity Checker)} \cite{abc}. ABC is a tool that checks simulation between  \picalc{} processes. \refFig{pi_simulation_ABC_code} shows the code listing of the process $P$ and $Q$ in ABC syntax.
+\raggedbottom
 \begin{figure}[ht!]
 \lstinputlisting[backgroundcolor=\color{white}]{listings/pi_simulation_ABC_code.abc}
 \caption{ABC code for $P$ and $Q$.}
@@ -45,7 +46,6 @@ Thus, $Q$ strongly simulates the behavior of $P$ and the simulation relation is 
 \caption{ABC output: check if $Q$ strongly simulates $P$.}
 \label{pi_simulation_ABC_outputPsQ}
 \end{figure}
-
 In \refFig{pi_simulation_ABC_outputQsP} we can see the result of the command $lt\ Q\ P$, which checks if $P$ strongly simulates $Q$. The result is $no$, since:
 
 \begin{itemize}
