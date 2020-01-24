@@ -1,0 +1,33 @@
+\begin{figure}[H]
+\centering
+\begin{class}{VA}
+\\dec\_coffee, dec\_tea: channel
+\\
+\begin{state}
+coffee, tea : \integer
+\ST
+coffee > 0
+\\
+tea > 0
+\end{state} 
+\\
+\begin{init}
+coffee = 3
+\\tea = 3
+\end{init} 
+\\
+\begin{op}{dec\_coffee}
+\Delta (coffee)
+\ST
+coffee' = coffee - 1
+\end{op}
+\\
+\begin{op}{dec\_tea}
+\Delta (tea)
+\ST
+tea' = tea - 1
+\end{op}
+\end{class}
+\caption{OZ VA.}
+\label{oz_VA}
+\end{figure}

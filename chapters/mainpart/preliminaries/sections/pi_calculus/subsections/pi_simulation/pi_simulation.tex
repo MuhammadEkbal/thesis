@@ -22,7 +22,7 @@ where:
 \end{itemize}
 
 Intuitively, The behavior of $P$ and $Q$ can be illustrated using transition graphs as shown in \refFig{transition_graphs}. $Q$'s transition graph is the same as $P$'s, except one thing: $Q$ has a loop with label $\tau$. This loop is due to the $\tau$ transition in $Q$'s definition. Hence, we can notice that $Q$ can do all the transitions that $P$ can, plus an extra transition $\tau$. In other words $Q$ simulates $P$, but $P$ doesn't simulate $Q$.
-\input{./images/transition_graphs}
+\input{./images/preliminaries/pi_calculus/transition_graphs}
 To check the strong simulation we can use \findex{ABC (Another Bisimilarity Checker)} \cite{abc}. ABC is a tool that checks simulation between  \picalc{} processes. \refFig{pi_simulation_ABC_code} shows the code listing of the process $P$ and $Q$ in ABC syntax.
 \raggedbottom
 \begin{figure}[ht!]
