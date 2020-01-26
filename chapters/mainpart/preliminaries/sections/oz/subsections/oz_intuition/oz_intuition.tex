@@ -1,0 +1,146 @@
+% mainfile: ../../Refinement.tex
+The Object-Z ,shortly OZ, is a specifications language used to describe the data part of an entity. 
+The main concepts in OZ are:
+\begin{itemize}
+\item \findex{Schema}: It can been seen as a set.
+\item \findex{Class}: It can been seen as a grouping of a \findex{state schema} , \findex{initial state schema} and \findex{operation schemas}.
+\end{itemize}
+
+To illustrate the idea, consider the following example of modeling a vending machine $VM$:
+\begin{itemize}
+\item \textit{Class}: To model the vending machine we need to define a class $VM$, since OZ is an object oriented language. Syntactically, in OZ
+a class definition is a named box as shown in \refFig{oz_VM_class}.
+\begin{figure}[H]
+\centering
+\begin{class}{VM}
+\end{class}
+\caption{VM class.}
+\label{oz_VM_class}
+\end{figure}
+\item \textit{State space}: Our vending machine sells coffee and tea with maximum amount 3 and minimum amount 0 for each. This means it has a state space, which can be seen as a set of valid states. The set of all valid states is:
+\begin{itemize}
+\item In Mathematics: $State\_Space=\{coffee,tea: \integer\mid (0 \leq  coffee \leq 3) \wedge
+(0 \leq  tea \leq 3)\bullet(coffee,tea)\}  =\{\pair{0}{0},\dots,\pair{3}{3}\}$.
+\item In OZ: The set $State\_Space$ can be described using a \findex{state schema}, which is a box without name added to the class box as shown in \refFig{oz_VM_state}.
+\end{itemize}
+\begin{figure}[H]
+\centering
+\begin{class}{VM}
+\begin{state}
+coffee, tea: \integer
+\ST
+0 \leq  coffee \leq 3
+\\
+0 \leq  tea \leq 3
+\end{state} 
+\end{class}
+\caption{$VM$ class: adding the \textit{state schema}.}
+\label{oz_VM_state}
+\end{figure}
+\item \textit{Initial state}: Our vending machine has an initial state with $coffee = 3$ and $tea = 3$. The set of all possible initial states, that respects those conditions is:  
+\begin{itemize}
+\item In Mathematics: $Initial\_States =\{coffee,tea: \integer\mid (0 \leq  coffee \leq 3) \wedge
+(0 \leq  tea \leq 3)\wedge (coffee = 3) \wedge (tea = 3)\bullet(coffee,tea)\}  =\{\pair{3}{3}\}$.
+\item In OZ: the set $Initial\_States$ can be described using a \findex{initial state schema}, which is a box named $INIT$ added to the class box  as shown in \refFig{oz_VM_init}.
+\end{itemize}
+\begin{figure}[H]
+\centering
+\begin{class}{VM}
+\begin{state}
+coffee, tea: \integer
+\ST
+0 \leq  coffee \leq 3
+\\
+0 \leq  tea \leq 3
+\end{state} 
+\\
+\begin{init}
+coffee = 3
+\\tea = 3
+\end{init} 
+\end{class}
+\caption{$VM$ class: adding the \textit{initial state schema}.}
+\label{oz_VM_init}
+\end{figure}
+\item \textit{State transition}: When the vending machine sells a coffee, the amount of coffee should be decreased by one. This is a state transition.
+the set of all possible state transitions when the selling coffee operation occurs is:
+\begin{itemize}
+\item In Mathematics: $decrease\_coffee =\{coffee,tea,coffee',tea': \integer\mid (0 \leq  coffee \leq 3) \wedge
+(0 \leq  tea \leq 3)\wedge (0 \leq  coffee' \leq 3) \wedge (0 \leq  tea' \leq 3)\wedge (tea' = tea) \wedge (coffee' = coffee - 1) \bullet\pair{\pair{coffee}{tea}}{\pair{coffee'}{tea'}}\}  =\{\pair{\pair{3}{3}}{\pair{2}{3}},\dots,\pair{\pair{1}{0}}{\pair{0}{0}}\}$, where $(coffee,tea)$ represents the \findex{pre state} and $(coffee',tea')$ represents the \findex{post state} of a state transition.
+\item In OZ: the set $decrease\_coffee$ can be described using an \findex{operation schema}, which is a box named with the operation name added to the class box as shown in \refFig{oz_VM_op}.
+\end{itemize}
+\begin{figure}[H]
+\centering
+\begin{class}{VM}
+\\
+\begin{state}
+coffee, tea: \integer
+\ST
+0 \leq  coffee \leq 3
+\\
+0 \leq  tea \leq 3
+\end{state} 
+\\
+\begin{init}
+coffee = 3
+\\tea = 3
+\end{init} 
+\\
+\begin{op}{decrease\_coffee}
+coffee, tea,coffee', tea': \integer
+\ST
+0 \leq  coffee \leq 3
+\\
+0 \leq  tea \leq 3
+\\
+0 \leq  coffee' \leq 3
+\\
+0 \leq  tea' \leq 3
+\\
+tea' = tea
+\\
+coffee' = coffee - 1
+\end{op}
+\end{class}
+\caption{$VM$ class: adding the \textit{operation schema}.}
+\label{oz_VM_op}
+\end{figure}
+OZ offers a nicer way to through using delta: 
+\begin{itemize}
+\item Operation schemas have a 	$\Delta$-list of those attributes
+whose values may change. By convention, no 	$\Delta$-list means
+no attribute changes value.
+\item Every operation schema implicitly
+includes the state schema in un-primed form s.
+\end{itemize}
+Thus, since the schema operation $decrease\_coffee$ specifies changes on the $coffee$ value only, we can write it as shown in \refFig{oz_VM_op_delta}. 
+\begin{figure}[H]
+\centering
+\begin{class}{VM}
+\\
+\begin{state}
+coffee, tea: \integer
+\ST
+0 \leq  coffee \leq 3
+\\
+0 \leq  tea \leq 3
+\end{state} 
+\\
+\begin{init}
+coffee = 3
+\\tea = 3
+\end{init} 
+\\
+\begin{op}{decrease\_coffee}
+\Delta (coffee)
+\ST
+coffee' = coffee - 1
+\end{op}
+\end{class}
+\caption{$VM$ class: \textit{operation schema using delta operator}.}
+\label{oz_VM_op_delta}
+\end{figure}
+\end{itemize}
+\input{./images/preliminaries/oz/oz_VA}
+
+\input{./images/preliminaries/oz/state_space}

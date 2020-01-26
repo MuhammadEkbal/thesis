@@ -5,7 +5,10 @@
 \draw [->] (-1,0) -- (4,0) node [anchor=south] {$coffee$};
 \draw [->] (0,-1) -- (0,4) node [anchor=west] {$tea$};
 \path [ -,draw=gray, ultra thick, text=black, densely dashed] (0,3) node [anchor=south west] {} -| (3,0) node [anchor=south west] {} node [anchor=south west, midway] {$VA(3,3)$};
-\foreach \Point in {(3,3)}{\node at \Point {\textbullet};}
+\fill (3,3)  circle[radius=2pt](A);
+\fill (2,3)  circle[radius=2pt](B);
+\draw [->,thick] (3,3) to[bend right=40] node {} (2,3);
+
 \end{tikzpicture}
 \caption{State Space.}
 \label{state_space}
