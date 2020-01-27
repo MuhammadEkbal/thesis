@@ -25,4 +25,19 @@ S.~Briais.
 \newblock {\em Another Bisimilarity Checker}.\\
 \newblock {\url {http://sbriais.free.fr/tools/abc/}}
 
+\bibitem[Ol18]{olderog}
+E.~Olderog.
+\newblock {\em Kombination von Spezifikationstechniken}.
+\newblock Vorlesungsskript, Carl von Ossietzky Universität Oldenburg, 2018/19.
+
+\bibitem[SIJ88]{woodcock}
+S.~King and I.~Sorensen and J.~woodcock.
+\newblock {\em Z: GRAMMAR AND CONCRETE AND ABSTRACT SYNTAXES (Version 2.0)}.
+\newblock Oxford University Computing Laboratory, England, 1988.
+
+\bibitem[TDC04]{kenji}
+T.~Kenji and D.~Jin and C.~Gabriel.
+\newblock {\em Relating $\pi$-calculus to Object-Z}.
+\newblock Engineering of Complex Computer Systems, IEEE International Conference on 97-106, 2004.
+
 \end{thebibliography}
