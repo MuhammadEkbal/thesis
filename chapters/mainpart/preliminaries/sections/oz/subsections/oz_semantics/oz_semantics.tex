@@ -1,0 +1,11 @@
+To understand the operational semantics of \oz{} we will use  a labelled transition system LTS. Using this LTS we can investigate the state evolution of a \oz{} object . The definition of this LTS is adapted from \refDef{def_pi_trans_system} with some changes.
+
+\begin{definition}[LTS of \oz{}]
+\label{def_oz_trans_system}
+The labelled transition system $(\stats,\traces)$ of \oz{} states over the set of operations, has the valid states $\stats$ as it's states, and it's transitions $\traces$ are those which can be inferred from the rule in \refFig{fig_oz_transition_rules}.
+The rule $OPER$ shows the state evolution .i.e, state transition.
+\input{./images/preliminaries/oz/transition_rules}
+\end{definition}
+An example of using the transition rule of this LTS is: drawing the transition graph of our vending machine $VM$ as shown in \refFig{fig_VM_transition_graph}, where we show only a small part of it. Thus, using the LTS we can enumerate all possible states transitions of an \oz{} state.
+\input{./images/preliminaries/oz/vm_transition_graph}
+

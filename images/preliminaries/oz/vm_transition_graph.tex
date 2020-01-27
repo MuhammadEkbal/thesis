@@ -1,0 +1,28 @@
+\begin{figure}[H]%
+    \centering
+    \scalebox{0.85}{
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5cm,
+                    semithick]
+  \tikzstyle{every state}=[]
+
+  \node[state] (VM33)                    {$VM(3,3)$};
+  \node[state] (VM23) 	[right of=VM33]  {$VM(2,3)$};
+  \node[state] (VM13) 	[right of=VM23]  {$VM(1,3)$};
+  \node[state] (VM03) 	[right of=VM13]  {$VM(0,3)$};
+  \node[state] (VM32) 	[below of=VM33]  {$VM(3,2)$};
+
+  \path (VM33) edge              node {$decrease\_coffee$} (VM23)
+  		(VM23) edge              node {$decrease\_coffee$} (VM13)
+  		(VM13) edge              node {$decrease\_coffee$} (VM03)
+  		(VM33) edge              node {$decrease\_tea$} (VM32);
+  		
+  \draw [] (VM32) -- +(0:2cm);
+  \draw [] (VM32) -- +(270:2cm); 
+  \draw [] (VM23) -- +(270:2cm); 
+  \draw [] (VM13) -- +(270:2cm); 
+  \draw [] (VM03) -- +(270:2cm);   
+\end{tikzpicture}
+}
+    \caption{VM Transition graph}%
+    \label{fig_VM_transition_graph}%
+\end{figure}

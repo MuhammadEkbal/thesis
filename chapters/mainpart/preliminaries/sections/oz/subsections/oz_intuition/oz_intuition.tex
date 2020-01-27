@@ -1,14 +1,32 @@
 % mainfile: ../../Refinement.tex
-The Object-Z ,shortly OZ, is a specifications language used to describe the data part of an entity. 
-The main concepts in OZ are:
+To explain the \oz{} intuitively, we will start by examining the vending machine example, then we will explain how to build a set mathematically, finally we will explain the main concepts in \oz{}. 
+
+\subsubsection{\findex{Vending Machine}:}
+As a preperation, let us imagine that we have the task: specifying a vending machine.
+the specifications are:
+\begin{itemize}
+\item It sell $coffee$ and $tea$, where the maximum amount for each if them is 3.
+\item It's initial state is  sell $coffee = 3$ and $tea = 3$.
+\item When it sells $coffee$ or $tea$, the amount should be decreased by one.
+\end{itemize} 
+Those specifications describe the data of the vending machine and the changes on them. Thus, the state space of the vending machine can be visualized as shown in \refFig{state_space}, where we see the initial state $VM(3,3)$ and a state transition to $VM(2,3)$. Later in \textbf{Main concepts of \oz{}} we will learn how to write the specifications using \oz{} language notations.
+\input{./images/preliminaries/oz/state_space}
+
+\subsubsection{\findex{Set building}:} A Set is a collection of things. For example: $\{5, 7, 11\}$ is a set.
+But we can also build a set by describing what is in it.
+Here is a simple example of building a set: $\{x \mid (x \in \integer) \wedge (x \geq 0) \}$, it says: \textit{the set of all x's, such that x is integer and greater than 0}. The last example can be written in a nicer way as follow: $\{x: \integer \mid x \geq 0 \}$. T have a more control about the elements in a set, we can write: $\{x: \integer \mid x \geq 0 \bullet x\}$,it says the same as the last example. The $expretion$ after $\bullet$ decides how should be the elements of the set be transformed. another example is: $\{x: \integer \mid x \geq 0 \bullet x^{2}\}$,it says: \textit{the set of all  squared x's, such that x is integer and greater than 0}. Thus, to build a set: we can use the following notation: $\{Deklaration \mid predicate \bullet expression \}$.
+	
+\subsubsection{\findex{Main concepts of \oz{}}:} 
+\label{main_concepts_oz} 
+The main concepts of \oz{} are:
 \begin{itemize}
 \item \findex{Schema}: It can been seen as a set.
-\item \findex{Class}: It can been seen as a grouping of a \findex{state schema} , \findex{initial state schema} and \findex{operation schemas}.
+\item \findex{Class}: It can been seen as a grouping of a \findex{state schema} , \findex{initial state schema} and \findex{operation schemas}. It represents the object oriented approach 
 \end{itemize}
 
-To illustrate the idea, consider the following example of modeling a vending machine $VM$:
+To illustrate those main concepts, consider the vending machine example,denoted by $VM$:
 \begin{itemize}
-\item \textit{Class}: To model the vending machine we need to define a class $VM$, since OZ is an object oriented language. Syntactically, in OZ
+\item \textit{Class}: To model the vending machine we need to define a class $VM$. Syntactically, in \oz{}
 a class definition is a named box as shown in \refFig{oz_VM_class}.
 \begin{figure}[H]
 \centering
@@ -17,11 +35,11 @@ a class definition is a named box as shown in \refFig{oz_VM_class}.
 \caption{VM class.}
 \label{oz_VM_class}
 \end{figure}
-\item \textit{State space}: Our vending machine sells coffee and tea with maximum amount 3 and minimum amount 0 for each. This means it has a state space, which can be seen as a set of valid states. The set of all valid states is:
+\item \textit{State space}: The state space of our vending machine can be seen as a set of all valid states. The set of all valid states is:
 \begin{itemize}
 \item In Mathematics: $State\_Space=\{coffee,tea: \integer\mid (0 \leq  coffee \leq 3) \wedge
 (0 \leq  tea \leq 3)\bullet(coffee,tea)\}  =\{\pair{0}{0},\dots,\pair{3}{3}\}$.
-\item In OZ: The set $State\_Space$ can be described using a \findex{state schema}, which is a box without name added to the class box as shown in \refFig{oz_VM_state}.
+\item In \oz{}: The set $State\_Space$ can be described using a \findex{state schema}, which is a box without name added to the class box as shown in \refFig{oz_VM_state}.
 \end{itemize}
 \begin{figure}[H]
 \centering
@@ -41,7 +59,7 @@ coffee, tea: \integer
 \begin{itemize}
 \item In Mathematics: $Initial\_States =\{coffee,tea: \integer\mid (0 \leq  coffee \leq 3) \wedge
 (0 \leq  tea \leq 3)\wedge (coffee = 3) \wedge (tea = 3)\bullet(coffee,tea)\}  =\{\pair{3}{3}\}$.
-\item In OZ: the set $Initial\_States$ can be described using a \findex{initial state schema}, which is a box named $INIT$ added to the class box  as shown in \refFig{oz_VM_init}.
+\item In \oz{}: the set $Initial\_States$ can be described using a \findex{initial state schema}, which is a box named $INIT$ added to the class box  as shown in \refFig{oz_VM_init}.
 \end{itemize}
 \begin{figure}[H]
 \centering
@@ -67,7 +85,7 @@ the set of all possible state transitions when the selling coffee operation occu
 \begin{itemize}
 \item In Mathematics: $decrease\_coffee =\{coffee,tea,coffee',tea': \integer\mid (0 \leq  coffee \leq 3) \wedge
 (0 \leq  tea \leq 3)\wedge (0 \leq  coffee' \leq 3) \wedge (0 \leq  tea' \leq 3)\wedge (tea' = tea) \wedge (coffee' = coffee - 1) \bullet\pair{\pair{coffee}{tea}}{\pair{coffee'}{tea'}}\}  =\{\pair{\pair{3}{3}}{\pair{2}{3}},\dots,\pair{\pair{1}{0}}{\pair{0}{0}}\}$, where $(coffee,tea)$ represents the \findex{pre state} and $(coffee',tea')$ represents the \findex{post state} of a state transition.
-\item In OZ: the set $decrease\_coffee$ can be described using an \findex{operation schema}, which is a box named with the operation name added to the class box as shown in \refFig{oz_VM_op}.
+\item In \oz{}: the set $decrease\_coffee$ can be described using an \findex{operation schema}, which is a box named with the operation name added to the class box as shown in \refFig{oz_VM_op}.
 \end{itemize}
 \begin{figure}[H]
 \centering
@@ -105,13 +123,13 @@ coffee' = coffee - 1
 \caption{$VM$ class: adding the \textit{operation schema}.}
 \label{oz_VM_op}
 \end{figure}
-OZ offers a nicer way to through using delta: 
+\oz{} offers a more nice way to write the operation schema using $\Delta$-list. In \oz{}:
 \begin{itemize}
-\item Operation schemas have a 	$\Delta$-list of those attributes
-whose values may change. By convention, no 	$\Delta$-list means
+\item Operation schema has a $\Delta$-list of state variables
+whose values may change. By convention, no $\Delta$-list means
 no attribute changes value.
-\item Every operation schema implicitly
-includes the state schema in un-primed form s.
+\item Operation schema implicitly
+includes the state schema and a primed version of it.
 \end{itemize}
 Thus, since the schema operation $decrease\_coffee$ specifies changes on the $coffee$ value only, we can write it as shown in \refFig{oz_VM_op_delta}. 
 \begin{figure}[H]
@@ -140,7 +158,39 @@ coffee' = coffee - 1
 \caption{$VM$ class: \textit{operation schema using delta operator}.}
 \label{oz_VM_op_delta}
 \end{figure}
-\end{itemize}
-\input{./images/preliminaries/oz/oz_VA}
+Finally, we can model the $decrease\_tea$ operation schema as we did with $decrease\_coffee$ to get the class $VM$ as shown in \refFig{oz_VM_op_coffee_tea}, which represents all the specification we had of the vending machine written in \oz{} language.
 
-\input{./images/preliminaries/oz/state_space}
+\begin{figure}[H]
+\centering
+\begin{class}{VM}
+\\
+\begin{state}
+coffee, tea: \integer
+\ST
+0 \leq  coffee \leq 3
+\\
+0 \leq  tea \leq 3
+\end{state} 
+\\
+\begin{init}
+coffee = 3
+\\tea = 3
+\end{init} 
+\\
+\begin{op}{decrease\_coffee}
+\Delta (coffee)
+\ST
+coffee' = coffee - 1
+\end{op}
+\\
+\begin{op}{decrease\_tea}
+\Delta (tea)
+\ST
+tea' = tea - 1
+\end{op}
+\end{class}
+\caption{$VM$ class: with all specifications.}
+\label{oz_VM_op_coffee_tea}
+\end{figure}
+
+\end{itemize}
