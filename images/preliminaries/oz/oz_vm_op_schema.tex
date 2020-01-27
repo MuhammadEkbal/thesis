@@ -1,0 +1,36 @@
+\begin{figure}[H]
+\centering
+\begin{class}{VM}
+\\
+\begin{state}
+coffee, tea: \integer
+\ST
+0 \leq  coffee \leq 3
+\\
+0 \leq  tea \leq 3
+\end{state} 
+\\
+\begin{init}
+coffee = 3
+\\tea = 3
+\end{init} 
+\\
+\begin{op}{decrease\_coffee}
+coffee, tea,coffee', tea': \integer
+\ST
+0 \leq  coffee \leq 3
+\\
+0 \leq  tea \leq 3
+\\
+0 \leq  coffee' \leq 3
+\\
+0 \leq  tea' \leq 3
+\\
+tea' = tea
+\\
+coffee' = coffee - 1
+\end{op}
+\end{class}
+\caption{$VM$ class: adding the \textit{operation schema}.}
+\label{oz_vm_op_schema}
+\end{figure}

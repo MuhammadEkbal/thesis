@@ -27,102 +27,34 @@ The main concepts of \oz{} are:
 To illustrate those main concepts, consider the vending machine example,denoted by $VM$:
 \begin{itemize}
 \item \textit{Class}: To model the vending machine we need to define a class $VM$. Syntactically, in \oz{}
-a class definition is a named box as shown in \refFig{oz_VM_class}.
-\begin{figure}[H]
-\centering
-\begin{class}{VM}
-\end{class}
-\caption{VM class.}
-\label{oz_VM_class}
-\end{figure}
+a class definition is a named box as shown in \refFig{oz_vm_class}.
+\input{./images/preliminaries/oz/oz_vm_class}
+
 \item \textit{State space}: The state space of our vending machine can be seen as a set of all valid states. The set of all valid states is:
 \begin{itemize}
 \item In Mathematics: $State\_Space=\{coffee,tea: \integer\mid (0 \leq  coffee \leq 3) \wedge
 (0 \leq  tea \leq 3)\bullet(coffee,tea)\}  =\{\pair{0}{0},\dots,\pair{3}{3}\}$.
-\item In \oz{}: The set $State\_Space$ can be described using a \findex{state schema}, which is a box without name added to the class box as shown in \refFig{oz_VM_state}.
+\item In \oz{}: The set $State\_Space$ can be described using a \findex{state schema}, which is a box without name added to the class box as shown in \refFig{oz_vm_state_schema}.
 \end{itemize}
-\begin{figure}[H]
-\centering
-\begin{class}{VM}
-\begin{state}
-coffee, tea: \integer
-\ST
-0 \leq  coffee \leq 3
-\\
-0 \leq  tea \leq 3
-\end{state} 
-\end{class}
-\caption{$VM$ class: adding the \textit{state schema}.}
-\label{oz_VM_state}
-\end{figure}
+\input{./images/preliminaries/oz/oz_vm_state_schema}
+
 \item \textit{Initial state}: Our vending machine has an initial state with $coffee = 3$ and $tea = 3$. The set of all possible initial states, that respects those conditions is:  
 \begin{itemize}
 \item In Mathematics: $Initial\_States =\{coffee,tea: \integer\mid (0 \leq  coffee \leq 3) \wedge
 (0 \leq  tea \leq 3)\wedge (coffee = 3) \wedge (tea = 3)\bullet(coffee,tea)\}  =\{\pair{3}{3}\}$.
-\item In \oz{}: the set $Initial\_States$ can be described using a \findex{initial state schema}, which is a box named $INIT$ added to the class box  as shown in \refFig{oz_VM_init}.
+\item In \oz{}: the set $Initial\_States$ can be described using a \findex{initial state schema}, which is a box named $INIT$ added to the class box  as shown in \refFig{oz_vm_init_schema}.
 \end{itemize}
-\begin{figure}[H]
-\centering
-\begin{class}{VM}
-\begin{state}
-coffee, tea: \integer
-\ST
-0 \leq  coffee \leq 3
-\\
-0 \leq  tea \leq 3
-\end{state} 
-\\
-\begin{init}
-coffee = 3
-\\tea = 3
-\end{init} 
-\end{class}
-\caption{$VM$ class: adding the \textit{initial state schema}.}
-\label{oz_VM_init}
-\end{figure}
+\input{./images/preliminaries/oz/oz_vm_init_schema}
+
 \item \textit{State transition}: When the vending machine sells a coffee, the amount of coffee should be decreased by one. This is a state transition.
 the set of all possible state transitions when the selling coffee operation occurs is:
 \begin{itemize}
 \item In Mathematics: $decrease\_coffee =\{coffee,tea,coffee',tea': \integer\mid (0 \leq  coffee \leq 3) \wedge
 (0 \leq  tea \leq 3)\wedge (0 \leq  coffee' \leq 3) \wedge (0 \leq  tea' \leq 3)\wedge (tea' = tea) \wedge (coffee' = coffee - 1) \bullet\pair{\pair{coffee}{tea}}{\pair{coffee'}{tea'}}\}  =\{\pair{\pair{3}{3}}{\pair{2}{3}},\dots,\pair{\pair{1}{0}}{\pair{0}{0}}\}$, where $(coffee,tea)$ represents the \findex{pre state} and $(coffee',tea')$ represents the \findex{post state} of a state transition.
-\item In \oz{}: the set $decrease\_coffee$ can be described using an \findex{operation schema}, which is a box named with the operation name added to the class box as shown in \refFig{oz_VM_op}.
+\item In \oz{}: the set $decrease\_coffee$ can be described using an \findex{operation schema}, which is a box named with the operation name added to the class box as shown in \refFig{oz_vm_op_schema}.
 \end{itemize}
-\begin{figure}[H]
-\centering
-\begin{class}{VM}
-\\
-\begin{state}
-coffee, tea: \integer
-\ST
-0 \leq  coffee \leq 3
-\\
-0 \leq  tea \leq 3
-\end{state} 
-\\
-\begin{init}
-coffee = 3
-\\tea = 3
-\end{init} 
-\\
-\begin{op}{decrease\_coffee}
-coffee, tea,coffee', tea': \integer
-\ST
-0 \leq  coffee \leq 3
-\\
-0 \leq  tea \leq 3
-\\
-0 \leq  coffee' \leq 3
-\\
-0 \leq  tea' \leq 3
-\\
-tea' = tea
-\\
-coffee' = coffee - 1
-\end{op}
-\end{class}
-\caption{$VM$ class: adding the \textit{operation schema}.}
-\label{oz_VM_op}
-\end{figure}
+\input{./images/preliminaries/oz/oz_vm_op_schema}
+
 \oz{} offers a more nice way to write the operation schema using $\Delta$-list. In \oz{}:
 \begin{itemize}
 \item Operation schema has a $\Delta$-list of state variables
@@ -131,66 +63,12 @@ no attribute changes value.
 \item Operation schema implicitly
 includes the state schema and a primed version of it.
 \end{itemize}
-Thus, since the schema operation $decrease\_coffee$ specifies changes on the $coffee$ value only, we can write it as shown in \refFig{oz_VM_op_delta}. 
-\begin{figure}[H]
-\centering
-\begin{class}{VM}
-\\
-\begin{state}
-coffee, tea: \integer
-\ST
-0 \leq  coffee \leq 3
-\\
-0 \leq  tea \leq 3
-\end{state} 
-\\
-\begin{init}
-coffee = 3
-\\tea = 3
-\end{init} 
-\\
-\begin{op}{decrease\_coffee}
-\Delta (coffee)
-\ST
-coffee' = coffee - 1
-\end{op}
-\end{class}
-\caption{$VM$ class: \textit{operation schema using delta operator}.}
-\label{oz_VM_op_delta}
-\end{figure}
-Finally, we can model the $decrease\_tea$ operation schema as we did with $decrease\_coffee$ to get the class $VM$ as shown in \refFig{oz_VM_op_coffee_tea}, which represents all the specification we had of the vending machine written in \oz{} language.
+Thus, since the schema operation $decrease\_coffee$ specifies changes on the $coffee$ value only, we can write it as shown in \refFig{oz_vm_op_schema_delta}. 
+\input{./images/preliminaries/oz/oz_vm_op_schema_delta}
 
-\begin{figure}[H]
-\centering
-\begin{class}{VM}
-\\
-\begin{state}
-coffee, tea: \integer
-\ST
-0 \leq  coffee \leq 3
-\\
-0 \leq  tea \leq 3
-\end{state} 
-\\
-\begin{init}
-coffee = 3
-\\tea = 3
-\end{init} 
-\\
-\begin{op}{decrease\_coffee}
-\Delta (coffee)
-\ST
-coffee' = coffee - 1
-\end{op}
-\\
-\begin{op}{decrease\_tea}
-\Delta (tea)
-\ST
-tea' = tea - 1
-\end{op}
-\end{class}
-\caption{$VM$ class: with all specifications.}
-\label{oz_VM_op_coffee_tea}
-\end{figure}
+Finally, we can model the $decrease\_tea$ operation schema as we did with $decrease\_coffee$ to get the class $VM$ as shown in \refFig{oz_vm_with_all_specifications}, which represents all the specification we had of the vending machine written in \oz{} language.
+\input{./images/preliminaries/oz/oz_vm_with_all_specifications}
+
+
 
 \end{itemize}

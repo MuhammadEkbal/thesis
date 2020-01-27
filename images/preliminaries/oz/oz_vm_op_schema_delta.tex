@@ -1,0 +1,26 @@
+\begin{figure}[H]
+\centering
+\begin{class}{VM}
+\\
+\begin{state}
+coffee, tea: \integer
+\ST
+0 \leq  coffee \leq 3
+\\
+0 \leq  tea \leq 3
+\end{state} 
+\\
+\begin{init}
+coffee = 3
+\\tea = 3
+\end{init} 
+\\
+\begin{op}{decrease\_coffee}
+\Delta (coffee)
+\ST
+coffee' = coffee - 1
+\end{op}
+\end{class}
+\caption{$VM$ class: \textit{operation schema using delta operator}.}
+\label{oz_vm_op_schema_delta}
+\end{figure}

@@ -1,14 +1,13 @@
 \begin{figure}[H]
 \centering
-\begin{class}{VA}
-\\dec\_coffee, dec\_tea: channel
+\begin{class}{VM}
 \\
 \begin{state}
-coffee, tea : \integer
+coffee, tea: \integer
 \ST
-coffee > 0
+0 \leq  coffee \leq 3
 \\
-tea > 0
+0 \leq  tea \leq 3
 \end{state} 
 \\
 \begin{init}
@@ -16,18 +15,18 @@ coffee = 3
 \\tea = 3
 \end{init} 
 \\
-\begin{op}{dec\_coffee}
+\begin{op}{decrease\_coffee}
 \Delta (coffee)
 \ST
 coffee' = coffee - 1
 \end{op}
 \\
-\begin{op}{dec\_tea}
+\begin{op}{decrease\_tea}
 \Delta (tea)
 \ST
 tea' = tea - 1
 \end{op}
 \end{class}
-\caption{OZ VA.}
-\label{oz_VA}
+\caption{$VM$ class: with all specifications.}
+\label{oz_vm_with_all_specifications}
 \end{figure}
