@@ -2,6 +2,7 @@
 # Created by https://www.gitignore.io/api/latex
 # Edit at https://www.gitignore.io/?templates=latex
 */*.pdf
+!images/*.pdf
 
 ### LaTeX ###
 ## Core latex/pdflatex auxiliary files:
