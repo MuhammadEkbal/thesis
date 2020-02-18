@@ -1,0 +1,29 @@
+#Install Ubuntu 18.04 on WSL
+Start / Microsoft Store / search "Ubuntu"
+
+# install ocaml: 
+
+sudo su
+apt-get update
+apt install ocaml
+
+#How to compile: 
+--------------- 
+cd /usr/local/abc
+
+* to build OCaml bytecode and the file 'abc'
+make
+
+* to build native code (if available) and the file 'abc.opt'
+make opt
+
+Of course, if native code is available under your platform, we
+strongly advise you to build native code.
+
+
+#run example
+*  ./abc ./examples/buffer.abc  
+ 
+*  ./abc.opt ./examples/buffer.abc  
+---------------------------------------------------------------------------
+C:\Users\ThinkPad T500\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc\LocalState\rootfs\usr\local\abc\examples
