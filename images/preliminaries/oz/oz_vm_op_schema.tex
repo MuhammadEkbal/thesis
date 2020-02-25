@@ -3,32 +3,32 @@
 \begin{class}{VM}
 \\
 \begin{state}
-coffee, tea: \integer
+cv, tv: \integer
 \ST
-0 \leq  coffee \leq 3
+0 \leq  cv \leq 3
 \\
-0 \leq  tea \leq 3
+0 \leq  tv \leq 3
 \end{state} 
 \\
 \begin{init}
-coffee = 3
-\\tea = 3
+cv = 3
+\\tv = 3
 \end{init} 
 \\
-\begin{op}{decrease\_coffee}
-coffee, tea,coffee', tea': \integer
+\begin{op}{coffee}
+cv, tv,cv', tv': \integer
 \ST
-0 \leq  coffee \leq 3
+0 \leq  cv \leq 3
 \\
-0 \leq  tea \leq 3
+0 \leq  tv \leq 3
 \\
-0 \leq  coffee' \leq 3
+0 \leq  cv' \leq 3
 \\
-0 \leq  tea' \leq 3
+0 \leq  tv' \leq 3
 \\
-tea' = tea
+tv' = tv
 \\
-coffee' = coffee - 1
+cv' = cv - 1
 \end{op}
 \end{class}
 \caption{$VM$ class: adding the \textit{operation schema}.}

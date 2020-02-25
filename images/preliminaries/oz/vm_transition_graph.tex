@@ -11,10 +11,10 @@
   \node[state] (VM03) 	[right of=VM13]  {$VM(0,3)$};
   \node[state] (VM32) 	[below of=VM33]  {$VM(3,2)$};
 
-  \path (VM33) edge              node {$decrease\_coffee$} (VM23)
-  		(VM23) edge              node {$decrease\_coffee$} (VM13)
-  		(VM13) edge              node {$decrease\_coffee$} (VM03)
-  		(VM33) edge              node {$decrease\_tea$} (VM32);
+  \path (VM33) edge              node {$coffee$} (VM23)
+  		(VM23) edge              node {$coffee$} (VM13)
+  		(VM13) edge              node {$coffee$} (VM03)
+  		(VM33) edge              node {$tea$} (VM32);
   		
   \draw [] (VM32) -- +(0:2cm);
   \draw [] (VM32) -- +(270:2cm); 
