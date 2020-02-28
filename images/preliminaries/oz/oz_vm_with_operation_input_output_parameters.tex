@@ -1,0 +1,39 @@
+\begin{figure}[H]
+\centering
+\begin{class}{VM}
+\\
+\begin{state}
+cv, tv, m: \integer
+\ST
+0 \leq  cv \leq 3
+\\
+0 \leq  tv \leq 3
+\end{state} 
+\\
+\begin{init}
+cv = 3
+\\tv = 3
+\\ m= 1
+\end{init} 
+\\
+\begin{op}{coffee}
+\Delta (cv)
+\ST
+cv' = cv - 1
+\end{op}
+\\
+\begin{op}{tea}
+\Delta (tv)
+\ST
+tv' = tv - 1
+\end{op}
+\\
+\begin{op}{talk}
+x!: \integer
+\ST
+m = x!
+\end{op}
+\end{class}
+\caption{$VM$ class: \textit{$talk$ operation with output parameter.}}
+\label{oz_vm_with_operation_input_output_parameters}
+\end{figure}

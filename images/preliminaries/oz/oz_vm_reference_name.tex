@@ -1,0 +1,42 @@
+\begin{figure}[H]
+\centering
+\begin{class}{VM(ref: \integer)}
+\\
+\begin{state}
+cv, tv, m, self: \integer
+\ST
+0 \leq  cv \leq 3
+\\
+0 \leq  tv \leq 3
+\end{state} 
+\\
+\begin{init}
+cv = 3
+\\tv = 3
+\\ m= 1
+\\self = ref
+\end{init} 
+\\
+\begin{op}{coffee}
+\Delta (cv)
+\ST
+cv' = cv - 1
+\end{op}
+\\
+\begin{op}{tea}
+\Delta (tv)
+\ST
+tv' = tv - 1
+\end{op}
+\\
+\begin{op}{talk}
+x!: \integer
+\\y!: \integer
+\ST
+m = x!
+\\self = y!
+\end{op}
+\end{class}
+\caption{$VM$ class: \textit{instance reference.}}
+\label{oz_vm_reference_name}
+\end{figure}

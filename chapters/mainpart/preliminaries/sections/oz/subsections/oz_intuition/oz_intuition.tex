@@ -3,11 +3,15 @@ To explain the \oz{} intuitively, we will start by examining the vending machine
 
 \subsubsection{\findex{Vending Machine}:}
 As a preperation, let us imagine that we have the task: specifying a vending machine.
+\begin{itemize}
+\item Let $cv$ be the ammount of coffee, and $tv$ be the amount of tea.
+\item Let $coffee$ be the selling coffee operation, and $tea$ be the selling tea operation.
+\end{itemize}
 the specifications are:
 \begin{itemize}
-\item It sell $coffee$ and $tea$, where the maximum amount for each if them is 3. Let $cv$ be the amount of $coffee$, and $tv$ the amount of tea.
+\item It sell $coffee$ and $tea$, and the maximum amount for each if them is 3.
 \item It's initial state is  $cv = 3$ and $tv = 3$.
-\item When it sells $coffee$ or $tea$, the amount should be decreased by one.
+\item When the operation $coffee$ or $tea$,then the amount should be decreased by one.
 \end{itemize} 
 Those specifications describe the data of the vending machine and the changes on them. Thus, the state space of the vending machine can be visualized as shown in \refFig{state_space}, where we see the initial state $VM(3,3)$ and a state transition to $VM(2,3)$. Later in \textbf{Main concepts of \oz{}} we will learn how to write the specifications using \oz{} language notations.
 \input{./images/preliminaries/oz/state_space}
@@ -68,5 +72,21 @@ Thus, since the schema operation $coffee$ specifies changes on the $coffee$ valu
 
 Finally, we can model the $tea$ operation schema as we did with $coffee$ to get the class $VM$ as shown in \refFig{oz_vm_with_all_specifications}, which represents all the specification we had of the vending machine written in \oz{} language.
 \input{./images/preliminaries/oz/oz_vm_with_all_specifications}
-
 \end{itemize}
+
+\subsubsection{\findex{Operation's input and output parameters}:} 
+\label{operation_input_output_parameters} 
+Some operations can have input and output parameters, just like method in programming language, where the method's parameters represent the input, and the returned values represent the output. To illustrate the idea let us extend our vending machine .The new $VM$ can talk to a shop sending a message to it. So it has a new operation $talk$ and a state variable $m$ representing the message to be be sent.
+
+The set of all possible state transitions when the $talk$ operation occurs is:
+\begin{itemize}
+\item In Mathematics: $talk =\{cv,tv,m,cv',tv',m',x: \integer\mid (0 \leq  cv \leq 3) \wedge
+(0 \leq  tv \leq 3)\wedge (0 \leq  cv' \leq 3) \wedge (0 \leq  tv' \leq 3)\wedge (tv' = tv) \wedge (cv' = cv)  \wedge (m' = m)  \wedge (x = m)\bullet\pair{\tripple{cv}{tv}{m}}{\tripple{cv'}{tv'}{m'}}\}  =\{\pair{\tripple{3}{3}{1}}{\tripple{3}{3}{1}},\dots,\pair{\tripple{0}{0}{1}}{\tripple{0}{0}{1}}\}$.
+\item In \oz{}: the set $talk$ can be described using an \findex{operation schema}, as shown in \refFig{oz_vm_with_operation_input_output_parameters}. We can notice that the operation doesn't change any state variable's value, it just says that the value of the output parameter $x$, written as $x!$, must be equal to the value of the state variable $m$. For input parameter use $?$ symbol.
+\input{./images/preliminaries/oz/oz_vm_with_operation_input_output_parameters}
+\end{itemize}
+
+\subsubsection{\findex{Instance reference}:} 
+\label{instance_reference} 
+Since \oz{} is an object oriented approach, every instance of a class needs a reference to refer to it. In \oz{} the reference can be seen simply as sate constant. Furthermore, operations can output or input the reference name $self$ as shown in \refFig{oz_vm_reference_name} in the operation $talk$.
+\input{./images/preliminaries/oz/oz_vm_reference_name}
