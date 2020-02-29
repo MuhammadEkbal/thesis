@@ -1,6 +1,6 @@
 \begin{figure}[H]%
-    \centering
-    \subfloat[$P$]{{\fcolorbox{black}{white}{
+\centering
+\subcaptionbox{$P$}{\fbox{{
     \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     semithick]
   \tikzstyle{every state}=[]
@@ -10,8 +10,8 @@
   \path (A) edge              node {$\tau$} (B);
 \end{tikzpicture}
  }}}%
-    \qquad
-    \subfloat[$Q$]{{\fcolorbox{black}{white}{
+\hfill
+\subcaptionbox{$Q$}{\fbox{{
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
                     semithick]
   \tikzstyle{every state}=[]
@@ -22,6 +22,6 @@
         (A) edge [loop above] node {$\tau$} (A);
 \end{tikzpicture}    
     }}}%
-    \caption{Transition graphs}%
-    \label{transition_graphs}%
+\caption{Transition graphs}
+\label{transition_graphs}
 \end{figure}
