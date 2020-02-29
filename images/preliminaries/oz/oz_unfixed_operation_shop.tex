@@ -1,0 +1,51 @@
+\begin{figure}[H]
+\centering
+\begin{class}{Shop(ref: \integer)}
+\\
+\begin{state}
+m, vmId, self: \integer
+\\t: chan[\integer \times \integer]
+\end{state} 
+\\
+\begin{init}
+\\self = ref
+\end{init} 
+\\
+\begin{op}{switch}
+\Delta (t)
+\\z?: \integer
+\ST
+t' = z?
+\end{op}
+\\
+\begin{op}{switch}
+z!: \integer
+\ST
+t = z!
+\end{op}
+\\
+\begin{op}{switch}
+x!: \integer
+\ST
+t \neq nil
+\\t = x!
+\ST
+\ST
+\Delta (t)
+\\x?: \integer
+\ST
+t' = x?
+\end{op}
+\\
+\begin{op}{talk}
+\Delta (m,vmId)
+\\y?: \integer
+\\z?: \integer
+\ST
+m' = y?
+\\vmId' = z?
+\end{op}
+\end{class}
+\caption{$VM$ class: \textit{instance reference.}}
+\label{oz_unfixed_operation_shop}
+\end{figure}
