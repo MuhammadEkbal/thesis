@@ -2,10 +2,8 @@ To understand the operational semantics of \oz{} we will use  a labelled transit
 
 \begin{definition}[LTS of \oz{}]
 \label{def_oz_trans_system}
-The labelled transition system $(\stats,\traces)$ of \oz{} states over the set of operations, has the valid states $\stats$ as it's states, and it's transitions $\traces$ are those which can be inferred from the rule in \refFig{fig_oz_transition_rules}.
-The rule $OPER$ shows the state evolution .i.e, state transition.
-\input{./images/preliminaries/oz/transition_rules}
+The labelled transition system $(\stats,\traces)$ of \oz{} class states over the set of operations, has the valid states $\stats$ as its states and its transitions $\traces$ are those which can be inferred from the following rule: \\$\underline{\scriptstyle{OPER}}: PRE\_STATE \transs{operation} POST\_STATE$.
 \end{definition}
-An example of using the transition rule of this LTS is: drawing the transition graph of vending machine shown in  \refFig{oz_vm_with_all_specifications}. The transition graph is shown in \refFig{fig_VM_transition_graph}, where we show only a small part of it. Thus, using the LTS we can enumerate all possible states transitions of an \oz{} state.
+An example of using the transition rule of this LTS is: drawing the transition graph of vending machine shown in  \refFig{oz_vm_with_all_specifications}. The transition graph is shown in \refFig{fig_VM_transition_graph}, where we show only a small part of it. The transitions $coffee$ and $tea$ refer to the operation schema $coffee$ and $tea$. Thus, using the LTS we can enumerate all possible states transitions of an \oz{} state.
 \input{./images/preliminaries/oz/vm_transition_graph}
 

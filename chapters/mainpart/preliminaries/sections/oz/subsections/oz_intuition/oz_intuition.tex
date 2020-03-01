@@ -13,12 +13,12 @@ the specifications are:
 \item It's initial state is  $cv = 3$ and $tv = 3$.
 \item When the operation $coffee$ or $tea$,then the amount should be decreased by one.
 \end{itemize} 
-Those specifications describe the data of the vending machine and the changes on them. Thus, the state space of the vending machine can be visualized as shown in \refFig{state_space}, where we see the initial state $VM(3,3)$ and a state transition to $VM(2,3)$. Later in \textbf{Main concepts of \oz{}} we will learn how to write the specifications using \oz{} language notations.
+Those specifications describe the data of the vending machine and the changes on them. Thus, the state space of the vending machine can be visualized as shown in \refFig{state_space}, where we see the initial state $VM(3,3)$. The arrow indicates a state transition decrementing the amount of coffee. Later in \textbf{Main concepts of \oz{}} we will learn how to write the specifications using \oz{} language notations.
 \input{./images/preliminaries/oz/state_space}
 
-\subsubsection{\findex{Set building}:} A Set is a collection of things. For example: $\{5, 7, 11\}$ is a set.
-But we can also build a set by describing what is in it.
-Here is a simple example of building a set: $\{x \mid (x \in \integer) \wedge (x \geq 0) \}$, it says: \textit{the set of all x's, such that x is integer and greater than 0}. The last example can be written in a nicer way as follow: $\{x: \integer \mid x \geq 0 \}$. T have a more control about the elements in a set, we can write: $\{x: \integer \mid x \geq 0 \bullet x\}$,it says the same as the last example. The $expretion$ after $\bullet$ decides how should be the elements of the set be transformed. another example is: $\{x: \integer \mid x \geq 0 \bullet x^{2}\}$,it says: \textit{the set of all  squared x's, such that x is integer and greater than 0}. Thus, to build a set: we can use the following notation: $\{Deklaration \mid predicate \bullet expression \}$.
+\subsubsection{\findex{Set building}:} A set is a collection of things. For example: $\{5, 7, 11\}$ is a set.
+But we can also build a set by describing what is in it using the following notation: $\{Deklaration \mid predicate \bullet expression \}$.  For example: $\{x: \integer \mid x \geq 0 \bullet x^{2}\}$ means \textit{the set of all  squared x's, such that x is integer and greater than 0}
+
 	
 \subsubsection{\findex{Main concepts of \oz{}}:} 
 \label{main_concepts_oz} 
@@ -28,15 +28,15 @@ The main concepts of \oz{} are:
 \item \findex{Class}: It can been seen as a grouping of a \findex{state schema}, \findex{initial state schema} and \findex{operation schemas} \cite{kenji}. It represents the object oriented approach 
 \end{itemize}
 
-To illustrate those main concepts, consider the vending machine example,denoted by $VM$:
+To illustrate those main concepts, consider the vending machine example denoted by $VM$:
 \begin{itemize}
 \item \textit{Class}: To model the vending machine we need to define a class $VM$. Syntactically, in \oz{}
-a class definition is a named box as shown in \refFig{oz_vm_class}.
+a class definition is a named box as shown in \refFig{oz_vm_class}, where the dots \dots refer to details explained next.
 \input{./images/preliminaries/oz/oz_vm_class}
 
 \item \textit{State space}: The state space of our vending machine can be seen as a set of all valid states. The set of all valid states is:
 \begin{itemize}
-\item In Mathematics: $State\_Space=\{cv,tv: \integer\mid (0 \leq  cv \leq 3) \wedge
+\item In mathematics: $State\_Space=\{cv,tv: \integer\mid (0 \leq  cv \leq 3) \wedge
 (0 \leq  tv \leq 3)\bullet(cv,tv)\}  =\{\pair{0}{0},\dots,\pair{3}{3}\}$.
 \item In \oz{}: The set $State\_Space$ can be described using a \findex{state schema}, which is a box without name added to the class box as shown in \refFig{oz_vm_state_schema}.
 \end{itemize}
@@ -44,16 +44,16 @@ a class definition is a named box as shown in \refFig{oz_vm_class}.
 
 \item \textit{Initial state}: Our vending machine has an initial state with $cv = 3$ and $tv = 3$. The set of all possible initial states, that respects those conditions is:  
 \begin{itemize}
-\item In Mathematics: $Initial\_States =\{cv,tv: \integer\mid (0 \leq  cv \leq 3) \wedge
+\item In mathematics: $Initial\_States =\{cv,tv: \integer\mid (0 \leq  cv \leq 3) \wedge
 (0 \leq  tv \leq 3)\wedge (cv = 3) \wedge (tv = 3)\bullet(cv,tv)\}  =\{\pair{3}{3}\}$.
 \item In \oz{}: the set $Initial\_States$ can be described using a \findex{initial state schema}, which is a box named $INIT$ added to the class box  as shown in \refFig{oz_vm_init_schema}.
 \end{itemize}
 \input{./images/preliminaries/oz/oz_vm_init_schema}
 
 \item \textit{State transition}: When the vending machine sells a coffee, the amount of coffee should be decreased by one. This is a state transition.
-the set of all possible state transitions when the selling coffee operation occurs is:
+The set of all possible state transitions when the selling coffee operation occurs is:
 \begin{itemize}
-\item In Mathematics: $coffee =\{cv,tv,cv',tv': \integer\mid (0 \leq  cv \leq 3) \wedge
+\item In mathematics: $coffee =\{cv,tv,cv',tv': \integer\mid (0 \leq  cv \leq 3) \wedge
 (0 \leq  tv \leq 3)\wedge (0 \leq  cv' \leq 3) \wedge (0 \leq  tv' \leq 3)\wedge (tv' = tv) \wedge (cv' = cv - 1) \bullet\pair{\pair{cv}{tv}}{\pair{cv'}{tv'}}\}  =\{\pair{\pair{3}{3}}{\pair{2}{3}},\dots,\pair{\pair{1}{0}}{\pair{0}{0}}\}$, where $(cv,tv)$ represents the \findex{pre state} and $(cv',tv')$ represents the \findex{post state} of a state transition.
 \item In \oz{}: the set $coffee$ can be described using an \findex{operation schema}, which is a box named with the operation name added to the class box as shown in \refFig{oz_vm_op_schema}.
 \end{itemize}
@@ -80,13 +80,13 @@ Some operations can have input and output parameters, just like method in progra
 
 The set of all possible state transitions when the $talk$ operation occurs is:
 \begin{itemize}
-\item In Mathematics: $talk =\{cv,tv,m,cv',tv',m',y: \integer\mid (0 \leq  cv \leq 3) \wedge
+\item In mathematics: $talk =\{cv,tv,m,cv',tv',m',y: \integer\mid (0 \leq  cv \leq 3) \wedge
 (0 \leq  tv \leq 3)\wedge (0 \leq  cv' \leq 3) \wedge (0 \leq  tv' \leq 3)\wedge (tv' = tv) \wedge (cv' = cv)  \wedge (m' = m)  \wedge (y = m)\bullet\pair{\tripple{cv}{tv}{m}}{\tripple{cv'}{tv'}{m'}}\}  =\{\pair{\tripple{3}{3}{1}}{\tripple{3}{3}{1}},\dots,\pair{\tripple{0}{0}{1}}{\tripple{0}{0}{1}}\}$.
-\item In \oz{}: the set $talk$ can be described using an \findex{operation schema}, as shown in \refFig{oz_vm_with_operation_input_output_parameters}. We can notice that the operation doesn't change any state variable's value, it just says that the value of the output parameter $y$, written as $y!$, must be equal to the value of the state variable $m$. For input parameter use $?$ symbol.
+\item In \oz{}: the set $talk$ can be described using an \findex{operation schema}, as shown in \refFig{oz_vm_with_operation_input_output_parameters}. We can notice that this operation doesn't change any state variable's value, it just says that the value of the output parameter $y$, written as $y!$, must be equal to the value of the state variable $m$. For input parameter use $?$ symbol.
 \input{./images/preliminaries/oz/oz_vm_with_operation_input_output_parameters}
 \end{itemize}
 
 \subsubsection{\findex{Instance reference}:} 
 \label{instance_reference} 
-Since \oz{} is an object oriented approach, every instance of a class needs a reference to refer to it. In \oz{} the reference can be seen simply as sate constant. Furthermore, operations can can share its instance identity through output or input the reference name $self$ as shown in \refFig{oz_vm_reference_name} in the operation $talk$.
+\oz{} is an object oriented approach, Thus every instance of a class needs a unique identifier, i.e., a reference name to refer to it. In \oz{} this can be seen simply as state constant $self$ initialized with some $id$ when the instance is created. Furthermore, operations can can share the instance identity through output or input the reference name $self$ as shown in \refFig{oz_vm_reference_name} in the operation $talk$.
 \input{./images/preliminaries/oz/oz_vm_reference_name}

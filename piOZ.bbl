@@ -7,17 +7,17 @@ R.~Milner.
 
 \bibitem[SW01]{sangiorgi}
 D.~Sangiorgi and D.~Walker.
-\newblock {\em The $\pi$-calculus: a Theory of Mobile Processes}.
+\newblock {\em The $\pi$-Calculus: a Theory of Mobile Processes}.
 \newblock Cambridge University Press, Cambridge, England, 2001.
 
 \bibitem[Gi14]{gieseking}
 M.~Gieseking.
-\newblock {\em Refinement of $\pi$-calculus processes}.
+\newblock {\em Refinement of $\pi$-Calculus processes}.
 \newblock Master thesis, Carl von Ossietzky Universität Oldenburg, 2014.
 
 \bibitem[Star]{stargazer}
 E.~D'Osualdo.
-\newblock {\em Stargazer: A $\pi$-calculus simulator}.\\
+\newblock {\em Stargazer: A $\pi$-Calculus simulator}.\\
 \newblock {\url {http://www.emanueledosualdo.com/stargazer/}}
 
 \bibitem[ABC]{abc}
@@ -31,13 +31,13 @@ E.~Olderog.
 \newblock Vorlesungsskript, Carl von Ossietzky Universität Oldenburg, 2018/19.
 
 \bibitem[SIJ88]{woodcock}
-S.~King and I.~Sorensen and J.~woodcock.
-\newblock {\em Z: GRAMMAR AND CONCRETE AND ABSTRACT SYNTAXES (Version 2.0)}.
+S.~King and I.~Sorensen and J.~Woodcock.
+\newblock {\em Z: grammar and concrete and abstract syntax (Version 2.0)}.
 \newblock Oxford University Computing Laboratory, England, 1988.
 
 \bibitem[TDC04]{kenji}
 T.~Kenji and D.~Jin and C.~Gabriel.
-\newblock {\em Relating $\pi$-calculus to Object-Z}.
+\newblock {\em Relating $\pi$-Calculus to Object-Z}.
 \newblock Engineering of Complex Computer Systems, IEEE International Conference on 97-106, 2004.
 
 \end{thebibliography}
