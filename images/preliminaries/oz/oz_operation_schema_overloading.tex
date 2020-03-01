@@ -1,0 +1,38 @@
+\begin{figure}[H]
+\centering
+\begin{class}{Shop(ref: \integer)}
+\\
+\begin{state}
+m, vmId, self: \integer
+\\t: chan[\integer \times \integer]
+\end{state} 
+\\
+\begin{init}
+\\self = ref
+\end{init} 
+\\
+\begin{op}{switch}
+x!: \integer
+\ST
+t = x!
+\end{op}
+\\
+\begin{op}{switch}
+\Delta (t)
+\\x?: \integer
+\ST
+t' = x?
+\end{op}
+\\
+\begin{op}{talk}
+\Delta (m,vmId)
+\\y?: \integer
+\\z?: \integer
+\ST
+m' = y?
+\\vmId' = z?
+\end{op}
+\end{class}
+\caption{$Shop$ class: \textit{operation schema overloading.}}
+\label{fig_oz_overloaded_operation_shop}
+\end{figure}
