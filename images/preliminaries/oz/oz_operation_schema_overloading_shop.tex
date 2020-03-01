@@ -4,7 +4,6 @@
 \\
 \begin{state}
 m, vmId, self: \integer
-\\t: chan[\integer \times \integer]
 \end{state} 
 \\
 \begin{init}
@@ -12,17 +11,15 @@ m, vmId, self: \integer
 \end{init} 
 \\
 \begin{op}{switch}
-x!: \integer
+x!: chan[\integer \times \integer]
 \ST
-x! = t
-\\t' = nil
+x! = talk
 \end{op}
 \\
 \begin{op}{switch}
-\Delta (t)
-\\x?: \integer
+\\x?: chan[\integer \times \integer]
 \ST
-x? = t'
+x? = talk
 \end{op}
 \\
 \begin{op}{talk}

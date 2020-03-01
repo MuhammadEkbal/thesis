@@ -12,17 +12,17 @@ m, vmId, self: \integer
 \end{init} 
 \\
 \begin{op}{switch}
-x!: \integer
+x!:  chan[\integer \times \integer]
 \ST
-t = x!
+x! = t
 \\t' = nil
 \end{op}
 \\
 \begin{op}{switch}
 \Delta (t)
-\\x?: \integer
+\\x?:  chan[\integer \times \integer]
 \ST
-t' = x?
+x? = t'
 \end{op}
 \\
 \begin{op}{\text{if } t = talk \text{ then } talk \text{ else } undefined}
