@@ -14,14 +14,15 @@ m, vmId, self: \integer
 \begin{op}{switch}
 x!: \integer
 \ST
-t = x!
+x! = t
+\\t' = nil
 \end{op}
 \\
 \begin{op}{switch}
 \Delta (t)
 \\x?: \integer
 \ST
-t' = x?
+x? = t'
 \end{op}
 \\
 \begin{op}{talk}
@@ -29,8 +30,8 @@ t' = x?
 \\y?: \integer
 \\z?: \integer
 \ST
-m' = y?
-\\vmId' = z?
+y? = m'
+\\z? = vmId'
 \end{op}
 \end{class}
 \caption{$Shop$ class: \textit{operation schema overloading.}}

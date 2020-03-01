@@ -80,9 +80,9 @@ Some operations can have input and output parameters, just like method in progra
 
 The set of all possible state transitions when the $talk$ operation occurs is:
 \begin{itemize}
-\item In Mathematics: $talk =\{cv,tv,m,cv',tv',m',x: \integer\mid (0 \leq  cv \leq 3) \wedge
-(0 \leq  tv \leq 3)\wedge (0 \leq  cv' \leq 3) \wedge (0 \leq  tv' \leq 3)\wedge (tv' = tv) \wedge (cv' = cv)  \wedge (m' = m)  \wedge (x = m)\bullet\pair{\tripple{cv}{tv}{m}}{\tripple{cv'}{tv'}{m'}}\}  =\{\pair{\tripple{3}{3}{1}}{\tripple{3}{3}{1}},\dots,\pair{\tripple{0}{0}{1}}{\tripple{0}{0}{1}}\}$.
-\item In \oz{}: the set $talk$ can be described using an \findex{operation schema}, as shown in \refFig{oz_vm_with_operation_input_output_parameters}. We can notice that the operation doesn't change any state variable's value, it just says that the value of the output parameter $x$, written as $x!$, must be equal to the value of the state variable $m$. For input parameter use $?$ symbol.
+\item In Mathematics: $talk =\{cv,tv,m,cv',tv',m',y: \integer\mid (0 \leq  cv \leq 3) \wedge
+(0 \leq  tv \leq 3)\wedge (0 \leq  cv' \leq 3) \wedge (0 \leq  tv' \leq 3)\wedge (tv' = tv) \wedge (cv' = cv)  \wedge (m' = m)  \wedge (y = m)\bullet\pair{\tripple{cv}{tv}{m}}{\tripple{cv'}{tv'}{m'}}\}  =\{\pair{\tripple{3}{3}{1}}{\tripple{3}{3}{1}},\dots,\pair{\tripple{0}{0}{1}}{\tripple{0}{0}{1}}\}$.
+\item In \oz{}: the set $talk$ can be described using an \findex{operation schema}, as shown in \refFig{oz_vm_with_operation_input_output_parameters}. We can notice that the operation doesn't change any state variable's value, it just says that the value of the output parameter $y$, written as $y!$, must be equal to the value of the state variable $m$. For input parameter use $?$ symbol.
 \input{./images/preliminaries/oz/oz_vm_with_operation_input_output_parameters}
 \end{itemize}
 

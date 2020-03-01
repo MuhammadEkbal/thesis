@@ -1,2 +1,2 @@
-Imagine a
+Let us have another look at \refFig{fig_oz_mobile_vending_machine_and_shops}. We can notice that before switching $Shop1$ was able to invoke the operation $talk$, but after switching this is not possible, since the link $talk$ is moved to $Shop2$. That means, when we model the $talk$ operation in \oz{} we need to consider that it some times exists and some times does not. We call $talk$ an unfixed operation. Thus, we need an unfixed operation schema. We need to rework the $talk$ operation schema in \refFig{fig_oz_overloaded_operation_shop} to make it an unfixed operation schema.
 \input{./images/preliminaries/oz/oz_unfixed_operation_schema_shop}

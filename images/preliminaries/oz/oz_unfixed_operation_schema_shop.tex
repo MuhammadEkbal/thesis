@@ -12,40 +12,28 @@ m, vmId, self: \integer
 \end{init} 
 \\
 \begin{op}{switch}
-\Delta (t)
-\\z?: \integer
-\ST
-t' = z?
-\end{op}
-\\
-\begin{op}{switch}
-z!: \integer
-\ST
-t = z!
-\end{op}
-\\
-\begin{op}{switch}
 x!: \integer
 \ST
-t \neq nil
-\\t = x!
-\ST
-\ST
+t = x!
+\\t' = nil
+\end{op}
+\\
+\begin{op}{switch}
 \Delta (t)
 \\x?: \integer
 \ST
 t' = x?
 \end{op}
 \\
-\begin{op}{talk}
+\begin{op}{t=talk}
 \Delta (m,vmId)
 \\y?: \integer
 \\z?: \integer
 \ST
-m' = y?
-\\vmId' = z?
+y? = m'
+\\z? = vmId'
 \end{op}
 \end{class}
-\caption{$VM$ class: \textit{instance reference.}}
+\caption{$VM$ class: \textit{unfixed operation schema.}}
 \label{oz_unfixed_operation_schema_shop}
 \end{figure}
