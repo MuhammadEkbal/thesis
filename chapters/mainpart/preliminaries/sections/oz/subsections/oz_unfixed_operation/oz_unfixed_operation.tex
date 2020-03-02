@@ -5,28 +5,27 @@ Let us have another look at \refFig{fig_oz_mobile_vending_machine_and_shops}. We
 	\item $Shop1$: has the operation schema $talk$
 	\item $Shop2$: doesn't have the operation schema $talk$
 	\end{itemize}
-\item By switching: $Shop1$ sends his operation schema $talk$ to $Shop2$.
+\item By switching: $Shop1$ sends its operation schema $talk$ to $Shop2$.
 \item After switching:
 	\begin{itemize}
 	\item $Shop1$: doesn't have the operation schema $talk$
 	\item $Shop2$: has the operation schema $talk$
 	\end{itemize}
 \end{itemize}
-. That means, when we model the $talk$ operation in \oz{} we need to consider the following problems: 
+That means, when we model the $talk$ operation in \oz{} we need to consider the following problems: 
 
 \begin{itemize}
-\item The operation schema $talk$ some times exists and some times does not.
-\item In \oz{}, it is not possible to send an operation schema from $Shop1$ to $Shop2$.
-\end{itemize}
-Solution:
+\item In \oz{}, it is not possible to send an \underline{operation} from $Shop1$ to $Shop2$.\\
+\textbf{Solution:} By calling $talk$ an unfixed operation, and By using a state variable $t$ to store the name of the unfixed operation as shown in \refFig{fig_oz_unfixed_operation_schema_shop}.\\
+By switching:
 \begin{itemize}
-\item We call $talk$ an unfixed operation. And we use a state variable $t$ to store the name of an unfixed operation. Thus, we need an unfixed operation schema. We need to rework the $talk$ operation schema in \refFig{fig_oz_overloaded_operation_shop} to make it an unfixed operation schema as shown in \refFig{fig_oz_unfixed_operation_schema_shop}. The new schema is an conditional schema, it says: if $t = talk$ then this schema is $talk$ operation schema, otherwise this schema doesn't exists.
-\item After switching 
-\begin{itemize}
-\item $Shop1$ is the sender, so it sets its state variable $t$ to $nil$, which means the operation schema $talk$ is no more available on $Shop1$.
-\item $Shop2$ is the receiver, so it sets its state variable $t$ to the value received from $Shop1$, .i.e., $talk$, which means the operation schema $talk$ is now available on $Shop2$.
+\item $Shop1$ is the sender, so it sets its state variable $t$ to $nil$, which means the operation $talk$ is no more available on $Shop1$.
+\item $Shop2$ is the receiver, so it sets its state variable $t$ to the value received from $Shop1$, .i.e., $talk$, which means: the operation $talk$ is now available on $Shop2$.
 \end{itemize}
+\item In \oz{}, it is not possible to send an \underline{operation schema} from $Shop1$ to $Shop2$.\\
+\textbf{Solution:} Unfixed operation schema. To make the $talk$ operation schema in \refFig{fig_oz_overloaded_operation_shop} an unfixed operation schema, .i.e., a conditional operation schema as shown in \refFig{fig_oz_unfixed_operation_schema_shop}, it says: if $t = talk$ then this schema is the $talk$ operation schema, otherwise this schema doesn't exists.
 
 \end{itemize}
+
 
 \input{./images/preliminaries/oz/oz_unfixed_operation_schema_shop}
