@@ -4,7 +4,7 @@
 \\
 \begin{state}
 m, vmId, self: \integer
-\\t: chan[\integer \times \integer]
+\\t: OperationName
 \end{state} 
 \\
 \begin{init}
@@ -12,7 +12,7 @@ m, vmId, self: \integer
 \end{init} 
 \\
 \begin{op}{switch}
-x!:  chan[\integer \times \integer]
+x!: OperationName
 \ST
 x! = t
 \\t' = nil
@@ -20,7 +20,7 @@ x! = t
 \\
 \begin{op}{switch}
 \Delta (t)
-\\x?:  chan[\integer \times \integer]
+\\x?: OperationName
 \ST
 x? = t'
 \end{op}
