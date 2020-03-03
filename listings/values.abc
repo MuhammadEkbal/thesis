@@ -1,0 +1,8 @@
+agent Zero(a) = a(tt,ff).'ff.'ff.Zero(a) + a.0
+agent One(a) = a(tt,ff).'tt.'ff.One(a) + a.0
+agent Two(a) = a(tt,ff).'ff.'tt.Two(a) + a.0
+agent Three(a) = a(tt,ff).'tt.'tt.Three(a) + a.0
+
+
+
+
