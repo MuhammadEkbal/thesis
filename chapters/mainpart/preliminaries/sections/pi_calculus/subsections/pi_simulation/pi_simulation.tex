@@ -36,7 +36,7 @@ To check the strong simulation we can use \findex{ABC (Another Bisimilarity Chec
 In \refFig{pi_simulation_ABC_outputPsQ} we see the result of the command $lt\ P\ Q$, which checks if $Q$ strongly simulates $P$. The result is $yes$ and the simulation relation is shown, where x0 stands for x. In \refFig{pi_simulation_ABC_outputPsQ} we see the two pairs of the simulation relation, where:
 \begin{itemize}
 \item $(0\ \{\ \}\ 0)$ stands for the pair $(\proczero,\proczero)$, which means: The state $\proczero$ of $Q$ is as powerful as  $\proczero$ of $P$.
-\item $(\ (\ \widehat{}\ \text{x0})(\text{'x0.0}\ \mid\ \text{x0.0})\ \{\ \}\ (\ \widehat{}\ \text{x0})((\text{'x0.0}\ \mid\ \text{x0.0}) \text{ + t.Q} )\ )$ stands for the pair $(\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})},\procres{x}{(\procchoice{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})}{\tau.Q})})$, which means: The state $\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$ of $Q$ is as powerful as  $\procres{x}{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}$ of $P$.
+\item $(\ (\ \widehat{}\ \text{x0})(\text{\textquotesingle x0.0}\ \mid\ \text{x0.0})\ \{\ \}\ (\ \widehat{}\ \text{x0})((\text{\textquotesingle x0.0}\ \mid\ \text{x0.0}) \text{ + t.Q} )\ )$ stands for the pair $(\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})},\procres{x}{(\procchoice{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})}{\tau.Q})})$, which means: The state $\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$ of $Q$ is as powerful as  $\procres{x}{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}$ of $P$.
 
 \end{itemize}
 
