@@ -13,7 +13,7 @@ the specifications are:
 \item It's initial state is  $cv = 3$ and $tv = 3$.
 \item When the operation $coffee$ or $tea$,then the amount should be decreased by one.
 \end{itemize} 
-Those specifications describe the data of the vending machine and the changes on them. Thus, the state space of the vending machine can be visualized as shown in \refFig{state_space}, where we see the initial state $VM(3,3)$. The arrow indicates a state transition decrementing the amount of coffee. Later in \textbf{Main concepts of \oz{}} we will learn how to write the specifications using \oz{} language notations.
+The state space of the vending machine can be visualized as shown in \refFig{state_space}, where we see the initial state $VM(3,3)$. The arrow indicates a state transition decrementing the amount of coffee. Later in \textbf{Main concepts of \oz{}} we will learn how to write the specifications using \oz{} language notations.
 \input{./images/preliminaries/oz/state_space}
 
 \subsubsection{\findex{Set building}:} A set is a collection of things. For example: $\{5, 7, 11\}$ is a set.
@@ -70,7 +70,7 @@ includes the state schema and a primed version of it.
 Thus, since the schema operation $coffee$ specifies changes on the $coffee$ value only, we can write it as shown in \refFig{oz_vm_op_schema_delta}. 
 \input{./images/preliminaries/oz/oz_vm_op_schema_delta}
 
-Finally, we can model the $tea$ operation schema as we did with $coffee$ to get the class $VM$ as shown in \refFig{oz_vm_with_all_specifications}, which represents all the specification we had of the vending machine written in \oz{} language.
+
 \input{./images/preliminaries/oz/oz_vm_with_all_specifications}
 \end{itemize}
 

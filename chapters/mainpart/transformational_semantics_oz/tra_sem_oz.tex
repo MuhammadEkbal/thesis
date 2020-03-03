@@ -1,3 +1,21 @@
+This chapter study the syntactic transformation of \oz{} class into \picalc{} process. The resulting processes is intuitively defined as follow:\\
+$P_{OZ\_part\_as\_\pi\_process} = \sqcap _{v\_st}\ Q(v\_st,v\_self)$\\
+$Q(v\_st,v\_self) = (\Box _{c,v\_in_{c}} \sqcap _{v\_st'} \ c.v\_in_{c} \ + \ \Box _{c,v\_out_{c}} \sqcap _{v\_st'} \ c.v\_out_{c})\rightarrow \ Q(v\_st',v\_self)$
+where:
+\begin{itemize}
+\item $c$ refers to an operation.
+\item $v\_st$ refers to the state variables.
+\item $v\_self$ refers to the instance reference.
+\item $c.v\_in_{c}$ refers to the occurrence of the operation $c$, where $v\_in_{c}$ represents the values of the input parameters of $c$.
+\item $c.v\_out_{c}$ refers to the occurrence of the operation $c$, where $v\_out_{c}$ represents the values of the output parameters of $c$.
+\item $\Box$ deterministic choice, $\sqcap$ non deterministic choice, $+$ choice.
+\end{itemize}
+\textbf{Question 1:} what is the benefit of transformating an \oz{} class into \picalc{} process?\\
+\textbf{Answer:} to combine it, using parallel operator, with a second \picalc{} processes.
+\textbf{Question 2:} what is the benefit of the  second processes?\\
+\textbf{Answer:} the second processes represents sequences of behavior. This will enable us to study the behavior of an entity as will be shown later in the next chapter.
+
+To transform \oz{} class into \picalc{} process we need to learn how to represent value, state variable, state schema, initial state schema and operation schema in \picalc{}. The rest of this chapter 
 \section{Mapping values}
 \label{sec_tra_oz_mapping_values}
 \input{chapters/mainpart/transformational_semantics_oz/sections/mapping_values/mapping_values}
