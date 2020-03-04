@@ -1,7 +1,19 @@
-mapping
-
+In this thesis we restrict ourselves to two bits binary numbers shown \refTab{two_bit_binary_numbers}. A value can be mapped to a \picalc{} processes. \refFig{two_bit_binary_numbers} shows the \picalc{} implantation of the values 0,1,2,3 in ABC syntax. The keyword \textbf{agent} defines a new processes. The process $Zero$ receives two channels $tt,ff$ via the channel $a$, then it sends two signals via the channel $ff$. A value will be deleted when it receives a signal via $a$.
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Decimal & Binary \\ \hline
+0       & 00     \\ \hline
+1       & 01     \\ \hline
+2       & 10     \\ \hline
+3       & 11     \\ \hline
+\end{tabular}%
+\caption{Two bits binary numbers}
+\label{two_bit_binary_numbers}
+\end{table}
 \begin{figure}[ht!]
 \lstinputlisting[backgroundcolor=\color{white}]{listings/values.abc}
-\caption{ABC code for $P$ and $Q$.}
-\label{pi_simulation_ABC_code}
+\caption{0,1,2,3 as \picalc{} processes.}
+\label{values_ABC_code}
 \end{figure}

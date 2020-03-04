@@ -1,1 +1,10 @@
-mapping
+A variable can be mapped to a channel. Creating a variable $x$ and initializing it with the value $0$ ( int x = 0;) is mapped to creating a new channel x and initialize the processes Zero with the channel x
+as shown in \refFig{fig_oz_unfixed_operation_schema_shop}. The wide hat refers to creating a new channel.
+\begin{figure}[H]%
+\centering
+\subcaptionbox{Abc code.}{\fbox{$(\ \widehat{}\ \text{x}\ )\ (\ \text{Zero}(\text{x})\ )$}}%
+\hspace{1em}%
+\subcaptionbox{visualization.}{\fbox{\includegraphics[]{./images/transformational_semantics_of_oz/var.png}}}%
+\caption{variable as a channel}
+\label{tra_var}%
+\end{figure}
