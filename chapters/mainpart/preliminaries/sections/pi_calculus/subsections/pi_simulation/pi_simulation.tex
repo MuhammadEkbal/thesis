@@ -23,17 +23,13 @@ where:
 
 Intuitively, The behavior of $P$ and $Q$ can be illustrated using transition graphs as shown in \refFig{transition_graphs}. $Q$'s transition graph is the same as $P$'s, except one thing: $Q$ has a loop with label $\tau$. This loop is due to the $\tau$ transition in $Q$'s definition. Hence, we can notice that $Q$ can do all the transitions that $P$ can, plus an extra transition $\tau$. In other words $Q$ simulates $P$, but $P$ doesn't simulate $Q$.
 \input{./images/preliminaries/pi_calculus/transition_graphs}
-To check the strong simulation we can use \findex{ABC (Another Bisimilarity Checker)} \cite{abc}. ABC is a tool that checks simulation between  \picalc{} processes. \refFig{pi_simulation_ABC_code} shows the code listing of the process $P$ and $Q$ in ABC syntax.
+To check the strong simulation we can use \findex{ABC (Another Bisimilarity Checker)} \cite{abc}. ABC is a tool that checks simulation between  \picalc{} processes. \refLis{pi_simulation_ABC_code} shows the code of the process $P$ and $Q$ in ABC syntax.
 \raggedbottom
-\begin{figure}[ht!]
-\lstinputlisting[backgroundcolor=\color{white}]{listings/pi_simulation_ABC_code.abc}
-\caption{ABC code for $P$ and $Q$.}
-\label{pi_simulation_ABC_code}
-\end{figure}
+\lstinputlisting[backgroundcolor=\color{white},caption={ABC code for $P$ and $Q$.},captionpos=b, label={pi_simulation_ABC_code}]{listings/pi_simulation_ABC_code.abc}
 
-\refFig{pi_simulation_ABC_outputPsQ} and \refFig{pi_simulation_ABC_outputQsP} shows the result of running \refFig{pi_simulation_ABC_code}, where x0 stands for x, since ABC renames the channels and messages names internally.
+\refLis{pi_simulation_ABC_outputPsQ} and \refLis{pi_simulation_ABC_outputQsP} shows the result of running \refFig{pi_simulation_ABC_code}, where x0 stands for x, since ABC renames the channels and messages names internally.
 
-In \refFig{pi_simulation_ABC_outputPsQ} we see the result of the command $lt\ P\ Q$, which checks if $Q$ strongly simulates $P$. The result is $yes$ and the simulation relation is shown, where x0 stands for x. In \refFig{pi_simulation_ABC_outputPsQ} we see the two pairs of the simulation relation, where:
+In \refLis{pi_simulation_ABC_outputPsQ} we see the result of the command $lt\ P\ Q$, which checks if $Q$ strongly simulates $P$. The result is $yes$ and the simulation relation is shown, where x0 stands for x. In \refFig{pi_simulation_ABC_outputPsQ} we see the two pairs of the simulation relation, where:
 \begin{itemize}
 \item $(0\ \{\ \}\ 0)$ stands for the pair $(\proczero,\proczero)$, which means: The state $\proczero$ of $Q$ is as powerful as  $\proczero$ of $P$.
 \item $(\ (\ \widehat{}\ \text{x0})(\text{\textquotesingle x0.0}\ \mid\ \text{x0.0})\ \{\ \}\ (\ \widehat{}\ \text{x0})((\text{\textquotesingle x0.0}\ \mid\ \text{x0.0}) \text{ + t.Q} )\ )$ stands for the pair $(\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})},\procres{x}{(\procchoice{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})}{\tau.Q})})$, which means: The state $\procres{x}{(\procchoice{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}{\tau.Q})}$ of $Q$ is as powerful as  $\procres{x}{(\procpar{\out{x}{}.\proczero}{\inp{x}{}.\proczero})}$ of $P$.
@@ -41,12 +37,8 @@ In \refFig{pi_simulation_ABC_outputPsQ} we see the result of the command $lt\ P\
 \end{itemize}
 
 Thus, $Q$ strongly simulates the behavior of $P$ and the simulation relation is $\mathcal{S} = \set{(\proczero,\proczero),(\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})},\procres{x}{(\procchoice{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})}{\tau.Q})})}$.
-\begin{figure}[H]
-\lstinputlisting[backgroundcolor=\color{white}]{listings/pi_simulation_ABC_outputPsQ.pi}
-\caption{ABC output: check if $Q$ strongly simulates $P$.}
-\label{pi_simulation_ABC_outputPsQ}
-\end{figure}
-In \refFig{pi_simulation_ABC_outputQsP} we can see the result of the command $lt\ Q\ P$, which checks if $P$ strongly simulates $Q$. The result is $no$, since:
+\lstinputlisting[backgroundcolor=\color{white},caption={ABC output: check if $Q$ strongly simulates $P$.},captionpos=b, label={pi_simulation_ABC_outputPsQ}]{listings/pi_simulation_ABC_outputPsQ.pi}
+In \refLis{pi_simulation_ABC_outputQsP} we can see the result of the command $lt\ Q\ P$, which checks if $P$ strongly simulates $Q$. The result is $no$, since:
 
 \begin{itemize}
 \item when:
@@ -70,8 +62,4 @@ In \refFig{pi_simulation_ABC_outputQsP} we can see the result of the command $lt
 
 
 Thus, $P$ doesn't strongly simulates the behavior of $Q$.
-\begin{figure}[H]
-\lstinputlisting[backgroundcolor=\color{white}]{listings/pi_simulation_ABC_outputQsP.pi}
-\caption{ABC output: check if $P$ strongly simulates $Q$.}
-\label{pi_simulation_ABC_outputQsP}
-\end{figure}
+\lstinputlisting[backgroundcolor=\color{white},caption={ABC output: check if $P$ strongly simulates $Q$.},captionpos=b, label={pi_simulation_ABC_outputQsP}]{listings/pi_simulation_ABC_outputQsP.pi}
