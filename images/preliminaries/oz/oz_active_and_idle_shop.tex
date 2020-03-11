@@ -1,0 +1,54 @@
+\begin{figure}[H]
+\centering
+\begin{sidebyside}
+\begin{class}{ActiveShop(id: \integer)}
+\\
+\begin{state}
+m, vmId, self: \integer
+\\t: nil | talk
+\end{state} 
+\\
+\begin{init}
+\\self = id
+\\t = talk
+\end{init} 
+\\
+\begin{op}{switch\_\_\_\_\ then\ IdleShop}
+x!: nil | talk
+\ST
+x! = t
+\\t' = nil
+\end{op}
+\\
+\begin{op}{talk}
+\Delta (m,vmId)
+\\y?, z?: \integer
+\ST
+y? = m'
+\\z? = vmId'
+\end{op}
+\end{class}
+\nextside
+\begin{class}{IdleShop(id: \integer)}
+\\
+\begin{state}
+m, vmId, self: \integer
+\\t: nil | talk
+\end{state} 
+\\
+\begin{init}
+\\self = id
+\\t = nil
+\end{init} 
+\\
+\begin{op}{switch\_\_\_\_\ then\ ActiveShop}
+\Delta (t)
+\\x?: nil | talk
+\ST
+x? = t'
+\end{op}
+\end{class}
+\end{sidebyside}
+\caption{active and idle shop}
+\label{fig_oz_active_idle_shop}
+\end{figure}
