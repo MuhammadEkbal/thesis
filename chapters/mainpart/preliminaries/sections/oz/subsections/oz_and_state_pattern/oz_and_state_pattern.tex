@@ -1,0 +1,12 @@
+The state pattern is a behavioral software design pattern. An object changes its class when its internal state changes. To illustrate the idea imagine that our vending machine \textit{VM} is a mobile vending machine and that it is connected by a wireless link $talk$ to a shop \textit{Shop1}. On signal fading \textit{Shop1} decides to send the link \textit{talk} to another shop \textit{Shop2} through the link \textit{switch} as shown in \refFig{fig_oz_mobile_vending_machine_and_shops}. \oz{} can be used to model the shop with considering the state pattern. When \textit{switch} occurs
+\begin{itemize}
+\item \textit{Shop1} sends \textit{talk} via \textit{switch} and changes its class from \textit{ActiveShop} to \textit{IdleShop} as shown in \refFig{fig_oz_active_shop}.
+\item \textit{Shop2} receives \textit{talk} via  \textit{switch} and changes its class from \textit{IdleShop} to \textit{ActiveShop} as shown in \refFig{fig_oz_idle_shop}.
+\end{itemize}
+Notice, when an object changes its class it keeps its state variables and skips the \textit{Init} schema of the new class.
+\input{./images/preliminaries/oz/oz_mobile_vending_machine_and_shops}
+
+
+
+\input{./images/preliminaries/oz/oz_active_shop}
+\input{./images/preliminaries/oz/oz_idle_shop}

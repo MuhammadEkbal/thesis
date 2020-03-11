@@ -1,7 +1,7 @@
 In this work when we use \oz{} to model an operation, we restrict our self to use only one type of parameters in the operation schema. Either input or output. This can be noticed in the operation schema $talk$ in:
 \begin{itemize}
 \item In \refFig{oz_vm_reference_name} all the parameters of the operation schema $talk$ are output paramaters.
-\item In \refFig{fig_oz_unfixed_operation_schema_shop}  all the parameters of the operation schema $talk$ are input paramaters.
+\item In \refFig{fig_oz_active_shop}  all the parameters of the operation schema $talk$ are input paramaters.
 \end{itemize}
 \textbf{Question:} why this restriction?\\
 \textbf{Answer:} because a channel in \picalc{} is unidirectional pro reaction. In the next chapter we will map the \oz{} class constructs to  \picalc{} constructs, so we will map an \oz{} operation to an \picalc{} name , .i.e., channel. In \picalc{} a processes can send or receive over a channel pro reaction, but not the both together.

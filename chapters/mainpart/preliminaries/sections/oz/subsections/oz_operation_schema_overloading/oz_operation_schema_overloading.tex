@@ -1,7 +1,0 @@
-Imagine that our vending machine $VM$ is a mobile vending machine and that it is connected by a wireless link $talk$ to a shop $Shop1$. On signal fading $Shop1$ decides to send the link $talk$ to another shop $Shop2$ through the link $switch$ as shown in \refFig{fig_oz_mobile_vending_machine_and_shops}. \oz{} can be used to model the shop. But, the operation $switch$ has a dual nature. It plays the sender role in $Shop1$, and the receiver role in $Shop2$.
- In \oz{} to deal with this duality nature we introduce the concept of \findex{Operation schema overloading}. As in some programming languages, method overloading is the ability to create multiple methods of the same name with different implementations. That is, the operation $switch$ has two different specifications ,i.e. two operation schemas with the same name as shown in \refFig{fig_oz_overloaded_operation_shop}, the first for sending the link $talk$ \footnote{$talk$ and $switch$ are operations in \oz{} perspective. But we use the word $link$ for simplicity}and the second for receiving it.
-When a $VM$ talks to a shop it sends its $id$ and a message $m$. The shop will store them in its state variables $vmID$ and $m$ as shown in \refFig{fig_oz_overloaded_operation_shop} in the operation schema $talk$.
-\input{./images/preliminaries/oz/oz_mobile_vending_machine_and_shops}
-
-\input{./images/preliminaries/oz/oz_operation_schema_overloading_shop}
-
