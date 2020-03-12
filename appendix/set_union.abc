@@ -1,0 +1,28 @@
+agent Example = (^a1,a3) (List1(a1) | List2(a3) | Union(a1,a3))
+
+agent List1(a1) = (^a0,b0,c0,d0,b1,c1) (Node(a1,b1,a0) | Ref(b1,c1) | Three(c1) | Node(a0,b0,d0) | Ref(b0,c0) | Zero(c0) | Nil(d0))
+agent List2(a3) = (^a2,b2,c2,d1,b3,c3) (Node(a3,b3,a2) | Ref(b3,c3) | Three(c3) | Node(a2,b2,d1) | Ref(b2,c2) | Two(c2) | Nil(d1))
+
+agent Union(a1,a3) = AddElement(a1,a3)
+agent AddElement(a1,a3) = (^res_t,res_f,o) ( GetValue(a3,o) | CheckValue(a1,o,a3))
+agent GetValue(r,o) = (^n,c) ('r<n,c>.(c(rv,l).'rv<n,c>.c(v).'o<v,l> + n.'o))
+agent CheckValue(k1,o,k2) =  o(v,l).(^res_t,res_f) (In(v,k1,res_t,res_f) | Append(v,k1,l,res_t,res_f)) + o
+agent Append(v,k1,l,res_t,res_f) = res_t.AppendNo(k1,l) + res_f.AppendYes(v,k1,l)
+agent AppendNo(a,l) = AddElement(a,l)
+agent AppendYes(v,k1,l) = (^a,b,c) (Copy(v,c) | Node(a,b,k1) | Ref(b,c) | AddElement(a,l))
+agent Copy(a,b) = (^tt,ff) ('a<tt,ff>.(ff.(ff.Zero(b) + tt.Two(b)) + tt.(tt.Three(b)+ ff.One(b))))
+agent In(a,b,res_t,res_f) = (^n,c) (In_1(a,b,res_t,res_f,n,c))
+agent In_1(a,b,res_t,res_f,n,c) = 'b<n,c>.(c(r,l).'r<n,c>.In_4(a,b,res_t,res_f,n,c,r,l)  + n.'res_f)
+agent In_4(a,b,res_t,res_f,n,c,r,l) = c(v).(^out_t,out_f) (IsEqual(a,v,out_t,out_f) | In_5(a,b,res_t,res_f,n,c,r,l,out_t,out_f))
+agent In_5(a,b,res_t,res_f,n,c,r,l,out_t,out_f) = out_t.'res_t + out_f.In_1(a,l,res_t,res_f,n,c)
+agent IsEqual(a,b,out_t,out_f) = (^t1,f1,t2,f2) ('a<t1,f1>.'b<t2,f2>.(^o_t,o_f) (IsEqual_4(a,b,out_t,out_f,t1,f1,t2,f2,o_t,o_f) | CompareBit( t1,f1,t2,f2,o_t,o_f)))
+agent IsEqual_4(a,b,out_t,out_f,t1,f1,t2,f2,o_t,o_f) = o_t.(IsEqual_5(a,b,out_t,out_f,t1,f1,t2,f2,o_t,o_f) | CompareBit( t1,f1,t2,f2,o_t,o_f)) + o_f.IsEqualPassBit( a,b,out_t,out_f,t1,f1,t2,f2)
+agent IsEqualPassBit(a,b,out_t,out_f,t1,f1,t2,f2) = f1.(f2.'out_f + t2.'out_f) + t1.(f2.'out_f + t2.'out_f)
+agent IsEqual_5(a,b,out_t,out_f,t1,f1,t2,f2,o_t,o_f) = o_t.'out_t + o_f.'out_f
+
+agent CompareBit(t1,f1,t2,f2,o_t,o_f) = f1.(f2.'o_t + t2.'o_f) + t1.(t2.'o_t + f2.'o_f)
+
+agent Nullref(r) = r(n,c).('n.Nullref(r) + c(m).Ref(r,m) + n.Nullref(r))
+agent Ref(r,v) = r(n,c).('c<v>.Ref(r,v) + c(m).Ref(r,m) + 'n.Nullref(r))
+agent Nil(k) = k(n,c).'n.Nil(k)
+agent Node(k,v,l) = k(n,c).'c<v,l>.Node(k,v,l)
