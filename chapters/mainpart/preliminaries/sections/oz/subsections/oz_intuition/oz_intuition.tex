@@ -55,9 +55,10 @@ The set of all possible state transitions when the selling coffee operation occu
 \begin{itemize}
 \item In mathematics: $coffee =\{cv,tv,cv',tv': \integer\mid (0 \leq  cv \leq 3) \wedge
 (0 \leq  tv \leq 3)\wedge (0 \leq  cv' \leq 3) \wedge (0 \leq  tv' \leq 3)\wedge (tv' = tv) \wedge (cv' = cv - 1) \bullet\pair{\pair{cv}{tv}}{\pair{cv'}{tv'}}\}  =\{\pair{\pair{3}{3}}{\pair{2}{3}},\dots,\pair{\pair{1}{0}}{\pair{0}{0}}\}$, where $(cv,tv)$ represents the \findex{pre state} and $(cv',tv')$ represents the \findex{post state} of a state transition.
-\item In \oz{}: the set $coffee$ can be described using an \findex{operation schema}, which is a box named with the operation name added to the class box as shown in \refFig{oz_vm_op_schema}.
+\item In \oz{}: the set $coffee$ can be described using an \findex{operation schema}, which is a box named with the operation name added to the class box as shown in \refFig{fig_oz_vm_operation_schema} left.
 \end{itemize}
-\input{./images/preliminaries/oz/oz_vm_op_schema}
+
+\input{./images/preliminaries/oz/oz_vm_operation_schema}
 
 \oz{} offers a more nice way to write the operation schema using $\Delta$-list. In \oz{}:
 \begin{itemize}
@@ -67,11 +68,8 @@ no attribute changes value.
 \item Operation schema implicitly
 includes the state schema and a primed version of it.
 \end{itemize}
-Thus, since the schema operation $coffee$ specifies changes on the $coffee$ value only, we can write it as shown in \refFig{oz_vm_op_schema_delta}. 
-\input{./images/preliminaries/oz/oz_vm_op_schema_delta}
-
-
-\input{./images/preliminaries/oz/oz_vm_with_all_specifications}
+Thus, since the schema operation $coffee$ specifies changes on the $coffee$ value only, we can write it as shown in \refFig{fig_oz_vm_operation_schema} middle. 
+Similarly, the operation schema $tea$ is shown in \refFig{fig_oz_vm_operation_schema} right.
 \end{itemize}
 
 \subsubsection{\findex{Operation's input and output parameters}:} 
