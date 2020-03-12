@@ -1,0 +1,24 @@
+agent FullAdderWait(t1,f1,t2,f2,cin_t,cin_f,cout3_t,cout3_f,s3_t,s3_f) = \
+cin_t.('cin_t | FullAdder(t1,f1,t2,f2,cin_t,cin_f,cout3_t,cout3_f,s3_t,s3_f)) \
++ cin_f.('cin_f | FullAdder(t1,f1,t2,f2,cin_t,cin_f,cout3_t,cout3_f,s3_t,s3_f))
+
+agent FullAdder(t1,f1,t2,f2,cin_t,cin_f,cout_t,cout_f,s2_t,s2_f) = \
+(^t1a,f1a,t1b,f1b,t2a,f2a,t2b,f2b,c1_t,c1_f,s1_t,s1_f,c2_t,c2_f,s1_ta,s1_fa,s1_tb,s1_fb,cin_ta,cin_fa,cin_tb,cin_fb) \
+( \
+HalfAdder(t1,f1,t1a,f1a,t1b,f1b,t2,f2,t2a,f2a,t2b,f2b,c1_t,c1_f,s1_t,s1_f) \
+| HalfAdder(s1_t,s1_f,s1_ta,s1_fa,s1_tb,s1_fb,cin_t,cin_f,cin_ta,cin_fa,cin_tb,cin_fb,c2_t,c2_f,s2_t,s2_f) \
+| OR(c1_t,c1_f,c2_t,c2_f,cout_t,cout_f) \
+)
+
+agent HalfAdder(t1,f1,t1a,f1a,t1b,f1b,t2,f2,t2a,f2a,t2b,f2b,c_t,c_f,s_t,s_f) = (Repeate(t1,f1,t1a,f1a,t1b,f1b) | Repeate(t2,f2,t2a,f2a,t2b,f2b) | AND(t1a,f1a,t2a,f2a,c_t,c_f) | XOR(t1b,f1b,t2b,f2b,s_t,s_f))
+
+agent AND(t1,f1,t2,f2,o_t,o_f) = f1.(f2.'o_f + t2.'o_f) + t1.(f2.'o_f + t2.'o_t)
+agent NAND(t1,f1,t2,f2,o_t,o_f) = f1.(f2.'o_t + t2.'o_t) + t1.(f2.'o_t + t2.'o_f)
+agent OR(t1,f1,t2,f2,o_t,o_f) = f1.(f2.'o_f + t2.'o_t) + t1.(f2.'o_t + t2.'o_t)
+agent NOR(t1,f1,t2,f2,o_t,o_f) = f1.(f2.'o_t + t2.'o_f) + t1.(f2.'o_f + t2.'o_f)
+agent XOR(t1,f1,t2,f2,o_t,o_f) = f1.(f2.'o_f + t2.'o_t) + t1.(f2.'o_t + t2.'o_f)
+agent XNOR(t1,f1,t2,f2,o_t,o_f) = f1.(f2.'o_t + t2.'o_f) + t1.(f2.'o_f + t2.'o_t)
+
+agent Send(a) = 'a
+agent Neg(tt,ff) = tt.'ff + ff.'tt
+agent Repeate(tt,ff,ta,fa,tb,fb) = tt.('ta | 'tb) + ff.('fa | 'fb)

@@ -1,4 +1,3 @@
 new x,y. (A[x,y] | B[x])
-
 A[a,b] := a<b>.A[a,b]
 B[c] := c(d).B[d]

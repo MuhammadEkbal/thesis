@@ -1,0 +1,45 @@
+
+agent Example = (^a,b,g,e,l) (Three(a) | Two(b) | Compare(a,b,g,e,l) | Test(g,e,l))
+
+agent Test(g,e,l) = g.Greater + e.Equal + l.Less
+
+agent Greater = 0
+agent Equal = 0
+agent Less = 0
+
+agent Compare(a,b,g,e,l) = (^ta,fa,tb,fb,l_t,l_f,e_t,e_f,g_t,g_f) ('a<ta,fa>.'b<tb,fb>.(^tb1,fb1,tb2,fb2,o_xor_t,o_xor_f,o_xor_1t,o_xor_1f,o_xor_2t,o_xor_2f,o_nand_1_t,o_nand_1_f,o_nand_1_1t,o_nand_1_1f,o_nand_1_2t,o_nand_1_2f)( \
+Repeate(tb,fb,tb1,fb1,tb2,fb2) \
+| XOR(ta,fa,tb1,fb1,o_xor_t,o_xor_f) \ 
+| Repeate(o_xor_t,o_xor_f,o_xor_1t,o_xor_1f,o_xor_2t,o_xor_2f) \
+| NAND(tb2,fb2,o_xor_2t,o_xor_2f,o_nand_1_t,o_nand_1_f) \
+| Repeate(o_nand_1_t,o_nand_1_f,o_nand_1_1t,o_nand_1_1f,o_nand_1_2t,o_nand_1_2f) \
+| Compare_3(a,b,l_t,l_f,e_t,e_f,g_t,g_f,ta,fa,tb,fb,o_nand_1_1t,o_nand_1_1f,o_nand_1_2t,o_nand_1_2f,o_xor_1t,o_xor_1f,g,e,l) \
+))
+
+
+agent Compare_3(a,b,l_t,l_f,e_t,e_f,g_t,g_f,ta,fa,tb,fb,o_nand_1_1t,o_nand_1_1f,o_nand_1_2t,o_nand_1_2f,o_xor_1t,o_xor_1f,g,e,l) = \
+o_nand_1_1t.Compare_4(a,b,l_t,l_f,e_t,e_f,g_t,g_f,ta,fa,tb,fb,o_nand_1_2t,o_nand_1_2f,o_xor_1t,o_xor_1f,g,e,l) \
++ o_nand_1_1f.Compare_4(a,b,l_t,l_f,e_t,e_f,g_t,g_f,ta,fa,tb,fb,o_nand_1_2t,o_nand_1_2f,o_xor_1t,o_xor_1f,g,e,l)
+
+
+agent Compare_4(a,b,l_t,l_f,e_t,e_f,g_t,g_f,ta,fa,tb,fb,o_nand_1_2t,o_nand_1_2f,o_xor_1t,o_xor_1f,g,e,l) = (^tb1,fb1,tb2,fb2,o_xnor_t,o_xnor_f,o_xnor_1t,o_xnor_1f,o_xnor_2t,o_xnor_2f,o_nor_1_t,o_nor_1_f,o_nand_2_t,o_nand_2_f,o_nand_2_1t,o_nand_2_1f,o_nand_2_2t,o_nand_2_2f,o_nor_2_t,o_nor_2_f,o_xor_2_t,o_xor_2_f,o_nor_2_1t,o_nor_2_1f,o_nor_2_2t,o_nor_2_2f,o_xor_2_1t,o_xor_2_1f,o_xor_2_2t,o_xor_2_2f,o_nor_3_t,o_nor_3_f,e2t,e2f,l2t,l2f)(\
+Repeate(tb,fb,tb1,fb1,tb2,fb2) \
+| XNOR(ta,fa,tb1,fb1,o_xnor_t,o_xnor_f) \
+| Repeate(o_xnor_t,o_xnor_f,o_xnor_1t,o_xnor_1f,o_xnor_2t,o_xnor_2f) \ 
+| NOR(tb2,fb2,o_xnor_1t,o_xnor_1f,o_nor_1_t,o_nor_1_f) \
+| NAND(o_xnor_2t,o_xnor_2f,o_nand_1_2t,o_nand_1_2f,o_nand_2_t,o_nand_2_f) \
+| Repeate(o_nand_2_t,o_nand_2_f,o_nand_2_1t,o_nand_2_1f,o_nand_2_2t,o_nand_2_2f) \
+| NOR(o_nand_2_1t,o_nand_2_1f,o_xor_1t,o_xor_1f,o_nor_2_t,o_nor_2_f) \
+| XOR(o_nor_1_t,o_nor_1_f,o_nand_2_2t,o_nand_2_2f,o_xor_2_t,o_xor_2_f) \
+| Repeate(o_nor_2_t,o_nor_2_f,e_t,e_f,e2t,e2f) \
+| Repeate(o_xor_2_t,o_xor_2_f,l_t,l_f,l2t,l2f) \
+| NOR(e2t,e2f,l2t,l2f,g_t,g_f) \
+| Compare_5(l_t,l_f,e_t,e_f,g_t,g_f,g,e,l) \
+)
+agent Compare_5(l_t,l_f,e_t,e_f,g_t,g_f,g,e,l) = g_t.Compare_6(g,e_f,l_f) + e_t.Compare_6(e,l_f,g_f)+ l_t.Compare_6(l,e_f,g_f)
+
+agent Compare_6(a,b,c) = b.c.'a
+
+
+
+

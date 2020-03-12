@@ -1,0 +1,36 @@
+agent Example = (^a,b,c) (Three(a) | One(b) | Sub(a,b,c))
+
+(* the trick is to invert t2,f2 places to mimic the Inverter *)
+agent Sub(a,b,c) = (^t1,f1,t2,f2) ('a<t1,f1>.'b<t2,f2>.(^cin_t,cin_f,cout_t,cout_f,s2_t,s2_f,cout3_t,cout3_f,s3_t,s3_f) ( \
+FullAdderWait(t1,f1,f2,t2,cin_t,cin_f,cout_t,cout_f,s2_t,s2_f) \
+| 'cin_t \
+| FullAdderWait(t1,f1,f2,t2,cout_t,cout_f,cout3_t,cout3_f,s3_t,s3_f) \
+| Result_S(s2_t,s2_f,s3_t,s3_f,cout3_t,cout3_f,c) \
+))
+
+agent Result_S(s0_t,s0_f,s1_t,s1_f,c_t,c_f,res) = \
+s0_f.(s1_f.(c_t.Zero(res) + c_f.ErrNegResult ) + s1_t.(c_t.Two(res) + c_f.ErrNegResult )) \
++ s0_t.(s1_f.(c_t.One(res) + c_f.ErrNegResult ) + s1_t.(c_t.Three(res) + c_f.ErrNegResult))
+
+
+agent ErrNegResult = 0
+
+agent FullAdderWait(t1,f1,t2,f2,cin_t,cin_f,cout3_t,cout3_f,s3_t,s3_f) = \
+cin_t.('cin_t | FullAdder(t1,f1,t2,f2,cin_t,cin_f,cout3_t,cout3_f,s3_t,s3_f)) \
++ cin_f.('cin_f | FullAdder(t1,f1,t2,f2,cin_t,cin_f,cout3_t,cout3_f,s3_t,s3_f))
+
+
+agent FullAdder(t1,f1,t2,f2,cin_t,cin_f,cout_t,cout_f,s2_t,s2_f) = \
+(^t1a,f1a,t1b,f1b,t2a,f2a,t2b,f2b,c1_t,c1_f,s1_t,s1_f,c2_t,c2_f,s1_ta,s1_fa,s1_tb,s1_fb,cin_ta,cin_fa,cin_tb,cin_fb) \
+( \
+HalfAdder(t1,f1,t1a,f1a,t1b,f1b,t2,f2,t2a,f2a,t2b,f2b,c1_t,c1_f,s1_t,s1_f) \
+| HalfAdder(s1_t,s1_f,s1_ta,s1_fa,s1_tb,s1_fb,cin_t,cin_f,cin_ta,cin_fa,cin_tb,cin_fb,c2_t,c2_f,s2_t,s2_f) \
+| OR(c1_t,c1_f,c2_t,c2_f,cout_t,cout_f) \
+)
+
+agent HalfAdder(t1,f1,t1a,f1a,t1b,f1b,t2,f2,t2a,f2a,t2b,f2b,c_t,c_f,s_t,s_f) = (Repeate(t1,f1,t1a,f1a,t1b,f1b) | Repeate(t2,f2,t2a,f2a,t2b,f2b) | AND(t1a,f1a,t2a,f2a,c_t,c_f) | XOR(t1b,f1b,t2b,f2b,s_t,s_f))
+
+
+
+
+

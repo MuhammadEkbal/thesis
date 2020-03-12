@@ -1,12 +1,8 @@
 agent P = (^x)( A_1 x | B_1 x)
-
 agent A_1(y) = 'y.0
 agent B_1(z) = z.0
-
 agent Q = (^x)((A_1 x | B_1 x) + t.Q)
-
 // check if Q strongly simulates P
 lt P Q
-
 // check if P strongly simulates Q
 lt Q P

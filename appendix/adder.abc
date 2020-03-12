@@ -7,55 +7,8 @@ FullAdderWait(t1,f1,t2,f2,cin_t,cin_f,cout_t,cout_f,s2_t,s2_f) \
 | Result(s2_t,s2_f,s3_t,s3_f,cout3_t,cout3_f,c) \
 ))
 
-
 agent Result(s0_t,s0_f,s1_t,s1_f,c_t,c_f,res) = \
 s0_f.(s1_f.(c_f.Zero(res) + c_t.OverFlow) + s1_t.(c_f.Two(res)+ c_t.OverFlow)) \
 + s0_t.(s1_f.(c_f.One(res) + c_t.OverFlow) + s1_t.(c_f.Three(res)+ c_t.OverFlow))
 
 agent OverFlow = 0
-
-
-agent FullAdderWait(t1,f1,t2,f2,cin_t,cin_f,cout3_t,cout3_f,s3_t,s3_f) = \
-cin_t.('cin_t | FullAdder(t1,f1,t2,f2,cin_t,cin_f,cout3_t,cout3_f,s3_t,s3_f)) \
-+ cin_f.('cin_f | FullAdder(t1,f1,t2,f2,cin_t,cin_f,cout3_t,cout3_f,s3_t,s3_f))
-
-
-agent FullAdder(t1,f1,t2,f2,cin_t,cin_f,cout_t,cout_f,s2_t,s2_f) = \
-(^t1a,f1a,t1b,f1b,t2a,f2a,t2b,f2b,c1_t,c1_f,s1_t,s1_f,c2_t,c2_f,s1_ta,s1_fa,s1_tb,s1_fb,cin_ta,cin_fa,cin_tb,cin_fb) \
-( \
-HalfAdder(t1,f1,t1a,f1a,t1b,f1b,t2,f2,t2a,f2a,t2b,f2b,c1_t,c1_f,s1_t,s1_f) \
-| HalfAdder(s1_t,s1_f,s1_ta,s1_fa,s1_tb,s1_fb,cin_t,cin_f,cin_ta,cin_fa,cin_tb,cin_fb,c2_t,c2_f,s2_t,s2_f) \
-| OR(c1_t,c1_f,c2_t,c2_f,cout_t,cout_f) \
-)
-
-
-agent HalfAdder(t1,f1,t1a,f1a,t1b,f1b,t2,f2,t2a,f2a,t2b,f2b,c_t,c_f,s_t,s_f) = (Repeate(t1,f1,t1a,f1a,t1b,f1b) | Repeate(t2,f2,t2a,f2a,t2b,f2b) | AND(t1a,f1a,t2a,f2a,c_t,c_f) | XOR(t1b,f1b,t2b,f2b,s_t,s_f))
-
-
-agent AND(t1,f1,t2,f2,o_t,o_f) = f1.(f2.'o_f + t2.'o_f) + t1.(f2.'o_f + t2.'o_t)
-agent NAND(t1,f1,t2,f2,o_t,o_f) = f1.(f2.'o_t + t2.'o_t) + t1.(f2.'o_t + t2.'o_f)
-
-agent OR(t1,f1,t2,f2,o_t,o_f) = f1.(f2.'o_f + t2.'o_t) + t1.(f2.'o_t + t2.'o_t)
-agent NOR(t1,f1,t2,f2,o_t,o_f) = f1.(f2.'o_t + t2.'o_f) + t1.(f2.'o_f + t2.'o_f)
-
-agent XOR(t1,f1,t2,f2,o_t,o_f) = f1.(f2.'o_f + t2.'o_t) + t1.(f2.'o_t + t2.'o_f)
-agent XNOR(t1,f1,t2,f2,o_t,o_f) = f1.(f2.'o_t + t2.'o_f) + t1.(f2.'o_f + t2.'o_t)
-
-
-
-
-agent Zero(a) = a(tt,ff).'ff.'ff.Zero(a) + a.0
-agent One(a) = a(tt,ff).'tt.'ff.One(a) + a.0
-agent Two(a) = a(tt,ff).'ff.'tt.Two(a) + a.0
-agent Three(a) = a(tt,ff).'tt.'tt.Three(a) + a.0
-
-agent Send(a) = 'a
-
-agent Neg(tt,ff) = tt.'ff + ff.'tt
-
-agent Repeate(tt,ff,ta,fa,tb,fb) = tt.('ta | 'tb) + ff.('fa | 'fb)
-
-
-
-
-
