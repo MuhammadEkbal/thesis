@@ -1,0 +1,5 @@
+agent ActiveShop_OZ(self,switch,tr,talk_current,vm_id,m) = 
+'switch<talk_current>.( ((^n,c) ('tr<n,c>.'n.IdleShop_OZ(self,switch,tr,vm_id,m))) | KillAndSetNilIfNotNill(vm_id)  | KillAndSetNilIfNotNill(m))  \
++ talk_current(vm_id_new,m_new).(^done_ref,done_m) ( (done_ref.done_m.ActiveShop_OZ(self,switch,tr,talk_current,vm_id,m)) | KillThenCopyValueThenKillTemp(vm_id_new,vm_id,done_ref) | KillThenCopyValueThenKillTemp(m_new,m,done_m))
+
+agent ActiveShop_OZ_Init_Talk(switch,talk_current) = (^self,tr,vm_id,m) (ActiveShop_OZ(self,switch,tr,talk_current,vm_id,m) | Two(self) | Ref(tr,talk_current) | Nill(vm_id) | Nill(m))

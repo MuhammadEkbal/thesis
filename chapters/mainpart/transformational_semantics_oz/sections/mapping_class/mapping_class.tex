@@ -1,41 +1,64 @@
-\begin{figure}
-\begin{subfigure}{.5\textwidth}
-  \centering
-\begin{class}{IdleShop(id: \integer)}
+The class \textit{VM} shown in \refFig{tra_vm_OZ} is mapped to a \picalc{} process \textit{VM\_OZ} shown in \refLis{tra_vm_OZ_listing}. The processes \textbf{VM\_OZ} has sex parameters
+\begin{itemize}
+\item \textit{self,cv,tv,m}: represents the state variables.
+\item \textit{coffee,tea,talk}: represents the operations.
+\end{itemize}
+The processes \textit{VM\_OZ} mimics the behaviour of $VM$. :
+\begin{itemize}
+\item on reviving a signal via \textit{coffee} it checks if \textit{VM\_Condition\_IF\_Else\_coffee} the condition \textit{VM\_Condition\_coffee} is fulfilled, then it makes a state transition \textit{VM\_State\_Transition\_coffee} to  decreases \textit{One(b) }| \textit{Sub(cv,b,c,done)} the value of \textit{cv} by one.
+\item the same for \textit{tea}.
+\item it can send a copy of the value of $self,m$ via $talk$
+\end{itemize}
+
+\begin{figure}[H]
+\begin{subfigure}{.6\textwidth}
+\centering
+\begin{class}{VM(id: \integer)}
+\\
 \begin{state}
-m, vmId, self: \integer
-\\t: nil | talk
+cv, tv, m, self: \integer
+\ST
+0 \leq  cv \leq 3
+\\
+0 \leq  tv \leq 3
 \end{state} 
 \\
 \begin{init}
+cv = 3
+\\tv = 3
+\\ m= 1
 \\self = id
-\\t = nil
 \end{init} 
 \\
-\begin{op}{switch\_\_\_\_\ then\ ActiveShop}
-\Delta (t)
-\\x?: nil | talk
+\begin{op}{coffee}
+\Delta (cv)
 \ST
-x? = t'
+cv' = cv - 1
+\end{op}
+\\
+\begin{op}{tea}
+\Delta (tv)
+\ST
+tv' = tv - 1
+\end{op}
+\\
+\begin{op}{talk}
+y!: \integer
+\\z!: \integer
+\ST
+y! = m
+\\z! = self
 \end{op}
 \end{class}
-  \caption{1a}
-  \label{fig:sfig1}
+  \caption{VM OZ class}
 \end{subfigure}%
-\begin{subfigure}{.5\textwidth}
+\begin{subfigure}{.4\textwidth}
   \centering
-\fbox{  \includegraphics[width=.8\linewidth]{./images/transformational_semantics_of_oz/idleShop_OZ.png}}
-  \caption{1b}
-  \label{fig:sfig2}
+\fbox{  \includegraphics[width=.91\linewidth]{./images/transformational_semantics_of_oz/vm_OZ.png}}
+  \caption{stargazer visualization}
 \end{subfigure}
-\vspace{2em}
-
-\begin{subfigure}{1\textwidth}
-  \centering
-\lstinputlisting[backgroundcolor=\color{white},caption={ABC code: IdleShop OZ as a processes.},captionpos=b, label={idleShop_OZ}]{listings/idleShop_OZ.abc}
-  \caption{1b}
-  \label{fig:sfig3}
-\end{subfigure}
-\caption{transforming IdleShop}
-\label{fig:fig}
+\caption{transforming VM into \picalc{} process \textit{VM\_OZ}}
+\label{tra_vm_OZ}
 \end{figure}
+
+\lstinputlisting[backgroundcolor=\color{white},caption={ VM OZ class as a process in ABC code.},captionpos=b, label={tra_vm_OZ_listing}]{listings/vm_OZ.abc}
