@@ -5,7 +5,7 @@ The class \textit{VM} shown in \refFig{tra_vm_OZ} is mapped to a \picalc{} proce
 \end{itemize}
 The processes \textit{VM\_OZ} mimics the behaviour of $VM$:
 \begin{itemize}
-\item on reviving a signal via \textit{coffee}, then \textit{VM\_Condition\_IF\_Else\_coffee} checks if the condition \textit{VM\_Condition\_coffee} is fulfilled. If it is fulfilled it makes a state transition \textit{VM\_State\_Transition\_coffee} to decreases the value of \textit{cv} by one\textit{One(b) }| \textit{Sub(cv,b,c,done)}.
+\item on reviving a signal via \textit{coffee}, then \textit{VM\_Condition\_IF\_Else\_coffee} checks if the condition \textit{VM\_Condition\_coffee} is fulfilled. If it is fulfilled it makes a state transition \textit{VM\_State\_Transition\_coffee} to decreases the value of \textit{cv} by one \textit{One(b) }| \textit{Sub(cv,b,c,done)}.
 \item the same goes for \textit{tea}.
 \item  \textit{VM} can send a copy of the value of  \textit{self,message} via  \textit{talk}
 \end{itemize}
