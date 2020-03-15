@@ -3,7 +3,7 @@
 \begin{class}{VM(id: \integer)}
 \\
 \begin{state}
-cv, tv, m, self: \integer
+self, cv, tv, message: \integer
 \ST
 0 \leq  cv \leq 3
 \\
@@ -11,10 +11,10 @@ cv, tv, m, self: \integer
 \end{state} 
 \\
 \begin{init}
-cv = 3
+self = id
+\\cv = 3
 \\tv = 3
-\\ m= 1
-\\self = id
+\\ message= 1
 \end{init} 
 \\
 \begin{op}{coffee}
@@ -33,7 +33,7 @@ tv' = tv - 1
 y!: \integer
 \\z!: \integer
 \ST
-y! = m
+y! = message
 \\z! = self
 \end{op}
 \end{class}

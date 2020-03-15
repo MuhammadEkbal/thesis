@@ -1,10 +1,11 @@
-agent VM_OZ_Init(coffee,tea,talk) = (^self,cv,tv,m) (VM_OZ(self,coffee,tea,talk,cv,tv,m) | Zero(self) | Three(cv) | Three(tv) | One(m))
+agent VM_OZ_Init(coffee,tea,talk) = (^self,cv,tv,message) (VM_OZ(self,coffee,tea,talk,cv,tv,message) | Zero(self) | Three(cv) | Three(tv) | One(message))
 
-agent VM_OZ(self,coffee,tea,talk,cv,tv,m) = 
-coffee.(^res_t,res_f) (VM_Condition_coffee(self,coffee,tea,talk,cv,tv,m,res_t,res_f) | VM_Condition_IF_Else_coffee(self,coffee,tea,talk,cv,tv,m,res_t,res_f)) \
-+ tea.(^res_t,res_f) (VM_Condition_tea(self,coffee,tea,talk,cv,tv,m,res_t,res_f) | VM_Condition_IF_Else_tea(self,coffee,tea,talk,cv,tv,m,res_t,res_f)) \
-+ (^m_c,m_done,r_c,r_done) ( (m_done.r_done.'talk<r_c,m_c>.VM_OZ(self,coffee,tea,talk,cv,tv,m)) | Copy(m,m_c,m_done) | Copy(self,r_c,r_done))
+agent VM_OZ(self,coffee,tea,talk,cv,tv,message) = 
+coffee.(^res_t,res_f) (VM_Condition_coffee(self,coffee,tea,talk,cv,tv,message,res_t,res_f) | VM_Condition_IF_Else_coffee(self,coffee,tea,talk,cv,tv,message,res_t,res_f)) \
++ tea.(^res_t,res_f) (VM_Condition_tea(self,coffee,tea,talk,cv,tv,message,res_t,res_f) | VM_Condition_IF_Else_tea(self,coffee,tea,talk,cv,tv,message,res_t,res_f)) \
++ (^m_c,m_done,r_c,r_done) ( (m_done.r_done.'talk<r_c,m_c>.VM_OZ(self,coffee,tea,talk,cv,tv,message)) | Copy(message,m_c,m_done) | Copy(self,r_c,r_done))
 
-agent VM_Condition_coffee(self,coffee,tea,talk,cv,tv,m,res_t,res_f) = (^b,g,e,l) (Zero(b) | Compare(cv,b,g,e,l) | CleanAndTF(g,e,l,res_t,res_f,b))
-agent VM_Condition_IF_Else_coffee(self,coffee,tea,talk,cv,tv,m,res_t,res_f) = res_t.(VM_State_Transition_coffee(self,coffee,tea,talk,cv,tv,m)) + res_f.VM_PleaseFillMe
-agent VM_State_Transition_coffee(self,coffee,tea,talk,cv,tv,m) = (^sub_done, b,c,done) ((One(b) | Sub(cv,b,c,done) | ClearThenCopy(cv,b,c,done,sub_done)) | (sub_done.'coffee.VM_OZ(self,coffee,tea,talk,cv,tv,m)) )
+agent VM_Condition_coffee(self,coffee,tea,talk,cv,tv,message,res_t,res_f) = (^b,g,e,l) (Zero(b) | Compare(cv,b,g,e,l) | CleanAndTF(g,e,l,res_t,res_f,b))
+agent VM_Condition_IF_Else_coffee(self,coffee,tea,talk,cv,tv,message,res_t,res_f) = res_t.(VM_State_Transition_coffee(self,coffee,tea,talk,cv,tv,message)) + res_f.VM_PleaseFillMe
+agent VM_State_Transition_coffee(self,coffee,tea,talk,cv,tv,message) = (^sub_done, b,c,done) ((One(b) | Sub(cv,b,c,done) | ClearThenCopy(cv,b,c,done,sub_done)) | (sub_done.'coffee.VM_OZ(self,coffee,tea,talk,cv,tv,message)) )
+

@@ -3,7 +3,7 @@
 \begin{class}{VM}
 \\
 \begin{state}
-cv, tv, m: \integer
+cv, tv, message: \integer
 \ST
 0 \leq  cv \leq 3
 \\
@@ -13,7 +13,7 @@ cv, tv, m: \integer
 \begin{init}
 cv = 3
 \\tv = 3
-\\ m= 1
+\\ message= 1
 \end{init} 
 \\
 \begin{op}{coffee}
@@ -31,7 +31,7 @@ tv' = tv - 1
 \begin{op}{talk}
 y!: \integer
 \ST
-y! = m
+y! = message
 \end{op}
 \end{class}
 \caption{$VM$ class: \textit{$talk$ operation with output parameter.}}

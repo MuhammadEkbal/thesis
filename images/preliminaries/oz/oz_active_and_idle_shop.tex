@@ -4,27 +4,27 @@
 \begin{class}{ActiveShop(id: \integer)}
 \\
 \begin{state}
-m, vmId, self: \integer
-\\t: nil | talk
+self, vmId, message: \integer
+\\transferableOperation: nil | talk
 \end{state} 
 \\
 \begin{init}
 \\self = id
-\\t = talk
+\\transferableOperation = talk
 \end{init} 
 \\
 \begin{op}{switch\_\_\_\_\ then\ IdleShop}
 x!: nil | talk
 \ST
-x! = t
-\\t' = nil
+x! = transferableOperation
+\\transferableOperation' = nil
 \end{op}
 \\
 \begin{op}{talk}
-\Delta (m,vmId)
+\Delta (vmId, message)
 \\y?, z?: \integer
 \ST
-y? = m'
+y? = message'
 \\z? = vmId'
 \end{op}
 \end{class}
@@ -32,20 +32,20 @@ y? = m'
 \begin{class}{IdleShop(id: \integer)}
 \\
 \begin{state}
-m, vmId, self: \integer
-\\t: nil | talk
+self, vmId, message: \integer
+\\transferableOperation: nil | talk
 \end{state} 
 \\
 \begin{init}
 \\self = id
-\\t = nil
+\\transferableOperation = nil
 \end{init} 
 \\
 \begin{op}{switch\_\_\_\_\ then\ ActiveShop}
-\Delta (t)
+\Delta (transferableOperation)
 \\x?: nil | talk
 \ST
-x? = t'
+x? = transferableOperation'
 \end{op}
 \end{class}
 \end{sidebyside}

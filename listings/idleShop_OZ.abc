@@ -1,3 +1,3 @@
-agent IdleShop_OZ(self,switch,tr,vm_id,m) = switch(talk_new).((^n,c) ('tr<n,c>.'c<talk_new>.ActiveShop_OZ(self,switch,tr,talk_new,vm_id,m)))
+agent IdleShop_OZ(self,switch,transferableOperation,vmId,message) = switch(talk_new).((^n,c) ('transferableOperation<n,c>.'c<talk_new>.ActiveShop_OZ(self,switch,transferableOperation,talk_new,vmId,message)))
 
-agent IdleShop_OZ_Init_Null(switch) = (^self,tr,vm_id,m) (IdleShop_OZ(self,switch,tr,vm_id,m) | One(self) | Nullref(tr) | Nill(vm_id) | Nill(m))
+agent IdleShop_OZ_Init_Null(switch) = (^self,transferableOperation,vmId,message) (IdleShop_OZ(self,switch,transferableOperation,vmId,message) | One(self) | Nullref(transferableOperation) | Nill(vmId) | Nill(message))

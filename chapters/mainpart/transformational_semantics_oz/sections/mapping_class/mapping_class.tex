@@ -1,14 +1,15 @@
-The class \textit{VM} shown in \refFig{tra_vm_OZ} is mapped to a \picalc{} process \textit{VM\_OZ} shown in \refLis{tra_vm_OZ_listing}. The processes \textbf{VM\_OZ} has sex parameters
+The class \textit{VM} shown in \refFig{tra_vm_OZ} is mapped to a \picalc{} process \textit{VM\_OZ} shown in \refLis{tra_vm_OZ_listing}. The processes \textbf{VM\_OZ} has six parameters
 \begin{itemize}
-\item \textit{self,cv,tv,m}: represents the state variables.
+\item \textit{self,message,cv,tv}: represents the state variables.
 \item \textit{coffee,tea,talk}: represents the operations.
 \end{itemize}
-The processes \textit{VM\_OZ} mimics the behaviour of $VM$. :
+The processes \textit{VM\_OZ} mimics the behaviour of $VM$:
 \begin{itemize}
-\item on reviving a signal via \textit{coffee} it checks if \textit{VM\_Condition\_IF\_Else\_coffee} the condition \textit{VM\_Condition\_coffee} is fulfilled, then it makes a state transition \textit{VM\_State\_Transition\_coffee} to  decreases \textit{One(b) }| \textit{Sub(cv,b,c,done)} the value of \textit{cv} by one.
-\item the same for \textit{tea}.
-\item it can send a copy of the value of $self,m$ via $talk$
+\item on reviving a signal via \textit{coffee}, then \textit{VM\_Condition\_IF\_Else\_coffee} checks if the condition \textit{VM\_Condition\_coffee} is fulfilled. If it is fulfilled it makes a state transition \textit{VM\_State\_Transition\_coffee} to decreases the value of \textit{cv} by one\textit{One(b) }| \textit{Sub(cv,b,c,done)}.
+\item the same goes for \textit{tea}.
+\item  \textit{VM} can send a copy of the value of  \textit{self,message} via  \textit{talk}
 \end{itemize}
+The processes \textit{VM\_OZ\_Init} creates an instance of \textit{VM\_OZ} and initialize its state variables \textit{self,cv,tv,message} with the values \textit{Zero,Three,Three,One}. The full implementation can be found in the appendix.
 
 \begin{figure}[H]
 \begin{subfigure}{.6\textwidth}
@@ -16,7 +17,7 @@ The processes \textit{VM\_OZ} mimics the behaviour of $VM$. :
 \begin{class}{VM(id: \integer)}
 \\
 \begin{state}
-cv, tv, m, self: \integer
+self, cv, tv, message: \integer
 \ST
 0 \leq  cv \leq 3
 \\
@@ -24,10 +25,10 @@ cv, tv, m, self: \integer
 \end{state} 
 \\
 \begin{init}
-cv = 3
+self = id
+\\cv = 3
 \\tv = 3
-\\ m= 1
-\\self = id
+\\message = 1
 \end{init} 
 \\
 \begin{op}{coffee}
@@ -46,7 +47,7 @@ tv' = tv - 1
 y!: \integer
 \\z!: \integer
 \ST
-y! = m
+y! = message
 \\z! = self
 \end{op}
 \end{class}
@@ -57,7 +58,7 @@ y! = m
 \fbox{  \includegraphics[width=.91\linewidth]{./images/transformational_semantics_of_oz/vm_OZ.png}}
   \caption{stargazer visualization}
 \end{subfigure}
-\caption{transforming VM into \picalc{} process \textit{VM\_OZ}}
+\caption{transforming \textit{VM} into \picalc{} process \textit{VM\_OZ}}
 \label{tra_vm_OZ}
 \end{figure}
 

@@ -1,7 +1,7 @@
 
-agent Example = (^a,b,g,e,l) (Three(a) | Two(b) | Compare(a,b,g,e,l) | Test(g,e,l))
+agent Example = (^a,b,g,e,l) (Three(a) | Two(b) | Compare(a,b,g,e,l) | If_Else(g,e,l))
 
-agent Test(g,e,l) = g.Greater + e.Equal + l.Less
+agent If_Else(g,e,l) = g.Greater + e.Equal + l.Less
 
 agent Greater = 0
 agent Equal = 0
