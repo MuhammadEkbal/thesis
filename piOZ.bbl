@@ -40,4 +40,8 @@ T.~Kenji and D.~Jin and C.~Gabriel.
 \newblock {\em Relating $\pi$-Calculus to Object-Z}.
 \newblock Engineering of Complex Computer Systems, IEEE International Conference on 97-106, 2004.
 
+\bibitem[TDC02]{Kenji2}
+T.~Kenji and D.~Jin.
+\newblock {\em An Overview of Mobile Object-Z}.
+\newblock 144-155. 10.1007/3-540-36103-0\_17.
 \end{thebibliography}
