@@ -1,0 +1,34 @@
+\begin{figure}[H]
+\begin{subfigure}{.6\textwidth}
+\centering
+\begin{class}{IdleShop(id: \integer)}
+\\
+\begin{state}
+self, vmId, message: \integer
+\\transferableOperation: nil | talk
+\end{state} 
+\\
+\begin{init}
+\\self = id
+\\transferableOperation = nil
+\end{init} 
+\\
+\begin{op}{switch\_\_\_\_\ then\ ActiveShop}
+\Delta (transferableOperation)
+\\x?: nil | talk
+\ST
+x? = transferableOperation'
+\end{op}
+\end{class}
+  \caption{IdleShop OZ class}
+\end{subfigure}%
+\begin{subfigure}{.4\textwidth}
+  \centering
+\fbox{  \includegraphics[width=.91\linewidth]{./images/transformational_semantics_of_oz/idleShop_OZ.png}}
+  \caption{stargazer visualization}
+\end{subfigure}
+\caption{transforming \textit{IdleShop} into \picalc{} process \textit{IdleShop\_OZ}}
+\label{tra_idleShop_OZ}
+\end{figure}
+
+\lstinputlisting[backgroundcolor=\color{white},caption={ IdleShop OZ class as a process in ABC code.},captionpos=b, label={tra_idleShop_OZ_listing}]{listings/idleShop_OZ.abc}
