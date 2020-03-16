@@ -4,6 +4,10 @@ The state pattern is a behavioral software design pattern. An object changes its
 \item \textit{Shop2} receives \textit{talk} via  \textit{switch} and changes its class from \textit{IdleShop} to \textit{ActiveShop} as shown in \refFig{fig_oz_active_idle_shop}.
 \end{itemize}
 Notice, when an object changes its class it keeps its state variables and skips the \textit{Init} schema of the new class.
+Dynamic \oz{} is based on the Agent-Place model used by MobileOZ decriped in \cite{Kenji2}. MobileOZ has two
+essential entities, agents and places. The main difference in the roles of these entities is that agents can move around the network, while places cannot. Dynamic \oz{} takes another approach by allowing places transferring, as shown in \refFig{fig_oz_mobile_vending_machine_and_shops}, where the link $talk$ can be transferred between $Shop1$ and $Shop2$. In Dynamic \oz{} mobility is achieved
+by attaching a distinguished variable transferableOperation for location. Location transferring
+is mimicked by assigning a new location to that variable.
 \input{./images/preliminaries/oz/oz_mobile_vending_machine_and_shops}
 
 \input{./images/preliminaries/oz/oz_active_and_idle_shop}
