@@ -1,4 +1,4 @@
-AS mentioned in \refSec{sec_oz_dynamic_oz}, the mobility in Dynamic \oz{} is achieved
+As mentioned in \refSec{sec_oz_dynamic_oz}, the mobility in Dynamic \oz{} is achieved
 by attaching a distinguished variable transferableOperation for location. Location transferring
 is mimicked by assigning a new location to that variable. To translate the variable transferableOperation into \picalc{} we cannot use \picalc{} channel as in \refSec{sec_tra_mapping_state_variables}, since the value of transferableOperation will be a channel name and not a processes representing a value like $Zero$. Thus, we map the variable transferableOperation to channel named transferableOperation and:
 
@@ -13,3 +13,5 @@ Thus using the concept of transferable operation's variable we can now transform
 \input{chapters/mainpart/transformational_semantics_oz/sections/mapping_transferable_operation/idleShop_OZ_stargazer_ABC}
 \input{chapters/mainpart/transformational_semantics_oz/sections/mapping_transferable_operation/activeShop_OZ_stargazer_ABC}
 
+Finally, \refFig{tra_system}, \refLis{tra_system_lis} shows the big picture of a system consisting of two shops, vending machine and a customer. The full implementation can be found in the appendix.
+\input{chapters/mainpart/transformational_semantics_oz/sections/mapping_transferable_operation/system}
