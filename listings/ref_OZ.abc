@@ -1,0 +1,2 @@
+agent Nullref(r) = r(n,c).('n.Nullref(r) + c(m).Ref(r,m) + n.Nullref(r))
+agent Ref(r,v) = r(n,c).('c<v>.Ref(r,v) + c(m).Ref(r,m) + 'n.Nullref(r))
