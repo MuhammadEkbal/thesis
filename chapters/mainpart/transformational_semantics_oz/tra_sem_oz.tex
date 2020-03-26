@@ -1,14 +1,15 @@
 This chapter study the syntactic transformation of \oz{} class into \picalc{} process. The resulting processes is intuitively defined as follow:\\
 $\\P_{OZ\_\pi} = \sum_{v\_st\in Init}^{} \tau. Q(v\_st,v\_self)$
-$\\Q(v\_st,v\_self) = (\sum_{c\in In}^{} c.v\_in_{c} \ +\ \sum_{c\in Out}^{} \tau.c.v\_out_{c})\ .\ \sum_{v\_st'}^{} \tau.Q(v\_st',v\_self)$
+$\\Q(v\_st,v\_self) = (\sum_{c\in In}^{} c(v\_in_{c}) \ +\ \sum_{c\in Out}^{} \tau.c<v\_out_{c}>)\ .\ \sum_{v\_st'}^{} \tau.Q(v\_st',v\_self)$
 where:
 \begin{itemize}
+\item $\inA$ the set of all \index{action!input}\findex[input!action]{input actions}, defined as $\inA\define\set[x\in\names]{\inp{x}{\vec{y}}}$.
+\item $\outA$ is the set of all \index{action!output}\findex[output!action]{output actions}, defined as $\outA\define\set[x\in\names]{\out{x}{\vec{y}}}$.
 \item $c$ refers to an operation.
 \item $v\_st$ refers to the state variables.
 \item $v\_self$ refers to the instance reference.
 \item $c.v\_in_{c}$ refers to the occurrence of the operation $c$, where $v\_in_{c}$ represents the values of the input parameters of $c$.
 \item $c.v\_out_{c}$ refers to the occurrence of the operation $c$, where $v\_out_{c}$ represents the values of the output parameters of $c$.
-\item $\Box$ deterministic choice, $\sqcap$ non deterministic choice, $+$ choice.
 \end{itemize}
 What is the benefit of transforming an \oz{} class into \picalc{} process? To combine it, using parallel operator, with a second \picalc{} processes represents the sequencing of operations. This will enable us to study the behavior of an entity as will be shown later in the next chapter.
 
