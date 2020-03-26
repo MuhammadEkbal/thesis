@@ -1,1 +1,1 @@
-agent System = (^coffee,tea,switch,talk) ( VM_OZ_Init(coffee,tea,talk) | Cus(coffee,tea) | IdleShop_OZ_Init_Null(switch) | ActiveShop_OZ_Init_Talk(switch,talk))
+agent System = (^coffee,tea,switch,talk) ( VM_OZ_PI_Init(coffee,tea,talk) | Cus(coffee,tea) | IdleShop_OZ_Init_Null(switch) | ActiveShop_OZ_PI_Init_Talk(switch,talk))
