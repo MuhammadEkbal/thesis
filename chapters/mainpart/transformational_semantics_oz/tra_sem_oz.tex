@@ -1,6 +1,6 @@
 This chapter study the syntactic transformation of \oz{} class into \picalc{} process. The resulting processes is intuitively defined as follow:\\
-$P_{OZ\_part\_as\_\pi\_process} = \sqcap _{v\_st}\ Q(v\_st,v\_self)$
-\\$Q(v\_st,v\_self) = (\Box _{c,v\_in_{c}} \sqcap _{v\_st'} \ c.v\_in_{c} \ +\ \sqcap _{c,v\_out_{c}} \sqcap _{v\_st'} \ c.v\_out_{c})\rightarrow \ Q(v\_st',v\_self)$
+$\\P_{OZ\_\pi} = \sum_{v\_st\in Init}^{} \tau. Q(v\_st,v\_self)$
+$\\Q(v\_st,v\_self) = (\sum_{c\in In}^{} c.v\_in_{c} \ +\ \sum_{c\in Out}^{} \tau.c.v\_out_{c})\ .\ \sum_{v\_st'}^{} \tau.Q(v\_st',v\_self)$
 where:
 \begin{itemize}
 \item $c$ refers to an operation.
