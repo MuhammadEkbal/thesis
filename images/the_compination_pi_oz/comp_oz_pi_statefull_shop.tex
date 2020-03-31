@@ -1,0 +1,66 @@
+\begin{figure}[H]
+\centering
+\begin{sidebyside}
+\begin{class}{ActiveShop(id: \integer)}
+\ 
+\\chan\ switch: nil | talk
+\ 
+\\chan\ talk:\integer \times \integer
+\ \\ \
+\\ActiveShop\_PI = 
+\\ \ talk(vmId, message).ActiveShop\_PI
+\\ \ + switch<talk>.IdleShop\_PI
+\\\begin{state}
+self, vmId, message: \integer
+\\transferableOperation: nil | talk
+\end{state} 
+\\
+\begin{init}
+\\self = id
+\\transferableOperation = talk
+\end{init} 
+\\
+\begin{op}{switch\_\_\_\_\ then\ IdleShop}
+x!: nil | talk
+\ST
+x! = transferableOperation
+\\transferableOperation' = nil
+\end{op}
+\\
+\begin{op}{talk}
+\Delta (vmId, message)
+\\y?, z?: \integer
+\ST
+y? = message'
+\\z? = vmId'
+\end{op}
+\end{class}
+\nextside
+\begin{class}{IdleShop(id: \integer)}
+\ 
+\\chan\ switch: nil | talk
+\ \\ \
+\\IdleShop\_PI = 
+\\ \  switch(transferableOperation).ActiveShop\_PI
+\\
+\begin{state}
+self, vmId, message: \integer
+\\transferableOperation: nil | talk
+\end{state} 
+\\
+\begin{init}
+\\self = id
+\\transferableOperation = nil
+\end{init} 
+\\
+\begin{op}{switch\_\_\_\_\ then\ ActiveShop}
+\Delta (transferableOperation)
+\\x?: nil | talk
+\ST
+x? = transferableOperation'
+\end{op}
+\end{class}
+\end{sidebyside}
+\caption{$\pi$-OZ specification of the active and idle shop}
+\label{comp_oz_pi_statefull_shop}
+\end{figure}

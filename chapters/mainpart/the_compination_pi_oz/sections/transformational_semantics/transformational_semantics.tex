@@ -1,0 +1,4 @@
+The semantics of the combination $\pi$-OZ specification S can then be described by the \picalc{} process $S_{OZ\_part_\pi} \mid S_{\pi\_part}$, where $S_{OZ\_part_\pi}$ is the syntactic transformation of \oz{} part into \picalc{} process. For example, the semantics of \refFig{comp_oz_pi_statefull_vm} is $VM\_OZ\_PI \mid VM\_PI$, where $VM\_OZ\_PI$ is as descriped in \refLis{tra_vm_OZ_listing}. Unfortunately, this will not work well, since the parallel operator $|$ allows only the binary synchronization via a channel, not like in $CSP$ where the parallel operator $||$ allows multiple synchronization via a channel. That will be problematic when we try the combine the $\pi$-OZ specification of an entity S with a $\pi$-OZ specification of another entity R in parallel. To solve this problem we can use on of the following approaches:
+
+\subsubsection{\findex{Multiple synchronization parallel operator $||$:}}
+\subsubsection{\findex{Guarded sum}:}

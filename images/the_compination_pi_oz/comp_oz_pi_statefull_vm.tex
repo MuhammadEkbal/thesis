@@ -1,0 +1,49 @@
+\begin{figure}[H]
+\centering
+\begin{class}{VM(id: \integer)}
+\ 
+\\chan\ coffee,tea
+\ 
+\\chan\ talk:\integer \times \integer
+\ \\ \
+\\VM\_PI = coffee().VM\_PI + tea().VM\_PI 
+\\ \ \qquad \qquad + talk<self,message>.VM\_PI
+\\
+\begin{state}
+self, cv, tv, message: \integer
+\ST
+0 \leq  cv \leq 3
+\\
+0 \leq  tv \leq 3
+\end{state} 
+\\
+\begin{init}
+self = id
+\\cv = 3
+\\tv = 3
+\\ message= 1
+\end{init} 
+\\
+\begin{op}{coffee}
+\Delta (cv)
+\ST
+cv' = cv - 1
+\end{op}
+\\
+\begin{op}{tea}
+\Delta (tv)
+\ST
+tv' = tv - 1
+\end{op}
+\\
+\begin{op}{talk}
+y!: \integer
+\\z!: \integer
+\ST
+y! = message
+\\z! = self
+\end{op}
+\end{class}
+\caption{$\pi$-OZ specification of the $VM$.}
+\label{comp_oz_pi_statefull_vm}
+\end{figure}

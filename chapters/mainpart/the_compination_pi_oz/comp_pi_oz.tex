@@ -1,46 +1,9 @@
-In the previous chapter we studied how to transform an \oz{} class into a \picalc{} process $P_{OZ\_PI}$. In this chapter we will combine $P_{OZ\_PI}$, using parallel operator, with a second \picalc{} process $P_{PI}$ represents the sequencing of operations as follow: $P_{OZ\_PI} \mid P_{PI}$ . This combination will enable us to study the behavior of an entity.
-\begin{figure}[H]
-\centering
-\begin{class}{VM(id: \integer)}
-\ 
-\\VM\_PI = coffee().VM\_PI + tea().VM\_PI 
-\\ \qquad \qquad \qquad + talk<self,message>.VM\_PI
-\\
-\begin{state}
-self, cv, tv, message: \integer
-\ST
-0 \leq  cv \leq 3
-\\
-0 \leq  tv \leq 3
-\end{state} 
-\\
-\begin{init}
-self = id
-\\cv = 3
-\\tv = 3
-\\ message= 1
-\end{init} 
-\\
-\begin{op}{coffee}
-\Delta (cv)
-\ST
-cv' = cv - 1
-\end{op}
-\\
-\begin{op}{tea}
-\Delta (tv)
-\ST
-tv' = tv - 1
-\end{op}
-\\
-\begin{op}{talk}
-y!: \integer
-\\z!: \integer
-\ST
-y! = message
-\\z! = self
-\end{op}
-\end{class}
-\caption{the combination.}
-\label{comp_oz_pi}
-\end{figure}
+In this chapter we will combine both the specifications languages \oz{} and \picalc{} into the combination $\pi$-OZ, and we will study its transformational semantics.
+\subsection{Syntax}
+\label{sec_comp_oz_pi_syntax}
+\input{chapters/mainpart/the_compination_pi_oz/sections/syntax/syntax}
+
+\subsection{Transformational semantics}
+\label{sec_comp_oz_pi_transformational_semantics}
+\input{chapters/mainpart/the_compination_pi_oz/sections/transformational_semantics/transformational_semantics}
+
