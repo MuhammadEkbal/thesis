@@ -1,16 +1,16 @@
-The semantics of the combination $\pi$-OZ specification S can then be described by the \picalc{} process $S_{OZ\_part_\pi} \mid S_{\pi\_part}$, where $S_{OZ\_part_\pi}$ is the syntactic transformation of \oz{} part into \picalc{} process. For example, the semantics of \refFig{comp_oz_pi_statefull_vm} is $VM\_OZ\_PI \mid VM\_PI$, where $VM\_OZ\_PI$ is as descriped in \refLis{tra_vm_OZ_listing}. Unfortunately, this will not work well, since the parallel operator $|$ allows only the binary synchronization via a channel, not like in $CSP$ where the parallel operator $||$ allows multiple synchronization via a channel. That will be problematic when we try the combine the $\pi$-OZ specification of an entity S with a $\pi$-OZ specification of another entity R in parallel. To solve this problem we can use on of the following approaches:
+The semantics of the combination $\pi$-OZ specification S can then be described by the \picalc{} process $S_{OZ\_part_\pi} \mid S_{\pi\_part}$, where $S_{OZ\_part_\pi}$ is the syntactic transformation of \oz{} part into \picalc{} process. For example, the semantics of \refFig{comp_oz_pi_statefull_vm} is $VM\_OZ\_PI \mid VM\_PI$, where $VM\_OZ\_PI$ is as descriped in \refLis{tra_vm_OZ_listing}. Unfortunately, this will not work well, since the parallel operator $|$ only allows the binary synchronization via a channel, not like in $CSP$ where the parallel operator $||$ allows the multiple synchronization via a channel. That will be problematic when we try to combine the $\pi$-OZ specification of an entity S with a $\pi$-OZ specification of another entity R in parallel. To solve this problem we can use on of the following approaches:
 
-\subsubsection{\findex{Multiple synchronization parallel operator $||$:}}
-To allow the multiple synchronization via a channel in \picalc{}, we introduce the multiple synchronization operator $||$ and extend the
+\subsubsection{\findex{Broadcast Channel:}}
+To allow the multiple synchronization via a channel in \picalc{}, we introduce the broadcast channel and extend the
 transition rules of \picalc{} defined in \refDef{def_pi_trans_system}, with an additional rule:
 \begin{figure}[H]
 \begin{gather*}
-\kalRuleM[]{MultiSynch\_PAR}{P \transs{\out{x}{\vec{y}}} P'}{Q \transs{\inp{x}{\vec{y}}} Q'}{R \transs{\inp{x}{\vec{z}}} R'}{\procparM{\procparM{P}{Q}}{R} \transs{\tau} 
-\procparM{P'}{\procparM{\substitue{\vec{y}}{\vec{z}}Q'}{\substitue{\vec{y}}{\vec{z}}R'}}
+\kalRuleM[if\ x: Broadcast]{Broadcast\_Chan\_PAR}{}{P \transs{\out{x}{\vec{y}}} P'}{Q \transs{\inp{x}{\vec{y}}} Q'}{R \transs{\inp{x}{\vec{z}}} R'}{\procpar{\procpar{P}{Q}}{R} \transs{\tau} 
+\procpar{P'}{\procpar{\substitue{\vec{y}}{\vec{z}}Q'}{\substitue{\vec{y}}{\vec{z}}R'}}
 }
 \end{gather*}
-\caption{transition rule for the multiple synchronization parallel operator.}
-\label{fig_multiple_synchronization_parallel_operator}
+\caption{transition rule for broadcast channel.}
+\label{fig_broadcast_channel}
 \end{figure}
 
 \subsubsection{\findex{Non-Atomic Communication}:} Still under construction
