@@ -1,4 +1,4 @@
-The semantics of the combination $\pi$-OZ specification S can then be described by the \picalc{} process $S_{OZ\_part_\pi} \mid S_{\pi\_part}$, where $S_{OZ\_part_\pi}$ is the syntactic transformation of \oz{} part into \picalc{} process. For example, the semantics of \refFig{comp_oz_pi_statefull_vm} is $VM\_OZ\_PI \mid VM\_PI$, where $VM\_OZ\_PI$ is as descriped in \refLis{tra_vm_OZ_listing}. Unfortunately, this will not work well, since the parallel operator $|$ only allows the binary synchronization via a channel, not like in $CSP$ where the parallel operator $||$ allows the multiple synchronization via a channel. That will be problematic when we try to combine the $\pi$-OZ specification of an entity S with a $\pi$-OZ specification of another entity R in parallel. To solve this problem we can use   \textbf{broadcast channel} or  \textbf{non-atomic communication} concepts as follow:
+The semantics of the combination $\pi$-OZ specification S can then be described by the \picalc{} process $S_{OZ\_part_\pi} \mid S_{\pi\_part}$, where $S_{OZ\_part_\pi}$ is the syntactic transformation of \oz{} part into \picalc{} process. For example, the semantics of \refFig{comp_oz_pi_statefull_vm} is $VM\_OZ\_PI \mid VM\_PI$, where $VM\_OZ\_PI$ is as descriped in \refLis{tra_vm_OZ_listing}. Unfortunately, this will not work well, since the parallel operator $|$ only allows the binary synchronization via a channel, not like in $CSP$ where the parallel operator $||$ allows the multiple synchronization via a channel. That will be problematic when we try to combine the $\pi$-OZ specification of an entity S with a $\pi$-OZ specification of another entity R in parallel. To solve this problem we can use \textbf{broadcast channel} or  \textbf{non-atomic reaction} concept as follow:
 
 \subsubsection{\findex{Broadcast Channel:}}
 To allow the multiple synchronization via a channel in \picalc{}, we use concept of the broadcast channel. \cite{ene} introduces the b$\pi$, which is an extension of \picalc{} implementing broadcast communications. In \cite{olderog08} the UPPAAL model checker introduces the broadcast channel too. For simplicity, we use the concept from \cite{olderog08} for the broadcast channel with a little change. On a broadcast channel one sender synchronize with an at least one receivers. Thus, like binary synchronization, broadcast blocks the sender if there is no receivers. Furthermore, we can send and receive on a broadcast channel. We extend the transition rules of \picalc{} defined in \refDef{def_pi_trans_system}, with an additional rule:
@@ -20,7 +20,18 @@ The combination's process $S_{OZ\_part_\pi} \mid S_{\pi\_part}$ for $VM$ is $VM\
 
 
 
-\subsubsection{\findex{Action reproducing and non-atomic reaction}:} Let us examine the process $Cus \mid VM\_OZ\_PI \mid VM\_PI$. When $Cus$ issues a signal on the $coffee$ channel, it is required that $VM\_OZ\_PI$ and $VM\_PI$ receives the signal and evolve together. This is not possible , since the \picalc{} communications are binary, so either $VM\_OZ\_PI$ or $VM\_PI$ will evolve and the other will not. To solve this problem using binary communications we can reproduce the signal. That is , the $Cus$ issues a signal to $VM\_PI$ and waits for a done signal, $VM\_PI$ reproduces the signal and sends it to $VM\_OZ\_PI$ and waits for done signal. When $VM\_OZ\_PI$ ends it sends done signal to $VM\_PI$ which sends done signal to $Cus$. This way the combination's process $S_{OZ\_part_\pi} \mid S_{\pi\_part}$ behaves as a one processes from the view of its environment by reproducing the action and using the done signal, what makes the reaction non-atomic. The implantation of the action reproducing and non-atomic reaction concept requires breaking the channel $coffee$ down into two channels: $ex\_cofee$ and $in\_coffee$. The channel $ex\_cofee$ for the external, outside $VM$, communication between $Cus$ and $VM\_PI$. The channel $in\_coffee$ for the internal, inside $VM$, communication between $VM\_PI$ and $VM\_OZ\_PI$ as shown in \refFig{non_atomic_reactoin}.
+\subsubsection{\findex{Non-atomic reaction}:} Let us examine the process $Cus \mid VM\_OZ\_PI \mid VM\_PI$ shown in \refFig{binary_reactoin}. When $Cus$ issues a signal on the $coffee$ channel, it is required that $VM\_OZ\_PI$ and $VM\_PI$ receives the signal and evolve together. This is not possible, since the \picalc{} communications are binary, so either $VM\_OZ\_PI$ or $VM\_PI$ will evolve and the other will not. To solve this problem using binary communications we need to break the channel $coffee$ down into two channels: $ex\_cofee$ and $in\_coffee$ as shown in \refFig{non_atomic_reactoin}. The channel $ex\_cofee$ is for the external, outside $VM$, communication between $Cus$ and $VM\_PI$. The channel $in\_coffee$ is for the internal, inside $VM$, communication between $VM\_PI$ and $VM\_OZ\_PI$. In \refFig{non_atomic_reactoin} the numbered arrows represents the communication's flow from $VM\_PI$'s point of view. $VM\_PI$  receives a signal via $ex\_coffee$ and re-sends it via $in\_coffee$. When $VM\_OZ\_PI$ ends its processing it sends a done signal via  $done\_in\_coffee$ to $VM\_PI$ which re-sends the done signal to $Cus$ via $done\_ex\_coffee$. This way the combination's process $S_{OZ\_part_\pi} \mid S_{\pi\_part}$ .i.e. $VM\_OZ\_PI \mid VM\_PI$, behaves as a one processes from the view point of its environment .i.e. $Cus$, by breaking down the channel, reproducing the signal, and using the done signal. All that makes the reaction $ordering\ a\ coffee$ a non-atomic reaction. 
+
+\refFig{comp_oz_pi_statefull_vm_non_atomic} shows how the $\pi$-OZ specification of $VM$ implements the non-atomic reaction concept, and there we can notice that the behavior sequence part $VM\_PI = ex\_coffee().in\_coffee<>.done\_in\_coffee().done\_ex\_coffee<>.VM\_PI + \ .... $ reflects exactly the numbered arrows shown in \refFig{non_atomic_reactoin}. Furthermore, we can notice  that the non-atomic reaction concept is overburdening, since we now have four channels \textit{ex\_coffee, in\_coffee, done\_in\_coffee, done\_ex\_coffee} instead of having one channel for $coffee$.
+
+\refFig{comp_oz_pi_statefull_activeShop_non_atomic} and \refFig{comp_oz_pi_statefull_idleShop_non_atomic} show the $\pi$-OZ specification of $ActiveShop$ and $IdleShop$ respectively, using the non-atomic reaction concept. \refFig{sys_non_atomic_reactoin} shows a big picture of a system consisting of a customer, vending machine and two shops
+
+\begin{figure}[H]%
+\centering
+\fbox{\includegraphics[keepaspectratio,width=0.5\textwidth]{./images/the_compination_pi_oz/binary_reactoin.png}}%
+\caption{the process $Cus \mid VM\_OZ\_PI \mid VM\_PI$}
+\label{binary_reactoin}%
+\end{figure}
 
 \begin{figure}[H]%
 \centering
@@ -30,3 +41,14 @@ The combination's process $S_{OZ\_part_\pi} \mid S_{\pi\_part}$ for $VM$ is $VM\
 \end{figure}
 
 \input{./images/the_compination_pi_oz/comp_oz_pi_statefull_vm_non_atomic}
+
+\input{./images/the_compination_pi_oz/comp_oz_pi_activeShop_non_atomic}
+
+\input{./images/the_compination_pi_oz/comp_oz_pi_idleShop_non_atomic}
+
+\begin{figure}[H]%
+\centering
+\fbox{\includegraphics[keepaspectratio,width=0.95\textwidth]{./images/the_compination_pi_oz/sys.png}}%
+\caption{system consisting of a customer, vending machine and two shops}
+\label{sys_non_atomic_reactoin}%
+\end{figure}

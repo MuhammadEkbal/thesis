@@ -1,0 +1,29 @@
+\begin{figure}[H]
+\centering
+\begin{class}{IdleShop(id: \integer)}
+\ 
+\\chan\ ex\_switch,in\_switch: nil | talk
+\ \\ \
+\\IdleShop\_PI = 
+\\ \qquad  ex\_switch(x,ex\_talk).in\_switch<x>.ActiveShop\_PI
+\\
+\begin{state}
+self, vmId, message: \integer
+\\transferableOperation: nil | talk
+\end{state} 
+\\
+\begin{init}
+\\self = id
+\\transferableOperation = nil
+\end{init} 
+\\
+\begin{op}{in\_switch\_\_\_\_\ then\ ActiveShop}
+\Delta (transferableOperation)
+\\x?: nil | talk
+\ST
+x? = transferableOperation'
+\end{op}
+\end{class}
+\caption{$\pi$-OZ specification of the $IdleShop$ using non-atomic reaction.}
+\label{comp_oz_pi_statefull_idleShop_non_atomic}
+\end{figure}
