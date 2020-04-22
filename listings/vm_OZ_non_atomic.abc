@@ -1,0 +1,11 @@
+agent VM_OZ_PI_Init(in_coffee,in_tea,done_in_cofee,done_in_tea,in_talk,done_in_talk) = 
+ (^self,cv,tv,message) (VM_OZ_PI(self,in_coffee,in_tea,done_in_cofee,done_in_tea,in_talk,done_in_talk,cv,tv,message) | Zero(self) | Three(cv) | Three(tv) | One(message))
+
+
+agent VM_OZ_PI(self,in_coffee,in_tea,done_in_cofee,done_in_tea,in_talk,done_in_talk,cv,tv,message) = 
+
+ in_coffee.(^res_t,res_f) (VM_Condition_coffee(self,in_coffee,in_tea,in_talk,cv,tv,message,res_t,res_f) | VM_Condition_IF_Else_coffee(self,in_coffee,in_tea,done_in_cofee,done_in_tea,in_talk,done_in_talk,cv,tv,message,res_t,res_f)) 
+
+ + in_tea.(^res_t,res_f) (VM_Condition_tea(self,in_coffee,in_tea,in_talk,cv,tv,message,res_t,res_f) | VM_Condition_IF_Else_tea(self,in_coffee,in_tea,done_in_cofee,done_in_tea,in_talk,done_in_talk,cv,tv,message,res_t,res_f)) 
+
+ + (^m_c,m_done,r_c,r_done) ( (m_done.r_done.'in_talk<r_c,m_c>.done_in_talk.VM_OZ_PI(self,in_coffee,in_tea,done_in_cofee,done_in_tea,in_talk,done_in_talk,cv,tv,message)) | Copy(message,m_c,m_done) | Copy(self,r_c,r_done))

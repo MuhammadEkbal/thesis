@@ -1,0 +1,7 @@
+agent VM_PI(ex_coffee,in_coffee,ex_tea,in_tea,done_ex_cofee,done_ex_tea,done_in_cofee,done_in_tea,ex_talk,in_talk,done_ex_talk,done_in_talk) = 
+ 
+ ex_coffee.'in_coffee.done_in_cofee.'done_ex_cofee.VM_PI(ex_coffee,in_coffee,ex_tea,in_tea,done_ex_cofee,done_ex_tea,done_in_cofee,done_in_tea,ex_talk,in_talk,done_ex_talk,done_in_talk) 
+
++  ex_tea.'in_tea.done_in_tea.'done_ex_tea.VM_PI(ex_coffee,in_coffee,ex_tea,in_tea,done_ex_cofee,done_ex_tea,done_in_cofee,done_in_tea,ex_talk,in_talk,done_ex_talk,done_in_talk) 
+
++  in_talk(r_c,m_c).'ex_talk<r_c,m_c>.done_ex_talk.'done_in_talk.VM_PI(ex_coffee,in_coffee,ex_tea,in_tea,done_ex_cofee,done_ex_tea,done_in_cofee,done_in_tea,ex_talk,in_talk,done_ex_talk,done_in_talk)
