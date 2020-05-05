@@ -2,13 +2,17 @@
 \centering
 \begin{class}{VM(id: \integer)}
 \ 
-\\chan\ ex\_coffee,done\_ex\_coffee,in\_coffee,done\_in\_coffee
+\\chan\ ex\_coffee,done\_ex\_coffee,ex\_tea,done\_ex\_tea
 \ 
-\\chan\ ex\_tea,done\_ex\_tea,in\_tea,done\_in\_tea
+\\chan\ local\ in\_coffee,done\_in\_coffee,in\_tea,done\_in\_tea
 \ 
-\\chan\ ex\_talk,in\_talk:\integer \times \integer
+\\chan\ ex\_talk:\integer \times \integer
 \ 
-\\chan\ done\_ex\_talk,done\_in\_talk
+\\chan\ local\ in\_talk:\integer \times \integer
+\ 
+\\chan\ done\_ex\_talk
+\ 
+\\chan\ local\ done\_in\_talk
 \ \\ \
 \\VM\_PI = ex\_coffee().in\_coffee<>
 \\ \ \qquad \qquad \qquad .done\_in\_coffee().done\_ex\_coffee<>.VM\_PI 

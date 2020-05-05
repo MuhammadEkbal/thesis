@@ -1,11 +1,11 @@
 agent System = (^ex_coffee,done_ex_cofee,in_coffee,done_in_cofee,ex_tea,done_ex_tea,in_tea,done_ex_tea,done_in_tea,ex_switch,in_switch,ex_talk,in_talk_vm,in_talk_shop,done_ex_talk,done_in_talk_vm,done_in_talk_shop)
 
 ( 
-VM(ex_coffee,in_coffee,ex_tea,in_tea,done_ex_cofee,done_ex_tea,done_in_cofee,done_in_tea,ex_talk,in_talk_vm,done_ex_talk,done_in_talk_vm) 
+VM(ex_coffee,ex_tea,done_ex_cofee,done_ex_tea,ex_talk,done_ex_talk) 
 |
 Cus(ex_coffee,ex_tea,done_ex_cofee,done_ex_tea)
 |
 IdleShop(ex_switch)
 |
-ActiveShop(ex_switch,ex_talk,in_talk_shop,done_ex_talk,done_in_talk_shop)
+ActiveShop(ex_switch,ex_talk,done_ex_talk)
 )
