@@ -60,6 +60,9 @@
 \newcommand{\refEq}[1]{Equation~\ref{#1}}
 \newcommand{\refEx}[1]{Example~\ref{#1}}
 \newcommand{\refCor}[1]{Corollary~\ref{#1}}
+\newcommand{\refPro}[1]{Property~\ref{#1}}
+\newcommand{\refCon}[1]{Conclusion~\ref{#1}}
+
 % Referenzieren auf Textstelle
 %\newcommand\fullRef[1]{Abschnitt \ref{#1} \glqq\nameref{#1}\grqq{} auf Seite~\pageref{#1}}
 %% Referenz auf Bild
@@ -387,14 +390,13 @@
 		{\mathcal T}
 		{\mathcal T(\ec{#1})}
 }
-
 \newcommand{\tracesR}[1]{\mathcal{T}_\relNames(\ec{#1})}
 
 \newcommand{\res}[3]{\functText{res}(#1,#2,\traces[#3])}
 \newcommand{\failures}[1][\empty]{
 		\ifthenelse{\equal{#1}{\empty}}
 		{\mathcal F}
-		{\mathcal F(#1)}
+		{\mathcal F(\ec{#1})}
 }
 \newcommand{\fd}[1][\empty]{
 		\ifthenelse{\equal{#1}{\empty}}
@@ -411,4 +413,19 @@
 		\ifthenelse{\equal{#1}{\empty}}
 		{\,\sqsupseteq_{\mathcal T}\,}
 		{\,\sqsupseteq_{\mathcal{#1}}\,}
+}
+\newcommand{\nrefi}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\,\not\sqsubseteq_{\mathcal T}\,}
+		{\,\not\sqsubseteq_{\mathcal{#1}}\,}
+}
+\newcommand{\refiF}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\,\sqsubseteq_{\mathcal F}\,}
+		{\,\sqsubseteq_{\mathcal{#1}}\,}
+}
+\newcommand{\nrefiF}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\,\not\sqsubseteq_{\mathcal F}\,}
+		{\,\not\sqsubseteq_{\mathcal{#1}}\,}
 }

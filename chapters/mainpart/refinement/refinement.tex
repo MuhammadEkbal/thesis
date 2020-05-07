@@ -1,6 +1,71 @@
-\begin{itemize}
-\item no trace inclution implies no refenment
-\item no refenment implies no simulation
-\item no trace inclution implies no simulation
-\end{itemize}
+To study the refinement of \picalc{} processes we will use the big-step semantics notation defined in \cite{gieseking}, where :
+\[\tr \define \seqset{\actions\setminus\set{\tau}}\]
+\[\ec{P} \text{is the equivalence class of}\ P\]
+\[\traces[P] \define \{t\in \tr \mid \exists Q\in\procs: \ec{P} \bigstep{t} \ec{Q}\}\]
 
+The big-step semantics uses an early instantiation principle and its results seems to be valid to our study.
+
+The main result in \cite{gieseking} is the following property:
+\begin{align}
+    (\ec{P},\ec{Q})\in{}\simu \Rightarrow Q \refi P \label{property1}
+\end{align}
+
+\refPro{property1} reads: $Q$ simulates $P$ implies $P$ refines $Q$ i.e $P$ has less behavior than $Q$, where:
+\[\ec{Q}\refi \ec{P} \Leftrightarrow \traces[P]\subseteq\traces[Q]\]
+Notice, the converse of \refPro{property1} does not hold.
+
+We wish to drive the following conclusion from \refPro{property1}: 
+\begin{align}
+    \ec{Q} \nrefi \ec{P} \Rightarrow (\ec{P},\ec{Q})\nin{}\simu\label{conc1}
+\end{align}
+
+\refCon{conc1} reads: $P$ does not refine $Q$ implies $Q$ does not simulate $P$. Unfortunately this does not hold, since the trace inclusion does not say too much about the behavior of processes, Thus we need a Failure model.
+
+In the next section we will define a Failure-model for \picalc{} processes and use it to compare our vending machine $VM$, that offers $coffee$ and $tea$, against another vending machine $VM\_Half$ which offers $coffee$ only, as depicted in \refFig{vm_and_vmHalf}, 
+\begin{figure}[H]%
+\centering
+\subcaptionbox{$P$}{\fbox{{
+    \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    semithick]
+  \tikzstyle{every state}=[]
+
+  \node[state] (A)                    {$VM$};
+  \path (A) edge [loop above] node {$coffee,tea,talk$} (A);
+\end{tikzpicture}
+ }}}%
+\qquad
+\subcaptionbox{$Q$}{\fbox{{
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    semithick]
+  \tikzstyle{every state}=[]
+
+  \node[state] (A)                    {$VM\_Half$};
+  \path (A) edge [loop above] node {$coffee,talk$} (A);
+\end{tikzpicture}    
+    }}}%
+\caption{$VM$ and $VM\_Half$}
+\label{vm_and_vmHalf}
+\end{figure}
+
+
+\section{Failure-Model}
+\label{sec_failure-model}
+To compare \picalc{} processes we need to define a Failure-Model. We start by defining the failure of a process.
+The pair (t, X) is called a failure, where $t$ is a trace and $X$ is a set of impossible next actions. Any process
+$P$ is assigned a set of failures $F$. Formally, this means:
+\begin{align}
+    \failures[P] \define \{(t,X) \mid \exists Q\in\procs: \ec{P} \bigstep{t} \ec{Q}\wedge X\in Refusals\label{failure}
+\end{align}
+where: \[Refusals \define \pom{\actions\setminus\set{\tau}}\]
+
+We can define the failure-refinement of \picalc{} processes as follow:
+\begin{align}
+   \ec{Q} \refiF \ec{P} \Leftrightarrow \failures[P]\subseteq\failures[Q]\label{failure-refinement}
+\end{align}
+
+From \refLem{failure-refinement} we can to drive the following Lemma: 
+
+\begin{align}
+   \ec{Q} \nrefiF \ec{P} \Rightarrow (\ec{P},\ec{Q})\nin{}\simu\label{failure_model}
+\end{align}
+\refLem{failure_model} reads: in failure-model: $P$ does not refine $Q$ implies $Q$ does not simulate $P$.
