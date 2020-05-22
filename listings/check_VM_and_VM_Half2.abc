@@ -1,0 +1,15 @@
+abc > lt VM_PI(coffee,tea,talk) VM_Half_PI(coffee,tea,talk)
+The two agents are not strongly related (1).
+Do you want to see some traces (yes/no) ? yes
+traces of
+
+VM_PI coffee tea talk
+VM_Half_PI coffee tea talk
+
+-tea->
+-tea->
+
+('talk.#1 + tea.#1 + coffee.#1)
+*
+
+#1 ::= VM_PI coffee tea talk

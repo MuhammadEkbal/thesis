@@ -1,0 +1,36 @@
+To compare \picalc{} processes we need to define the Failure-Refinement and relate it to the simulation. We start by defining the failure of a process.
+The pair (t, X) is called a failure, where $t$ is a trace and $X$ is a set of impossible next actions. Any process
+$P$ is assigned a set of failures $F$. Formally, this means:
+\begin{align}
+    \failures[P] \define \{(t,X) \mid \exists Q\in\procs: \ec{P} \bigstep{t} \ec{Q}\wedge X\in Refusals\}
+\label{failure}
+\end{align}
+where: \[Refusals \define \pom{\actions\setminus\set{\tau}}\]
+
+We can define the failure-refinement of \picalc{} processes as follow:
+
+\begin{definition}[\index{refinement}{Failure refinement}]
+\label{def_failure_ref}
+	Let $P,Q\in\procs$, then $P$ is a \findex[trace!refinement]{failure refinement} of $Q$ ($Q\refiF P$) iff the inverse set inclusion of traces and failure holds:
+\begin{align}
+   \ec{Q} \refiF \ec{P} \Leftrightarrow  \traces[P]\subseteq\traces[Q] \wedge \failures[P]\subseteq\failures[Q]
+\end{align}
+	We also say for $Q\refi{}P$ that $P$ \findex[refinement]{refines} $Q$.
+\end{definition}
+
+From \refPro{property1} and \refDef{def_failure_ref} we can to drive the following Corollary: 
+
+\begin{cor}[Simulation and Failure refinement]
+\label{cor_sim_failure_refinement}
+Let $P,Q\in\procs$ processes, then there exists a weak or strong bisimulation $\simu\subseteq\procs_\alpha\times\procs_\alpha$ such that
+\begin{align}
+    (\ec{P},\ec{Q})\in{}\simu  \Rightarrow \ec{Q} \refiF \ec{P}
+   \label{failure_model}
+\end{align}
+holds.
+\end{cor}%%
+which reads:  $Q$ simulate $P$ implies $P$ refines $Q$, in Failure-Refinement.
+
+\begin{prf}
+it yields directly from \refPro{property1} and \refDef{def_failure_ref}.
+\end{prf}

@@ -1,0 +1,53 @@
+In this section we will use the relation between simulation and failure-refinement \refCor{cor_sim_failure_refinement} to compare our vending machine $VM$, that offers $coffee$ and $tea$, against another vending machine $VM\_Half$ which dosent offer $tea$. We will use ABC to check the simulation. Due to performance issue, we will limit the check to behavior part. That is, we are not comparing the combination $\pi$-OZ, but only the $\pi$ part   .i.e, no data, as shown in \refFig{vm_and_vmHalf}.
+\begin{figure}[H]%
+\centering
+\subcaptionbox{$P$}{\fbox{{
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+                    semithick]
+  \tikzstyle{every state}=[]
+
+  \node[state] (A)                    {$VM\_Half\_PI$};
+  \path (A) edge [loop above] node {$coffee,talk$} (A);
+\end{tikzpicture}    
+    }}}%
+\qquad
+\subcaptionbox{$Q$}{\fbox{{
+    \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+                    semithick]
+  \tikzstyle{every state}=[]
+
+  \node[state] (A)                    {$VM\_PI$};
+  \path (A) edge [loop above] node {$coffee,tea,talk$} (A);
+\end{tikzpicture}
+ }}}%
+\caption{$VM$ and $VM\_Half$}
+\label{vm_and_vmHalf}
+\end{figure}
+
+\refLis{vm_and_vmHalf_ABC} shows the ABC implementation of VM\_PI and VM\_Half\_PI.\\
+\refLis{vm_and_vmHalf_ABC_check1} shows the result of checking if VM\_PI simulates VM\_Half\_PI, which passes\\
+\refLis{vm_and_vmHalf_ABC_check2} shows the result of checking if VM\_Half\_PI simulates  VM\_PI, which fails.
+
+\lstinputlisting[backgroundcolor=\color{white},caption={ VM ($\pi$-part) in ABC code.},captionpos=b, label={vm_and_vmHalf_ABC}]{listings/vm_and_vmHalf_ABC.abc}
+
+
+\lstinputlisting[backgroundcolor=\color{white},caption={check if $VM\_PI$ simulates $VM\_Half\_PI$.},captionpos=b, label={vm_and_vmHalf_ABC_check1}]{listings/check_VM_and_VM_Half1.abc}
+
+
+\lstinputlisting[backgroundcolor=\color{white},caption={check if $VM\_Half\_PI$ simulates $VM\_PI$.},captionpos=b, label={vm_and_vmHalf_ABC_check2}]{listings/check_VM_and_VM_Half2.abc}
+
+We are interested in \refLis{vm_and_vmHalf_ABC_check1}, which says that VM\_PI simulates VM\_Half\_PI. This result implies, according to \refCor{cor_sim_failure_refinement}, that VM\_Half\_PI refines VM\_PI in failure-model, thus we need to show that $\traces[VM\_Half\_PI]\subseteq\traces[VM\_PI] \wedge \failures[VM\_Half\_PI]\subseteq\failures[VM\_PI]$.
+\begin{itemize}
+\item For $\traces[VM\_Half\_PI]\subseteq\traces[VM\_PI]$: we need to determine the traces of VM\_PI and VM\_Half\_PI  shown in \refFig{vm_and_vmHalf}. According to \ref{determine_trace}:
+
+    \[\traces[VM\_PI] \define \{coffee(),tea(),talk<>\}^\ast\]
+    \[\traces[VM\_Half\_PI] \define \{coffee(),talk<>\}^\ast\]
+It is clear that $\traces[VM\_Half\_PI]\subseteq\traces[VM\_PI]$ holds. 
+
+\item For $\failures[VM\_Half\_PI]\subseteq\failures[VM\_PI]$: let $\epsilon$ be the empty trace, then
+    \[\failures[VM\_PI] \define \{(\epsilon,\{\}),\dots\}^\ast\]
+    \[\failures[VM\_Half\_PI] \define \{(\epsilon,\{tea\}),\dots\}^\ast\]
+It is clear that $\traces[VM\_Half\_PI]\not\subseteq\traces[VM\_PI]$, which is a contradiction to \refCor{cor_sim_failure_refinement} !!!!!!!. 
+\end{itemize}
+
+    

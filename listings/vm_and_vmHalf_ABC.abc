@@ -1,0 +1,8 @@
+agent VM_PI(coffee,tea,talk) = \
+coffee.VM_PI(coffee,tea,talk) \
++ tea.VM_PI(coffee,tea,talk) \
++ 'talk.VM_PI(coffee,tea,talk)				
+				
+agent VM_Half_PI(coffee,tea,talk) = \
+coffee.VM_Half_PI(coffee,tea,talk) \
++ 'talk.VM_Half_PI(coffee,tea,talk)
