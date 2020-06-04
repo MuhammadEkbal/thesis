@@ -22,17 +22,16 @@ From \refPro{property1} and \refDef{def_failure_ref} we can drive the following 
 
 \begin{cor}[Simulation and Failure refinement]
 \label{cor_sim_failure_refinement}
-Let $P,Q\in\procs$ processes, then there exists a  strong bisimulation $\simu\subseteq\procs_\alpha\times\procs_\alpha$ such that
+Let $P,Q\in\procs$ processes. If $\ec{Q}$ strongly simulates $\ec{P}$, then $\ec{P}$ refines $\ec{Q}$ in failure-refinement model. Formally written:
 \begin{align}
     (\ec{P},\ec{Q})\in{}\simu  \Rightarrow \ec{Q} \refiF \ec{P}
    \label{failure_model}
 \end{align}
 does not hold.
 \end{cor}%%
-reads:  $Q$ simulate $P$ implies $P$ refines $Q$, in Failure-Refinement.
 
 \begin{prf}
-by counter example. Let us consider our vending machine $VM$, that offers $coffee$ and $tea$, against another vending machine $VM\_Half$ which does not offer $tea$. We will use ABC to check the simulation. Due to performance issue, we will limit the check to behavior part. That is, we are not comparing the combination $\pi$-OZ, but only the $\pi$ part   without data, as shown in \refFig{vm_and_vmHalf}.
+by counter example. Assume that \refCor{cor_sim_failure_refinement} holds and consider our vending machine $VM$, that offers $coffee$ and $tea$, against another vending machine $VM\_Half$ which does not offer $tea$. We will use ABC to check the simulation. Due to performance issue, we will limit the check to behavior part. That is, we are not comparing the combination $\pi$-OZ, but only the $\pi$ part   without data, as shown in \refFig{vm_and_vmHalf}. We would like to show that if $\ec{VM\_PI}$ strongly simulates $\ec{VM\_Half\_PI}$, then $\ec{VM\_Half\_PI}$ refines $\ec{VM\_PI}$. Formally: $(\ec{VM\_Half\_PI},\ec{VM\_PI})\in{}\simu  \Rightarrow \ec{VM\_PI} \refiF \ec{VM\_Half\_PI}$.
 \begin{figure}[H]%
 \centering
 \subcaptionbox{$P$}{\fbox{{
@@ -58,8 +57,7 @@ by counter example. Let us consider our vending machine $VM$, that offers $coffe
 \label{vm_and_vmHalf}
 \end{figure}
 
-\refLis{vm_and_vmHalf_ABC} shows the ABC implementation of VM\_PI and VM\_Half\_PI.\\
-\refLis{vm_and_vmHalf_ABC_check1} shows the result of checking if VM\_PI simulates VM\_Half\_PI, which passes\\
+\refLis{vm_and_vmHalf_ABC} shows the ABC implementation of VM\_PI and VM\_Half\_PI and \refLis{vm_and_vmHalf_ABC_check1} shows the result of checking if VM\_PI simulates VM\_Half\_PI, which passes\\
 
 \lstinputlisting[backgroundcolor=\color{white},caption={ VM ($\pi$-part) in ABC code.},captionpos=b, label={vm_and_vmHalf_ABC}]{listings/vm_and_vmHalf_ABC.abc}
 
@@ -77,6 +75,6 @@ It is clear that $\traces[VM\_Half\_PI]\subseteq\traces[VM\_PI]$ holds.
 \item For $\failures[VM\_Half\_PI]\subseteq\failures[VM\_PI]$: let $\epsilon$ be the empty trace, then
     \[\failures[VM\_PI] \define \{(\epsilon,\{\}),\dots\}^\ast\]
     \[\failures[VM\_Half\_PI] \define \{(\epsilon,\{tea\}),\dots\}^\ast\]
-It is clear that $\failures[VM\_Half\_PI]\not\subseteq\failures[VM\_PI]$, which is a contradiction to \refCor{cor_sim_failure_refinement} !!!!!!!. 
+It is clear that $\failures[VM\_Half\_PI]\not\subseteq\failures[VM\_PI]$, thus $\ec{VM\_PI} \not\refiF \ec{VM\_Half\_PI}$. So, strong simulation does not imply failure-refinement. 
 \end{itemize}
 \end{prf}
