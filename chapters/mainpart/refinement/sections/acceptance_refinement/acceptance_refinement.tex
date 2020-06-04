@@ -22,23 +22,36 @@ From \refPro{property1} and \refDef{def_failure_ref} we can to drive the followi
 
 \begin{cor}[Simulation and Acceptance refinement]
 \label{cor_sim_acceptance_refinement}
-Let $P,Q\in\procs$ processes, then there exists a strong simulation $\simu\subseteq\procs_\alpha\times\procs_\alpha$ such that
+Let $P,Q\in\procs$ processes. If $\ec{Q}$ strongly simulates $\ec{P}$, then $\ec{P}$ refines $\ec{Q}$ in Acceptance-Refinement model. Formally written:
 \begin{align}
-    (\ec{P},\ec{Q})\in{}\simu  \Rightarrow \ec{Q} \refiAC \ec{P}
+    (\ec{P},\ec{Q})\in{}\simu \Rightarrow \ec{Q} \refiAC \ec{P}
    \label{acceptance_model}
 \end{align}
 holds.
 \end{cor}%%
-which reads:  $Q$ simulate $P$ implies $P$ refines $Q$, in acceptance-refinement model.
+which reads: $Q$ simulate $P$ implies $P$ refines $Q$, in acceptance-refinement model.
 
 \begin{prf}
-$\traces[P]\subseteq\traces[Q] \wedge \accepatances[P]\subseteq\accepatances[Q]$
+Let $(\ec{P},\ec{Q})\in{}\simu$, then $\traces[P]\subseteq\traces[Q] \wedge \accepatances[P]\subseteq\accepatances[Q]$ holds, Since:
 \begin{itemize}
 \item For $\traces[P]\subseteq\traces[Q]$: it holds using \refPro{property1}.
-\item For $\accepatances[P]\subseteq\accepatances[Q]$: we need to show that:\\$\forall (t_P, Y_P) \in \accepatances[P] \textit{ then } \exists (t_Q, Y_Q) \in \accepatances[P]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
+\item For $\accepatances[P]\subseteq\accepatances[Q]$: we need to show that,\\$\forall (t_P, Y_P) \in \accepatances[P] \textit{ then } \exists (t_Q, Y_Q) \in \accepatances[P]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
 \begin{itemize}
 \item $t_p = t_Q$ holds using \refPro{property1}.
-\item $Y_P \subseteq Y_Q$ holds, since $\ec{Q}$ strongly simulates $\ec{P}$ means that, after any trace $t$, $\ec{Q}$ can do all the actions that $\ec{P}$ can do.
+\item $Y_P \subseteq Y_Q$ holds, since $\ec{Q}$ strongly simulates $\ec{P}$ means that $\ec{Q}$ can do all the actions that $\ec{P}$ can do after any trace $t$.
 \end{itemize}
 \end{itemize}
 \end{prf}
+\subsubsection{Acceptance-Refinement use case:}
+ We will show that if $\ec{VM\_PI}$ shown in \refFig{vm_and_vmHalf} strongly simulates $\ec{VM\_Half\_PI}$, then $\ec{VM\_Half\_PI}$ refines $\ec{VM\_PI}$ in acceptance-refinement model.
+ 
+ \refLis{vm_and_vmHalf_ABC_check1} showed that $\ec{VM\_PI}$ strongly simulates $\ec{VM\_Half\_PI}$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $\ec{VM\_Half\_PI}$ refines $\ec{VM\_PI}$ in the acceptance-refinement model. Thus we need to show that $\traces[VM\_Half\_PI]\subseteq\traces[VM\_PI] \wedge \accepatances[VM\_Half\_PI]\subseteq\accepatances[VM\_PI]$.
+ 
+ \begin{itemize}
+\item For $\traces[VM\_Half\_PI]\subseteq\traces[VM\_PI]$: previously we showed that it holds. 
+
+\item For $\accepatances[VM\_Half\_PI]\subseteq\accepatances[VM\_PI]$: let $\epsilon$ be the empty trace, then
+    \[\accepatances[VM\_PI] \define \{(\epsilon,\{tea(),coffee(),talk<>\}),\dots\}^\ast\]
+    \[\accepatances[VM\_Half\_PI] \define \{(\epsilon,\{coffee(),talk<>\}),\dots\}^\ast\]
+It is clear that $\accepatances[VM\_Half\_PI]\subseteq\accepatances[VM\_PI]$ holds, thus $\ec{VM\_PI} \refiAC \ec{VM\_Half\_PI}$.
+\end{itemize}
