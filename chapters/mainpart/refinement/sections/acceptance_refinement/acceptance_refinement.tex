@@ -1,5 +1,5 @@
 To compare \picalc{} processes we need to define the Acceptance-Refinement and relate it to the simulation. We start by defining the acceptance pair of a process.
-The pair (t, X) is called a acceptance pair, where $t$ is a trace and $X$ is a set of all possible next actions. Any process
+The pair (t, X) is called a acceptance pair, where $t$ is a trace and $Y$ is a set of all possible next actions. Any process
 $P$ is assigned a set of acceptance pairs $AC$. Formally, this means:
 \begin{align}
     \accepatances[P] \define \{(t,Y) \mid \exists Q\in\procs: \ec{P} \bigstep{t} \ec{Q}\wedge Y\in AA\}
@@ -22,24 +22,23 @@ From \refPro{property1} and \refDef{def_failure_ref} we can to drive the followi
 
 \begin{cor}[Simulation and Acceptance refinement]
 \label{cor_sim_acceptance_refinement}
-Let $P,Q\in\procs$ processes, then there exists a weak or strong simulation $\simu\subseteq\procs_\alpha\times\procs_\alpha$ such that
+Let $P,Q\in\procs$ processes, then there exists a strong simulation $\simu\subseteq\procs_\alpha\times\procs_\alpha$ such that
 \begin{align}
     (\ec{P},\ec{Q})\in{}\simu  \Rightarrow \ec{Q} \refiAC \ec{P}
    \label{acceptance_model}
 \end{align}
 holds.
 \end{cor}%%
-which reads:  $Q$ simulate $P$ implies $P$ refines $Q$, in Acceptance-Refinement.
+which reads:  $Q$ simulate $P$ implies $P$ refines $Q$, in acceptance-refinement model.
 
 \begin{prf}
-\item 
-\begin{align*}
-	(\ec{P},\ec{Q})\in\simu \text{ implies } \forall t \in\traces[P] \text{ then } t \in  \traces[Q] \wedge Y_P \subseteq Y_Q
-\end{align*}
-
-\begin{align}
-    \forall t \in \traces[P] \textit{ then }\accepatances[P] \define \{(t,Y) \mid \exists Q\in\procs: \ec{P} \bigstep{t} \ec{Q}\wedge Y\in AA\}
-\label{failure}
-\end{align}
-
+$\traces[P]\subseteq\traces[Q] \wedge \accepatances[P]\subseteq\accepatances[Q]$
+\begin{itemize}
+\item For $\traces[P]\subseteq\traces[Q]$: it holds using \refPro{property1}.
+\item For $\accepatances[P]\subseteq\accepatances[Q]$: we need to show that:\\$\forall (t_P, Y_P) \in \accepatances[P] \textit{ then } \exists (t_Q, Y_Q) \in \accepatances[P]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
+\begin{itemize}
+\item $t_p = t_Q$ holds using \refPro{property1}.
+\item $Y_P \subseteq Y_Q$ holds, since $\ec{Q}$ strongly simulates $\ec{P}$ means that, after any trace $t$, $\ec{Q}$ can do all the actions that $\ec{P}$ can do.
+\end{itemize}
+\end{itemize}
 \end{prf}

@@ -75,6 +75,8 @@ It is clear that $\traces[VM\_Half\_PI]\subseteq\traces[VM\_PI]$ holds.
 \item For $\failures[VM\_Half\_PI]\subseteq\failures[VM\_PI]$: let $\epsilon$ be the empty trace, then
     \[\failures[VM\_PI] \define \{(\epsilon,\{\}),\dots\}^\ast\]
     \[\failures[VM\_Half\_PI] \define \{(\epsilon,\{tea\}),\dots\}^\ast\]
-It is clear that $\failures[VM\_Half\_PI]\not\subseteq\failures[VM\_PI]$, thus $\ec{VM\_PI} \not\refiF \ec{VM\_Half\_PI}$. So, strong simulation does not imply failure-refinement. 
+It is clear that $\failures[VM\_Half\_PI]\not\subseteq\failures[VM\_PI]$, thus $\ec{VM\_PI} \not\refiF \ec{VM\_Half\_PI}$.
+
+So, strong simulation does not imply failure-refinement. 
 \end{itemize}
 \end{prf}
