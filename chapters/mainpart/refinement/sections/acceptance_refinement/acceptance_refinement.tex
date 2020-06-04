@@ -11,11 +11,11 @@ We can define the Acceptance-refinement of \picalc{} processes as follow:
 
 \begin{definition}[\index{refinement}{Acceptance refinement}]
 \label{def_failure_ref}
-	Let $P,Q\in\procs$, then $P$ is a \findex[acceptance!refinement]{acceptance refinement} of $Q$ ($Q\refiF P$) iff the inverse set inclusion of traces and acceptances holds:
+	Let $P,Q\in\procs$, then $\ec{P}$ is a \findex[acceptance!refinement]{acceptance refinement} of $\ec{Q}$ ($\ec{Q}\refiAC \ec{P}$) iff the inverse set inclusion of traces and acceptances holds:
 \begin{align}
    \ec{Q} \refiAC \ec{P} \Leftrightarrow  \traces[P]\subseteq\traces[Q] \wedge \accepatances[P]\subseteq\accepatances[Q]
 \end{align}
-	We also say for $Q\refiAC{}P$ that $P$ \findex[refinement]{refines} $Q$.
+	We also say for $\ec{Q}\refiAC{}\ec{P}$ that $\ec{P}$ \findex[refinement]{refines} $\ec{Q}$.
 \end{definition}
 
 From \refPro{property1} and \refDef{def_failure_ref} we can to drive the following Corollary: 

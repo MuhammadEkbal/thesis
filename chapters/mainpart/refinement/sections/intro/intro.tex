@@ -1,7 +1,7 @@
 To study the refinement of \picalc{} processes we will use the big-step trace semantics defined in \cite{gieseking}, where the set of all traces is defined as follow:
 \[\tr \define \seqset{\actions\setminus\set{\tau}}\]
 
-To abstract from the replacement of bound names, we use the equivalence class, denoted by $\ec{P}$, which contains all the processes obtained from $P$ by $\alpha$-conversion. Intuitively, an equivalence class contains all the processes that have the same behavior pattern.
+To abstract from the replacement of bound names, we use the equivalence class, denoted by $\ec{P}$, which refers to all the processes obtained from $P$ by $\alpha$-conversion. Intuitively, an equivalence class represents all the processes that have the same behavior pattern.
 
 An example of $\alpha$-conversion is: let $P_1\define\procres{a}{\out{a}{c}}$ and $P_2\define\procres{b}{\out{b}{c}}$, then $P_1 \alphaeq{} P_2$ with $\alpha = \substitue{y}{a}$ where $y = b$.
 
@@ -20,9 +20,9 @@ The main result in \cite{gieseking} is the following property:
     (\ec{P},\ec{Q})\in{}\simu \Rightarrow \ec{Q} \refi \ec{P} \label{property1}
 \end{align}
 
-\refPro{property1} reads: $Q$ strongly simulates\footnote{Strong simulation considers $\tau$ actions as defined in \refSec{sec_pi_simulation}} $P$ implies $P$ refines $Q$,i.e. $P$ has less behavior than $Q$, where:
+\refPro{property1} reads: $\ec{Q}$ strongly simulates\footnote{Strong simulation considers $\tau$ actions as defined in \refSec{sec_pi_simulation}} $\ec{P}$ implies $\ec{P}$ refines $\ec{Q}$,i.e. $\ec{P}$ has less behavior than $\ec{Q}$, where:
 \[\ec{Q}\refi \ec{P} \Leftrightarrow \traces[P]\subseteq\traces[Q]\]
 
 However, the work in \cite{gieseking} was limited to recursion-free processes: ``The limitation to recursion-free processes depends on the circumstances that we neither have any fix-point algorithm up to now nor showed that one existse''\footnote{\cite{gieseking}, page $8$.}. In this work we assume the existence of a fix-point algorithm and that \refPro{property1} also applies to recursive processes.
 
-Since the trace refinement does not say too much about the behavior of processes, we propose to use the Failure-Refinement model, originally introduced for CSP. In the next section we will define the Failure-Refinement for \picalc{} processes and show that strong simulation does not imply failure-refinement. Thus, later in \refSec{sec_acceptance-refinement}, we will introduce the Acceptance-Refinement for \picalc{} processes and show that strong simulation implies acceptance-refinement.
+Since the trace refinement does not say too much about the behavior of processes, we propose to use the Failure-Refinement model, originally introduced for CSP. In the next section we will define the failure-refinement for \picalc{} processes and show that strong simulation does not imply failure-refinement. Thus, later in \refSec{sec_acceptance-refinement}, we will introduce the Acceptance-Refinement model for \picalc{} processes and show that strong simulation implies acceptance-refinement.

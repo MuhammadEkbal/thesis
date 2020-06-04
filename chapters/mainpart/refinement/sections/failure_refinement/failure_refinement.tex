@@ -11,11 +11,11 @@ We can define the failure-refinement of \picalc{} processes as follow:
 
 \begin{definition}[\index{refinement}{Failure refinement}]
 \label{def_failure_ref}
-	Let $P,Q\in\procs$, then $P$ is a \findex[trace!refinement]{failure refinement} of $Q$ ($Q\refiF P$) iff the inverse set inclusion of traces and failure holds:
+	Let $P,Q\in\procs$, then $\ec{P}$ is a \findex[trace!refinement]{failure refinement} of $\ec{Q}$ ($\ec{Q}\refiF \ec{P}$) iff the inverse set inclusion of traces and failure holds:
 \begin{align}
    \ec{Q} \refiF \ec{P} \Leftrightarrow  \traces[P]\subseteq\traces[Q] \wedge \failures[P]\subseteq\failures[Q]
 \end{align}
-	We also say for $Q\refi{}P$ that $P$ \findex[refinement]{refines} $Q$.
+	We also say for $\ec{Q}\refi{}\ec{P}$ that $\ec{P}$ \findex[refinement]{refines} $\ec{Q}$.
 \end{definition}
 
 From \refPro{property1} and \refDef{def_failure_ref} we can drive the following Corollary: 
