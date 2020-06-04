@@ -20,10 +20,9 @@ The main result in \cite{gieseking} is the following property:
     (\ec{P},\ec{Q})\in{}\simu \Rightarrow \ec{Q} \refi \ec{P} \label{property1}
 \end{align}
 
-\refPro{property1} reads: $Q$ simulates $P$ implies $P$ refines $Q$,i.e. $P$ has less behavior than $Q$, where:
+\refPro{property1} reads: $Q$ strongly simulates\footnote{Strong simulation considers $\tau$ actions as defined in \refSec{sec_pi_simulation}} $P$ implies $P$ refines $Q$,i.e. $P$ has less behavior than $Q$, where:
 \[\ec{Q}\refi \ec{P} \Leftrightarrow \traces[P]\subseteq\traces[Q]\]
-Notice, the converse of \refPro{property1} does not hold.
 
-However, the work in \cite{gieseking} was limited to recursion-free processes, ``The limitation to recursion-free processes depends on the circumstances that we neither have any fix-point algorithm up to now nor showed that one existse''\footnote{\cite{gieseking}, page $8$.}. In this work we assume the existence of a fix-point algorithm. Additionally, we assume that \refPro{property1} also applies to recursive processes too.
+However, the work in \cite{gieseking} was limited to recursion-free processes: ``The limitation to recursion-free processes depends on the circumstances that we neither have any fix-point algorithm up to now nor showed that one existse''\footnote{\cite{gieseking}, page $8$.}. In this work we assume the existence of a fix-point algorithm and that \refPro{property1} also applies to recursive processes too.
 
 Since the trace refinement does not say too much about the behavior of processes, we need a Failure-Refinement. In the next section we will define the Failure-Refinement for \picalc{} processes.
