@@ -1,9 +1,11 @@
-To study the refinement of \picalc{} processes we will use the big-step trace semantics defined in \cite{gieseking}. 
-
- where the set of all traces is defined as follow:
+To study the refinement of \picalc{} processes we will use the big-step trace semantics defined in \cite{gieseking}, where the set of all traces is defined as follow:
 \[\tr \define \seqset{\actions\setminus\set{\tau}}\]
 
-To abstract from the replacement of bound names, we use the equivalence class, denoted by $\ec{P}$, which contains all the processes obtained from $P$ by $\alpha$-conversion. The set of all equivalence classes is denoted by $\procsApha$ 
+To abstract from the replacement of bound names, we use the equivalence class, denoted by $\ec{P}$, which contains all the processes obtained from $P$ by $\alpha$-conversion. Intuitively, an equivalence class contains all the processes that have the same behavior pattern.
+
+An example of $\alpha$-conversion is: let $P_1\define\procres{a}{\out{a}{c}}$ and $P_2\define\procres{b}{\out{b}{c}}$, then $P_1 \alphaeq{} P_2$ with $\alpha = \substitue{y}{a}$ where $y = b$.
+
+The set of all equivalence classes is denoted by $\procsApha$ 
 
 To determine the traces of a processes $P$ we use:
 \begin{align}
@@ -11,17 +13,17 @@ To determine the traces of a processes $P$ we use:
 \label{determine_trace}
 \end{align}
 
-The big-step semantics uses an early instantiation principle\footnote{The early instantiation principle: means that the bound name in an input prefix is instantiated directly when the input transition is inferred.}, and its results seems to be valid to our study.
+The big-step semantics uses an early instantiation principle\footnote{The early instantiation principl means that the bound name in an input prefix is instantiated directly when the input transition is inferred.}, and its results seem to be valid to our study.
 
 The main result in \cite{gieseking} is the following property:
 \begin{align}
-    (\ec{P},\ec{Q})\in{}\simu \Rightarrow Q \refi P \label{property1}
+    (\ec{P},\ec{Q})\in{}\simu \Rightarrow \ec{Q} \refi \ec{P} \label{property1}
 \end{align}
 
-\refPro{property1} reads: $Q$ simulates $P$ implies $P$ refines $Q$ i.e $P$ has less behavior than $Q$, where:
+\refPro{property1} reads: $Q$ simulates $P$ implies $P$ refines $Q$,i.e. $P$ has less behavior than $Q$, where:
 \[\ec{Q}\refi \ec{P} \Leftrightarrow \traces[P]\subseteq\traces[Q]\]
 Notice, the converse of \refPro{property1} does not hold.
 
-However, \cite{gieseking} work was limited to recursion-free processes, ``The limitation to recursion-free processes depends on the circumstances that we neither have any fix-point algorithm up to now nor showed that one existse''\footnote{\cite{gieseking}, page $8$.}. In this work we assume the existence of a fix-point algorithm. Additionally, we assume that \refPro{property1} also applies to recursive processes too.
+However, the work in \cite{gieseking} was limited to recursion-free processes, ``The limitation to recursion-free processes depends on the circumstances that we neither have any fix-point algorithm up to now nor showed that one existse''\footnote{\cite{gieseking}, page $8$.}. In this work we assume the existence of a fix-point algorithm. Additionally, we assume that \refPro{property1} also applies to recursive processes too.
 
 Since the trace refinement does not say too much about the behavior of processes, we need a Failure-Refinement. In the next section we will define the Failure-Refinement for \picalc{} processes.

@@ -401,6 +401,11 @@
 		{\mathcal F}
 		{\mathcal F(\ec{#1})}
 }
+\newcommand{\accepatances}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\mathcal AC}
+		{\mathcal AC(\ec{#1})}
+}
 \newcommand{\fd}[1][\empty]{
 		\ifthenelse{\equal{#1}{\empty}}
 		{\mathcal{FD}}
@@ -427,8 +432,21 @@
 		{\,\sqsubseteq_{\mathcal F}\,}
 		{\,\sqsubseteq_{\mathcal{#1}}\,}
 }
+\newcommand{\refiAC}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\,\sqsubseteq_{\mathcal AC}\,}
+		{\,\sqsubseteq_{\mathcal{#1}}\,}
+}
+\newcommand{\refiFSimp}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\,\sqsubseteq^{'}_{\mathcal F}\,}
+		{\,\sqsubseteq_{\mathcal{#1}}\,}
+}
+
 \newcommand{\nrefiF}[1][\empty]{
 		\ifthenelse{\equal{#1}{\empty}}
 		{\,\not\sqsubseteq_{\mathcal F}\,}
 		{\,\not\sqsubseteq_{\mathcal{#1}}\,}
 }
+
+\newcommand{\subseteqSimplified}[1]{\subseteq_{#1}}

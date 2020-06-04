@@ -1,0 +1,45 @@
+To compare \picalc{} processes we need to define the Acceptance-Refinement and relate it to the simulation. We start by defining the acceptance pair of a process.
+The pair (t, X) is called a acceptance pair, where $t$ is a trace and $X$ is a set of all possible next actions. Any process
+$P$ is assigned a set of acceptance pairs $AC$. Formally, this means:
+\begin{align}
+    \accepatances[P] \define \{(t,Y) \mid \exists Q\in\procs: \ec{P} \bigstep{t} \ec{Q}\wedge Y\in AA\}
+\label{failure}
+\end{align}
+where: \[AA \define \pom{\actions\setminus\set{\tau}}\] is the set of all acceptable actions
+
+We can define the Acceptance-refinement of \picalc{} processes as follow:
+
+\begin{definition}[\index{refinement}{Acceptance refinement}]
+\label{def_failure_ref}
+	Let $P,Q\in\procs$, then $P$ is a \findex[acceptance!refinement]{acceptance refinement} of $Q$ ($Q\refiF P$) iff the inverse set inclusion of traces and acceptances holds:
+\begin{align}
+   \ec{Q} \refiAC \ec{P} \Leftrightarrow  \traces[P]\subseteq\traces[Q] \wedge \accepatances[P]\subseteq\accepatances[Q]
+\end{align}
+	We also say for $Q\refiAC{}P$ that $P$ \findex[refinement]{refines} $Q$.
+\end{definition}
+
+From \refPro{property1} and \refDef{def_failure_ref} we can to drive the following Corollary: 
+
+\begin{cor}[Simulation and Acceptance refinement]
+\label{cor_sim_acceptance_refinement}
+Let $P,Q\in\procs$ processes, then there exists a weak or strong simulation $\simu\subseteq\procs_\alpha\times\procs_\alpha$ such that
+\begin{align}
+    (\ec{P},\ec{Q})\in{}\simu  \Rightarrow \ec{Q} \refiAC \ec{P}
+   \label{acceptance_model}
+\end{align}
+holds.
+\end{cor}%%
+which reads:  $Q$ simulate $P$ implies $P$ refines $Q$, in Acceptance-Refinement.
+
+\begin{prf}
+\item 
+\begin{align*}
+	(\ec{P},\ec{Q})\in\simu \text{ implies } \forall t \in\traces[P] \text{ then } t \in  \traces[Q] \wedge Y_P \subseteq Y_Q
+\end{align*}
+
+\begin{align}
+    \forall t \in \traces[P] \textit{ then }\accepatances[P] \define \{(t,Y) \mid \exists Q\in\procs: \ec{P} \bigstep{t} \ec{Q}\wedge Y\in AA\}
+\label{failure}
+\end{align}
+
+\end{prf}

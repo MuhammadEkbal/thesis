@@ -1,4 +1,4 @@
-In this section we will use the relation between simulation and failure-refinement \refCor{cor_sim_failure_refinement} to compare our vending machine $VM$, that offers $coffee$ and $tea$, against another vending machine $VM\_Half$ which dosent offer $tea$. We will use ABC to check the simulation. Due to performance issue, we will limit the check to behavior part. That is, we are not comparing the combination $\pi$-OZ, but only the $\pi$ part   .i.e, no data, as shown in \refFig{vm_and_vmHalf}.
+In this section we will use the relation between simulation and failure-refinement \refCor{cor_sim_failure_refinement} to compare our vending machine $VM$, that offers $coffee$ and $tea$, against another vending machine $VM\_Half$ which does not offer $tea$. We will use ABC to check the simulation. Due to performance issue, we will limit the check to behavior part. That is, we are not comparing the combination $\pi$-OZ, but only the $\pi$ part   without data, as shown in \refFig{vm_and_vmHalf}.
 \begin{figure}[H]%
 \centering
 \subcaptionbox{$P$}{\fbox{{
@@ -36,7 +36,7 @@ In this section we will use the relation between simulation and failure-refineme
 
 \lstinputlisting[backgroundcolor=\color{white},caption={check if $VM\_Half\_PI$ simulates $VM\_PI$.},captionpos=b, label={vm_and_vmHalf_ABC_check2}]{listings/check_VM_and_VM_Half2.abc}
 
-We are interested in \refLis{vm_and_vmHalf_ABC_check1}, which says that VM\_PI simulates VM\_Half\_PI. This result implies, according to \refCor{cor_sim_failure_refinement}, that VM\_Half\_PI refines VM\_PI in failure-model, thus we need to show that $\traces[VM\_Half\_PI]\subseteq\traces[VM\_PI] \wedge \failures[VM\_Half\_PI]\subseteq\failures[VM\_PI]$.
+We are interested in \refLis{vm_and_vmHalf_ABC_check1}, which says that VM\_PI simulates VM\_Half\_PI. This result implies, according to \refCor{cor_sim_failure_refinement}, that VM\_Half\_PI refines VM\_PI in the failure model, thus we need to show that $\traces[VM\_Half\_PI]\subseteq\traces[VM\_PI] \wedge \failures[VM\_Half\_PI]\subseteq\failures[VM\_PI]$.
 \begin{itemize}
 \item For $\traces[VM\_Half\_PI]\subseteq\traces[VM\_PI]$: we need to determine the traces of VM\_PI and VM\_Half\_PI  shown in \refFig{vm_and_vmHalf}. According to \ref{determine_trace}:
 
@@ -47,7 +47,87 @@ It is clear that $\traces[VM\_Half\_PI]\subseteq\traces[VM\_PI]$ holds.
 \item For $\failures[VM\_Half\_PI]\subseteq\failures[VM\_PI]$: let $\epsilon$ be the empty trace, then
     \[\failures[VM\_PI] \define \{(\epsilon,\{\}),\dots\}^\ast\]
     \[\failures[VM\_Half\_PI] \define \{(\epsilon,\{tea\}),\dots\}^\ast\]
-It is clear that $\traces[VM\_Half\_PI]\not\subseteq\traces[VM\_PI]$, which is a contradiction to \refCor{cor_sim_failure_refinement} !!!!!!!. 
+It is clear that $\failures[VM\_Half\_PI]\not\subseteq\failures[VM\_PI]$, which is a contradiction to \refCor{cor_sim_failure_refinement} !!!!!!!. 
 \end{itemize}
 
-    
+    Thus, we need to edited our definition of Failure inclusion  as follow: 
+
+\begin{align}
+   \failures[P]\subseteq^{'}\failures[Q] \Leftrightarrow \forall p \in \failures[P] : \exists q \in \failures[Q] \bullet\\ (t_p = t_q \wedge (X_p \subseteq X_q \mid (true \  if \ (X_q = \emptyset\wedge \forall x\in X_p \Rightarrow x\in Act_Q ))))
+\end{align}
+   
+
+
+
+\begin{align}
+   \ec{Q} \refiFSimp \ec{P} \Leftrightarrow  \traces[P]\subseteq\traces[Q] \wedge \failures[P]\subseteq^{'}\failures[Q]
+\end{align}
+
+ Thus, now we can fix \refCor{cor_sim_failure_refinement} as follow:
+
+\begin{cor}[Simulation and simplified Failure refinement]
+\label{cor_sim_simp_failure_refinement}
+Let $P,Q\in\procs$ processes, then there exists a weak or strong bisimulation $\simu\subseteq\procs_\alpha\times\procs_\alpha$ such that
+\begin{align}
+(\ec{P},\ec{Q})\in{}\simu  \Rightarrow \ec{Q} \refiFSimp \ec{P}
+   \label{simp_failure_ref}
+\end{align}
+holds.
+\end{cor}%%
+which reads:  $Q$ simulate $P$ implies $P$ refines $Q$, in the simplified Failure-Refinement. Now it is clear that $\failures[VM\_Half\_PI]\subseteq^{'}\failures[VM\_PI]$ holds, then: $\ec{VM\_PI} \refiFSimp \ec{VM\_Half\_PI}$ holds too.
+
+
+\begin{cor}[Simulation and simplified Failure inclusion]
+\label{cor_sim_simp_failure_inclution}
+Let $P,Q\in\procs$ processes, then there exists a weak or strong bisimulation $\simu\subseteq\procs_\alpha\times\procs_\alpha$ such that
+\begin{align}
+(\ec{P},\ec{Q})\in{}\simu  \Rightarrow \failures[P]\subseteq^{'}\failures[Q]
+   \label{sim_simp_failure_inc}
+\end{align}
+holds.
+\end{cor}%%
+
+
+
+\begin{cor}[MM]
+\label{cor_sim_simp_failure_refinement}
+
+\begin{align}
+   (\ec{P},\ec{Q})\in{}\simu  \Rightarrow  \traces[P]\subseteq\traces[Q] \wedge \failures[P]\subseteq^{'}\failures[Q]
+\end{align}
+holds.
+\end{cor}%%
+\begin{prf}
+
+\begin{itemize}
+\item $(\ec{P},\ec{Q})\in{}\simu  \Rightarrow  \traces[P]\subseteq\traces[Q]$ flows from 
+\item $(\ec{P},\ec{Q})\in{}\simu  \Rightarrow  \traces[P]\subseteq\traces[Q]$
+\item \begin{align}
+    \ec{P}\bigstep{t}\ec{P'} \define \{(t,X) \mid \exists Q\in\procs: \ec{P} \bigstep{t} \ec{Q}\wedge X\in Refusals\}
+\label{failure}
+\end{align}
+\item 
+\begin{align*}
+	(\ec{P},\ec{Q})\in\simu \textit{ if: } \ec{P}\bigstep{t}\ec{P'} \text{ implies } \exists{}Q'\in\procs:\ec{Q}\bigstep{t}\ec{Q'} \wedge (\ec{P'},\ec{Q'})\in\simu
+\end{align*}
+
+\item 
+\begin{align}
+(\ec{P'},\ec{Q'})\in\mathcal{S} \textit{ if: }\ec{P'}\transs{\beta}\ec{P''} \text{ implies } \exists{}Q''\in\procs:\ec{Q'}(\tautrans)^*\fatsemi\transs{\beta}\fatsemi(\tautrans)^*\ec{Q''} \\  \wedge (\ec{P''},\ec{Q''})\in\mathcal{S}\textit{ for }\beta\in\actions
+\end{align}
+
+\item The acceptance set of $t$ is the set of all possible action $\beta$ after $t$. The refusal set of $t$ is the complement of the acceptance set. The pair $(t,X)$ is a refusal, where $X$ is the refusal set of $t$.
+\end{itemize}
+
+\item 
+\begin{align*}
+	(\ec{P'},\ec{Q'})\in\simu \text{ implies } X_P\subseteq^{'}X_Q \textit{ for } (t,X_P^{'}) \in\failures[P] \wedge (t,X_Q') \in\failures[Q]
+\end{align*}
+
+\item 
+\begin{align*}
+	(\ec{P},\ec{Q})\in\simu \text{ implies } \forall t \in\traces[P] \text{ then } t \in  \traces[Q] \wedge X_P \subseteq X_Q
+\end{align*}
+
+
+\end{prf}
