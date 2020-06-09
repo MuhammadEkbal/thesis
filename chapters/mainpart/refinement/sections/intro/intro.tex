@@ -20,7 +20,7 @@ The main result in \cite{gieseking} is the following property:
     (\ec{P},\ec{Q})\in{}\simu \Rightarrow \ec{Q} \refi \ec{P} \label{property1}
 \end{align}
 
-\refPro{property1} reads: $\ec{Q}$ strongly simulates\footnote{Strong simulation considers $\tau$ actions as defined in \refSec{sec_pi_simulation}} $\ec{P}$ implies $\ec{P}$ refines $\ec{Q}$,i.e. $\ec{P}$ has less behavior than $\ec{Q}$, where:
+\refPro{property1} reads: $\ec{Q}$ strongly simulates\footnote{Strong simulation considers $\tau$ actions as defined in \refSec{sec_pi_simulation}} $\ec{P}$ implies $\ec{P}$ refines $\ec{Q}$ in trace model,i.e. $\ec{P}$ has less behavior than $\ec{Q}$, where:
 \[\ec{Q}\refi \ec{P} \Leftrightarrow \traces[P]\subseteq\traces[Q]\]
 
 However, the work in \cite{gieseking} was limited to recursion-free processes: ``The limitation to recursion-free processes depends on the circumstances that we neither have any fix-point algorithm up to now nor showed that one existse''\footnote{\cite{gieseking}, page $8$.}. In this work we assume the existence of a fix-point algorithm and that \refPro{property1} also applies to recursive processes.

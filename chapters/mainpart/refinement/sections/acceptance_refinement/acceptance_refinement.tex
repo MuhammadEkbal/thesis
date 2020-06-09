@@ -1,11 +1,13 @@
-To compare \picalc{} processes we need to define the Acceptance-Refinement and relate it to the simulation. We start by defining the acceptance pair of a process.
-The pair (t, X) is called a acceptance pair, where $t$ is a trace and $Y$ is a set of all possible next actions. Any process
+To compare \picalc{} processes we need to define the Acceptance-Refinement and relate it to the simulation. We start by defining the $acceptance$ pair of a process.
+The pair $(t, Y)$ is called a acceptance pair, where $t$ is a trace and $Y$ is a set of all possible next actions. Any process
 $P$ is assigned a set of acceptance pairs $AC$. Formally, this means:
 \begin{align}
-    \accepatances[P] \define \{(t,Y) \mid \exists Q\in\procs: \ec{P} \bigstep{t} \ec{Q}\wedge Y\in AA\}
+    \accepatances[P] \define \{(t,Y) \mid \exists Q\in\procs: \ec{P} \bigstep{t} \ec{Q}\wedge Y\in AA_\alpha\}
 \label{failure}
 \end{align}
-where: \[AA \define \pom{\actions\setminus\set{\tau}}\] is the set of all acceptable actions
+
+where: $AA_\alpha = \substitue{\vec{y}}{\vec{z}} AA$
+and: $AA \define \pom{\actions\setminus\set{\tau}}$.
 
 We can define the Acceptance-refinement of \picalc{} processes as follow:
 
@@ -15,10 +17,10 @@ We can define the Acceptance-refinement of \picalc{} processes as follow:
 \begin{align}
    \ec{Q} \refiAC \ec{P} \Leftrightarrow  \traces[P]\subseteq\traces[Q] \wedge \accepatances[P]\subseteq\accepatances[Q]
 \end{align}
-	We also say for $\ec{Q}\refiAC{}\ec{P}$ that $\ec{P}$ \findex[refinement]{refines} $\ec{Q}$.
+	We also say for $\ec{Q}\refiAC{}\ec{P}$ that $\ec{P}$ \findex[refinement]{refines} $\ec{Q}$ in acceptance-refinement model.
 \end{definition}
 
-From \refPro{property1} and \refDef{def_failure_ref} we can to drive the following Corollary: 
+From \refPro{property1} and \refDef{def_failure_ref} we can drive the following Corollary: 
 
 \begin{cor}[Simulation and Acceptance refinement]
 \label{cor_sim_acceptance_refinement}
@@ -29,13 +31,12 @@ Let $P,Q\in\procs$ processes. If $\ec{Q}$ strongly simulates $\ec{P}$, then $\ec
 \end{align}
 holds.
 \end{cor}%%
-which reads: $Q$ simulate $P$ implies $P$ refines $Q$, in acceptance-refinement model.
 
 \begin{prf}
 Let $(\ec{P},\ec{Q})\in{}\simu$, then $\traces[P]\subseteq\traces[Q] \wedge \accepatances[P]\subseteq\accepatances[Q]$ holds, Since:
 \begin{itemize}
 \item For $\traces[P]\subseteq\traces[Q]$: it holds using \refPro{property1}.
-\item For $\accepatances[P]\subseteq\accepatances[Q]$: we need to show that,\\$\forall (t_P, Y_P) \in \accepatances[P] \textit{ then } \exists (t_Q, Y_Q) \in \accepatances[P]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
+\item For $\accepatances[P]\subseteq\accepatances[Q]$: we need to show that,\\$\forall (t_P, Y_P) \in \accepatances[P] \textit{ then } \exists (t_Q, Y_Q) \in \accepatances[Q]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
 \begin{itemize}
 \item $t_p = t_Q$ holds using \refPro{property1}.
 \item $Y_P \subseteq Y_Q$ holds, since $\ec{Q}$ strongly simulates $\ec{P}$ means that $\ec{Q}$ can do all the actions that $\ec{P}$ can do after any trace $t$.
