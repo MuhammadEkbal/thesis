@@ -42,17 +42,17 @@ Let $(P,Q)\in{}\simuv$, then $\Traces[P]\subseteq\Traces[Q] \wedge \Accepatances
 \end{itemize}
 \end{prf}
 \subsubsection{Acceptance-Refinement use case:}
- We will show that if $VM\_PI$ shown in \refFig{vm_and_vmHalf} very strongly simulates $VM\_Half\_PI$, then $VM\_Half\_PI$ refines $VM\_PI$ in acceptance-refinement model.
+ We will show that if $Q$ shown in \refFig{vm_and_vmHalf} very strongly simulates $P$, then $P$ refines $Q$ in acceptance-refinement model.
  
- \refLis{vm_and_vmHalf_ABC_check1} showed that $VM\_PI$ strongly simulates $VM\_Half\_PI$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $VM\_Half\_PI$ refines $VM\_PI$ in the acceptance-refinement model. Thus we need to show that $\Traces[VM\_Half\_PI]\subseteq\Traces[VM\_PI] \wedge \Accepatances[VM\_Half\_PI]\subseteq\Accepatances[VM\_PI]$.
+ \refLis{vm_and_vmHalf_ABC_check1} showed that $Q$ strongly simulates $P$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $P$ refines $Q$ in the acceptance-refinement model. Thus, we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Accepatances[P]\subseteq\Accepatances[Q]$.
  
  \begin{itemize}
-\item For $\Traces[VM\_Half\_PI]\subseteq\Traces[VM\_PI]$: previously we showed that it holds. 
+\item For $\Traces[P]\subseteq\Traces[Q]$: previously we showed that it holds. 
 
-\item For $\Accepatances[VM\_Half\_PI]\subseteq\Accepatances[VM\_PI]$: let $\epsilon$ be the empty trace, then
-    \[\Accepatances[VM\_PI] \define \{(\epsilon,\{tea(),coffee(),talk<>\}),\dots\}^\ast\]
-    \[\Accepatances[VM\_Half\_PI] \define \{(\epsilon,\{coffee(),talk<>\}),\dots\}^\ast\]
-It is clear that $\Accepatances[VM\_Half\_PI]\subseteq\Accepatances[VM\_PI]$ holds, thus $VM\_PI \refiAC VM\_Half\_PI$ holds.
+\item For $\Accepatances[P]\subseteq\Accepatances[Q]$: let $\epsilon$ be the empty trace, then
+    \[\Accepatances[Q] \define \{(\epsilon,\{tea(),coffee(),talk<>\}),\dots\}^\ast\]
+    \[\Accepatances[P] \define \{(\epsilon,\{coffee(),talk<>\}),\dots\}^\ast\]
+It is clear that $\Accepatances[P]\subseteq\Accepatances[Q]$ holds, thus $Q \refiAC P$ holds.
 \end{itemize}
 
 \section{ New:}

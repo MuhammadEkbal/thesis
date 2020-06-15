@@ -27,9 +27,9 @@ Let $P,Q\in\procs$ processes. If $Q$ very strongly simulates $P$, then $P$ refin
    \label{failure_model}
 \end{align}
 \end{cor}%%
-
+ Due to performance issue, we will limit the check to behavior part. That is, we are not comparing the combination $\pi$-OZ, but only the $\pi$ part without data, as shown in \refFig{vm_and_vmHalf}.
 \begin{prf}
-by counter example. Assume that \refCor{cor_sim_failure_refinement} holds and consider our vending machine $VM$, that offers $coffee$ and $tea$, against another vending machine $VM\_Half$ which does not offer $tea$. We will use ABC to check the simulation. Due to performance issue, we will limit the check to behavior part. That is, we are not comparing the combination $\pi$-OZ, but only the $\pi$ part   without data, as shown in \refFig{vm_and_vmHalf}. We would like to show that if $VM\_PI$ very strongly simulates $VM\_Half\_PI$, then $VM\_Half\_PI$ refines $VM\_PI$ in failure-refinement model. Formally: $(VM\_Half\_PI,VM\_PI)\in{}\simuv  \Rightarrow VM\_PI \refiF VM\_Half\_PI$.
+by counter example. Assume that $(P,Q)\in{}\simuv \Rightarrow Q \refiF P$ and let $P\define\out{a}{}.P$ and $Q\define\out{a}{}.Q + \out{b}{}.Q$, shown in \refFig{vm_and_vmHalf}.
 \begin{figure}[H]%
 \centering
 \subcaptionbox{$P$}{\fbox{{
@@ -37,8 +37,8 @@ by counter example. Assume that \refCor{cor_sim_failure_refinement} holds and co
                     semithick]
   \tikzstyle{every state}=[]
 
-  \node[state] (A)                    {$VM\_Half\_PI$};
-  \path (A) edge [loop above] node {$coffee,talk$} (A);
+  \node[state] (A)                    {$P$};
+  \path (A) edge [loop above] node {$a$} (A);
 \end{tikzpicture}    
     }}}%
 \qquad
@@ -47,34 +47,27 @@ by counter example. Assume that \refCor{cor_sim_failure_refinement} holds and co
                     semithick]
   \tikzstyle{every state}=[]
 
-  \node[state] (A)                    {$VM\_PI$};
-  \path (A) edge [loop above] node {$coffee,tea,talk$} (A);
+  \node[state] (A)                    {$Q$};
+  \path (A) edge [loop above] node {$a,b$} (A);
 \end{tikzpicture}
  }}}%
-\caption{$VM$ and $VM\_Half$}
+\caption{$P$ and $Q$}
 \label{vm_and_vmHalf}
 \end{figure}
 
-\refLis{vm_and_vmHalf_ABC} shows the ABC implementation of VM\_PI and VM\_Half\_PI and \refLis{vm_and_vmHalf_ABC_check1} shows the result of checking if $VM\_PI$ simulates $VM\_Half\_PI$, which passes.\\
-
-\lstinputlisting[backgroundcolor=\color{white},caption={ VM ($\pi$-part) in ABC code.},captionpos=b, label={vm_and_vmHalf_ABC}]{listings/vm_and_vmHalf_ABC.abc}
-
-
-\lstinputlisting[backgroundcolor=\color{white},caption={check if $VM\_PI$ simulates $VM\_Half\_PI$.},captionpos=b, label={vm_and_vmHalf_ABC_check1}]{listings/check_VM_and_VM_Half1.abc}
-
-\refLis{vm_and_vmHalf_ABC_check1} says that $VM\_PI$ very strongly simulates $VM\_Half\_PI$. This result implies, according to \refCor{cor_sim_failure_refinement}, that $VM\_Half\_PI$ refines $VM\_PI$ in the failure model, thus we need to show that $\Traces[VM\_Half\_PI]\subseteq\Traces[VM\_PI] \wedge \Failures[VM\_Half\_PI]\subseteq\Failures[VM\_PI]$.
+It is clear that $Q$ very strongly simulates $P$. This should imply implies, according to our assumption, that $P$ refines $Q$ in the failure model, thus we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Failures[P]\subseteq\Failures[Q]$.
 \begin{itemize}
-\item For $\Traces[VM\_Half\_PI]\subseteq\Traces[VM\_PI]$: we need to determine the traces of $VM\_PI$ and $VM\_Half\_PI$  shown in \refFig{vm_and_vmHalf}. According to \ref{determine_trace}:
+\item For $\Traces[P]\subseteq\Traces[Q]$: we need to determine the traces of $Q$ and $P$  shown in \refFig{vm_and_vmHalf}. According to \ref{determine_trace}:
 
-    \[\Traces[VM\_PI] \define \{coffee(),tea(),talk<>\}^\ast\]
-    \[\Traces[VM\_Half\_PI] \define \{coffee(),talk<>\}^\ast\]
-It is clear that $\Traces[VM\_Half\_PI]\subseteq\Traces[VM\_PI]$ holds. 
+    \[\Traces[Q] \define \{a(),b()\}^\ast\]
+    \[\Traces[P] \define \{a()\}^\ast\]
+It is clear that $\Traces[P]\subseteq\Traces[Q]$ holds. 
 
-\item For $\Failures[VM\_Half\_PI]\subseteq\Failures[VM\_PI]$: let $\epsilon$ be the empty trace, then
-    \[\Failures[VM\_PI] \define \{(\epsilon,\{\}),\dots\}^\ast\]
-    \[\Failures[VM\_Half\_PI] \define \{(\epsilon,\{tea()\}),\dots\}^\ast\]
-It is clear that $\Failures[VM\_Half\_PI]\not\subseteq\Failures[VM\_PI]$, thus $\ec{VM\_PI} \not\refiF \ec{VM\_Half\_PI}$.
+\item For $\Failures[P]\subseteq\Failures[Q]$: let $\epsilon$ be the empty trace, then
+    \[\Failures[Q] \define \{(\epsilon,\{\}),\dots\}^\ast\]
+    \[\Failures[P] \define \{(\epsilon,\{b()\}),\dots\}^\ast\]
+It is clear that $\Failures[P]\not\subseteq\Failures[Q]$, thus $Q \not\refiF P$.
 
-So, strong simulation does not imply failure-refinement. Thus, in the next section we will introduce the Acceptance-Refinement model and use it instead of the Failure-Refinement model.
+So, very strong simulation does not imply failure-refinement. Thus, in the next section we will introduce the Acceptance-Refinement model and use it instead of the Failure-Refinement model.
 \end{itemize}
 \end{prf}
