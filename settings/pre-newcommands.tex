@@ -382,6 +382,8 @@
 \newcommand{\sbisim}{\sim}
 \newcommand{\wbisim}{\approx}
 \newcommand{\simu}{\mathcal{S}}
+\newcommand{\simuv}{\mathcal{S}_v}
+
 \newcommand{\weaksimuset}[2]{\simu^{#1,#2}}
 \newcommand{\simuset}{\weaksimuset{P}{Q}}
 % denotational semantics
@@ -393,6 +395,11 @@
 		{\mathcal T}
 		{\mathcal T(\ec{#1})}
 }
+\newcommand{\Traces}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\mathcal T}
+		{\mathcal T(#1)}
+}
 \newcommand{\tracesR}[1]{\mathcal{T}_\relNames(\ec{#1})}
 
 \newcommand{\res}[3]{\functText{res}(#1,#2,\traces[#3])}
@@ -401,10 +408,20 @@
 		{\mathcal F}
 		{\mathcal F(\ec{#1})}
 }
+\newcommand{\Failures}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\mathcal F}
+		{\mathcal F(#1)}
+}
 \newcommand{\accepatances}[1][\empty]{
 		\ifthenelse{\equal{#1}{\empty}}
 		{\mathcal AC}
 		{\mathcal AC(\ec{#1})}
+}
+\newcommand{\Accepatances}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\mathcal AC}
+		{\mathcal AC(#1)}
 }
 \newcommand{\fd}[1][\empty]{
 		\ifthenelse{\equal{#1}{\empty}}

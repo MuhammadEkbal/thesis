@@ -24,5 +24,22 @@ The main result in \cite{gieseking} is the following property:
 \[\ec{Q}\refi \ec{P} \Leftrightarrow \traces[P]\subseteq\traces[Q]\]
 
 However, the work in \cite{gieseking} was limited to recursion-free processes: ``The limitation to recursion-free processes depends on the circumstances that we neither have any fix-point algorithm up to now nor showed that one existse''\footnote{\cite{gieseking}, page $8$.}. In this work we assume the existence of a fix-point algorithm and that \refPro{property1} also applies to recursive processes.
+Seeking simplicity and preciseness we decided to avoid the concept of equivalence classes and to introduce the very strong simulation.
+\section{Very strong simulation}
+\label{sec_failure-refinement}
+We noticed that the ABC tool changes the bound names during checking the simulation, which is not the case in the definition of strong simulation \refDef{def_strong_sim}. Thus, for clarity, we introduce the definition of the very strong simulation, which considers the use of the same bound names during the simulation checking.
 
-Since the trace refinement does not say too much about the behavior of processes, we propose to use the Failure-Refinement model, originally introduced for CSP. In the next section we will define the failure-refinement for \picalc{} processes and show that strong simulation does not imply failure-refinement. Thus, later in \refSec{sec_acceptance-refinement}, we will introduce the Acceptance-Refinement model for \picalc{} processes and show that strong simulation implies acceptance-refinement.
+\begin{definition}[Very strong simulation]
+\label{def_strong_sim}
+A relation $\mathcal{S}_v\subseteq\procs\times\procs$ is called a \index{simulation!strong}\findex[strong!simulation]{very strong simulation}, if $(P,Q)\in\mathcal{S}_v$ implies that
+\[P \transs{\alpha} P' \Rightarrow \exists Q'\in\procs: Q \transs{\beta} Q' \wedge \alpha = \beta \wedge (P',Q')\in\mathcal{S}_v.\]
+\end{definition}
+where $\alpha = \beta$ means $fn(\beta)=fn(\alpha)\wedge bn(\beta)=bn(\alpha)$
+
+Additionally, we assume that \refPro{property1} holds also for the very strong simulation without considering the equivalence classes. Formally:
+\begin{align}
+    (P,Q)\in{}\simuv \Rightarrow Q \refi P
+\label{property2}
+\end{align}
+
+Since the trace refinement does not say too much about the behavior of processes, we propose to use the Failure-Refinement model, originally introduced for CSP. In the next section we will define the failure-refinement for \picalc{} processes and show that the very strong simulation does not imply failure-refinement. Thus, later in \refSec{sec_acceptance-refinement}, we will introduce the Acceptance-Refinement model for \picalc{} processes and show that the very strong simulation implies acceptance-refinement.

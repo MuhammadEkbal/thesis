@@ -1,58 +1,307 @@
-To compare \picalc{} processes we need to define the Acceptance-Refinement and relate it to the simulation. We start by defining the $acceptance$ pair of a process.
+To compare \picalc{} processes we need to define the Acceptance-Refinement and relate it to the very strong simulation. We start by defining the $acceptance$ pair of a process.
 The pair $(t, Y)$ is called a acceptance pair, where $t$ is a trace and $Y$ is a set of all possible next actions. Any process
 $P$ is assigned a set of acceptance pairs $AC$. Formally, this means:
 \begin{align}
-    \accepatances[P] \define \{(t,Y) \mid \exists Q\in\procs: \ec{P} \bigstep{t} \ec{Q}\wedge Y\in AA_\alpha\}
+    \Accepatances[P] \define \{(t,Y) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Y\in AA_\alpha\}
 \label{failure}
 \end{align}
 
-where: $AA_\alpha = \substitue{\vec{y}}{\vec{z}} AA$
-and: $AA \define \pom{\actions\setminus\set{\tau}}$.
+where: $AA \define \pom{\actions\setminus\set{\tau}}$.
 
 We can define the Acceptance-refinement of \picalc{} processes as follow:
 
 \begin{definition}[\index{refinement}{Acceptance refinement}]
 \label{def_failure_ref}
-	Let $P,Q\in\procs$, then $\ec{P}$ is a \findex[acceptance!refinement]{acceptance refinement} of $\ec{Q}$ ($\ec{Q}\refiAC \ec{P}$) iff the inverse set inclusion of traces and acceptances holds:
+	Let $P,Q\in\procs$, then $P$ is a \findex[acceptance!refinement]{acceptance refinement} of $Q$ iff the inverse set inclusion of traces and acceptances holds:
 \begin{align}
-   \ec{Q} \refiAC \ec{P} \Leftrightarrow  \traces[P]\subseteq\traces[Q] \wedge \accepatances[P]\subseteq\accepatances[Q]
+   Q \refiAC P \Leftrightarrow  \Traces[P]\subseteq\Traces[Q] \wedge \Accepatances[P]\subseteq\Accepatances[Q]
 \end{align}
-	We also say for $\ec{Q}\refiAC{}\ec{P}$ that $\ec{P}$ \findex[refinement]{refines} $\ec{Q}$ in acceptance-refinement model.
 \end{definition}
 
 From \refPro{property1} and \refDef{def_failure_ref} we can drive the following Corollary: 
 
 \begin{cor}[Simulation and Acceptance refinement]
 \label{cor_sim_acceptance_refinement}
-Let $P,Q\in\procs$ processes. If $\ec{Q}$ strongly simulates $\ec{P}$, then $\ec{P}$ refines $\ec{Q}$ in Acceptance-Refinement model. Formally written:
+Let $P,Q\in\procs$ processes. If $Q$ very strongly simulates $P$, then $P$ refines $Q$ in Acceptance-Refinement model. Formally written:
 \begin{align}
-    (\ec{P},\ec{Q})\in{}\simu \Rightarrow \ec{Q} \refiAC \ec{P}
+    (P,Q)\in{}\simuv \Rightarrow Q \refiAC P
    \label{acceptance_model}
 \end{align}
 holds.
 \end{cor}%%
 
 \begin{prf}
-Let $(\ec{P},\ec{Q})\in{}\simu$, then $\traces[P]\subseteq\traces[Q] \wedge \accepatances[P]\subseteq\accepatances[Q]$ holds, Since:
+Let $(P,Q)\in{}\simuv$, then $\Traces[P]\subseteq\Traces[Q] \wedge \Accepatances[P]\subseteq\Accepatances[Q]$ holds, Since:
 \begin{itemize}
-\item For $\traces[P]\subseteq\traces[Q]$: it holds using \refPro{property1}.
-\item For $\accepatances[P]\subseteq\accepatances[Q]$: we need to show that,\\$\forall (t_P, Y_P) \in \accepatances[P] \textit{ then } \exists (t_Q, Y_Q) \in \accepatances[Q]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
+\item For $\Traces[P]\subseteq\Traces[Q]$: it holds using \refPro{property2}.
+\item For $\Accepatances[P]\subseteq\Accepatances[Q]$: we need to show that,\\$\forall (t_P, Y_P) \in \Accepatances[P] \textit{ then } \exists (t_Q, Y_Q) \in \Accepatances[Q]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
 \begin{itemize}
 \item $t_p = t_Q$ holds using \refPro{property1}.
-\item $Y_P \subseteq Y_Q$ holds, since $\ec{Q}$ strongly simulates $\ec{P}$ means that $\ec{Q}$ can do all the actions that $\ec{P}$ can do after any trace $t$.
+\item $Y_P \subseteq Y_Q$ holds, since $Q$ very strongly simulates $P$ means that $Q$ can do all the actions that $P$ can do after any trace $t$.
 \end{itemize}
 \end{itemize}
 \end{prf}
 \subsubsection{Acceptance-Refinement use case:}
- We will show that if $\ec{VM\_PI}$ shown in \refFig{vm_and_vmHalf} strongly simulates $\ec{VM\_Half\_PI}$, then $\ec{VM\_Half\_PI}$ refines $\ec{VM\_PI}$ in acceptance-refinement model.
+ We will show that if $VM\_PI$ shown in \refFig{vm_and_vmHalf} very strongly simulates $VM\_Half\_PI$, then $VM\_Half\_PI$ refines $VM\_PI$ in acceptance-refinement model.
  
- \refLis{vm_and_vmHalf_ABC_check1} showed that $\ec{VM\_PI}$ strongly simulates $\ec{VM\_Half\_PI}$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $\ec{VM\_Half\_PI}$ refines $\ec{VM\_PI}$ in the acceptance-refinement model. Thus we need to show that $\traces[VM\_Half\_PI]\subseteq\traces[VM\_PI] \wedge \accepatances[VM\_Half\_PI]\subseteq\accepatances[VM\_PI]$.
+ \refLis{vm_and_vmHalf_ABC_check1} showed that $VM\_PI$ strongly simulates $VM\_Half\_PI$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $VM\_Half\_PI$ refines $VM\_PI$ in the acceptance-refinement model. Thus we need to show that $\Traces[VM\_Half\_PI]\subseteq\Traces[VM\_PI] \wedge \Accepatances[VM\_Half\_PI]\subseteq\Accepatances[VM\_PI]$.
  
  \begin{itemize}
-\item For $\traces[VM\_Half\_PI]\subseteq\traces[VM\_PI]$: previously we showed that it holds. 
+\item For $\Traces[VM\_Half\_PI]\subseteq\Traces[VM\_PI]$: previously we showed that it holds. 
 
-\item For $\accepatances[VM\_Half\_PI]\subseteq\accepatances[VM\_PI]$: let $\epsilon$ be the empty trace, then
-    \[\accepatances[VM\_PI] \define \{(\epsilon,\{tea(),coffee(),talk<>\}),\dots\}^\ast\]
-    \[\accepatances[VM\_Half\_PI] \define \{(\epsilon,\{coffee(),talk<>\}),\dots\}^\ast\]
-It is clear that $\accepatances[VM\_Half\_PI]\subseteq\accepatances[VM\_PI]$ holds, thus $\ec{VM\_PI} \refiAC \ec{VM\_Half\_PI}$ holds.
+\item For $\Accepatances[VM\_Half\_PI]\subseteq\Accepatances[VM\_PI]$: let $\epsilon$ be the empty trace, then
+    \[\Accepatances[VM\_PI] \define \{(\epsilon,\{tea(),coffee(),talk<>\}),\dots\}^\ast\]
+    \[\Accepatances[VM\_Half\_PI] \define \{(\epsilon,\{coffee(),talk<>\}),\dots\}^\ast\]
+It is clear that $\Accepatances[VM\_Half\_PI]\subseteq\Accepatances[VM\_PI]$ holds, thus $VM\_PI \refiAC VM\_Half\_PI$ holds.
 \end{itemize}
+
+\section{ New:}
+\begin{figure}[!h]
+\centering
+\begin{tabular}{c|l|c|c|c|c|c}%|c|c|c}
+$\alpha$      & denotation   & $\n{\alpha}$ & $\bn{\alpha}$ & $\fn{\alpha}$ & $\substF(\alpha)$ & $\conj{\alpha}$\\\hline\hline%& $\alpha\subs{y}{a}$ & $\alpha\subs{y}{x}$ & $\alpha\subs{y}{z}$\\\hline\hline
+$\tau$        & internal     & $\emptyset$  & $\emptyset$   & $\emptyset$   & $\tau$ & $\tau$\\%& $\tau$              & $\tau$        & $\tau$ \\
+$\inpa{a}{x}$  & input        & $\set{a,x}$  & $\emptyset$   & $\set{a,x}$   & $\inpa{\substF(a)}{\substF(x)}$ & $\outa{a}{x}$\\%& $\inp{y}{x}$        & $\inp{a}{x}$  & $\inp{a}{x}$ \\
+$\out{a}{x}$  & output       & $\set{a,x}$  & $\emptyset$   & $\set{a,x}$   & $\out{\substF(a)}{\substF(x)}$ & $\inpa{a}{x}$\\%& $\out{y}{x}$        & $\out{a}{y}$  & $\out{a}{x}$ \\
+$\bout{a}{x}$ & bound output & $\set{a,x}$  & $\set{x}$     & $\set{a}$     & $\bout{\substF(a)}{x}$ & $\inpa{a}{x}$ %& $\bout{y}{x}$       & $\bout{a}{x}$ & $\bout{a}{x}$
+\end{tabular}
+\caption{Free and bound names of actions.}
+\label{fig_names_act}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{gather*}
+\kalRule{E-TAU}{}{}{\ec{\tau.P} \transs{\tau} \ec{P}} \quad\quad \kalRule[\procdef{A}{\parl{w}}\define P]{E-CALL}{}{}{\ec{\proccall{A}{\parl{v}}} \tautrans \ec{P\subs{\parl{v}}{\parl{w}}}} \\\\
+\kalRule{E-OUT}{}{}{\ec{\out{x}{y}.P} \transs{\out{x}{y}} \ec{P}} \quad\quad \kalRule{E-IN}{}{}{\ec{\inp{x}{z}.P} \intrans{x}{y} \ec{P\subs{y}{z}}} \\\\
+\kalRule{E-SUM_L}{}{\ec{P} \transs{\alpha} \ec{P'}}{\ec{P+Q} \transs{\alpha} \ec{P'}} \quad\quad \kalRule[z\nin n(\alpha)]{E-RES}{}{\ec{P} \transs{\alpha} \ec{P'}}{\ec{\procres{z}{P}} \transs{\alpha} \ec{\procres{z}{P'}}} \\\\
+\kalRule[\bn{\alpha}\cap\fn{Q}=\emptyset]{E-PAR_L}{}{\ec{P} \transs{\alpha} \ec{P'}}{\ec{\procpar{P}{Q}} \transs{\alpha} \ec{\procpar{P'}{Q}}} \\\\
+\kalRule[z\neq x]{E-OPEN}{}{\ec{P} \outtrans{x}{z} \ec{P'}}{\ec{\procres{z}{P}} \bouttrans{x}{z} \ec{P'}} \quad\quad \kalRule{E-COM_L}{\ec{P} \outtrans{x}{y} \ec{P'}}{\ec{Q} \intrans{x}{y} \ec{Q'}}{\ec{\procpar{P}{Q}} \tautrans \ec{\procpar{P'}{Q'}}}\\\\
+\kalRule[z\nin\fn{Q}]{E-CLOSE_L}{\ec{P} \bouttrans{x}{z} \ec{P'}}{\ec{Q} \intrans{x}{z} \ec{Q'}}{\ec{\procpar{P}{Q}} \tautrans \ec{\procres[a]{z}{\procpar{P'}{Q'}}}}
+\end{gather*}
+\caption{The \index{transition system!early}\findex{early transition system} \cite{sangiorgi}.}
+\label{fig_ts_early}
+\end{figure}
+
+
+$bn(P) \define \{n \mid (n \textit{is restricted}) \vee (\exists \alpha \in Act: n = obj(\alpha))\}$
+
+$fn(P) \define \{n \mid (n \textit{appears in} P) \wedge (n \not\in bn(P))\}$
+
+$Acc \define \{\alpha \mid (\alpha = \tau) \vee (sub(\alpha) \in fn(P) \wedge obj(\alpha)=signal) \vee (sub(\alpha) \in fn(P) \wedge obj(\alpha) \in fn(P)) \vee (sub(\alpha) \in fn(P) \wedge obj(\alpha) \in bn(P))\}$
+
+$P\define\procres{c}{\out{a}{c}}$ and
+$Q\define\procres{k}{\out{a}{k}} + \tau.Q$
+Even that Q simulates P, but the traces will have different names. To avoid this, we consider the case where P and Q have the same bound names.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    % draw the sets
+    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    % the texts
+    \node at (-1.5,1.5) {$P$};
+    \node at (1.5,1.5) {$Q$};
+
+    % the points in the sets (here I just create nodes to use them later on to position
+    % the circles and the arrows
+    \node (x1) at (-1.5,0.2) {$\bout{a}{x}$};
+
+    \node (y1) at (1.5,0.2) {$\bout{a}{k}$};
+    \node (y2) at (1.5,-0.2) {$\tau$};
+\end{tikzpicture}
+\caption{acceptable actions}
+\end{figure}
+
+$P\define\procres{c}{\out{a}{c}}$ and
+$Q\define\procres{c}{\out{a}{c}} + \tau.Q$
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    % draw the sets
+    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    % the texts
+    \node at (-1.5,1.5) {$P$};
+    \node at (1.5,1.5) {$Q$};
+
+    % the points in the sets (here I just create nodes to use them later on to position
+    % the circles and the arrows
+    \node (x1) at (-1.5,0.2) {$\bout{a}{c}$};
+
+    \node (y1) at (1.5,0.2) {$\bout{a}{c}$};
+    \node (y2) at (1.5,-0.2) {$\tau$};
+\end{tikzpicture}
+\caption{acceptable actions}
+\end{figure}
+
+
+$P\define\inp{a}{c}$ and
+$Q\define\inp{a}{c} + \tau.Q$
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    % draw the sets
+    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    % the texts
+    \node at (-1.5,1.5) {$P$};
+    \node at (1.5,1.5) {$Q$};
+
+    % the points in the sets (here I just create nodes to use them later on to position
+    % the circles and the arrows
+    \node (x1) at (-1.5,0.2) {$\inpa{a}{d}$};
+
+    \node (y1) at (1.5,0.2) {$\inpa{a}{d}$};
+    \node (y2) at (1.5,-0.2) {$\tau$};
+\end{tikzpicture}
+\caption{acceptable actions}
+\end{figure}
+
+
+
+let $P\define\procres{c}{(\out{a}{c})}$, then the traces of $P$ and $[P]$ are:
+
+let $Q\define\procres{c,k}{(\out{a}{c} + \out{a}{k})}$, then the traces of $Q$ and $[Q]$ are:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    % draw the sets
+   \draw[] (-7.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (-4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    % the texts
+    \node at (-7.5,1.5) {$fn(P)$};
+    \node at (-4.5,1.5) {$bn(P)$};
+    \node at (-1.5,1.5) {$Ac(P)$};
+    \node at (1.5,1.5) {$T(P)$};
+    \node at (4.5,1.5) {$T([P])$};
+
+    \node (x1) at (-7.5,0.2) {$a$};
+
+    \node (y1) at (-4.5,0.2) {$c$};
+
+    \node (z1) at (-1.5,0.2) {$\bout{a}{c}$};
+    
+    \node (w1) at (1.5,0.2) {$\bout{a}{c}$};
+
+    \node (m1) at (4.5,0.8) {$\bout{a}{c}$};
+    \node (m2) at (4.5,0.3) {$\bout{a}{b}$};
+    \node (m3) at (4.5,-0.2) {$\bout{a}{d}$};
+    \node (m4) at (4.5,-0.6) {$\dot$};
+    \node (m5) at (4.5,-0.8) {$\dot$};
+    \node (m6) at (4.5,-1) {$\dot$};
+
+\end{tikzpicture}
+\caption{traces}
+\begin{tikzpicture}
+    % draw the sets
+    \draw[] (-7.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (-4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    % the texts
+    \node at (-7.5,1.5) {$fn(Q)$};
+    \node at (-4.5,1.5) {$bn(Q)$};
+    \node at (-1.5,1.5) {$Ac(Q)$};
+    \node at (1.5,1.5) {$T(Q)$};
+    \node at (4.5,1.5) {$T([Q])$};
+
+    \node (x1) at (-7.5,0.2) {$a$};
+
+    \node (y1) at (-4.5,0.2) {$c$};
+    \node (y2) at (-4.5,-0.2) {$k$};
+
+    \node (z1) at (-1.5,0.2) {$\bout{a}{c}$};
+    \node (z2) at (-1.5,-0.2) {$\bout{a}{k}$};
+
+    \node (w1) at (1.5,0.2) {$\bout{a}{c}$};
+    \node (w2) at (1.5,-0.2) {$\bout{a}{k}$};
+    
+    \node (m1) at (4.5,0.8) {$\bout{a}{c}$};
+    \node (m2) at (4.5,0.3) {$\bout{a}{b}$};
+    \node (m3) at (4.5,-0.2) {$\bout{a}{d}$};
+    \node (m4) at (4.5,-0.6) {$\dot$};
+    \node (m5) at (4.5,-0.8) {$\dot$};
+    \node (m6) at (4.5,-1) {$\dot$};
+
+\end{tikzpicture}
+\caption{traces}
+\end{figure}
+
+
+let $P\define\procres{c}{(\out{a}{c}.0 + \out{a}{c}.P)}$, then the traces of $P$ and $[P]$ are:
+
+let $Q\define\procres{c,k}{(\out{a}{c} + \out{a}{k})}$, then the traces of $Q$ and $[Q]$ are:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    % draw the sets
+   \draw[] (-7.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (-4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    % the texts
+    \node at (-7.5,1.5) {$fn(P)$};
+    \node at (-4.5,1.5) {$bn(P)$};
+    \node at (-1.5,1.5) {$Ac(P)$};
+    \node at (1.5,1.5) {$T(P)$};
+    \node at (4.5,1.5) {$T([P])$};
+
+    \node (x1) at (-7.5,0.2) {$a$};
+
+    \node (y1) at (-4.5,0.2) {$c$};
+
+    \node (z1) at (-1.5,0.2) {$\bout{a}{c}$};
+    
+    \node (w1) at (1.5,0.2) {$\bout{a}{c}$};
+
+    \node (m1) at (4.5,0.8) {$\bout{a}{c}$};
+    \node (m2) at (4.5,0.3) {$\bout{a}{b}$};
+    \node (m3) at (4.5,-0.2) {$\bout{a}{d}$};
+    \node (m4) at (4.5,-0.6) {$\dot$};
+    \node (m5) at (4.5,-0.8) {$\dot$};
+    \node (m6) at (4.5,-1) {$\dot$};
+
+\end{tikzpicture}
+\caption{traces}
+\begin{tikzpicture}
+    % draw the sets
+    \draw[] (-7.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (-4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    \draw[] (4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
+    % the texts
+    \node at (-7.5,1.5) {$fn(Q)$};
+    \node at (-4.5,1.5) {$bn(Q)$};
+    \node at (-1.5,1.5) {$Ac(Q)$};
+    \node at (1.5,1.5) {$T(Q)$};
+    \node at (4.5,1.5) {$T([Q])$};
+
+    \node (x1) at (-7.5,0.2) {$a$};
+
+    \node (y1) at (-4.5,0.2) {$c$};
+    \node (y2) at (-4.5,-0.2) {$k$};
+
+    \node (z1) at (-1.5,0.2) {$\bout{a}{c}$};
+    \node (z2) at (-1.5,-0.2) {$\bout{a}{k}$};
+
+    \node (w1) at (1.5,0.2) {$\bout{a}{c}$};
+    \node (w2) at (1.5,-0.2) {$\bout{a}{k}$};
+    
+    \node (m1) at (4.5,0.8) {$\bout{a}{c}$};
+    \node (m2) at (4.5,0.3) {$\bout{a}{b}$};
+    \node (m3) at (4.5,-0.2) {$\bout{a}{d}$};
+    \node (m4) at (4.5,-0.6) {$\dot$};
+    \node (m5) at (4.5,-0.8) {$\dot$};
+    \node (m6) at (4.5,-1) {$\dot$};
+
+\end{tikzpicture}
+\caption{traces}
+\end{figure}
