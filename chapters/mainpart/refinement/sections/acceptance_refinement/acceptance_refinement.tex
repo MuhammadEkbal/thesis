@@ -89,79 +89,8 @@ $fn(P) \define \{n \mid (n \textit{appears in} P) \wedge (n \not\in bn(P))\}$
 
 $Acc \define \{\alpha \mid (\alpha = \tau) \vee (sub(\alpha) \in fn(P) \wedge obj(\alpha)=signal) \vee (sub(\alpha) \in fn(P) \wedge obj(\alpha) \in fn(P)) \vee (sub(\alpha) \in fn(P) \wedge obj(\alpha) \in bn(P))\}$
 
-$P\define\procres{c}{\out{a}{c}}$ and
-$Q\define\procres{k}{\out{a}{k}} + \tau.Q$
-Even that Q simulates P, but the traces will have different names. To avoid this, we consider the case where P and Q have the same bound names.
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}
-    % draw the sets
-    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    % the texts
-    \node at (-1.5,1.5) {$P$};
-    \node at (1.5,1.5) {$Q$};
 
-    % the points in the sets (here I just create nodes to use them later on to position
-    % the circles and the arrows
-    \node (x1) at (-1.5,0.2) {$\bout{a}{x}$};
-
-    \node (y1) at (1.5,0.2) {$\bout{a}{k}$};
-    \node (y2) at (1.5,-0.2) {$\tau$};
-\end{tikzpicture}
-\caption{acceptable actions}
-\end{figure}
-
-$P\define\procres{c}{\out{a}{c}}$ and
-$Q\define\procres{c}{\out{a}{c}} + \tau.Q$
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}
-    % draw the sets
-    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    % the texts
-    \node at (-1.5,1.5) {$P$};
-    \node at (1.5,1.5) {$Q$};
-
-    % the points in the sets (here I just create nodes to use them later on to position
-    % the circles and the arrows
-    \node (x1) at (-1.5,0.2) {$\bout{a}{c}$};
-
-    \node (y1) at (1.5,0.2) {$\bout{a}{c}$};
-    \node (y2) at (1.5,-0.2) {$\tau$};
-\end{tikzpicture}
-\caption{acceptable actions}
-\end{figure}
-
-
-$P\define\inp{a}{c}$ and
-$Q\define\inp{a}{c} + \tau.Q$
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}
-    % draw the sets
-    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    % the texts
-    \node at (-1.5,1.5) {$P$};
-    \node at (1.5,1.5) {$Q$};
-
-    % the points in the sets (here I just create nodes to use them later on to position
-    % the circles and the arrows
-    \node (x1) at (-1.5,0.2) {$\inpa{a}{d}$};
-
-    \node (y1) at (1.5,0.2) {$\inpa{a}{d}$};
-    \node (y2) at (1.5,-0.2) {$\tau$};
-\end{tikzpicture}
-\caption{acceptable actions}
-\end{figure}
-
-
-
-let $P\define\procres{c}{(\out{a}{c})}$, then the traces of $P$ and $[P]$ are:
+let $P\define\procres{c}{(\out{a}{c}.0 + \out{a}{c}.P)} +\tau.0 + \tau.P$, then the traces of $P$ and $[P]$ are:
 
 let $Q\define\procres{c,k}{(\out{a}{c} + \out{a}{k})}$, then the traces of $Q$ and $[Q]$ are:
 \begin{figure}[H]
@@ -172,13 +101,11 @@ let $Q\define\procres{c,k}{(\out{a}{c} + \out{a}{k})}$, then the traces of $Q$ a
     \draw[] (-4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
     \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
     \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    \draw[] (4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
     % the texts
     \node at (-7.5,1.5) {$fn(P)$};
     \node at (-4.5,1.5) {$bn(P)$};
     \node at (-1.5,1.5) {$Ac(P)$};
     \node at (1.5,1.5) {$T(P)$};
-    \node at (4.5,1.5) {$T([P])$};
 
     \node (x1) at (-7.5,0.2) {$a$};
 
@@ -187,14 +114,6 @@ let $Q\define\procres{c,k}{(\out{a}{c} + \out{a}{k})}$, then the traces of $Q$ a
     \node (z1) at (-1.5,0.2) {$\bout{a}{c}$};
     
     \node (w1) at (1.5,0.2) {$\bout{a}{c}$};
-
-    \node (m1) at (4.5,0.8) {$\bout{a}{c}$};
-    \node (m2) at (4.5,0.3) {$\bout{a}{b}$};
-    \node (m3) at (4.5,-0.2) {$\bout{a}{d}$};
-    \node (m4) at (4.5,-0.6) {$\dot$};
-    \node (m5) at (4.5,-0.8) {$\dot$};
-    \node (m6) at (4.5,-1) {$\dot$};
-
 \end{tikzpicture}
 \caption{traces}
 \begin{tikzpicture}
@@ -203,13 +122,11 @@ let $Q\define\procres{c,k}{(\out{a}{c} + \out{a}{k})}$, then the traces of $Q$ a
     \draw[] (-4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
     \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
     \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    \draw[] (4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
     % the texts
     \node at (-7.5,1.5) {$fn(Q)$};
     \node at (-4.5,1.5) {$bn(Q)$};
     \node at (-1.5,1.5) {$Ac(Q)$};
     \node at (1.5,1.5) {$T(Q)$};
-    \node at (4.5,1.5) {$T([Q])$};
 
     \node (x1) at (-7.5,0.2) {$a$};
 
@@ -221,87 +138,6 @@ let $Q\define\procres{c,k}{(\out{a}{c} + \out{a}{k})}$, then the traces of $Q$ a
 
     \node (w1) at (1.5,0.2) {$\bout{a}{c}$};
     \node (w2) at (1.5,-0.2) {$\bout{a}{k}$};
-    
-    \node (m1) at (4.5,0.8) {$\bout{a}{c}$};
-    \node (m2) at (4.5,0.3) {$\bout{a}{b}$};
-    \node (m3) at (4.5,-0.2) {$\bout{a}{d}$};
-    \node (m4) at (4.5,-0.6) {$\dot$};
-    \node (m5) at (4.5,-0.8) {$\dot$};
-    \node (m6) at (4.5,-1) {$\dot$};
-
-\end{tikzpicture}
-\caption{traces}
-\end{figure}
-
-
-let $P\define\procres{c}{(\out{a}{c}.0 + \out{a}{c}.P)}$, then the traces of $P$ and $[P]$ are:
-
-let $Q\define\procres{c,k}{(\out{a}{c} + \out{a}{k})}$, then the traces of $Q$ and $[Q]$ are:
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}
-    % draw the sets
-   \draw[] (-7.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    \draw[] (-4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    \draw[] (4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    % the texts
-    \node at (-7.5,1.5) {$fn(P)$};
-    \node at (-4.5,1.5) {$bn(P)$};
-    \node at (-1.5,1.5) {$Ac(P)$};
-    \node at (1.5,1.5) {$T(P)$};
-    \node at (4.5,1.5) {$T([P])$};
-
-    \node (x1) at (-7.5,0.2) {$a$};
-
-    \node (y1) at (-4.5,0.2) {$c$};
-
-    \node (z1) at (-1.5,0.2) {$\bout{a}{c}$};
-    
-    \node (w1) at (1.5,0.2) {$\bout{a}{c}$};
-
-    \node (m1) at (4.5,0.8) {$\bout{a}{c}$};
-    \node (m2) at (4.5,0.3) {$\bout{a}{b}$};
-    \node (m3) at (4.5,-0.2) {$\bout{a}{d}$};
-    \node (m4) at (4.5,-0.6) {$\dot$};
-    \node (m5) at (4.5,-0.8) {$\dot$};
-    \node (m6) at (4.5,-1) {$\dot$};
-
-\end{tikzpicture}
-\caption{traces}
-\begin{tikzpicture}
-    % draw the sets
-    \draw[] (-7.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    \draw[] (-4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    \draw[] (4.5,0) ellipse [x radius = 0.9cm, y radius = 1.2cm];
-    % the texts
-    \node at (-7.5,1.5) {$fn(Q)$};
-    \node at (-4.5,1.5) {$bn(Q)$};
-    \node at (-1.5,1.5) {$Ac(Q)$};
-    \node at (1.5,1.5) {$T(Q)$};
-    \node at (4.5,1.5) {$T([Q])$};
-
-    \node (x1) at (-7.5,0.2) {$a$};
-
-    \node (y1) at (-4.5,0.2) {$c$};
-    \node (y2) at (-4.5,-0.2) {$k$};
-
-    \node (z1) at (-1.5,0.2) {$\bout{a}{c}$};
-    \node (z2) at (-1.5,-0.2) {$\bout{a}{k}$};
-
-    \node (w1) at (1.5,0.2) {$\bout{a}{c}$};
-    \node (w2) at (1.5,-0.2) {$\bout{a}{k}$};
-    
-    \node (m1) at (4.5,0.8) {$\bout{a}{c}$};
-    \node (m2) at (4.5,0.3) {$\bout{a}{b}$};
-    \node (m3) at (4.5,-0.2) {$\bout{a}{d}$};
-    \node (m4) at (4.5,-0.6) {$\dot$};
-    \node (m5) at (4.5,-0.8) {$\dot$};
-    \node (m6) at (4.5,-1) {$\dot$};
-
 \end{tikzpicture}
 \caption{traces}
 \end{figure}
