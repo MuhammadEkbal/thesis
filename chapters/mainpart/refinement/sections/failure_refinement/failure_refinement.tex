@@ -21,41 +21,40 @@ From \refPro{property2} and \refDef{def_failure_ref} we can drive the following 
 
 \begin{cor}[Simulation and Failure refinement]
 \label{cor_sim_failure_refinement}
-Let $P,Q\in\procs$ processes. If $Q$ very strongly simulates $P$, then $P$ refines $Q$ in Failure-Refinement model. Formally written:
+Let $P,Q\in\procs$ processes. If $Q$ very strongly simulates $P$, this does not imply that $P$ refines $Q$ in Failure-Refinement model. Formally written:
 \begin{align}
     (P,Q)\in{}\simuv  \not\Rightarrow Q \refiF P
    \label{failure_model}
 \end{align}
 \end{cor}%%
- Due to performance issue, we will limit the check to behavior part. That is, we are not comparing the combination $\pi$-OZ, but only the $\pi$ part without data, as shown in \refFig{vm_and_vmHalf}.
 \begin{prf}
 by counter example. Assume that $(P,Q)\in{}\simuv \Rightarrow Q \refiF P$ and let $P\define\out{a}{}.P$ and $Q\define\out{a}{}.Q + \out{b}{}.Q$, shown in \refFig{vm_and_vmHalf}.
 \begin{figure}[H]%
 \centering
-\subcaptionbox{$P$}{\fbox{{
+\subcaptionbox{}{\fbox{{
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
                     semithick]
   \tikzstyle{every state}=[]
 
   \node[state] (A)                    {$P$};
-  \path (A) edge [loop above] node {$a$} (A);
+  \path (A) edge [loop above] node {$\out{a}{}$} (A);
 \end{tikzpicture}    
     }}}%
 \qquad
-\subcaptionbox{$Q$}{\fbox{{
+\subcaptionbox{}{\fbox{{
     \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
                     semithick]
   \tikzstyle{every state}=[]
 
   \node[state] (A)                    {$Q$};
-  \path (A) edge [loop above] node {$a,b$} (A);
+  \path (A) edge [loop above] node {$\out{a}{}, \out{b}{}$} (A);
 \end{tikzpicture}
  }}}%
 \caption{$P$ and $Q$}
 \label{vm_and_vmHalf}
 \end{figure}
 
-It is clear that $Q$ very strongly simulates $P$. This should imply implies, according to our assumption, that $P$ refines $Q$ in the failure model, thus we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Failures[P]\subseteq\Failures[Q]$.
+It is clear that $Q$ very strongly simulates $P$. This should imply, according to our assumption, that $P$ refines $Q$ in the failure model, thus we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Failures[P]\subseteq\Failures[Q]$.
 \begin{itemize}
 \item For $\Traces[P]\subseteq\Traces[Q]$: we need to determine the traces of $Q$ and $P$  shown in \refFig{vm_and_vmHalf}. According to \ref{determine_trace}:
 
