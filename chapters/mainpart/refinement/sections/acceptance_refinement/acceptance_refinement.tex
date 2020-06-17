@@ -1,16 +1,16 @@
-To compare \picalc{} processes we need to define the Acceptance-Refinement and relate it to the very strong simulation. We start by defining the \textit{acceptance pair} of a process.
+To compare \picalc{} processes we need to define the Success-Refinement and relate it to the very strong simulation. We start by defining the \textit{success pair} of a process.
 
-The pair $(t, Y)$ is called an \textit{acceptance pair}, where $t$ is a trace and $Y$ is a set of acceptable next actions after $t$. Formally, $P \bigstep{t} Q$ and $Q$ acp $X$. Any process
-$P$ is assigned a set of acceptance pairs $AC$. Formally, this means:
+The pair $(t, Y)$ is called an \textit{success pair}, where $t$ is a trace and $Y$ is a set of acceptable next actions after $t$. Formally, $P \bigstep{t} Q$ and $Q$ acp $X$. Any process
+$P$ is assigned a set of success pairs $\Successes[]$. Formally, this means:
 \begin{align}
-    \Accepatances[P] \define \{(t,Y) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Q \text{ acp } Y \wedge Y\in Acceptances\}
+    \Successes[P] \define \{(t,Y) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Q \text{ acp } Y \wedge Y\in Acceptances\}
 \label{failure}
 \end{align}
 
 where: 
-\[AA \define \pom{\actions}\]
+\[Acceptances \define \pom{\actions}\]
 
-To determine $Y$ we need to collect all possible the actions after the substitution of bound names, which requires collecting the available actions before the substitution of bound names.
+To determine the acceptance set $Y$ we need to collect all possible the actions after the substitution of bound names, which requires collecting the available actions before the substitution of bound names.
 
 To collect the available actions before the substitution of bound names we need to collect the available output actions $Av_\outA$, collect the available input actions $Av_\inA$, and the available $\tau$ actions $Av_\tau$ as follow:
 \[Av_\outA\define\{ \alpha \in \outA \mid \alpha\text{ is a syntatically possible next action in P}\}\]
@@ -19,7 +19,7 @@ To collect the available actions before the substitution of bound names we need 
 
 Now, we can collect the all the possible output actions after the substitution of bound names, where $Acc_\outA$ is for the output actions, $Acc_\inA$ is for the input actions, and $Acc_\tau$ is for the $\tau$ actions as follow:
 \[Acc_\outA \define Av_\outA\]
-\[Acc_\inA\define\{\alpha \in \inA \mid \exists \beta \in Av_\inA \wedge \sub{\alpha}=\sub{\beta} \wedge \alpha=\substitue{\vec{y}}{\vec{z}}\beta \text{ where } \vec{z}=\obj{\beta} \wedge \vec{y}=\obj{\alpha} \}\]
+$Acc_\inA\define\{\alpha \in \inA \mid \exists \beta \in Av_\inA \wedge \sub{\alpha}=\sub{\beta} \wedge \alpha=\substitue{\vec{y}}{\vec{z}}\beta \text{ where } \\\ \ \quad  \vec{z}=\obj{\beta} \wedge \vec{y}=\obj{\alpha} \}$
 \[Acc_\tau\define\{\tau \mid \forall \alpha \in Acc_\outA \text{ if } \exists \beta \in Acc_\inA  :\sub{\alpha}=\sub{\beta} \wedge \obj{\alpha}=\obj{\beta}  \}\cup Av_\tau\]
 \[\sub{\alpha} \text{: returns the channel name through which the exchange occurs}\]
 \[\obj{\alpha} \text{: return the exchanged names across the channel}\]
@@ -27,9 +27,8 @@ Now, we can collect the all the possible output actions after the substitution o
 Finally, we can determine $Y$ as follow:
 \[Y \define Acc_\tau \cup Acc_\outA \cup Acc_\inA\]
 
-Let us take an example to illustrate our approach of calculating the acceptance set of a trace. Let $P\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).P$.  \refFig{trace_set_acceptance} shows $\Traces[P]$ and how to calculate the acceptance set $Y$ of the empty trace $\out{}{}$. $P$ has only two syntactically available actions $\inp{a}{x}$ and $\inp{b}{d}$ shown in the set $Av_\inA$. Once one of them occurs, its bound name must be substituted with the received name. This substitution is shown in $Acc_\inA$ for all possible received names. Finally, the acceptance set $Y$ of $\out{}{}$ is the union of $Acc_\outA$, $Acc_\inA$ and $Acc_\tau$. 
+Let us take an example to illustrate our approach of calculating the acceptance set of a trace. Let $P\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).P$.  \refFig{trace_set_acceptance} shows $\Traces[P]$ and how to calculate the acceptance set $Y$ of the empty trace $\out{}{}$. $P$ has only two syntactically available actions $\inp{a}{x}$ and $\inp{b}{d}$ as shown in the set $Av_\inA$. Once one of them occurs, its bound name must be substituted with the received name. This substitution is shown in $Acc_\inA$ for all possible received names. Finally, the acceptance set $Y$ of $\out{}{}$ is the union of $Acc_\outA$, $Acc_\inA$ and $Acc_\tau$. 
 The sets $Av_\outA$ and $Av_\tau$ are empty, because $P$ can neither make an output action nor $\tau$ action. Thus, $Acc_\outA$ and $Acc_\tau$ are empty too.
-
     
 \begin{figure}[H]
 \centering
@@ -131,7 +130,7 @@ The sets $Av_\outA$ and $Av_\tau$ are empty, because $P$ can neither make an out
     
     \node at (7.5,-9.7) {$\varnothing$};
 
-    \node (m1)at (-4.5,-3) {$ $};
+    \node (m1)at (-4.5,-3.3) {$Y$};
     \path (w4) edge (m1);
     \path (w5) edge (m1);
     \path (w6) edge (m1);
@@ -149,69 +148,174 @@ The sets $Av_\outA$ and $Av_\tau$ are empty, because $P$ can neither make an out
 	\draw [dashed] (k3.south) to [out=-10,in=-170] (l3.south);
 	
 \end{tikzpicture}
-\caption{traces}
+\caption{Calculating the acceptance set $Y$ of the trace $\out{}{}$}
 \label{trace_set_acceptance}
 \end{figure}
-We can now define the Acceptance-refinement of \picalc{} processes as follow:
+We can now define the success-refinement of \picalc{} processes as follow:
 
-\begin{definition}[\index{refinement}{Acceptance refinement}]
-\label{def_failure_ref}
-	Let $P,Q\in\procs$, then $P$ is a \findex[acceptance!refinement]{acceptance refinement} of $Q$ iff the inverse set inclusion of traces and acceptances holds:
-\begin{align}
-   Q \refiAC P \Leftrightarrow  \Traces[P]\subseteq\Traces[Q] \wedge \Accepatances[P]\subseteq\Accepatances[Q]
-\end{align}
+\begin{definition}[\index{refinement}{Successes refinement}]
+\label{def_Successes_ref}
+	Let $P,Q\in\procs$, then $P$ is a \findex[Successes!refinement]{successes refinement} of $Q$ iff the inverse set inclusion of traces and successes holds:
+   \[Q \refiAC P \Leftrightarrow  \Traces[P]\subseteq\Traces[Q] \wedge \Successes[P]\subseteq\Successes[Q]\]
 \end{definition}
 
-From \refPro{property1} and \refDef{def_failure_ref} we can drive the following Corollary: 
+From \refPro{property2} and \refDef{def_Successes_ref} we can drive the following Corollary: 
 
-\begin{cor}[Simulation and Acceptance refinement]
+\begin{cor}[Simulation and Success refinement]
 \label{cor_sim_acceptance_refinement}
-Let $P,Q\in\procs$ processes. If $Q$ very strongly simulates $P$, then $P$ refines $Q$ in Acceptance-Refinement model. Formally written:
-\begin{align}
-    (P,Q)\in{}\simuv \Rightarrow Q \refiAC P
-   \label{acceptance_model}
-\end{align}
+Let $P,Q\in\procs$ processes. If $Q$ very strongly simulates $P$, then $P$ refines $Q$ in Success-Refinement model. Formally written:
+    \[(P,Q)\in{}\simuv \Rightarrow Q \refiSuc P\]
 holds.
 \end{cor}%%
 
 \begin{prf}
-Let $(P,Q)\in{}\simuv$, then $\Traces[P]\subseteq\Traces[Q] \wedge \Accepatances[P]\subseteq\Accepatances[Q]$ holds, Since:
+Let $(P,Q)\in{}\simuv$, then $\Traces[P]\subseteq\Traces[Q] \wedge \Successes[P]\subseteq\Successes[Q]$ holds, Since:
 \begin{itemize}
 \item For $\Traces[P]\subseteq\Traces[Q]$: it holds using \refPro{property2}.
-\item For $\Accepatances[P]\subseteq\Accepatances[Q]$: we need to show that,\\$\forall (t_P, Y_P) \in \Accepatances[P] \textit{ then } \exists (t_Q, Y_Q) \in \Accepatances[Q]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
+\item For $\Successes[P]\subseteq\Successes[Q]$: we need to show that,\\$\forall (t_P, Y_P) \in \Successes[P] \textit{ then } \exists (t_Q, Y_Q) \in \Successes[Q]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
 \begin{itemize}
-\item $t_p = t_Q$ holds using \refPro{property1}.
+\item $t_p = t_Q$ holds using \refPro{property2}.
 \item $Y_P \subseteq Y_Q$ holds, since $Q$ very strongly simulates $P$ means that $Q$ can do all the actions that $P$ can do after any trace $t$. since $Q$ very strongly simulates $P$ means that $Q$ can do any the actions that $P$ can do respecting the bound names too. This means for any trace $t$ of $P$.
 \end{itemize}
 \end{itemize}
 \end{prf}
-\subsubsection{Acceptance-Refinement use case:}
- We will show that if $Q$ shown in \refFig{vm_and_vmHalf} very strongly simulates $P$, then $P$ refines $Q$ in acceptance-refinement model.
- 
- \refLis{vm_and_vmHalf_ABC_check1} showed that $Q$ strongly simulates $P$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $P$ refines $Q$ in the acceptance-refinement model. Thus, we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Accepatances[P]\subseteq\Accepatances[Q]$.
+\subsubsection{Success-Refinement use case:}
+ We will show that if $Q$ shown in \refFig{vm_and_vmHalf} very strongly simulates $P$, then $P$ refines $Q$ in success-refinement model.
+let
+\[P\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).P\]
+\[Q\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).Q + \tau.Q\]
+It is clear that $Q$ very strongly simulates $P$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $P$ refines $Q$ in the success-refinement model. Thus, we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Successes[P]\subseteq\Successes[Q]$.
  
  \begin{itemize}
 \item For $\Traces[P]\subseteq\Traces[Q]$: previously we showed that it holds. 
-
-\item For $\Accepatances[P]\subseteq\Accepatances[Q]$: let $\epsilon$ be the empty trace, then
+\item For $\Successes[P]\subseteq\Successes[Q]$: let $\epsilon$ be the empty trace, then
     \[\Accepatances[Q] \define \{(\epsilon,\{tea(),coffee(),talk<>\}),\dots\}^\ast\]
     \[\Accepatances[P] \define \{(\epsilon,\{coffee(),talk<>\}),\dots\}^\ast\]
 It is clear that $\Accepatances[P]\subseteq\Accepatances[Q]$ holds, thus $Q \refiAC P$ holds.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    % draw the sets
+   \draw[] (-7.5,0) ellipse [x radius = 1.2cm, y radius = 5cm];
+    \draw[] (-4.5,0) ellipse [x radius = 0.9cm, y radius = 3cm];
+    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 3cm];
+    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 3cm];
+    \draw[] (4.5,0) ellipse [x radius = 0.9cm, y radius = 3cm];
+    % the texts
+    \node at (-7.5,5.3) {$\Traces[Q]$};
+    \node (x1) at (-4.5,3.3) {$\out{}{}$};
+    \node at (-1.5,3.3) {$\out{}{\inp{a}{b}}$};
+    \node at (1.5,3.3) {$\out{}{\inp{a}{c}}$};
+    \node at (4.5,3.3) {$\out{}{\inp{b}{d}}$};
+
+
+    \node (y1) at (-7.5,4.5) {$\out{}{}$};
+    \node at (-7.5,3.9) {$\out{}{\inp{a}{a}}$};
+    \node at (-7.5,3.3) {$\out{}{\inp{a}{b}}$};
+    \node at (-7.5,2.7) {$\out{}{\inp{a}{c}}$};
+    \node at (-7.5,2.1) {$\dot$};
+    \node at (-7.5,1.5) {$\dot$};
+    \node at (-7.5,0.9) {$\out{}{\inp{b}{a}}$};
+    \node at (-7.5,0.3) {$\out{}{\inp{b}{d}}$};
+    \node at (-7.5,-0.3) {$\dot$};
+    \node at (-7.5,-0.9) {$\dot$};
+    \node at (-7.5,-1.5) {$\out{}{\inp{a}{a},\inp{a}{a}}$};
+    \node at (-7.5,-2.1) {$\out{}{\inp{b}{a},\inp{a}{a}}$};
+    \node at (-7.5,-2.7) {$\dot$};
+    \node at (-7.5,-3.3) {$\dot$};
+
+    \node at (-4.5,2.4) {$\inp{a}{a}$};
+    \node at (-4.5,1.8) {$\inp{a}{b}$};
+    \node at (-4.5,1.2) {$\inp{a}{c}$};
+    \node at (-4.5,0.6) {$\dot$};
+    \node at (-4.5,0) {$\dot$};
+    \node at (-4.5,-0.6) {$\inp{b}{a}$};
+    \node at (-4.5,-1.2) {$\inp{b}{d}$};    
+    \node at (-4.5,-1.8) {$\dot$};
+    \node at (-4.5,-2.2) {$\tau$};
+
+    \node at (-1.5,2.4) {$\tau$};
+    \node at (-1.5,1.8) {$\out{b}{a}$};
+    \node at (-1.5,1.2) {$\inp{b}{a}$};
+    \node at (-1.5,0.6) {$\inp{b}{b}$};
+    \node at (-1.5,0) {$\dot$};
+    \node at (-1.5,-0.6) {$\dot$};
+   
+    \node at (1.5,2.4) {$\out{c}{a}$};
+    \node at (1.5,1.8) {$\inp{b}{a}$};
+    \node at (1.5,1.2) {$\inp{b}{b}$};
+    \node at (1.5,0.6) {$\dot$};
+    \node at (1.5,0) {$\dot$};
+    
+    \node at (4.5,2.4) {$\inp{a}{a}$};
+    \node at (4.5,1.8) {$\inp{a}{b}$};
+    \node at (4.5,1.2) {$\inp{a}{c}$};
+    \node at (4.5,0.6) {$\dot$};
+    \node at (4.5,0) {$\dot$};
+    
+    \path (y1) edge (x1);
+
+    % draw the sets
+   \draw[] (-7.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
+    \draw[] (-4.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
+    \draw[] (-1.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
+    \draw[] (1.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
+    \draw[] (4.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
+    \draw[] (7.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
+
+    % the texts
+    \node (w1) at (-7.5,-6.7) {$Av_\outA$};
+    \node (w2) at (-4.5,-6.7) {$Av_\inA$};
+    \node (w3) at (-1.5,-6.7) {$Av_\tau$};
+    \node (w4) at (1.5,-6.7) {$Acc_\outA$};
+    \node (w5) at (4.5,-6.7) {$Acc_\inA$};
+    \node (w6) at (7.5,-6.7) {$Acc_\tau$};
+
+    \node at (-7.5,-9.7) {$\varnothing$};
+    
+    \node at (-4.5,-9.1) {$\inp{a}{x}$};
+    \node at (-4.5,-9.7) {$\inp{b}{y}$};
+
+    \node at (-1.5,-9.7) {$\tau$};
+   
+    \node at (1.5,-9.7) {$\varnothing$};
+        
+    \node at (4.5,-7.5) {$\inp{a}{a}$};
+    \node at (4.5,-8.1) {$\inp{a}{b}$};
+    \node at (4.5,-8.7) {$\inp{a}{c}$};
+    \node at (4.5,-9.4) {$\dot$};
+    \node at (4.5,-10) {$\dot$};
+    \node at (4.5,-10.6) {$\inp{b}{a}$};
+    \node at (4.5,-11.2) {$\inp{b}{d}$};    
+    \node at (4.5,-11.8) {$\dot$};
+    \node at (4.5,-12.4) {$\dot$};
+    
+    \node at (7.5,-9.7) {$\tau$};
+
+    \node (m1)at (-4.5,-3.3) {$Y$};
+    \path (w4) edge (m1);
+    \path (w5) edge (m1);
+    \path (w6) edge (m1);
+
+    \node (k1)at (-7.5,-13) {$ $};
+    \node (l1)at (1.5,-13) {$ $};
+	\draw [dashed] (k1.south) to [out=-10,in=-170] (l1.south);
+	
+	\node (k2)at (-4.5,-13) {$ $};
+    \node (l2)at (4.5,-13) {$ $};
+	\draw [->] (k2.south) to [out=-10,in=-170] (l2.south);
+	
+	\node (k3)at (-1.5,-13) {$ $};
+    \node (l3)at (7.5,-13) {$ $};
+	\draw [dashed] (k3.south) to [out=-10,in=-170] (l3.south);
+	
+\end{tikzpicture}
+\caption{Calculating the acceptance set $Y$ of the trace $\out{}{}$}
+\label{trace_set_acceptance}
+\end{figure}
 \end{itemize}
 
-\section{ New:}
-\begin{figure}[!h]
-\centering
-\begin{tabular}{c|l}
-$\alpha$      & denotation \\\hline
-$\tau$        & internal \\
-$\inpa{a}{x}$  & input  \\
-$\out{a}{x}$  & output        \\
-$\bout{a}{x}$ & bound output
-\end{tabular}
-\caption{Free and bound names of actions.}
-\label{fig_names_act}
-\end{figure}
 
 \[P\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).P\]
 \[Q\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).Q + \tau.Q\]

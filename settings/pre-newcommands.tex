@@ -424,6 +424,11 @@
 		{\mathcal AC}
 		{\mathcal AC(#1)}
 }
+\newcommand{\Successes}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\mathcal Suc}
+		{\mathcal Suc(#1)}
+}
 \newcommand{\fd}[1][\empty]{
 		\ifthenelse{\equal{#1}{\empty}}
 		{\mathcal{FD}}
@@ -453,6 +458,11 @@
 \newcommand{\refiAC}[1][\empty]{
 		\ifthenelse{\equal{#1}{\empty}}
 		{\,\sqsubseteq_{\mathcal AC}\,}
+		{\,\sqsubseteq_{\mathcal{#1}}\,}
+}
+\newcommand{\refiSuc}[1][\empty]{
+		\ifthenelse{\equal{#1}{\empty}}
+		{\,\sqsubseteq_{\mathcal Suc}\,}
 		{\,\sqsubseteq_{\mathcal{#1}}\,}
 }
 \newcommand{\refiFSimp}[1][\empty]{

@@ -7,15 +7,13 @@ $P$ is assigned a set of failures $\Failures[]$. Formally, this means:
 \end{align}
 where: \[Refusals \define \pom{\actions}\]
 
-Notice, we are not focusing on how to calculate the $\Traces[P]$, since it has been studied in \cite{gieseking}, nor on how to calculate the refusal set $X$ of a trace $t$, since the failure-refinement is not useful as we will show later in \refRem{cor_sim_failure_refinement}. Later in \refSec{sec_acceptance-refinement} we will focus on calculating the acceptance set of a trace.
+Notice, we are nither focusing on how to calculate the $\Traces[P]$, since it has been studied in \cite{gieseking} nor on how to calculate the refusal set $X$ of a trace $t$, since the failure-refinement is not useful as we will show later in \refRem{cor_sim_failure_refinement}. Later in \refSec{sec_acceptance-refinement} we will focus on calculating the acceptance set of a trace.
 For now, let us go ahead and define the failure-refinement of \picalc{} processes as follow:
 
 \begin{definition}[\index{refinement}{Failure refinement}]
 \label{def_failure_ref}
-	Let $P,Q\in\procs$, then $P$ is a \findex[trace!refinement]{failure refinement} of $Q$ iff the inverse set inclusion of traces and failure holds:
-\begin{align}
-   Q \refiF P \Leftrightarrow  \Traces[P]\subseteq\Traces[Q] \wedge \Failures[P]\subseteq\Failures[Q]
-\end{align}
+	Let $P,Q\in\procs$, then $P$ is a \findex[trace!refinement]{failure refinement} of $Q$ iff the inverse set inclusion of traces and failures holds:
+   \[Q \refiF P \Leftrightarrow  \Traces[P]\subseteq\Traces[Q] \wedge \Failures[P]\subseteq\Failures[Q]\]
 \end{definition}
 
 From \refPro{property2} and \refDef{def_failure_ref} we can drive the following remark: 
@@ -23,10 +21,7 @@ From \refPro{property2} and \refDef{def_failure_ref} we can drive the following 
 \begin{rem}[Simulation and Failure refinement]
 \label{cor_sim_failure_refinement}
 Let $P,Q\in\procs$ processes. If $Q$ very strongly simulates $P$, this does not imply that $P$ refines $Q$ in Failure-Refinement model. Formally written:
-\begin{align}
-    (P,Q)\in{}\simuv  \not\Rightarrow Q \refiF P
-   \label{failure_model}
-\end{align}
+    \[(P,Q)\in{}\simuv  \not\Rightarrow Q \refiF P\]
 \end{rem}%%
 \begin{prf}
 by counter example. Assume that $(P,Q)\in{}\simuv \Rightarrow Q \refiF P$ and let $P\define\out{a}{}.P$ and $Q\define\out{a}{}.Q + \out{b}{}.Q$, shown in \refFig{vm_and_vmHalf}.
@@ -57,16 +52,16 @@ by counter example. Assume that $(P,Q)\in{}\simuv \Rightarrow Q \refiF P$ and le
 
 It is clear that $Q$ very strongly simulates $P$. This should imply, according to our assumption, that $P$ refines $Q$ in the failure model, thus we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Failures[P]\subseteq\Failures[Q]$.
 \begin{itemize}
-\item For $\Traces[P]\subseteq\Traces[Q]$: we need to determine the traces of $Q$ and $P$  shown in \refFig{vm_and_vmHalf}:
+\item For $\Traces[P]\subseteq\Traces[Q]$:
     \[\Traces[P] \define \{a()\}^\ast\]
     \[\Traces[Q] \define \{a(),b()\}^\ast\]
 It is clear that $\Traces[P]\subseteq\Traces[Q]$ holds. 
 
-\item For $\Failures[P]\subseteq\Failures[Q]$: let $\epsilon$ be the empty trace, then
-    \[\Failures[Q] \define \{(\epsilon,\{\}),\dots\}^\ast\]
-    \[\Failures[P] \define \{(\epsilon,\{b()\}),\dots\}^\ast\]
-It is clear that $\Failures[P]\not\subseteq\Failures[Q]$, thus $Q \not\refiF P$.
+\item For $\Failures[P]\subseteq\Failures[Q]$:
+    \[\Failures[P] \define \{(\out{}{},\{b()\}),\dots\}\]
+    \[\Failures[Q] \define \{(\out{}{},\{\}),\dots\}\]
+It is clear that $\Failures[P]\not\subseteq\Failures[Q]$, since $\{b()\} \not\subseteq \{\}$ for $\out{}{}$ . Thus $Q \not\refiF P$.
 
-So, very strong simulation does not imply failure-refinement. Thus, in the next section we will introduce the Acceptance-Refinement model and use it instead of the Failure-Refinement model.
+So, very strong simulation does not imply failure-refinement. Thus, in the next section we will introduce the Success-Refinement model and use it instead of the Failure-Refinement model.
 \end{itemize}
 \end{prf}
