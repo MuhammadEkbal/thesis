@@ -1,5 +1,5 @@
 We check whether the very strong simulation implies failure-refinement. We found that this is not the case. We start by defining the failure of a process.
-The pair $(t, X)$ is called a $failure$, where $t$ is a trace and $X$ is a set of refused next actions after $t$. Formally, $P \bigstep{t} Q$ and $Q$ ref $X$. Any process
+The pair $(t, X)$ is called a \textit{failure pair}, where $t$ is a trace and $X$ is a set of refused next actions after $t$. Formally, $P \bigstep{t} Q$ and $Q$ ref $X$. Any process
 $P$ is assigned a set of failures $\Failures[]$. Formally, this means:
 \begin{align}
     \Failures[P] \define \{(t,X) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Q \text{ ref } X \wedge X\in Refusals\}
@@ -7,7 +7,7 @@ $P$ is assigned a set of failures $\Failures[]$. Formally, this means:
 \end{align}
 where: \[Refusals \define \pom{\actions}\]
 
-Notice, we are not focusing on how to calculate the $\Traces[P]$, since it has been studied in \cite{gieseking}, nor on how to calculate the refusal set $X$ of a trace $t$, since the failure-refinement is not useful as we will show later in \refCor{cor_sim_failure_refinement}. Later in \refSec{sec_acceptance-refinement} we will focus on calculating the acceptance set of a trace.
+Notice, we are not focusing on how to calculate the $\Traces[P]$, since it has been studied in \cite{gieseking}, nor on how to calculate the refusal set $X$ of a trace $t$, since the failure-refinement is not useful as we will show later in \refRem{cor_sim_failure_refinement}. Later in \refSec{sec_acceptance-refinement} we will focus on calculating the acceptance set of a trace.
 For now, let us go ahead and define the failure-refinement of \picalc{} processes as follow:
 
 \begin{definition}[\index{refinement}{Failure refinement}]
@@ -18,16 +18,16 @@ For now, let us go ahead and define the failure-refinement of \picalc{} processe
 \end{align}
 \end{definition}
 
-From \refPro{property2} and \refDef{def_failure_ref} we can drive the following Corollary: 
+From \refPro{property2} and \refDef{def_failure_ref} we can drive the following remark: 
 
-\begin{cor}[Simulation and Failure refinement]
+\begin{rem}[Simulation and Failure refinement]
 \label{cor_sim_failure_refinement}
 Let $P,Q\in\procs$ processes. If $Q$ very strongly simulates $P$, this does not imply that $P$ refines $Q$ in Failure-Refinement model. Formally written:
 \begin{align}
     (P,Q)\in{}\simuv  \not\Rightarrow Q \refiF P
    \label{failure_model}
 \end{align}
-\end{cor}%%
+\end{rem}%%
 \begin{prf}
 by counter example. Assume that $(P,Q)\in{}\simuv \Rightarrow Q \refiF P$ and let $P\define\out{a}{}.P$ and $Q\define\out{a}{}.Q + \out{b}{}.Q$, shown in \refFig{vm_and_vmHalf}.
 \begin{figure}[H]%
@@ -57,10 +57,9 @@ by counter example. Assume that $(P,Q)\in{}\simuv \Rightarrow Q \refiF P$ and le
 
 It is clear that $Q$ very strongly simulates $P$. This should imply, according to our assumption, that $P$ refines $Q$ in the failure model, thus we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Failures[P]\subseteq\Failures[Q]$.
 \begin{itemize}
-\item For $\Traces[P]\subseteq\Traces[Q]$: we need to determine the traces of $Q$ and $P$  shown in \refFig{vm_and_vmHalf}. According to \ref{determine_trace}:
-
-    \[\Traces[Q] \define \{a(),b()\}^\ast\]
+\item For $\Traces[P]\subseteq\Traces[Q]$: we need to determine the traces of $Q$ and $P$  shown in \refFig{vm_and_vmHalf}:
     \[\Traces[P] \define \{a()\}^\ast\]
+    \[\Traces[Q] \define \{a(),b()\}^\ast\]
 It is clear that $\Traces[P]\subseteq\Traces[Q]$ holds. 
 
 \item For $\Failures[P]\subseteq\Failures[Q]$: let $\epsilon$ be the empty trace, then

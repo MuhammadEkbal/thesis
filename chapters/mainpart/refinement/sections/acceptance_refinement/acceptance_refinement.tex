@@ -1,8 +1,9 @@
-To compare \picalc{} processes we need to define the Acceptance-Refinement and relate it to the very strong simulation. We start by defining the $acceptance$ pair of a process.
-The pair $(t, Y)$ is called a acceptance pair, where $t$ is a trace and $Y$ is a set of acceptable next actions. Any process
+To compare \picalc{} processes we need to define the Acceptance-Refinement and relate it to the very strong simulation. We start by defining the \textit{acceptance pair} of a process.
+
+The pair $(t, Y)$ is called an \textit{acceptance pair}, where $t$ is a trace and $Y$ is a set of acceptable next actions after $t$. Formally, $P \bigstep{t} Q$ and $Q$ acp $X$. Any process
 $P$ is assigned a set of acceptance pairs $AC$. Formally, this means:
 \begin{align}
-    \Accepatances[P] \define \{(t,Y) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Q \text{ accepts } Y \wedge Y\in AA\}
+    \Accepatances[P] \define \{(t,Y) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Q \text{ acp } Y \wedge Y\in Acceptances\}
 \label{failure}
 \end{align}
 

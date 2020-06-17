@@ -1,4 +1,4 @@
-Due to performance issue, we will limit the check to $\pi$ processes without data. To study the refinement of \picalc{} processes we will use the big-step trace semantics defined in \cite{gieseking}, with some simplifications. 
+Due to performance issue, we will limit the check to $\pi$ processes without data. To study the refinement of \picalc{} processes we will use the results of the big-step trace semantics defined in \cite{gieseking}, with some simplifications. 
 The main result in \cite{gieseking} is the following property:
 \begin{align}
     (\ec{P},\ec{Q})\in{}\simu \Rightarrow \ec{Q} \refi \ec{P} \label{property1}
@@ -8,7 +8,7 @@ We ignore the concept of equivalence classes, and assume the validity under the 
     (P,Q)\in{}\simuv \Rightarrow Q \refi P
 \label{property2}
 \end{align}
-\refPro{property1} reads: $Q$ very strongly simulates\footnote{Very strong simulation considers $\tau$ actions as defined in \refSec{sec_pi_simulation}} $P$ implies $P$ refines $Q$ in trace model, where:
+\refPro{property1} reads: $Q$ very strongly simulates $P$ implies $P$ refines $Q$ in trace model, where:
 \[Q\refi P \Leftrightarrow \Traces[P]\subseteq\Traces[Q]\]
 \[\Traces[P] \define \{t\in \tr \mid \exists Q\in\procs: P \bigstep{t} Q\}\]
 \[\tr \define \seqset{\actions\setminus\set{\tau}}\]
@@ -16,11 +16,7 @@ We ignore the concept of equivalence classes, and assume the validity under the 
 \[\outA\define\set[x\in\names]{\out{x}{\vec{y}}}\]
 \[\inA\define\set[x\in\names]{\inp{x}{\vec{y}}}\]
 
-The big-step semantics uses an early instantiation principle\footnote{The early instantiation principl means that the bound name in an input prefix is instantiated directly when the input transition is inferred.}, and its results seem to be valid to our study.
-
-
-
-However, the work in \cite{gieseking} was limited to recursion-free processes: ``The limitation to recursion-free processes depends on the circumstances that we neither have any fix-point algorithm up to now nor showed that one existse''\footnote{\cite{gieseking}, page $8$.}. In this work we assume the existence of a fix-point algorithm and that \refPro{property1} also applies to recursive processes.
+However, the work in \cite{gieseking} was limited to recursion-free processes: ``The limitation to recursion-free processes depends on the circumstances that we neither have any fix-point algorithm up to now nor showed that one existse''\footnote{\cite{gieseking}, page $80$.}. In this work we assume the existence of a fix-point algorithm and that \refPro{property1} also applies to recursive processes.
 Next, we introduce the very strong simulation.
 \section{Very strong simulation}
 \label{sec_failure-refinement}
@@ -32,4 +28,4 @@ A relation $\mathcal{S}_v\subseteq\procs\times\procs$ is called a \index{simulat
 \[P \transs{\alpha} P' \Rightarrow \exists Q'\in\procs: Q \transs{\beta} Q' \wedge \alpha = \beta \wedge (P',Q')\in\mathcal{S}_v.\]
 \end{definition}
 
-Since, the trace refinement does not say too much about the behavior of processes, we propose to use the Failure-Refinement model, originally introduced for CSP. In the next section we will define the failure-refinement for \picalc{} processes and show that the very strong simulation does not imply failure-refinement. Thus, later in \refSec{sec_acceptance-refinement}, we will introduce the Acceptance-Refinement model for \picalc{} processes and show that the very strong simulation implies acceptance-refinement.
+Since, the trace refinement does not say too much about the behavior of processes, we propose to use the Failure-Refinement model, originally introduced for CSP. In the next section we will define the failure-refinement for \picalc{} processes and show that the very strong simulation does not imply failure-refinement. Thus, later in \refSec{sec_acceptance-refinement} we will introduce the Acceptance-Refinement model for \picalc{} processes and show that the very strong simulation implies acceptance-refinement.
