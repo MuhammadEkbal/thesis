@@ -10,8 +10,11 @@ We ignore the concept of equivalence classes, and assume the validity under the 
 \end{align}
 \refPro{property1} reads: $Q$ very strongly simulates\footnote{Very strong simulation considers $\tau$ actions as defined in \refSec{sec_pi_simulation}} $P$ implies $P$ refines $Q$ in trace model, where:
 \[Q\refi P \Leftrightarrow \Traces[P]\subseteq\Traces[Q]\]
-\[\Traces[P] \define \{t\in \tr \mid \exists Q\in\procsApha: P \bigstep{t} Q\}\]
+\[\Traces[P] \define \{t\in \tr \mid \exists Q\in\procs: P \bigstep{t} Q\}\]
 \[\tr \define \seqset{\actions\setminus\set{\tau}}\]
+\[\actions\define\outA\cup\inA\cup\set{\tau}\]
+\[\outA\define\set[x\in\names]{\out{x}{\vec{y}}}\]
+\[\inA\define\set[x\in\names]{\inp{x}{\vec{y}}}\]
 
 The big-step semantics uses an early instantiation principle\footnote{The early instantiation principl means that the bound name in an input prefix is instantiated directly when the input transition is inferred.}, and its results seem to be valid to our study.
 
@@ -21,7 +24,7 @@ However, the work in \cite{gieseking} was limited to recursion-free processes: `
 Next, we introduce the very strong simulation.
 \section{Very strong simulation}
 \label{sec_failure-refinement}
-The very strong simulation is the same as the strong simulation \refDef{def_strong_sim}. But, for clarity, we introduce the definition of the The very strong simulation, which consists on considering the use of the same bound names during the simulation checking.
+The very strong simulation is the same as the strong simulation \refDef{def_strong_sim}. But, for clarity, we introduce the definition of the very strong simulation, which consists on considering the use of the same bound names during the simulation checking.
 
 \begin{definition}[Very strong simulation]
 \label{def_strong_sim}

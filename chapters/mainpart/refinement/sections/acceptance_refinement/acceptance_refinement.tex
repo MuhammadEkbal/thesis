@@ -8,9 +8,6 @@ $P$ is assigned a set of acceptance pairs $AC$. Formally, this means:
 
 where: 
 \[AA \define \pom{\actions}\]
-\[\actions\define\outA\cup\inA\cup\set{\tau}\]
-\[\outA\define\set[x\in\names]{\out{x}{\vec{y}}}\]
-\[\inA\define\set[x\in\names]{\inp{x}{\vec{y}}}\]
 
 To determine $Y$ we need to collect all possible the actions after the substitution of bound names, which requires collecting the available actions before the substitution of bound names.
 
@@ -29,73 +26,10 @@ Now, we can collect the all the possible output actions after the substitution o
 Finally, we can determine $Y$ as follow:
 \[Y \define Acc_\tau \cup Acc_\outA \cup Acc_\inA\]
 
+Let us take an example to illustrate our approach of calculating the acceptance set of a trace. Let $P\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).P$.  \refFig{trace_set_acceptance} shows $\Traces[P]$ and how to calculate the acceptance set $Y$ of the empty trace $\out{}{}$. $P$ has only two syntactically available actions $\inp{a}{x}$ and $\inp{b}{d}$ shown in the set $Av_\inA$. Once one of them occurs, its bound name must be substituted with the received name. This substitution is shown in $Acc_\inA$ for all possible received names. Finally, the acceptance set $Y$ of $\out{}{}$ is the union of $Acc_\outA$, $Acc_\inA$ and $Acc_\tau$. 
+The sets $Av_\outA$ and $Av_\tau$ are empty, because $P$ can neither make an output action nor $\tau$ action. Thus, $Acc_\outA$ and $Acc_\tau$ are empty too.
 
-We can define the Acceptance-refinement of \picalc{} processes as follow:
-
-\begin{definition}[\index{refinement}{Acceptance refinement}]
-\label{def_failure_ref}
-	Let $P,Q\in\procs$, then $P$ is a \findex[acceptance!refinement]{acceptance refinement} of $Q$ iff the inverse set inclusion of traces and acceptances holds:
-\begin{align}
-   Q \refiAC P \Leftrightarrow  \Traces[P]\subseteq\Traces[Q] \wedge \Accepatances[P]\subseteq\Accepatances[Q]
-\end{align}
-\end{definition}
-
-From \refPro{property1} and \refDef{def_failure_ref} we can drive the following Corollary: 
-
-\begin{cor}[Simulation and Acceptance refinement]
-\label{cor_sim_acceptance_refinement}
-Let $P,Q\in\procs$ processes. If $Q$ very strongly simulates $P$, then $P$ refines $Q$ in Acceptance-Refinement model. Formally written:
-\begin{align}
-    (P,Q)\in{}\simuv \Rightarrow Q \refiAC P
-   \label{acceptance_model}
-\end{align}
-holds.
-\end{cor}%%
-
-\begin{prf}
-Let $(P,Q)\in{}\simuv$, then $\Traces[P]\subseteq\Traces[Q] \wedge \Accepatances[P]\subseteq\Accepatances[Q]$ holds, Since:
-\begin{itemize}
-\item For $\Traces[P]\subseteq\Traces[Q]$: it holds using \refPro{property2}.
-\item For $\Accepatances[P]\subseteq\Accepatances[Q]$: we need to show that,\\$\forall (t_P, Y_P) \in \Accepatances[P] \textit{ then } \exists (t_Q, Y_Q) \in \Accepatances[Q]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
-\begin{itemize}
-\item $t_p = t_Q$ holds using \refPro{property1}.
-\item $Y_P \subseteq Y_Q$ holds, since $Q$ very strongly simulates $P$ means that $Q$ can do all the actions that $P$ can do after any trace $t$.
-\end{itemize}
-\end{itemize}
-\end{prf}
-\subsubsection{Acceptance-Refinement use case:}
- We will show that if $Q$ shown in \refFig{vm_and_vmHalf} very strongly simulates $P$, then $P$ refines $Q$ in acceptance-refinement model.
- 
- \refLis{vm_and_vmHalf_ABC_check1} showed that $Q$ strongly simulates $P$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $P$ refines $Q$ in the acceptance-refinement model. Thus, we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Accepatances[P]\subseteq\Accepatances[Q]$.
- 
- \begin{itemize}
-\item For $\Traces[P]\subseteq\Traces[Q]$: previously we showed that it holds. 
-
-\item For $\Accepatances[P]\subseteq\Accepatances[Q]$: let $\epsilon$ be the empty trace, then
-    \[\Accepatances[Q] \define \{(\epsilon,\{tea(),coffee(),talk<>\}),\dots\}^\ast\]
-    \[\Accepatances[P] \define \{(\epsilon,\{coffee(),talk<>\}),\dots\}^\ast\]
-It is clear that $\Accepatances[P]\subseteq\Accepatances[Q]$ holds, thus $Q \refiAC P$ holds.
-\end{itemize}
-
-\section{ New:}
-\begin{figure}[!h]
-\centering
-\begin{tabular}{c|l}
-$\alpha$      & denotation \\\hline
-$\tau$        & internal \\
-$\inpa{a}{x}$  & input  \\
-$\out{a}{x}$  & output        \\
-$\bout{a}{x}$ & bound output
-\end{tabular}
-\caption{Free and bound names of actions.}
-\label{fig_names_act}
-\end{figure}
-
-let 
-\[P\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).P\]
-\[Q\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).Q + \tau.Q\]
-
-
+    
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
@@ -215,4 +149,68 @@ let
 	
 \end{tikzpicture}
 \caption{traces}
+\label{trace_set_acceptance}
 \end{figure}
+We can now define the Acceptance-refinement of \picalc{} processes as follow:
+
+\begin{definition}[\index{refinement}{Acceptance refinement}]
+\label{def_failure_ref}
+	Let $P,Q\in\procs$, then $P$ is a \findex[acceptance!refinement]{acceptance refinement} of $Q$ iff the inverse set inclusion of traces and acceptances holds:
+\begin{align}
+   Q \refiAC P \Leftrightarrow  \Traces[P]\subseteq\Traces[Q] \wedge \Accepatances[P]\subseteq\Accepatances[Q]
+\end{align}
+\end{definition}
+
+From \refPro{property1} and \refDef{def_failure_ref} we can drive the following Corollary: 
+
+\begin{cor}[Simulation and Acceptance refinement]
+\label{cor_sim_acceptance_refinement}
+Let $P,Q\in\procs$ processes. If $Q$ very strongly simulates $P$, then $P$ refines $Q$ in Acceptance-Refinement model. Formally written:
+\begin{align}
+    (P,Q)\in{}\simuv \Rightarrow Q \refiAC P
+   \label{acceptance_model}
+\end{align}
+holds.
+\end{cor}%%
+
+\begin{prf}
+Let $(P,Q)\in{}\simuv$, then $\Traces[P]\subseteq\Traces[Q] \wedge \Accepatances[P]\subseteq\Accepatances[Q]$ holds, Since:
+\begin{itemize}
+\item For $\Traces[P]\subseteq\Traces[Q]$: it holds using \refPro{property2}.
+\item For $\Accepatances[P]\subseteq\Accepatances[Q]$: we need to show that,\\$\forall (t_P, Y_P) \in \Accepatances[P] \textit{ then } \exists (t_Q, Y_Q) \in \Accepatances[Q]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
+\begin{itemize}
+\item $t_p = t_Q$ holds using \refPro{property1}.
+\item $Y_P \subseteq Y_Q$ holds, since $Q$ very strongly simulates $P$ means that $Q$ can do all the actions that $P$ can do after any trace $t$. since $Q$ very strongly simulates $P$ means that $Q$ can do any the actions that $P$ can do respecting the bound names too. This means for any trace $t$ of $P$.
+\end{itemize}
+\end{itemize}
+\end{prf}
+\subsubsection{Acceptance-Refinement use case:}
+ We will show that if $Q$ shown in \refFig{vm_and_vmHalf} very strongly simulates $P$, then $P$ refines $Q$ in acceptance-refinement model.
+ 
+ \refLis{vm_and_vmHalf_ABC_check1} showed that $Q$ strongly simulates $P$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $P$ refines $Q$ in the acceptance-refinement model. Thus, we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Accepatances[P]\subseteq\Accepatances[Q]$.
+ 
+ \begin{itemize}
+\item For $\Traces[P]\subseteq\Traces[Q]$: previously we showed that it holds. 
+
+\item For $\Accepatances[P]\subseteq\Accepatances[Q]$: let $\epsilon$ be the empty trace, then
+    \[\Accepatances[Q] \define \{(\epsilon,\{tea(),coffee(),talk<>\}),\dots\}^\ast\]
+    \[\Accepatances[P] \define \{(\epsilon,\{coffee(),talk<>\}),\dots\}^\ast\]
+It is clear that $\Accepatances[P]\subseteq\Accepatances[Q]$ holds, thus $Q \refiAC P$ holds.
+\end{itemize}
+
+\section{ New:}
+\begin{figure}[!h]
+\centering
+\begin{tabular}{c|l}
+$\alpha$      & denotation \\\hline
+$\tau$        & internal \\
+$\inpa{a}{x}$  & input  \\
+$\out{a}{x}$  & output        \\
+$\bout{a}{x}$ & bound output
+\end{tabular}
+\caption{Free and bound names of actions.}
+\label{fig_names_act}
+\end{figure}
+
+\[P\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).P\]
+\[Q\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).Q + \tau.Q\]

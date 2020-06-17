@@ -1,13 +1,14 @@
 We check whether the very strong simulation implies failure-refinement. We found that this is not the case. We start by defining the failure of a process.
-The pair $(t, X)$ is called a $failure$, where $t$ is a trace and $X$ is a set of impossible next actions. Any process
-$P$ is assigned a set of failures $F$. Formally, this means:
+The pair $(t, X)$ is called a $failure$, where $t$ is a trace and $X$ is a set of refused next actions after $t$. Formally, $P \bigstep{t} Q$ and $Q$ ref $X$. Any process
+$P$ is assigned a set of failures $\Failures[]$. Formally, this means:
 \begin{align}
-    \Failures[P] \define \{(t,X) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Q ref X \wedge X\in Refusals\}
+    \Failures[P] \define \{(t,X) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Q \text{ ref } X \wedge X\in Refusals\}
 \label{failure}
 \end{align}
-where: $Refusals \define \pom{\actions\setminus\set{\tau}}$.
+where: \[Refusals \define \pom{\actions}\]
 
-We can define the failure-refinement of \picalc{} processes as follow:
+Notice, we are not focusing on how to calculate the $\Traces[P]$, since it has been studied in \cite{gieseking}, nor on how to calculate the refusal set $X$ of a trace $t$, since the failure-refinement is not useful as we will show later in \refCor{cor_sim_failure_refinement}. Later in \refSec{sec_acceptance-refinement} we will focus on calculating the acceptance set of a trace.
+For now, let us go ahead and define the failure-refinement of \picalc{} processes as follow:
 
 \begin{definition}[\index{refinement}{Failure refinement}]
 \label{def_failure_ref}
