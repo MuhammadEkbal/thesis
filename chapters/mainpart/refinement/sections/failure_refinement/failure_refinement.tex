@@ -5,7 +5,7 @@ $P$ is assigned a set of failures $\Failures[]$. Formally, this means:
     \Failures[P] \define \{(t,X) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Q \text{ ref } X \wedge X\in Refusals\}
 \label{failure}
 \end{align}
-where: \[Refusals \define \pom{\actions}\]
+where: $Refusals \define \pom{\actions}$
 
 Notice, we are nither focusing on how to calculate the $\Traces[P]$, since it has been studied in \cite{gieseking} nor on how to calculate the refusal set $X$ of a trace $t$, since the failure-refinement is not useful as we will show later in \refRem{cor_sim_failure_refinement}. Later in \refSec{sec_acceptance-refinement} we will focus on calculating the acceptance set of a trace.
 For now, let us go ahead and define the failure-refinement of \picalc{} processes as follow:
