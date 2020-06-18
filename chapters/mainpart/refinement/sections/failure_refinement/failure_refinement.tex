@@ -56,12 +56,10 @@ It is clear that $Q$ very strongly simulates $P$. This should imply, according t
     \[\Traces[P] \define \{a()\}^\ast\]
     \[\Traces[Q] \define \{a(),b()\}^\ast\]
 It is clear that $\Traces[P]\subseteq\Traces[Q]$ holds. 
-
 \item For $\Failures[P]\subseteq\Failures[Q]$:
     \[\Failures[P] \define \{(\out{}{},\{b()\}),\dots\}\]
     \[\Failures[Q] \define \{(\out{}{},\{\}),\dots\}\]
 It is clear that $\Failures[P]\not\subseteq\Failures[Q]$, since $\{b()\} \not\subseteq \{\}$ for $\out{}{}$ . Thus $Q \not\refiF P$.
-
-So, very strong simulation does not imply failure-refinement. Thus, in the next section we will introduce the Success-Refinement model and use it instead of the Failure-Refinement model.
 \end{itemize}
+So, very strong simulation does not imply failure-refinement. Thus, in the next section we will introduce the Success-Refinement model and use it instead of the Failure-Refinement model.
 \end{prf}

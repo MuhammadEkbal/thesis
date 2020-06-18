@@ -19,7 +19,7 @@ To collect the available actions before the substitution of bound names we need 
 
 Now, we can collect the all the possible output actions after the substitution of bound names, where $Acc_\outA$ is for the output actions, $Acc_\inA$ is for the input actions, and $Acc_\tau$ is for the $\tau$ actions as follow:
 \[Acc_\outA \define Av_\outA\]
-$Acc_\inA\define\{\alpha \in \inA \mid \exists \beta \in Av_\inA \wedge \sub{\alpha}=\sub{\beta} \wedge \alpha=\substitue{\vec{y}}{\vec{z}}\beta \text{ where } \\\ \ \quad  \vec{z}=\obj{\beta} \wedge \vec{y}=\obj{\alpha} \}$
+$Acc_\inA\define\{\alpha \in \inA \mid \exists \beta \in Av_\inA \wedge \sub{\alpha}=\sub{\beta} \wedge \alpha=\substitue{\vec{y}}{\vec{z}}\beta \text{ where } \vec{z}=\obj{\beta} \wedge \vec{y}=\obj{\alpha} \}$
 \[Acc_\tau\define\{\tau \mid \forall \alpha \in Acc_\outA \text{ if } \exists \beta \in Acc_\inA  :\sub{\alpha}=\sub{\beta} \wedge \obj{\alpha}=\obj{\beta}  \}\cup Av_\tau\]
 \[\sub{\alpha} \text{: returns the channel name through which the exchange occurs}\]
 \[\obj{\alpha} \text{: return the exchanged names across the channel}\]
@@ -148,7 +148,7 @@ The sets $Av_\outA$ and $Av_\tau$ are empty, because $P$ can neither make an out
 	\draw [dashed] (k3.south) to [out=-10,in=-170] (l3.south);
 	
 \end{tikzpicture}
-\caption{Calculating the acceptance set $Y$ of the trace $\out{}{}$}
+\caption{Calculating the acceptance set $Y$ of the trace $\out{}{}$ of the processes $P$}
 \label{trace_set_acceptance}
 \end{figure}
 We can now define the success-refinement of \picalc{} processes as follow:
@@ -168,30 +168,23 @@ Let $P,Q\in\procs$ processes. If $Q$ very strongly simulates $P$, then $P$ refin
 holds.
 \end{cor}%%
 
-\begin{prf}
+\begin{prf}\footnote{Our proof is not complete and can be enhanced in later works.}
 Let $(P,Q)\in{}\simuv$, then $\Traces[P]\subseteq\Traces[Q] \wedge \Successes[P]\subseteq\Successes[Q]$ holds, Since:
 \begin{itemize}
 \item For $\Traces[P]\subseteq\Traces[Q]$: it holds using \refPro{property2}.
 \item For $\Successes[P]\subseteq\Successes[Q]$: we need to show that,\\$\forall (t_P, Y_P) \in \Successes[P] \textit{ then } \exists (t_Q, Y_Q) \in \Successes[Q]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
 \begin{itemize}
 \item $t_p = t_Q$ holds using \refPro{property2}.
-\item $Y_P \subseteq Y_Q$ holds, since $Q$ very strongly simulates $P$ means that $Q$ can do all the actions that $P$ can do after any trace $t$. since $Q$ very strongly simulates $P$ means that $Q$ can do any the actions that $P$ can do respecting the bound names too. This means for any trace $t$ of $P$.
+\item $Y_P \subseteq Y_Q$ holds, since $Q$ very strongly simulates $P$ means that $Q$ can do any the actions that $P$ can do respecting the use of the same free and bound names, what implies that $Q$ can do any trace $t$ that $P$ does. This implies that after any trace $t$, $Q$ accepts all the actions that $P$ accepts. This means that the acceptance set of $P$ is included in the acceptance set of $Q$ after any trace $t$. Formally, $Y_P \subseteq Y_Q$ for any trace $t$.
 \end{itemize}
 \end{itemize}
 \end{prf}
 \subsubsection{Success-Refinement use case:}
- We will show that if $Q$ shown in \refFig{vm_and_vmHalf} very strongly simulates $P$, then $P$ refines $Q$ in success-refinement model.
-let
-\[P\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).P\]
-\[Q\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).Q + \tau.Q\]
-It is clear that $Q$ very strongly simulates $P$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $P$ refines $Q$ in the success-refinement model. Thus, we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Successes[P]\subseteq\Successes[Q]$.
- 
- \begin{itemize}
-\item For $\Traces[P]\subseteq\Traces[Q]$: previously we showed that it holds. 
-\item For $\Successes[P]\subseteq\Successes[Q]$: let $\epsilon$ be the empty trace, then
-    \[\Accepatances[Q] \define \{(\epsilon,\{tea(),coffee(),talk<>\}),\dots\}^\ast\]
-    \[\Accepatances[P] \define \{(\epsilon,\{coffee(),talk<>\}),\dots\}^\ast\]
-It is clear that $\Accepatances[P]\subseteq\Accepatances[Q]$ holds, thus $Q \refiAC P$ holds.
+Let us take an example to inspect if \refCor{cor_sim_acceptance_refinement} and our approach of calculating the acceptance set works. let:\\
+$P\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).P$ and 
+$Q\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).Q + \tau.Q$
+It is clear that $Q$ very strongly simulates $P$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $P$ refines $Q$ in the success-refinement model. In other words $\forall t$ then $Y_P \subseteq Y_Q$.
+This can be seen in \refFig{trace_set_acceptance} and \refFig{trace_set_acceptance2}. We can notice that there is no differences between $\Traces[P]$ and $\Traces[Q]$, since the $\tau$ action that $Q$ can do, cannot appear in the trace. But $\tau$ appears in the acceptance set $Y$ of the empty trace $\out{}{}$ of $Q$ shown in \refFig{trace_set_acceptance2}.
 
 \begin{figure}[H]
 \centering
@@ -224,6 +217,7 @@ It is clear that $\Accepatances[P]\subseteq\Accepatances[Q]$ holds, thus $Q \ref
     \node at (-7.5,-2.1) {$\out{}{\inp{b}{a},\inp{a}{a}}$};
     \node at (-7.5,-2.7) {$\dot$};
     \node at (-7.5,-3.3) {$\dot$};
+    \node at (-7.5,-3.9) {$\tau$};
 
     \node at (-4.5,2.4) {$\inp{a}{a}$};
     \node at (-4.5,1.8) {$\inp{a}{b}$};
@@ -311,11 +305,6 @@ It is clear that $\Accepatances[P]\subseteq\Accepatances[Q]$ holds, thus $Q \ref
 	\draw [dashed] (k3.south) to [out=-10,in=-170] (l3.south);
 	
 \end{tikzpicture}
-\caption{Calculating the acceptance set $Y$ of the trace $\out{}{}$}
-\label{trace_set_acceptance}
+\caption{Calculating the acceptance set $Y$ of the trace $\out{}{}$ of the processes $Q$}
+\label{trace_set_acceptance2}
 \end{figure}
-\end{itemize}
-
-
-\[P\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).P\]
-\[Q\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).Q + \tau.Q\]
