@@ -3,7 +3,7 @@ To understand the operational semantics of \picalc{} we will use  a labelled tra
 
 \begin{definition}[LTS of \picalc{}]
 \label{def_pi_trans_system}
-The labelled transition system $(\procs,\traces)$ of \picalc{} processes over the action set $\actions$ has the process expressions $\procs$ as its states, and its transitions $\traces$ are those which can be inferred from the rules in \refFig{fig_transition_rules}.
+The \findex[transition system!for \picalc{}]{labelled transition system} $(\procs,\traces)$ of \picalc{} processes over the action set $\actions$ has the process expressions $\procs$ as its states, and its transitions $\traces$ are those which can be inferred from the rules in \refFig{fig_transition_rules}.
 The rule REACT is the most important one. It shows the process evolution when a reaction occurs. The reaction requires two complementary transitions $P \transs{\out{x}{\vec{y}}} P'$ and $Q \transs{\inp{x}{\vec{z}}} Q'$, we call them commitments. so the process $P$ takes a commitment to take part in the reaction, and so does $Q$.
 \input{./images/preliminaries/pi_calculus/transition_rules}
 \end{definition}

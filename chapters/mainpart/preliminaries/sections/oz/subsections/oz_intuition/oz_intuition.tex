@@ -54,7 +54,7 @@ The set of all possible state transitions when the selling coffee operation occu
 \begin{itemize}
 \item In mathematics: $coffee =\{cv,tv,cv',tv': \integer\mid (0 \leq  cv \leq 3) \wedge
 (0 \leq  tv \leq 3)\wedge (0 \leq  cv' \leq 3) \wedge (0 \leq  tv' \leq 3)\wedge (tv' = tv) \wedge (cv' = cv - 1) \bullet\pair{\pair{cv}{tv}}{\pair{cv'}{tv'}}\}  =\{\pair{\pair{3}{3}}{\pair{2}{3}},\dots,\pair{\pair{1}{0}}{\pair{0}{0}}\}$, where $(cv,tv)$ represents the \textit{pre state} and $(cv',tv')$ represents the \textit{post state} of a state transition.
-\item In \oz{}: the set $coffee$ can be described using an \findex{operation schema}, which is a box named with the operation name added to the class box as shown in \refFig{fig_oz_vm_operation_schema} left.
+\item In \oz{}: the set $coffee$ can be described using an \findex[schema!operation schema]{operation schema}, which is a box named with the operation name added to the class box as shown in \refFig{fig_oz_vm_operation_schema} left.
 \end{itemize}
 
 \input{./images/preliminaries/oz/oz_vm_operation_schema}
@@ -73,17 +73,17 @@ Similarly, the operation schema $tea$ is shown in \refFig{fig_oz_vm_operation_sc
 
 \subsubsection{\textit{Operation's input and output parameters}:} 
 \label{operation_input_output_parameters} 
-Some operations can have input and output parameters, just like method in programming language, where the method's parameters represent the input, and the returned values represent the output. To illustrate the idea let us extend our vending machine .The new $VM$ can talk to a shop sending a message to it. So it has a new operation $talk$ and a state variable $m$ representing the message to be be sent.
+Some operations can have input and output parameters, just like method in programming language, where the method's parameters represent the \findex[schema!operation schema!input parameter]{input}, and the returned values represent the \findex[schema!operation schema!output parameter]{output}. To illustrate the idea let us extend our vending machine .The new $VM$ can talk to a shop sending a message to it. So it has a new operation $talk$ and a state variable $m$ representing the message to be be sent.
 
 The set of all possible state transitions when the $talk$ operation occurs is:
 \begin{itemize}
 \item In mathematics: $talk =\{cv,tv,message,cv',tv',message',y: \integer\mid (0 \leq  cv \leq 3) \wedge
 (0 \leq  tv \leq 3)\wedge (0 \leq  cv' \leq 3) \wedge (0 \leq  tv' \leq 3)\wedge (tv' = tv) \wedge (cv' = cv)  \wedge (message' = message)  \wedge (y = message)\bullet\pair{\tripple{cv}{tv}{message}}{\tripple{cv'}{tv'}{message'}}\}  =\{\pair{\tripple{3}{3}{1}}{\tripple{3}{3}{1}},\dots,\pair{\tripple{0}{0}{1}}{\tripple{0}{0}{1}}\}$.
-\item In \oz{}: the set $talk$ can be described using an \findex{operation schema}, as shown in \refFig{oz_vm_with_operation_input_output_parameters}. We can notice that this operation doesn't change any state variable's value, it just says that the value of the output parameter $y$, written as $y!$, must be equal to the value of the state variable $message$. For input parameter use $?$ symbol.
+\item In \oz{}: the set $talk$ can be described using an operation schema, as shown in \refFig{oz_vm_with_operation_input_output_parameters}. We can notice that this operation doesn't change any state variable's value, it just says that the value of the output parameter $y$, written as $y!$, must be equal to the value of the state variable $message$. For input parameter use $?$ symbol.
 \input{./images/preliminaries/oz/oz_vm_with_operation_input_output_parameters}
 \end{itemize}
 
-\subsubsection{\findex[instance reference]{Instance reference}:} 
+\subsubsection{\findex[schema!instance reference]{Instance reference}:} 
 \label{instance_reference} 
 \oz{} is an object oriented approach, Thus every instance of a class needs a unique identifier, i.e., a reference name to refer to it. In \oz{} this can be seen simply as state constant $self$ initialized with some $id$ when the instance is created. Furthermore, operations can can share the instance identity through output or input the reference name $self$ as shown in \refFig{oz_vm_reference_name} in the operation $talk$.
 \input{./images/preliminaries/oz/oz_vm_reference_name}
