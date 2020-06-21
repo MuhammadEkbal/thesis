@@ -1,142 +1,63 @@
 \begin{theindex}
-{\bf Symbols}\nopagebreak%
- \indexspace\nopagebreak%
-  \item $\alpha $-conversion\dotfill \hyperpage{13\,f}
-  \item $\tau $ process\dotfill \hyperpage{10}
-  \item \picalc {}\dotfill \hyperpage{5}, \hyperpage{7~--~29}
-    \subitem polyadic\dotfill \hyperpage{8}
+
+  \item \picalc {}, \hyperpage{3}
 
   \indexspace
-{\bf A}\nopagebreak%
- \indexspace\nopagebreak%
-  \item action\dotfill \hyperpage{9}, \hyperpage{20}
-    \subitem input\dotfill \hyperpage{10}, \hyperpage{20}
-    \subitem internal\dotfill \hyperpage{10}
-    \subitem output\dotfill \hyperpage{10}, \hyperpage{20}
-    \subitem silent\dotfill \hyperpage{10}
+
+  \item addition, \hyperpage{28}
+  \item another bisimilarity checker ABC, \hyperpage{11}
 
   \indexspace
-{\bf B}\nopagebreak%
- \indexspace\nopagebreak%
-  \item bisimulation
-    \subitem strong\dotfill \hyperpage{32}
-    \subitem weak\dotfill \hyperpage{32}
+
+  \item channel, \hyperpage{25}
+  \item comparation, \hyperpage{30}
 
   \indexspace
-{\bf C}\nopagebreak%
- \indexspace\nopagebreak%
-  \item call\dotfill \hyperpage{11}
-  \item channel\dotfill \hyperpage{8}
-  \item choice\dotfill \hyperpage{10}
-  \item commitments\dotfill \hyperpage{33}
+
+  \item guard, \hyperpage{5}
+  \item guarded sum, \hyperpage{4}
 
   \indexspace
-{\bf D}\nopagebreak%
- \indexspace\nopagebreak%
+
+  \item instance reference, \hyperpage{19}
 
   \indexspace
-{\bf E}\nopagebreak%
- \indexspace\nopagebreak%
+
+  \item name, \hyperpage{6}
+    \subitem bound, \hyperpage{6}
+    \subitem free, \hyperpage{6}
+  \item non-atomic reaction, \hyperpage{43}
 
   \indexspace
-{\bf F}\nopagebreak%
- \indexspace\nopagebreak%
-  \item free name\dotfill \hyperpage{12}
-    \subitem action\dotfill \hyperpage{20}
+
+  \item operation schema, \hyperpage{17, 18}
 
   \indexspace
-{\bf G}\nopagebreak%
- \indexspace\nopagebreak%
+
+  \item parallel composition, \hyperpage{5}
+  \item process, \hyperpage{4, 5}
+    \subitem stop, \hyperpage{4}
+  \item process call, \hyperpage{6}
 
   \indexspace
-{\bf I}\nopagebreak%
- \indexspace\nopagebreak%
+
+  \item refinement
+    \subitem failure, \hyperpage{55}
+    \subitem success, \hyperpage{56}
+  \item restriction, \hyperpage{6}
 
   \indexspace
-{\bf K}\nopagebreak%
- \indexspace\nopagebreak%
 
-  \indexspace
-{\bf L}\nopagebreak%
- \indexspace\nopagebreak%
-
-  \indexspace
-{\bf M}\nopagebreak%
- \indexspace\nopagebreak%
-  \item message\dotfill \hyperpage{8}
-
-  \indexspace
-{\bf N}\nopagebreak%
- \indexspace\nopagebreak%
-  \item name\dotfill \hyperpage{8}
-    \subitem bound\dotfill \hyperpage{12}, \hyperpage{20}
-    \subitem free\dotfill \hyperpage{12}, \hyperpage{20}
-    \subitem process\dotfill \hyperpage{12}
-    \subitem substitution\dotfill \hyperpage{13}
-
-  \indexspace
-{\bf O}\nopagebreak%
- \indexspace\nopagebreak%
-
-  \indexspace
-{\bf P}\nopagebreak%
- \indexspace\nopagebreak%
-  \item parallel composition\dotfill \hyperpage{10}
-  \item parameter\dotfill \hyperpage{10}
-  \item polyadic \picalc {}\dotfill \hyperpage{8}
-  \item prefix\dotfill \hyperpage{8}
-    \subitem input\dotfill \hyperpage{9}
-    \subitem operator\dotfill \hyperpage{6}
-    \subitem output\dotfill \hyperpage{8}
-    \subitem process\dotfill \hyperpage{9}
-    \subitem silent\dotfill \hyperpage{9}
-  \item process\dotfill \hyperpage{9}
-    \subitem $\tau $\dotfill \hyperpage{10}
-    \subitem algebra\dotfill \hyperpage{1}, \hyperpage{7}
-    \subitem call\dotfill \hyperpage{11}
-    \subitem choice\dotfill \hyperpage{10}
-    \subitem input\dotfill \hyperpage{10}
-    \subitem output\dotfill \hyperpage{10}
-    \subitem parallel\dotfill \hyperpage{10}
-    \subitem prefix\dotfill \hyperpage{9}
-    \subitem restriction\dotfill \hyperpage{10}
-    \subitem stop\dotfill \hyperpage{9}
-
-  \indexspace
-{\bf R}\nopagebreak%
- \indexspace\nopagebreak%
-
-  \indexspace
-{\bf S}\nopagebreak%
- \indexspace\nopagebreak%
-  \item silent
-    \subitem action\dotfill \hyperpage{10}
-    \subitem prefix\dotfill \hyperpage{9}
+  \item schema
+    \subitem initial state schema, \hyperpage{16}
+    \subitem state schema, \hyperpage{15}
+  \item set union and subtraction, \hyperpage{31}
+  \item shared channel, \hyperpage{42}
   \item simulation
-    \subitem strong\dotfill \hyperpage{32}
-    \subitem weak\dotfill \hyperpage{32}
-  \item stop process\dotfill \hyperpage{9}
+    \subitem strong, \hyperpage{10}
+  \item stargazer, \hyperpage{8}
   \item strong
-    \subitem simulation\dotfill \hyperpage{32}
-  \item subject\dotfill \hyperpage{10}, \hyperpage{38}
-  \item sum\dotfill \hyperpage{9}
-  \item summation\dotfill \hyperpage{9}
-
-  \indexspace
-{\bf T}\nopagebreak%
- \indexspace\nopagebreak%
-  \item transition system
-
-  \indexspace
-{\bf U}\nopagebreak%
- \indexspace\nopagebreak%
-
-  \indexspace
-{\bf V}\nopagebreak%
- \indexspace\nopagebreak%
-
-  \indexspace
-{\bf W}\nopagebreak%
- \indexspace\nopagebreak%
+    \subitem simulation, \hyperpage{10}
+  \item subtraction, \hyperpage{29}
 
 \end{theindex}

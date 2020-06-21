@@ -1,7 +1,7 @@
 % mainfile: ../../Refinement.tex
 \begin{definition}[Process syntax]
 \label{def_process_syntax}
-The syntax of a \picalc{} process \findex[process]{P} is defined by: 
+The syntax of a \picalc{} process \textit[process]{P} is defined by: 
 \begin{align*}
  P & \syntdef \procsum \ebnf \procpar{P_1}{P_2} \ebnf \procres{\vec{y}}{P} \ebnf \proccall{A}{\vec{v}}
 \end{align*}
@@ -14,10 +14,10 @@ where:
 \end{itemize}
 \end{definition}
 
-\subsubsection{\findex{Guarded sum}:} The guarded sum is the \findex{choice} between multiple guarded processes. If the guard of one process took place, other guarded processes will be discarded. For example, the processes: $\procchoice{\inp{x}{}.P_1}{\inp{y}{}.P_2}$ will evolve to the process $P_1$ if the guard $\inp{x}{}$ occurred.
+\subsubsection{\findex[guarded sum]{Guarded sum}:} The guarded sum is the choice between multiple guarded processes. If the guard of one process took place, other guarded processes will be discarded. For example, the processes: $\procchoice{\inp{x}{}.P_1}{\inp{y}{}.P_2}$ will evolve to the process $P_1$ if the guard $\inp{x}{}$ occurred.
 
-Furthermore, The process $\proczero$ is called the \index{process!stop}\findex{stop process} or \findex{inaction} and stands for the process that can do nothing. It can be omitted.
-\subsubsection{\findex{Guard}:} The guard is also called \findex[process]{action prefix} and denoted by $\pi$. It's syntax is defined by:
+Furthermore, The process $\proczero$ is called the \findex[process!stop]{stop process} stands for the process that can do nothing. It can be omitted.
+\subsubsection{\findex[guard]{Guard}:} The guard is also called \findex[process!action prefix]{action prefix} and denoted by $\pi$. It's syntax is defined by:
 \begin{definition}[Action prefix syntax]
 \label{def_prefix_syntax}
 \begin{align*}
@@ -30,12 +30,12 @@ where:
 \item $\tau$ represents an internal non observable action.
 \end{itemize}
 \end{definition}
-The set of all \index{action}\findex[action]{actions} is defined as $\actions\define\outA\cup\inA\cup\set{\tau}$, where:
+The set of all actions is defined as $\actions\define\outA\cup\inA\cup\set{\tau}$, where:
 \begin{itemize}
-\item $\outA$ is the set of all \index{action!output}\findex[output!action]{output actions}, defined as $\outA\define\set[x\in\names]{\out{x}{\vec{y}}}$.
-\item $\inA$ the set of all \index{action!input}\findex[input!action]{input actions}, defined as $\inA\define\set[x\in\names]{\inp{x}{\vec{y}}}$.
+\item $\outA$ is the set of all output actions, defined as $\outA\define\set[x\in\names]{\out{x}{\vec{y}}}$.
+\item $\inA$ is the set of all input actions, defined as $\inA\define\set[x\in\names]{\inp{x}{\vec{y}}}$.
 \end{itemize}
-\subsubsection{\findex{Parallel composition}:}
+\subsubsection{\findex[parallel composition]{Parallel composition}:}
 The parallel composition operator $\procpar{}{}$ represents the concept of concurrency in the \picalc{}, where two processes can evolve in concurrent.It represents an interleaving behavior of the concurrency.
 For example let:  $P\define\procpar{P_1}{(\procpar{P_2}{P_3})}$ where: $P_1\define\inp{x}{y}.Q_1$ , $P_2\define\out{x}{y}.Q_2$ and $P_3\define\inp{x}{y}.Q_3$. So $P\define\procpar{\inp{x}{y}.Q_1}{(\procpar{\out{x}{y}.Q_2}{\inp{x}{y}.Q_3})}$.
 Possible evolution cases of $P$ are:
@@ -47,9 +47,13 @@ Possible evolution cases of $P$ are:
 The example above illustrated the privacy nature of the parallel operator in the \picalc{}. A process can via a channel communicate with only one process pro time, i.e., the channel represents a binary synchronization. $P_2$ cannot communicate with both $P_1$, $P_3$ in the same time, while in \gls{CSP} a process can communicate with multiple processes in the same time via the same channel by sending multiple copies of the same message, i.e., in CSP the channel represents a multiple synchronization.
 
 
-\subsubsection{\findex{Restriction}:}
+\subsubsection{\findex[restriction]{Restriction}:}
 
-The expression $\procres{\vec{y}}{P}$ binds the names $\vec{y}$ to the process $P$. In other words: the visibility scope of the  names $\vec{y}$ is restricted to the process $P$. It is similar to declaring a private variable in programming languages. Thus the names $\vec{y}$ are not visible outside $P$ and $P$ cannot use them to communicate with outside. For example, let $P\define\procpar{P_1}{P_2}$ where: $P_1\define\procres{y}{\out{y}{z}.Q_1}$ and $P_2\define\inp{y}{z}.Q_2$. The process $P$ cannot evolute to $\procpar{Q_1}{Q_2}$, since the name $y$ in $P_1$ is only visible inside it, i.e., from the $P_2$'s point of view $P_1$ doesn't have a channel called $y$. This takes us to the definition of the Bound and free names.
+The expression $\procres{\vec{y}}{P}$ binds the names $\vec{y}$ to the process $P$. In other words: the visibility scope of the  names $\vec{y}$ is restricted to the process $P$. It is similar to declaring a private variable in programming languages. Thus the names $\vec{y}$ are not visible outside $P$ and $P$ cannot use them to communicate with outside. For example, let $P\define\procpar{P_1}{P_2}$ where: $P_1\define\procres{y}{\out{y}{z}.Q_1}$ and $P_2\define\inp{y}{z}.Q_2$. The process $P$ cannot evolute to $\procpar{Q_1}{Q_2}$, since the name $y$ in $P_1$ is only visible inside it, i.e., from the $P_2$'s point of view $P_1$ doesn't have a channel called $y$. This takes us to the definition of the 
+\index{name}\findex[name]{name}
+\index{name!free}\findex[name!free]{free names}
+and 
+\index{name!bound}\findex[name!bound]{name bound}.
 
 \begin{definition}[Bound names]
 \label{def_bound_names}
@@ -63,7 +67,7 @@ The expression $\procres{\vec{y}}{P}$ binds the names $\vec{y}$ to the process $
 For example, let $P_1\define\procres{x}{\out{x}{y}.P_2}$ where $P_2\define\procres{z}{\out{x}{z}.P_3}$. The name $x$ is bound in $P_1$ but free in $P_2$.
 
 
-\subsubsection{\findex{Process call}:}
+\subsubsection{\findex[process!call]{Process call}:}
 \label{subsubsection_process_call}
 
 Let $P$ be a process and let $A$ be a process identifier.To be able to use the process $P$ recursively we use the process identifier $A$ as follow: $\procdef{A}{\vec{w}}\define{}P$. Thus , when we write $\proccall{A}{\vec{v}}$ we are using the identifier $A$ to call the process $P$ with replacing the names $\vec{w}$ in $P$ with the names $\vec{v}$. This replacement is called the $\alpha$-conversion

@@ -1,4 +1,4 @@
-To compare \picalc{} processes we need to define the Success-Refinement and relate it to the very strong simulation. We start by defining the \textit{success pair} of a process.
+To compare \picalc{} processes we need to define the \findex[refinement!success]success refinement and relate it to the very strong simulation. We start by defining the \textit{success pair} of a process.
 
 The pair $(t, Y)$ is called an \textit{success pair}, where $t$ is a trace and $Y$ is a set of acceptable next actions after $t$. Formally, $P \bigstep{t} Q$ and $Q$ acp $X$. Any process
 $P$ is assigned a set of success pairs $\Successes[]$. Formally, this means:
@@ -152,9 +152,9 @@ The sets $Av_\outA$ and $Av_\tau$ are empty, because $P$ can neither make an out
 \end{figure}
 We can now define the success-refinement of \picalc{} processes as follow:
 
-\begin{definition}[\index{refinement}{Successes refinement}]
+\begin{definition}[Successes refinement]
 \label{def_Successes_ref}
-	Let $P,Q\in\procs$, then $P$ is a \findex[Successes!refinement]{successes refinement} of $Q$ iff the inverse set inclusion of traces and successes holds:
+	Let $P,Q\in\procs$, then $P$ is a {successes refinement} of $Q$ iff the inverse set inclusion of traces and successes holds:
    \[Q \refiAC P \Leftrightarrow  \Traces[P]\subseteq\Traces[Q] \wedge \Successes[P]\subseteq\Successes[Q]\]
 \end{definition}
 

@@ -10,9 +10,9 @@ where: $Refusals \define \pom{\actions}$
 Notice, we are nither focusing on how to calculate the $\Traces[P]$, since it has been studied in \cite{gieseking} nor on how to calculate the refusal set $X$ of a trace $t$, since the failure-refinement is not useful as we will show later in \refRem{cor_sim_failure_refinement}. Later in \refSec{sec_acceptance-refinement} we will focus on calculating the acceptance set of a trace.
 For now, let us go ahead and define the failure-refinement of \picalc{} processes as follow:
 
-\begin{definition}[\index{refinement}{Failure refinement}]
+\begin{definition}[Failure refinement]
 \label{def_failure_ref}
-	Let $P,Q\in\procs$, then $P$ is a \findex[trace!refinement]{failure refinement} of $Q$ iff the inverse set inclusion of traces and failures holds:
+	Let $P,Q\in\procs$, then $P$ is a \findex[refinement!failure]{failure refinement} of $Q$ iff the inverse set inclusion of traces and failures holds:
    \[Q \refiF P \Leftrightarrow  \Traces[P]\subseteq\Traces[Q] \wedge \Failures[P]\subseteq\Failures[Q]\]
 \end{definition}
 

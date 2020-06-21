@@ -3,8 +3,8 @@ $P_{OZ\_PI} = \sum_{v\_st\in Init}^{} \tau. Q(v\_st,v\_self)$ with
 $\\Q(v\_st,v\_self) = (\sum_{c\in \text{In}}^{} c(v\_in_{c}) \ +\ \sum_{c\in \text{Out}}^{} \tau.c<v\_out_{c}>)\ .\ \sum_{v\_st'}^{} \tau.Q(v\_st',v\_self)$
 where:
 \begin{itemize}
-\item $\inA$ the set of all \index{action!input}\findex[input!action]{input actions}, defined as $\inA\define\set[x\in\names]{\inp{x}{\vec{y}}}$.
-\item $\outA$ is the set of all \index{action!output}\findex[output!action]{output actions}, defined as $\outA\define\set[x\in\names]{\out{x}{\vec{y}}}$.
+\item $\inA$ the set of all input actions, defined as $\inA\define\set[x\in\names]{\inp{x}{\vec{y}}}$.
+\item $\outA$ is the set of all output actions, defined as $\outA\define\set[x\in\names]{\out{x}{\vec{y}}}$.
 \item $c$ refers to an operation.
 \item $v\_st$ refers to the variables of the current state.
 \item $v\_st'$ refers to the variables of the successor state.
@@ -18,7 +18,7 @@ parallel operator, with a second, explicit pi-calculus
 process that represents the desired sequencing of the operations
 of the OZ class. This will enable us to study the behavior of an entity as will be shown later in the next chapter.
 
-To transform an \oz{} class into a \picalc{} process we need to remember that the \picalc{} has only names and processes, and nothing else. A $name$ in \picalc{} can be seen as a \findex{channel} or a \findex{memory location}. Thus, in this work when we use the word \findex{channel} we refer to a \picalc{} \findex{name}. We need to use the names and processes to represent: value, state variable, state schema, initial state schema and operation schema in \picalc{}.
+To transform an \oz{} class into a \picalc{} process we need to remember that the \picalc{} has only names and processes, and nothing else. A $name$ in \picalc{} can be seen as a \findex{channel} or a \textit{memory location}. Thus, in this work when we use the word \findex{channel} we refer to a \picalc{} \textit{name}. We need to use the names and processes to represent: value, state variable, state schema, initial state schema and operation schema in \picalc{}.
 \section{Mapping values}
 \label{sec_tra_mapping_values}
 \input{chapters/mainpart/transformational_semantics_oz/sections/mapping_values/mapping_values}

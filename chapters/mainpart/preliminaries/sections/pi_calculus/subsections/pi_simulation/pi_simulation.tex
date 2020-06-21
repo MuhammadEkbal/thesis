@@ -1,6 +1,6 @@
 % mainfile: ../../Refinement.tex
-The \findex{strong simulation} is comparison of processes based on their behavior. To understand this let us start with a simple example:
-Let $P\define\tau.\tau.\proczero$ and $Q\define\tau.\proczero$. We can notice that $P$ can do two $\tau$ transitions, but $Q$ can do only one. Thus $Q$ doesn't strongly simulates $P$. The word \findex{strongly} refers to the point that: the strong simulation comparison takes the internal transition $\tau$ into account. There is another kind of comparison called the  \findex{weak simulation}, which doesn't consider the internal transition $\tau$, but this kind of comparison is not considered in this thesis. The formal definition of the \findex{strong simulation} is given in \refDef{def_strong_sim}, which is adapted from \cite{gieseking} page 32 with some changes.
+The \findex[simulation!strong]{strong simulation} is comparison of processes based on their behavior. To understand this let us start with a simple example:
+Let $P\define\tau.\tau.\proczero$ and $Q\define\tau.\proczero$. We can notice that $P$ can do two $\tau$ transitions, but $Q$ can do only one. Thus $Q$ doesn't strongly simulates $P$. The word \textit{strongly} refers to the point that: the strong simulation comparison takes the internal transition $\tau$ into account. There is another kind of comparison called the  \findex[simulation!weak]{weak simulation}, which doesn't consider the internal transition $\tau$, but this kind of comparison is not considered in this thesis. The formal definition of the strong simulation is given in \refDef{def_strong_sim}, which is adapted from \cite{gieseking} page 32 with some changes.
 
 
 \begin{definition}[Strong simulation]
@@ -23,7 +23,7 @@ where:
 
 Intuitively, The behavior of $P$ and $Q$ can be illustrated using transition graphs as shown in \refFig{transition_graphs}. $Q$'s transition graph is the same as $P$'s, except one thing: $Q$ has a loop with label $\tau$. This loop is due to the $\tau$ transition in $Q$'s definition. Hence, we can notice that $Q$ can do all the transitions that $P$ can, plus an extra transition $\tau$. In other words $Q$ simulates $P$, but $P$ doesn't simulate $Q$.
 \input{./images/preliminaries/pi_calculus/transition_graphs}
-To check the strong simulation we can use \findex{ABC (Another Bisimilarity Checker)} \cite{abc}. ABC is a tool that checks simulation between  \picalc{} processes. \refLis{pi_simulation_ABC_code} shows the code of the process $P$ and $Q$ in ABC syntax.
+To check the strong simulation we can use \findex[another bisimilarity checker ABC]{ABC (Another Bisimilarity Checker)} \cite{abc}. ABC is a tool that checks simulation between  \picalc{} processes. \refLis{pi_simulation_ABC_code} shows the code of the process $P$ and $Q$ in ABC syntax.
 \raggedbottom
 \lstinputlisting[backgroundcolor=\color{white},caption={ABC code for $P$ and $Q$.},captionpos=b, label={pi_simulation_ABC_code}]{listings/pi_simulation_ABC_code.abc}
 
