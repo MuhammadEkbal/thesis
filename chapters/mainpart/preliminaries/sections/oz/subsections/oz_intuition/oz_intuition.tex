@@ -43,8 +43,14 @@ a class definition is a named box as shown in \refFig{oz_vm_class}, where the do
 
 \item \textit{Initial state}: Our vending machine has an initial state with $cv = 3$ and $tv = 3$. The set of all possible initial states, that respects those conditions is:  
 \begin{itemize}
-\item In mathematics: $Initial\_States =\{cv,tv: \integer\mid (0 \leq  cv \leq 3) \wedge
-(0 \leq  tv \leq 3)\wedge (cv = 3) \wedge (tv = 3)\bullet(cv,tv)\}  =\{\pair{3}{3}\}$.
+\item In mathematics:
+\begin{equation*}
+\begin{aligned}
+Initial\_States ={} & \{cv,tv: \integer\mid (0 \leq  cv \leq 3) \wedge (0 \leq  tv \leq 3)\\
+      & \wedge (cv = 3) \wedge (tv = 3)\bullet(cv,tv)\} \\
+      &  =\{\pair{3}{3}\}
+\end{aligned}
+\end{equation*}
 \item In \oz{}: the set $Initial\_States$ can be described using a \findex[schema!initial state schema]{initial state schema}, which is a box named $INIT$ added to the class box  as shown in \refFig{oz_vm_init_schema}.
 \end{itemize}
 \input{./images/preliminaries/oz/oz_vm_init_schema}
@@ -52,8 +58,16 @@ a class definition is a named box as shown in \refFig{oz_vm_class}, where the do
 \item \textit{State transition}: When the vending machine sells a coffee, the amount of coffee should be decreased by one. This is a state transition.
 The set of all possible state transitions when the selling coffee operation occurs is:
 \begin{itemize}
-\item In mathematics: $coffee =\{cv,tv,cv',tv': \integer\mid (0 \leq  cv \leq 3) \wedge
-(0 \leq  tv \leq 3)\wedge (0 \leq  cv' \leq 3) \wedge (0 \leq  tv' \leq 3)\wedge (tv' = tv) \wedge (cv' = cv - 1) \bullet\pair{\pair{cv}{tv}}{\pair{cv'}{tv'}}\}  =\{\pair{\pair{3}{3}}{\pair{2}{3}},\dots,\pair{\pair{1}{0}}{\pair{0}{0}}\}$, where $(cv,tv)$ represents the \textit{pre state} and $(cv',tv')$ represents the \textit{post state} of a state transition.
+\item In mathematics:
+\begin{equation*}
+\begin{aligned}
+coffee ={} & \{cv,tv,cv',tv': \integer\mid (0 \leq  cv \leq 3) \wedge (0 \leq  tv \leq 3)\\
+      & \wedge (0 \leq  cv' \leq 3) \wedge (0 \leq  tv' \leq 3)\wedge (tv' = tv)  \\
+      & \wedge (cv' = cv - 1) \bullet\pair{\pair{cv}{tv}}{\pair{cv'}{tv'}}\} \\
+      & =\{\pair{\pair{3}{3}}{\pair{2}{3}},\dots,\pair{\pair{1}{0}}{\pair{0}{0}}\}
+\end{aligned}
+\end{equation*}
+ where $(cv,tv)$ represents the \textit{pre state} and $(cv',tv')$ represents the \textit{post state} of a state transition.
 \item In \oz{}: the set $coffee$ can be described using an \findex[schema!operation schema]{operation schema}, which is a box named with the operation name added to the class box as shown in \refFig{fig_oz_vm_operation_schema} left.
 \end{itemize}
 
@@ -77,8 +91,16 @@ Some operations can have input and output parameters, just like method in progra
 
 The set of all possible state transitions when the $talk$ operation occurs is:
 \begin{itemize}
-\item In mathematics: $talk =\{cv,tv,message,cv',tv',message',y: \integer\mid (0 \leq  cv \leq 3) \wedge
-(0 \leq  tv \leq 3)\wedge (0 \leq  cv' \leq 3) \wedge (0 \leq  tv' \leq 3)\wedge (tv' = tv) \wedge (cv' = cv)  \wedge (message' = message)  \wedge (y = message)\bullet\pair{\tripple{cv}{tv}{message}}{\tripple{cv'}{tv'}{message'}}\}  =\{\pair{\tripple{3}{3}{1}}{\tripple{3}{3}{1}},\dots,\pair{\tripple{0}{0}{1}}{\tripple{0}{0}{1}}\}$.
+\item In mathematics: 
+\begin{equation*}
+\begin{aligned}
+talk ={} & \{cv,tv,message,cv',tv',message',y: \integer\mid (0 \leq  cv \leq 3) \\
+      &  \wedge (0 \leq  tv \leq 3)\wedge (0 \leq  cv' \leq 3) \wedge (0 \leq  tv' \leq 3) \wedge (tv' = tv)  \\
+      & \wedge (cv' = cv) \wedge (message' = message) \wedge (y = message)\bullet \\
+      &  \pair{\tripple{cv}{tv}{message}}{\tripple{cv'}{tv'}{message'}}\} \\
+      & =\{\pair{\tripple{3}{3}{1}}{\tripple{3}{3}{1}},\dots,\pair{\tripple{0}{0}{1}}{\tripple{0}{0}{1}}\}
+\end{aligned}
+\end{equation*}
 \item In \oz{}: the set $talk$ can be described using an operation schema, as shown in \refFig{oz_vm_with_operation_input_output_parameters}. We can notice that this operation doesn't change any state variable's value, it just says that the value of the output parameter $y$, written as $y!$, must be equal to the value of the state variable $message$. For input parameter use $?$ symbol.
 \input{./images/preliminaries/oz/oz_vm_with_operation_input_output_parameters}
 \end{itemize}
