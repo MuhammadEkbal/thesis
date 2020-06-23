@@ -17,7 +17,7 @@ The state space of the vending machine can be visualized as shown in \refFig{sta
 \input{./images/preliminaries/oz/state_space}
 
 \subsubsection{Set building:} A set is a collection of things. For example: $\{5, 7, 11\}$ is a set.
-But we can also build a set by describing what is in it using the following notation: $\{Deklaration \mid predicate \bullet expression \}$.  For example: $\{x: \integer \mid x \geq 0 \bullet x^{2}\}$ means \textit{the set of all  squared x's, such that x is integer and greater than 0}
+But we can also build a set by describing what is in it using the following notation: \[\{Deklaration \mid predicate \bullet expression \}\].  For example: $\{x: \integer \mid x \geq 0 \bullet x^{2}\}$ means \textit{the set of all  squared x's, such that x is integer and greater than 0}
 
 	
 \subsubsection{\textit{Main concepts of \oz{}}:} 
@@ -35,8 +35,14 @@ a class definition is a named box as shown in \refFig{oz_vm_class}, where the do
 
 \item \textit{State space}: The state space of our vending machine can be seen as a set of all valid states. The set of all valid states is:
 \begin{itemize}
-\item In mathematics: $State\_Space=\{cv,tv: \integer\mid (0 \leq  cv \leq 3) \wedge
-(0 \leq  tv \leq 3)\bullet(cv,tv)\}  =\{\pair{0}{0},\dots,\pair{3}{3}\}$.
+\item In mathematics:
+\begin{equation*}
+\begin{aligned}
+State\_Space ={} & \{cv,tv: \integer\mid (0 \leq  cv \leq 3) \wedge
+(0 \leq  tv \leq 3)\bullet(cv,tv)\}\\
+      & =\{\pair{0}{0},\dots,\pair{3}{3}\}
+\end{aligned}
+\end{equation*}
 \item In \oz{}: The set $State\_Space$ can be described using a \findex[schema!state schema]{state schema}, which is a box without name added to the class box as shown in \refFig{oz_vm_state_schema}.
 \end{itemize}
 \input{./images/preliminaries/oz/oz_vm_state_schema}
