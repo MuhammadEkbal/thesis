@@ -19,11 +19,11 @@ We ignore the concept of equivalence classes, and assume the validity under the 
 However, the work in \cite{gieseking} was limited to recursion-free processes: ``The limitation to recursion-free processes depends on the circumstances that we neither have any fix-point algorithm up to now nor showed that one existse''\footnote{\cite{gieseking}, page $80$.}. In this work we assume the existence of a fix-point algorithm and that \refPro{property1} also applies to recursive processes.
 Next, we introduce the very strong simulation.
 \section{Very strong simulation}
-\label{sec_failure-refinement}
+\label{sec_failure-refinement2}
 The very strong simulation is the same as the strong simulation \refDef{def_strong_sim}. But, for clarity, we introduce the definition of the very strong simulation, which consists on considering the use of the same bound names during the simulation checking.
 
 \begin{definition}[Very strong simulation]
-\label{def_strong_sim}
+\label{def_strong_sim2}
 A relation $\mathcal{S}_v\subseteq\procs\times\procs$ is called a \textit{very strong simulation}, if $(P,Q)\in\mathcal{S}_v$ implies that
 \[P \transs{\alpha} P' \Rightarrow \exists Q'\in\procs: Q \transs{\beta} Q' \wedge \alpha = \beta \wedge (P',Q')\in\mathcal{S}_v.\]
 \end{definition}

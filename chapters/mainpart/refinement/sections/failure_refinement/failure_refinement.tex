@@ -3,7 +3,6 @@ The pair $(t, X)$ is called a \textit{failure pair}, where $t$ is a trace and $X
 $P$ is assigned a set of failures $\Failures[]$. Formally, this means:
 \begin{align}
     \Failures[P] \define \{(t,X) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Q \text{ ref } X \wedge X\in Refusals\}
-\label{failure}
 \end{align}
 where: $Refusals \define \pom{\actions}$
 

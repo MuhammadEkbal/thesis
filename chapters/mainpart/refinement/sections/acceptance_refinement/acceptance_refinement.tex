@@ -4,7 +4,6 @@ The pair $(t, Y)$ is called an \textit{success pair}, where $t$ is a trace and $
 $P$ is assigned a set of success pairs $\Successes[]$. Formally, this means:
 \begin{align}
     \Successes[P] \define \{(t,Y) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Q \text{ acp } Y \wedge Y\in Acceptances\}
-\label{failure}
 \end{align}
 
 where: $Acceptances \define \pom{\actions}$
