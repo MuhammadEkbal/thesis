@@ -103,40 +103,40 @@ The sets $Av_\outA$ and $Av_\tau$ are empty, because $P$ can neither make an out
 
     % draw the sets
    \draw[] (-7.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
-    \draw[] (-4.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
-    \draw[] (-1.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
-    \draw[] (1.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
+    \draw[] (-5.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
+    \draw[] (-3.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
+    \draw[] (0.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
+    \draw[] (2.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
     \draw[] (4.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
-    \draw[] (7.5,-10) ellipse [x radius = 0.9cm, y radius = 3cm];
 
     % the texts
     \node (w1) at (-7.5,-6.7) {$Av_\outA$};
-    \node (w2) at (-4.5,-6.7) {$Av_\inA$};
-    \node (w3) at (-1.5,-6.7) {$Av_\tau$};
-    \node (w4) at (1.5,-6.7) {$Acc_\outA$};
-    \node (w5) at (4.5,-6.7) {$Acc_\inA$};
-    \node (w6) at (7.5,-6.7) {$Acc_\tau$};
+    \node (w2) at (-5.5,-6.7) {$Av_\inA$};
+    \node (w3) at (-3.5,-6.7) {$Av_\tau$};
+    \node (w4) at (0.5,-6.7) {$Acc_\outA$};
+    \node (w5) at (2.5,-6.7) {$Acc_\inA$};
+    \node (w6) at (4.5,-6.7) {$Acc_\tau$};
 
     \node at (-7.5,-9.7) {$\varnothing$};
     
-    \node at (-4.5,-9.1) {$\inp{a}{x}$};
-    \node at (-4.5,-9.7) {$\inp{b}{y}$};
+    \node at (-5.5,-9.1) {$\inp{a}{x}$};
+    \node at (-5.5,-9.7) {$\inp{b}{y}$};
 
-    \node at (-1.5,-9.7) {$\varnothing$};
+    \node at (-3.5,-9.7) {$\varnothing$};
    
-    \node at (1.5,-9.7) {$\varnothing$};
+    \node at (0.5,-9.7) {$\varnothing$};
         
-    \node at (4.5,-7.5) {$\inp{a}{a}$};
-    \node at (4.5,-8.1) {$\inp{a}{b}$};
-    \node at (4.5,-8.7) {$\inp{a}{c}$};
-    \node at (4.5,-9.4) {$\dot$};
-    \node at (4.5,-10) {$\dot$};
-    \node at (4.5,-10.6) {$\inp{b}{a}$};
-    \node at (4.5,-11.2) {$\inp{b}{d}$};    
-    \node at (4.5,-11.8) {$\dot$};
-    \node at (4.5,-12.4) {$\dot$};
+    \node at (2.5,-7.5) {$\inp{a}{a}$};
+    \node at (2.5,-8.1) {$\inp{a}{b}$};
+    \node at (2.5,-8.7) {$\inp{a}{c}$};
+    \node at (2.5,-9.4) {$\dot$};
+    \node at (2.5,-10) {$\dot$};
+    \node at (2.5,-10.6) {$\inp{b}{a}$};
+    \node at (2.5,-11.2) {$\inp{b}{d}$};    
+    \node at (2.5,-11.8) {$\dot$};
+    \node at (2.5,-12.4) {$\dot$};
     
-    \node at (7.5,-9.7) {$\varnothing$};
+    \node at (4.5,-9.7) {$\varnothing$};
 
     \node (m1)at (-4.5,-3.3) {$Y$};
     \path (w4) edge (m1);
@@ -144,15 +144,15 @@ The sets $Av_\outA$ and $Av_\tau$ are empty, because $P$ can neither make an out
     \path (w6) edge (m1);
 
     \node (k1)at (-7.5,-13) {$ $};
-    \node (l1)at (1.5,-13) {$ $};
+    \node (l1)at (0.5,-13) {$ $};
 	\draw [dashed] (k1.south) to [out=-10,in=-170] (l1.south);
 	
-	\node (k2)at (-4.5,-13) {$ $};
-    \node (l2)at (4.5,-13) {$ $};
+	\node (k2)at (-5.5,-13) {$ $};
+    \node (l2)at (2.5,-13) {$ $};
 	\draw [->] (k2.south) to [out=-10,in=-170] (l2.south);
 	
-	\node (k3)at (-1.5,-13) {$ $};
-    \node (l3)at (7.5,-13) {$ $};
+	\node (k3)at (-3.5,-13) {$ $};
+    \node (l3)at (4.5,-13) {$ $};
 	\draw [dashed] (k3.south) to [out=-10,in=-170] (l3.south);
 	
 \end{tikzpicture}
