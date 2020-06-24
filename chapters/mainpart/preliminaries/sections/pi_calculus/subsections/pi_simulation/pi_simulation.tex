@@ -36,7 +36,7 @@ In \refLis{pi_simulation_ABC_outputPsQ} we see the result of the command $lt\ P\
 
 \end{itemize}
 
-Thus, $Q$ strongly simulates the behavior of $P$ and the simulation relation is $\mathcal{S} = \set{(\proczero,\proczero),(\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})},\procres{x}{(\procchoice{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})}{\tau.Q})})}$.
+Thus, $Q$ strongly simulates the behavior of $P$ and the simulation relation is: \[\mathcal{S} = \set{(\proczero,\proczero),(\procres{x}{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})},\procres{x}{(\procchoice{(\procpar{\proccall{A_1}{x}}{\proccall{B_1}{x}})}{\tau.Q})})}\]
 \lstinputlisting[backgroundcolor=\color{white},caption={ABC output: check if $Q$ strongly simulates $P$.},captionpos=b, label={pi_simulation_ABC_outputPsQ}]{listings/pi_simulation_ABC_outputPsQ.pi}
 In \refLis{pi_simulation_ABC_outputQsP} we can see the result of the command $lt\ Q\ P$, which checks if $P$ strongly simulates $Q$. The result is $no$, since:
 
