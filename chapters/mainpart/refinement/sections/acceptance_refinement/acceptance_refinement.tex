@@ -17,8 +17,18 @@ To collect the available actions before the substitution of bound names we need 
 
 Now, we can collect the all the possible output actions after the substitution of bound names, where $Acc_\outA$ is for the output actions, $Acc_\inA$ is for the input actions, and $Acc_\tau$ is for the $\tau$ actions as follow:
 \[Acc_\outA \define Av_\outA\]
-$Acc_\inA\define\{\alpha \in \inA \mid \exists \beta \in Av_\inA \wedge \sub{\alpha}=\sub{\beta} \wedge \alpha=\substitue{\vec{y}}{\vec{z}}\beta \text{ where } \vec{z}=\obj{\beta} \wedge \vec{y}=\obj{\alpha} \}$
-\[Acc_\tau\define\{\tau \mid \forall \alpha \in Acc_\outA \text{ if } \exists \beta \in Acc_\inA  :\sub{\alpha}=\sub{\beta} \wedge \obj{\alpha}=\obj{\beta}  \}\cup Av_\tau\]
+\begin{equation*}
+\begin{aligned}
+Acc_\inA \define{} & \{\alpha \in \inA \mid \exists \beta \in Av_\inA \wedge \sub{\alpha}=\sub{\beta} \wedge \alpha=\substitue{\vec{y}}{\vec{z}}\beta \\
+      &  \text{ where } \vec{z}=\obj{\beta} \wedge \vec{y}=\obj{\alpha} \}
+\end{aligned}
+\end{equation*}
+\begin{equation*}
+\begin{aligned}
+Acc_\tau \define{} & \{\tau \mid \forall \alpha \in Acc_\outA \text{ if } \exists \beta \in Acc_\inA  :\sub{\alpha}=\sub{\beta} \wedge \obj{\alpha}=\obj{\beta}  \} \\
+      &  \cup Av_\tau
+\end{aligned}
+\end{equation*}
 \[\sub{\alpha} \text{: returns the channel name through which the exchange occurs}\]
 \[\obj{\alpha} \text{: return the exchanged names across the channel}\]
 
