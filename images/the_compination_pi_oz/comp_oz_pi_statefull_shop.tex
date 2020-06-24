@@ -8,7 +8,8 @@
 \\chan\ talk:\integer \times \integer
 \ \\ \
 \\ActiveShop\_PI = 
-\\ \ talk(vmId, message).ActiveShop\_PI
+\\ \ talk(vmId, message)
+\ \\ \ \ \ .ActiveShop\_PI
 \\ \ + switch<talk>.IdleShop\_PI
 \\\begin{state}
 self, vmId, message: \integer
@@ -41,7 +42,8 @@ y? = message'
 \\chan\ switch: nil | talk
 \ \\ \
 \\IdleShop\_PI = 
-\\ \  switch(transferableOperation).ActiveShop\_PI
+\\ \  switch(transferableOperation)
+\ \\ \ \ \ .ActiveShop\_PI
 \\
 \begin{state}
 self, vmId, message: \integer
