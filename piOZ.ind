@@ -1,23 +1,28 @@
 \begin{theindex}
+{\textbf{Symbols}}\nopagebreak
 
   \item \picalc {}, \hyperpage{3}
 
   \indexspace
+{\textbf{A}}\nopagebreak
 
   \item another bisimilarity checker ABC, \hyperpage{11}
 
   \indexspace
+{\textbf{C}}\nopagebreak
 
-  \item channel, \hyperpage{25}
-    \subitem shared channel, \hyperpage{42}
-    \subitem unidirectional, \hyperpage{23}
+  \item channel, \hyperpage{26}
+    \subitem shared, \hyperpage{42}
+    \subitem unidirectional, \hyperpage{24}
 
   \indexspace
+{\textbf{G}}\nopagebreak
 
   \item guard, \hyperpage{5}
   \item guarded sum, \hyperpage{4}
 
   \indexspace
+{\textbf{N}}\nopagebreak
 
   \item name, \hyperpage{6}
     \subitem bound, \hyperpage{6}
@@ -25,6 +30,7 @@
   \item non-atomic reaction, \hyperpage{43}
 
   \indexspace
+{\textbf{P}}\nopagebreak
 
   \item parallel composition, \hyperpage{5}
   \item process
@@ -32,33 +38,35 @@
     \subitem addition, \hyperpage{28}
     \subitem call, \hyperpage{6}
     \subitem comparation, \hyperpage{30}
-    \subitem data Types, \hyperpage{27}
+    \subitem data Types, \hyperpage{28}
     \subitem mathematical operators, \hyperpage{28}
     \subitem operations, \hyperpage{27}
     \subitem OZ class, \hyperpage{31}
     \subitem set union and subtraction, \hyperpage{31}
-    \subitem state variables, \hyperpage{26}
+    \subitem state variables, \hyperpage{27}
     \subitem stop, \hyperpage{4}
     \subitem subtraction, \hyperpage{29}
     \subitem transferable operation's variable, \hyperpage{33}
     \subitem value, \hyperpage{26}
 
   \indexspace
+{\textbf{R}}\nopagebreak
 
   \item refinement
-    \subitem failure, \hyperpage{55}
+    \subitem failure, \hyperpage{54}
     \subitem success, \hyperpage{56}
   \item restriction, \hyperpage{6}
 
   \indexspace
+{\textbf{S}}\nopagebreak
 
   \item schema
-    \subitem initial state schema, \hyperpage{16}
-    \subitem instance reference, \hyperpage{19}
-    \subitem operation schema, \hyperpage{17}
-      \subsubitem input parameter, \hyperpage{18}
-      \subsubitem output parameter, \hyperpage{18}
-    \subitem state schema, \hyperpage{15}
+    \subitem initial state schema, \hyperpage{17}
+    \subitem instance reference, \hyperpage{20}
+    \subitem operation schema, \hyperpage{18}
+      \subsubitem input parameter, \hyperpage{19}
+      \subsubitem output parameter, \hyperpage{19}
+    \subitem state schema, \hyperpage{17}
   \item sequence, \hyperpage{4}
   \item simulation
     \subitem strong, \hyperpage{10}
@@ -66,9 +74,10 @@
   \item stargazer, \hyperpage{8}
 
   \indexspace
+{\textbf{T}}\nopagebreak
 
   \item transition system
-    \subitem for \oz {}, \hyperpage{20}
-    \subitem for \picalc {}, \hyperpage{6}
+    \subitem for \oz {}, \hyperpage{21}
+    \subitem for \picalc {}, \hyperpage{7}
 
 \end{theindex}
