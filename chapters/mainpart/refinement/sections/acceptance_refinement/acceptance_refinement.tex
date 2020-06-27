@@ -7,7 +7,18 @@ $P$ is assigned a set of success pairs $\Successes[]$. Formally, this means:
 \end{align}
 
 where: $Acceptances \define \pom{\actions}$
-
+\\The the special inclusion of success sets is defined as follow:
+\begin{definition}[special inclusion of success set]
+\label{def_success_inclutuion_ref}
+Let $P,Q\in\procs$, then:
+\begin{equation*}
+\begin{aligned}
+\Successes[P] \ddot{\subseteq} \Successes[Q] \Leftrightarrow {} & \forall (t_P, Y_P) \in \Successes[P] \textit{ then }\\
+      & \ \ \ \exists (t_Q, Y_Q) \in \Successes[Q]: t_p = t_Q \wedge Y_P \subseteq Y_Q
+\end{aligned}
+\end{equation*}
+\ 
+\end{definition}
 To determine the acceptance set $Y$ we need to collect all possible the actions after the substitution of bound names, which requires collecting the available actions before the substitution of bound names.
 
 To collect the available actions before the substitution of bound names we need to collect the available output actions $Av_\outA$, collect the available input actions $Av_\inA$, and the available $\tau$ actions $Av_\tau$ as follow:
@@ -45,16 +56,9 @@ The sets $Av_\outA$ and $Av_\tau$ are empty, because $P$ can neither make an out
     % draw the sets
    \draw[] (-7.5,0) ellipse [x radius = 1.2cm, y radius = 5cm];
     \draw[] (-4.5,0) ellipse [x radius = 0.9cm, y radius = 3cm];
-    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 3cm];
-    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 3cm];
-    \draw[] (4.5,0) ellipse [x radius = 0.9cm, y radius = 3cm];
     % the texts
     \node at (-7.5,5.3) {$\Traces[P]$};
     \node (x1) at (-4.5,3.3) {$\out{}{}$};
-    \node at (-1.5,3.3) {$\out{}{\inp{a}{b}}$};
-    \node at (1.5,3.3) {$\out{}{\inp{a}{c}}$};
-    \node at (4.5,3.3) {$\out{}{\inp{b}{d}}$};
-
 
     \node (y1) at (-7.5,4.5) {$\out{}{}$};
     \node at (-7.5,3.9) {$\out{}{\inp{a}{a}}$};
@@ -80,25 +84,6 @@ The sets $Av_\outA$ and $Av_\tau$ are empty, because $P$ can neither make an out
     \node at (-4.5,-1.2) {$\inp{b}{d}$};    
     \node at (-4.5,-1.8) {$\dot$};
     \node at (-4.5,-2.2) {$\dot$};
-
-    \node at (-1.5,2.4) {$\tau$};
-    \node at (-1.5,1.8) {$\out{b}{a}$};
-    \node at (-1.5,1.2) {$\inp{b}{a}$};
-    \node at (-1.5,0.6) {$\inp{b}{b}$};
-    \node at (-1.5,0) {$\dot$};
-    \node at (-1.5,-0.6) {$\dot$};
-   
-    \node at (1.5,2.4) {$\out{c}{a}$};
-    \node at (1.5,1.8) {$\inp{b}{a}$};
-    \node at (1.5,1.2) {$\inp{b}{b}$};
-    \node at (1.5,0.6) {$\dot$};
-    \node at (1.5,0) {$\dot$};
-    
-    \node at (4.5,2.4) {$\inp{a}{a}$};
-    \node at (4.5,1.8) {$\inp{a}{b}$};
-    \node at (4.5,1.2) {$\inp{a}{c}$};
-    \node at (4.5,0.6) {$\dot$};
-    \node at (4.5,0) {$\dot$};
     
     \path (y1) edge (x1);
 
@@ -166,7 +151,7 @@ We can now define the success-refinement of \picalc{} processes as follow:
 \begin{definition}[Successes refinement]
 \label{def_Successes_ref}
 	Let $P,Q\in\procs$, then $P$ is a {successes refinement} of $Q$ iff the inverse set inclusion of traces and successes holds:
-   \[Q \refiAC P \Leftrightarrow  \Traces[P]\subseteq\Traces[Q] \wedge \Successes[P]\subseteq\Successes[Q]\]
+   \[Q \refiAC P \Leftrightarrow  \Traces[P]\subseteq\Traces[Q] \wedge \Successes[P]\ddot{\subseteq}\Successes[Q]\]
 \end{definition}
 
 From \refPro{property2} and \refDef{def_Successes_ref} we can drive the following Corollary: 
@@ -182,7 +167,7 @@ holds.
 Let $(P,Q)\in{}\simuv$, then $\Traces[P]\subseteq\Traces[Q] \wedge \Successes[P]\subseteq\Successes[Q]$ holds, Since:
 \begin{itemize}
 \item For $\Traces[P]\subseteq\Traces[Q]$: it holds using \refPro{property2}.
-\item For $\Successes[P]\subseteq\Successes[Q]$: we need to show that,\\$\forall (t_P, Y_P) \in \Successes[P] \textit{ then } \exists (t_Q, Y_Q) \in \Successes[Q]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
+\item For $\Successes[P]\ddot{\subseteq}\Successes[Q]$: we need to show that,\\$\forall (t_P, Y_P) \in \Successes[P] \textit{ then } \exists (t_Q, Y_Q) \in \Successes[Q]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
 \begin{itemize}
 \item $t_p = t_Q$ holds using \refPro{property2}.
 \item $Y_P \subseteq Y_Q$ holds, since $Q$ strongly simulates $P$ means that $Q$ can do any the actions that $P$ can do respecting the use of the same free and bound names, what implies that $Q$ can do any trace $t$ that $P$ does. This implies that after any trace $t$, $Q$ accepts all the actions that $P$ accepts. This means that the acceptance set of $P$ is included in the acceptance set of $Q$ after any trace $t$. Formally, $Y_P \subseteq Y_Q$ for any trace $t$.
@@ -193,8 +178,8 @@ Let $(P,Q)\in{}\simuv$, then $\Traces[P]\subseteq\Traces[Q] \wedge \Successes[P]
 Let us take an example to inspect if \refCor{cor_sim_acceptance_refinement} and our approach of calculating the acceptance set works. let:\\
 $P\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).P$ and 
 $Q\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).Q + \tau.Q$
-It is clear that $Q$ strongly simulates $P$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $P$ refines $Q$ in the success-refinement model. In other words $\forall t$ then $Y_P \subseteq Y_Q$.
-This can be seen in \refFig{trace_set_acceptance} and \refFig{trace_set_acceptance2}. We can notice that there is no differences between $\Traces[P]$ and $\Traces[Q]$, since the $\tau$ action that $Q$ can do, cannot appear in the trace. But $\tau$ appears in the acceptance set $Y$ of the empty trace $\out{}{}$ of $Q$ shown in \refFig{trace_set_acceptance2}.
+It is clear that $Q$ strongly simulates $P$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $P$ refines $Q$ in the success-refinement model. In other words $\forall t$ then $Y_P \subseteq Y_Q$. We will show that this holds for the empty trace $\out{}{}$ using our approach of determining the acceptance set $Y$.
+This can be seen in \refFig{trace_set_acceptance} and \refFig{trace_set_acceptance2}. We can notice that there is no differences between $\Traces[P]$ and $\Traces[Q]$, since the $\tau$ action that $Q$ can do, cannot appear in the trace. But $\tau$ appears in the acceptance set $Y$ of the empty trace $\out{}{}$ of $Q$ shown in \refFig{trace_set_acceptance2}. In the same manner, we can determine $Y_P$ and $Y_Q$ for any trace $t$ and see that $Y_P \subseteq Y_Q$ holds. Thus, $\Successes[P]\ddot{\subseteq}\Successes[Q]$ holds and so $Q \refiSuc P$.
 
 \begin{figure}[H]
 \centering
@@ -203,16 +188,9 @@ This can be seen in \refFig{trace_set_acceptance} and \refFig{trace_set_acceptan
     % draw the sets
    \draw[] (-7.5,0) ellipse [x radius = 1.2cm, y radius = 5cm];
     \draw[] (-4.5,0) ellipse [x radius = 0.9cm, y radius = 3cm];
-    \draw[] (-1.5,0) ellipse [x radius = 0.9cm, y radius = 3cm];
-    \draw[] (1.5,0) ellipse [x radius = 0.9cm, y radius = 3cm];
-    \draw[] (4.5,0) ellipse [x radius = 0.9cm, y radius = 3cm];
     % the texts
     \node at (-7.5,5.3) {$\Traces[Q]$};
     \node (x1) at (-4.5,3.3) {$\out{}{}$};
-    \node at (-1.5,3.3) {$\out{}{\inp{a}{b}}$};
-    \node at (1.5,3.3) {$\out{}{\inp{a}{c}}$};
-    \node at (4.5,3.3) {$\out{}{\inp{b}{d}}$};
-
 
     \node (y1) at (-7.5,4.5) {$\out{}{}$};
     \node at (-7.5,3.9) {$\out{}{\inp{a}{a}}$};
@@ -239,25 +217,6 @@ This can be seen in \refFig{trace_set_acceptance} and \refFig{trace_set_acceptan
     \node at (-4.5,-1.2) {$\inp{b}{d}$};    
     \node at (-4.5,-1.8) {$\dot$};
     \node at (-4.5,-2.2) {$\tau$};
-
-    \node at (-1.5,2.4) {$\tau$};
-    \node at (-1.5,1.8) {$\out{b}{a}$};
-    \node at (-1.5,1.2) {$\inp{b}{a}$};
-    \node at (-1.5,0.6) {$\inp{b}{b}$};
-    \node at (-1.5,0) {$\dot$};
-    \node at (-1.5,-0.6) {$\dot$};
-   
-    \node at (1.5,2.4) {$\out{c}{a}$};
-    \node at (1.5,1.8) {$\inp{b}{a}$};
-    \node at (1.5,1.2) {$\inp{b}{b}$};
-    \node at (1.5,0.6) {$\dot$};
-    \node at (1.5,0) {$\dot$};
-    
-    \node at (4.5,2.4) {$\inp{a}{a}$};
-    \node at (4.5,1.8) {$\inp{a}{b}$};
-    \node at (4.5,1.2) {$\inp{a}{c}$};
-    \node at (4.5,0.6) {$\dot$};
-    \node at (4.5,0) {$\dot$};
     
     \path (y1) edge (x1);
 

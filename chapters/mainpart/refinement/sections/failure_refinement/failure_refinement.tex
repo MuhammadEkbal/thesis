@@ -5,14 +5,24 @@ $P$ is assigned a set of failures $\Failures[]$. Formally, this means:
     \Failures[P] \define \{(t,X) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Q \text{ ref } X \wedge X\in Refusals\}
 \end{align}
 where: $Refusals \define \pom{\actions}$
-
+\\The the special inclusion of failures sets is defined as follow:
+\begin{definition}[special inclusion of failures set]
+\label{def_failure_inclutuion_ref}
+Let $P,Q\in\procs$, then:
+\begin{equation*}
+\begin{aligned}
+\Failures[P] \ddot{\subseteq} \Failures[Q] \Leftrightarrow {} & \forall (t_P, Y_P) \in \Failures[P] \textit{ then }\\
+      & \ \ \ \exists (t_Q, Y_Q) \in \Failures[Q]: t_p = t_Q \wedge Y_P \subseteq Y_Q
+\end{aligned}
+\end{equation*}
+\ 
+\end{definition}
 Notice, we are nither focusing on how to calculate the $\Traces[P]$, since it has been studied in \cite{gieseking} nor on how to calculate the refusal set $X$ of a trace $t$, since the failure-refinement is not useful as we will show later in \refRem{cor_sim_failure_refinement}. Later in \refSec{sec_acceptance-refinement} we will focus on calculating the acceptance set of a trace.
-For now, let us go ahead and define the failure-refinement of \picalc{} processes as follow:
-
+For now, let us go ahead and define the failure-refinement of \picalc{} processes as follow: 
 \begin{definition}[Failure refinement]
 \label{def_failure_ref}
 	Let $P,Q\in\procs$, then $P$ is a \findex[refinement!failure]{failure refinement} of $Q$ iff the inverse set inclusion of traces and failures holds:
-   \[Q \refiF P \Leftrightarrow  \Traces[P]\subseteq\Traces[Q] \wedge \Failures[P]\subseteq\Failures[Q]\]
+   \[Q \refiF P \Leftrightarrow  \Traces[P]\subseteq\Traces[Q] \wedge \Failures[P]\ddot{\subseteq}\Failures[Q]\]
 \end{definition}
 
 From \refPro{property2} and \refDef{def_failure_ref} we can drive the following remark: 
@@ -49,16 +59,16 @@ by counter example. Assume that $(P,Q)\in{}\simu \Rightarrow Q \refiF P$ and let
 \label{vm_and_vmHalf}
 \end{figure}
 
-It is clear that $Q$ strongly simulates $P$. This should imply, according to our assumption, that $P$ refines $Q$ in the failure model, thus we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Failures[P]\subseteq\Failures[Q]$.
+It is clear that $Q$ strongly simulates $P$. This should imply, according to our assumption, that $P$ refines $Q$ in the failure model, thus we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Failures[P]\ddot{\subseteq}\Failures[Q]$.
 \begin{itemize}
 \item For $\Traces[P]\subseteq\Traces[Q]$:
     \[\Traces[P] \define \{a()\}^\ast\]
     \[\Traces[Q] \define \{a(),b()\}^\ast\]
 It is clear that $\Traces[P]\subseteq\Traces[Q]$ holds. 
-\item For $\Failures[P]\subseteq\Failures[Q]$:
+\item For $\Failures[P]\ddot{\subseteq}\Failures[Q]$:
     \[\Failures[P] \define \{(\out{}{},\{b()\}),\dots\}\]
     \[\Failures[Q] \define \{(\out{}{},\{\}),\dots\}\]
-It is clear that $\Failures[P]\not\subseteq\Failures[Q]$, since $\{b()\} \not\subseteq \{\}$ for $\out{}{}$ . Thus $Q \not\refiF P$.
+It is clear that $\Failures[P]\ddot{\not\subseteq}\Failures[Q]$, since $\{b()\} \not\subseteq \{\}$ for $\out{}{}$ . Thus $Q \not\refiF P$.
 \end{itemize}
 So, strong simulation does not imply failure-refinement. Thus, in the next section we will introduce the Success-Refinement model and use it instead of the Failure-Refinement model.
 \end{prf}
