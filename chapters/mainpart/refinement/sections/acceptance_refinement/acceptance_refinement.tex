@@ -1,4 +1,4 @@
-To compare \picalc{} processes we need to define the \findex[refinement!success]success refinement and relate it to the very strong simulation. We start by defining the \textit{success pair} of a process.
+To compare \picalc{} processes we need to define the \findex[refinement!success]success refinement and relate it to the strong simulation. We start by defining the \textit{success pair} of a process.
 
 The pair $(t, Y)$ is called an \textit{success pair}, where $t$ is a trace and $Y$ is a set of acceptable next actions after $t$. Formally, $P \bigstep{t} Q$ and $Q$ acp $X$. Any process
 $P$ is assigned a set of success pairs $\Successes[]$. Formally, this means:
@@ -173,8 +173,8 @@ From \refPro{property2} and \refDef{def_Successes_ref} we can drive the followin
 
 \begin{cor}[Simulation and Success refinement]
 \label{cor_sim_acceptance_refinement}
-Let $P,Q\in\procs$. If $Q$ very strongly simulates $P$, then $P$ refines $Q$ in Success-Refinement model. Formally written:
-    \[(P,Q)\in{}\simuv \Rightarrow Q \refiSuc P\]
+Let $P,Q\in\procs$. If $Q$ strongly simulates $P$, then $P$ refines $Q$ in Success-Refinement model. Formally written:
+    \[(P,Q)\in{}\simu \Rightarrow Q \refiSuc P\]
 holds.
 \end{cor}%%
 
@@ -185,7 +185,7 @@ Let $(P,Q)\in{}\simuv$, then $\Traces[P]\subseteq\Traces[Q] \wedge \Successes[P]
 \item For $\Successes[P]\subseteq\Successes[Q]$: we need to show that,\\$\forall (t_P, Y_P) \in \Successes[P] \textit{ then } \exists (t_Q, Y_Q) \in \Successes[Q]: t_p = t_Q \wedge Y_P \subseteq Y_Q$
 \begin{itemize}
 \item $t_p = t_Q$ holds using \refPro{property2}.
-\item $Y_P \subseteq Y_Q$ holds, since $Q$ very strongly simulates $P$ means that $Q$ can do any the actions that $P$ can do respecting the use of the same free and bound names, what implies that $Q$ can do any trace $t$ that $P$ does. This implies that after any trace $t$, $Q$ accepts all the actions that $P$ accepts. This means that the acceptance set of $P$ is included in the acceptance set of $Q$ after any trace $t$. Formally, $Y_P \subseteq Y_Q$ for any trace $t$.
+\item $Y_P \subseteq Y_Q$ holds, since $Q$ strongly simulates $P$ means that $Q$ can do any the actions that $P$ can do respecting the use of the same free and bound names, what implies that $Q$ can do any trace $t$ that $P$ does. This implies that after any trace $t$, $Q$ accepts all the actions that $P$ accepts. This means that the acceptance set of $P$ is included in the acceptance set of $Q$ after any trace $t$. Formally, $Y_P \subseteq Y_Q$ for any trace $t$.
 \end{itemize}
 \end{itemize}
 \end{prf}
@@ -193,7 +193,7 @@ Let $(P,Q)\in{}\simuv$, then $\Traces[P]\subseteq\Traces[Q] \wedge \Successes[P]
 Let us take an example to inspect if \refCor{cor_sim_acceptance_refinement} and our approach of calculating the acceptance set works. let:\\
 $P\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).P$ and 
 $Q\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).Q + \tau.Q$
-It is clear that $Q$ very strongly simulates $P$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $P$ refines $Q$ in the success-refinement model. In other words $\forall t$ then $Y_P \subseteq Y_Q$.
+It is clear that $Q$ strongly simulates $P$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $P$ refines $Q$ in the success-refinement model. In other words $\forall t$ then $Y_P \subseteq Y_Q$.
 This can be seen in \refFig{trace_set_acceptance} and \refFig{trace_set_acceptance2}. We can notice that there is no differences between $\Traces[P]$ and $\Traces[Q]$, since the $\tau$ action that $Q$ can do, cannot appear in the trace. But $\tau$ appears in the acceptance set $Y$ of the empty trace $\out{}{}$ of $Q$ shown in \refFig{trace_set_acceptance2}.
 
 \begin{figure}[H]

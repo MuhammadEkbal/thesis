@@ -1,14 +1,14 @@
-Due to performance issue, we will limit the refeimnet check to $\pi$ processes without data. To study the refinement of \picalc{} processes we will use the results of the big-step trace semantics defined in \cite{gieseking}, with some simplifications. 
+Due to performance issue, we will limit the refeimnet check to $\pi$ processes without data. Additionaly, we limit ous self to procees without the \textit{new} operator\footnote{Processes transparent to enviroment}.To study the refinement of \picalc{} processes we will use the results of the big-step trace semantics defined in \cite{gieseking}, with some simplifications. 
 The main result in \cite{gieseking} is the following property:
 \begin{align}
     (\ec{P},\ec{Q})\in{}\simu \Rightarrow \ec{Q} \refi \ec{P} \label{property1}
 \end{align}
-We ignore the concept of equivalence classes, and assume the validity under the very strong simulation\footnote{Since, we noticed that the ABC tool changes the bound names during checking the simulation, which is not the case in the definition of strong simulation \refDef{def_strong_sim}. For clarity, we will introduce the definition of the very strong simulation $\simuv$ later in this chapter}. Thus:
+We ignore the concept of equivalence classes. Thus:
 \begin{align}
-    (P,Q)\in{}\simuv \Rightarrow Q \refi P
+    (P,Q)\in{}\simu \Rightarrow Q \refi P
 \label{property2}
 \end{align}
-\refPro{property1} reads: $Q$ very strongly simulates $P$ implies $P$ refines $Q$ in trace model, where:
+\refPro{property1} reads: $Q$ strongly simulates $P$ implies $P$ refines $Q$ in trace model, where:
 \[Q\refi P \Leftrightarrow \Traces[P]\subseteq\Traces[Q]\]
 \[\Traces[P] \define \{t\in \tr \mid \exists Q\in\procs: P \bigstep{t} Q\}\]
 \[\tr \define \seqset{\actions\setminus\set{\tau}}\]
@@ -17,15 +17,6 @@ We ignore the concept of equivalence classes, and assume the validity under the 
 \[\inA\define\set[x\in\names]{\inp{x}{\vec{y}}}\]
 
 However, the work in \cite{gieseking} was limited to recursion-free processes: ``The limitation to recursion-free processes depends on the circumstances that we neither have any fix-point algorithm up to now nor showed that one existse''\footnote{\cite{gieseking}, page $80$.}. In this work we assume the existence of a fix-point algorithm and that \refPro{property1} also applies to recursive processes.
-Next, we introduce the very strong simulation.
-\section{Very strong simulation}
-\label{sec_failure-refinement2}
-The very strong simulation is the same as the strong simulation \refDef{def_strong_sim}. But, for clarity, we introduce the definition of the very strong simulation, which consists on considering the use of the same bound names during the simulation checking.
 
-\begin{definition}[Very strong simulation]
-\label{def_strong_sim2}
-A relation $\mathcal{S}_v\subseteq\procs\times\procs$ is called a \textit{very strong simulation}, if $(P,Q)\in\mathcal{S}_v$ implies that
-\[P \transs{\alpha} P' \Rightarrow \exists Q'\in\procs: Q \transs{\beta} Q' \wedge \alpha = \beta \wedge (P',Q')\in\mathcal{S}_v.\]
-\end{definition}
 
-Since, the trace refinement does not say too much about the behavior of processes, we propose to use the Failure-Refinement model, originally introduced for CSP. In the next section we will define the failure-refinement for \picalc{} processes and show that the very strong simulation does not imply failure-refinement. Thus, later in \refSec{sec_acceptance-refinement} we will introduce the Success-Refinement model for \picalc{} processes and show that the very strong simulation implies acceptance-refinement.
+Since, the trace refinement does not say too much about the behavior of processes, we propose to use the Failure-Refinement model, originally introduced for CSP. In the next section we will define the failure-refinement for \picalc{} processes and show that the strong simulation does not imply failure-refinement. Thus, later in \refSec{sec_acceptance-refinement} we will introduce the Success-Refinement model for \picalc{} processes and show that the strong simulation implies acceptance-refinement.

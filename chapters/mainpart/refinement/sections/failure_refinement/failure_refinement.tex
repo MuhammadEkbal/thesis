@@ -1,4 +1,4 @@
-We check whether the very strong simulation implies failure-refinement. We found that this is not the case. We start by defining the failure of a process.
+We check whether the strong simulation implies failure-refinement. We found that this is not the case. We start by defining the failure of a process.
 The pair $(t, X)$ is called a \textit{failure pair}, where $t$ is a trace and $X$ is a set of refused next actions after $t$. Formally, $P \bigstep{t} Q$ and $Q$ ref $X$. Any process
 $P$ is assigned a set of failures $\Failures[]$. Formally, this means:
 \begin{align}
@@ -19,11 +19,11 @@ From \refPro{property2} and \refDef{def_failure_ref} we can drive the following 
 
 \begin{rem}[Simulation and Failure refinement]
 \label{cor_sim_failure_refinement}
-Let $P,Q\in\procs$. If $Q$ very strongly simulates $P$, this does not imply that $P$ refines $Q$ in Failure-Refinement model. Formally written:
-    \[(P,Q)\in{}\simuv  \not\Rightarrow Q \refiF P\]
+Let $P,Q\in\procs$. If $Q$ strongly simulates $P$, this does not imply that $P$ refines $Q$ in Failure-Refinement model. Formally written:
+    \[(P,Q)\in{}\simu  \not\Rightarrow Q \refiF P\]
 \end{rem}%%
 \begin{prf}
-by counter example. Assume that $(P,Q)\in{}\simuv \Rightarrow Q \refiF P$ and let $P\define\out{a}{}.P$ and $Q\define\out{a}{}.Q + \out{b}{}.Q$, shown in \refFig{vm_and_vmHalf}.
+by counter example. Assume that $(P,Q)\in{}\simu \Rightarrow Q \refiF P$ and let $P\define\out{a}{}.P$ and $Q\define\out{a}{}.Q + \out{b}{}.Q$, shown in \refFig{vm_and_vmHalf}.
 \begin{figure}[H]%
 \centering
 \subcaptionbox{}{\fbox{{
@@ -49,7 +49,7 @@ by counter example. Assume that $(P,Q)\in{}\simuv \Rightarrow Q \refiF P$ and le
 \label{vm_and_vmHalf}
 \end{figure}
 
-It is clear that $Q$ very strongly simulates $P$. This should imply, according to our assumption, that $P$ refines $Q$ in the failure model, thus we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Failures[P]\subseteq\Failures[Q]$.
+It is clear that $Q$ strongly simulates $P$. This should imply, according to our assumption, that $P$ refines $Q$ in the failure model, thus we need to show that $\Traces[P]\subseteq\Traces[Q] \wedge \Failures[P]\subseteq\Failures[Q]$.
 \begin{itemize}
 \item For $\Traces[P]\subseteq\Traces[Q]$:
     \[\Traces[P] \define \{a()\}^\ast\]
@@ -60,5 +60,5 @@ It is clear that $\Traces[P]\subseteq\Traces[Q]$ holds.
     \[\Failures[Q] \define \{(\out{}{},\{\}),\dots\}\]
 It is clear that $\Failures[P]\not\subseteq\Failures[Q]$, since $\{b()\} \not\subseteq \{\}$ for $\out{}{}$ . Thus $Q \not\refiF P$.
 \end{itemize}
-So, very strong simulation does not imply failure-refinement. Thus, in the next section we will introduce the Success-Refinement model and use it instead of the Failure-Refinement model.
+So, strong simulation does not imply failure-refinement. Thus, in the next section we will introduce the Success-Refinement model and use it instead of the Failure-Refinement model.
 \end{prf}
