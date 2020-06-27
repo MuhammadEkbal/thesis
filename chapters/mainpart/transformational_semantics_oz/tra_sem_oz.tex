@@ -2,7 +2,7 @@ This chapter studies the syntactic transformation of an \oz{} class into an \pic
 \[P_{OZ\_PI} = \sum_{v\_st\in Init}^{} \tau. Q(v\_st,v\_self)\]
 \begin{equation*}
 \begin{aligned}
-Q(v\_st,v\_self) ={} & (\sum_{c\in \text{In}}^{} c(v\_in_{c}) \ +\ \sum_{c\in \text{Out}}^{} \tau.c<v\_out_{c}>)\ . \\
+Q(v\_st,v\_self) ={} & (\sum_{c\in \text{In}}^{} c(v\_in_{c}) \ +\ \sum_{c\in \text{Out}}^{} \tau.\out{c}{v\_out_{c}})\ . \\
       &  \sum_{v\_st'}^{} \tau.Q(v\_st',v\_self)
 \end{aligned}
 \end{equation*}
@@ -18,8 +18,8 @@ where:
 \item $c.v\_out_{c}$ refers to the occurrence of the operation $c$, where $v\_out_{c}$ represents the values of the output parameters of $c$.
 \end{itemize}
 
-What is the benefit of transforming an \oz{} class into \picalc{} process? The main advantage is that it can be combined, using the
-parallel operator, with a second, explicit pi-calculus
+What is the benefit of transforming an \oz{} class into \picalc{} process? The main advantage is that it can be combined using the
+parallel operator with a second, explicit pi-calculus
 process that represents the desired sequencing of the operations
 of the OZ class. This will enable us to study the behavior of an entity as will be shown later in the next chapter.
 

@@ -14,12 +14,12 @@
 \ 
 \\chan\ local\ done\_in\_talk
 \ \\ \
-\\VM\_PI = ex\_coffee().in\_coffee<>
-\\ \ \qquad \qquad \qquad .done\_in\_coffee().done\_ex\_coffee<>.VM\_PI 
-\\ \ \qquad \qquad +\ ex\_tea().in\_tea<>
-\\ \ \qquad \qquad \qquad .done\_in\_tea().done\_ex\_tea<>.VM\_PI 
-\\ \ \qquad \qquad +\ in\_talk(y,z).ex\_talk<y,z>
-\\ \ \qquad \qquad \qquad .done\_ex\_talk().done\_in\_talk<>.VM\_PI
+\\VM\_PI = ex\_coffee().\out{in\_coffee}{}
+\\ \ \qquad \qquad \qquad .done\_in\_coffee().\out{done\_ex\_coffee}{}.VM\_PI 
+\\ \ \qquad \qquad +\ ex\_tea().\out{in\_tea}{}
+\\ \ \qquad \qquad \qquad .done\_in\_tea().\out{done\_ex\_tea}{}.VM\_PI 
+\\ \ \qquad \qquad +\ in\_talk(y,z).\out{ex\_talk}{y,z}
+\\ \ \qquad \qquad \qquad .done\_ex\_talk().\out{done\_in\_talk}{}.VM\_PI
 \\
 \begin{state}
 self, cv, tv, message: \integer

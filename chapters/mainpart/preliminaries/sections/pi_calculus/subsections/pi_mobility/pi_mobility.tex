@@ -25,7 +25,7 @@ The following explains the mobility through interaction step by step:
 \item $\proccall{B}{x}$ has commitment $\inp{x}{{d}}$, i.e., receive a message $d$ via $x$.
 \item That means: a reaction can occur between $\proccall{A}{x,y}$ and $\proccall{B}{x}$. This reaction is: $\procres{x,y}{(\procpar{\out{x}{{y}}.\proccall{A}{x,y}}{\inp{x}{{d}}.\proccall{B}{d}})} \transs{\tau} \procres{x,y}{(\procpar{\proccall{A}{x,y}}{\proccall{B}{y}})}$.
 \item Information sharing: the process $\proccall{A}{x,y}$ sends the name $y$ to $\proccall{B}{x}$ when the interaction occurs.
-\item Evolution: when interaction occurs $\proccall{B}{x}$ knows about the channel $y$ and uses it as parameter for the the process call $\proccall{B}{y}$ .i.e, The  $\proccall{B}{y}$ now has the channel $y$, and no more $x$.
+\item Evolution: when interaction occurs $\proccall{B}{x}$ knows about the channel $y$ and uses it as parameter for the the process call $\proccall{B}{y}$, i.e, The  $\proccall{B}{y}$ now has the channel $y$, and no more $x$.
 \item Finally, in other words: 
 \begin{itemize}
 \item before the reaction: $B$ was connected to $A$ via $x$ as shown in \refFig{pi_mobility_stargazer_react}.
