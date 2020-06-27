@@ -8,7 +8,7 @@ To allow the multiple synchronization via a channel in \picalc{}, we use concept
 \procpar{P'}{\procpar{\substitue{\vec{y}}{\vec{z}}Q'}{\substitue{\vec{y}}{\vec{z}}R'}}
 }
 \end{gather*}
-\caption{transition rule for shared channel.}
+\caption{Transition rule for shared channel.}
 \label{fig_broadcast_channel}
 \end{figure}
 
@@ -51,18 +51,18 @@ The $\pi$-OZ specification of $VM$ reads: the combination is ready to participat
 \begin{figure}[H]%
 \centering
 \fbox{\includegraphics[keepaspectratio,width=0.95\textwidth]{./images/the_compination_pi_oz/sys.png}}%
-\caption{system consisting of a customer, vending machine and two shops}
+\caption{System consisting of a customer, vending machine and two shops}
 \label{sys_non_atomic_reactoin}%
 \end{figure}
 
 Additionally, \refLis{vm_PI_non_atomic} shows the direct implementation of the $\pi$-part of $VM$ specification shown in \refFig{comp_oz_pi_statefull_vm_non_atomic} using ABC code. We can notice that: \\
 ex\_coffee.\textquotesingle in\_coffee.done\_in\_cofee.\textquotesingle done\_ex\_cofee.VM\_PI... exactly reflects the $\pi$-part of \refFig{comp_oz_pi_statefull_vm_non_atomic}, where the parameters are removed for clarity.
 
-\lstinputlisting[backgroundcolor=\color{white},caption={ VM ($\pi$-part) in ABC code.},captionpos=b, label={vm_PI_non_atomic}]{listings/vm_PI_non_atomic.abc}
+\lstinputlisting[backgroundcolor=\color{white},caption={VM ($\pi$-part) in ABC code.},captionpos=b, label={vm_PI_non_atomic}]{listings/vm_PI_non_atomic.abc}
 
 \refLis{vm_OZ_non_atomic} shows the direct implementation of the OZ-part of $VM$ specification shown in \refFig{comp_oz_pi_statefull_vm_non_atomic} using ABC code.
 
-\lstinputlisting[backgroundcolor=\color{white},caption={ VM (OZ-part) in ABC code.},captionpos=b, label={vm_OZ_non_atomic}]{listings/vm_OZ_non_atomic.abc}
+\lstinputlisting[backgroundcolor=\color{white},caption={VM (OZ-part) in ABC code.},captionpos=b, label={vm_OZ_non_atomic}]{listings/vm_OZ_non_atomic.abc}
 
 \refLis{vm_OZ_and_PI_non_atomic} shows the direct implementation of the $\pi$-part $\mid$ OZ-part of $VM$ specification shown in \refFig{comp_oz_pi_statefull_vm_non_atomic} using ABC code.
 
