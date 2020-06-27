@@ -1,58 +1,54 @@
-\begin{thebibliography}{SW01}
+\begin{thebibliography}{TDC04}
+
+\bibitem[Bri]{abc}
+Sebastien Briais.
+\newblock Abc: Another bisimilarity checker.
+\newblock \url{http://sbriais.free.fr/tools/abc/}.
+
+\bibitem[D'O]{stargazer}
+Emanuele D'Osualdo.
+\newblock Stargazer: A $\pi$-calculus simulator.
+\newblock \url{http://www.emanueledosualdo.com/stargazer/}.
+
+\bibitem[EM00]{ene}
+Cristian Ene and Traian Muntean.
+\newblock Expressiveness of point-to-point versus broadcast communications.
+\newblock 07 2000.
+
+\bibitem[Gie14]{gieseking}
+Manuel Gieseking.
+\newblock {\em Refinement of $\pi$-calculus processes}.
+\newblock PhD thesis, 03 2014.
+
+\bibitem[KSw88]{woodcock}
+Steve King, Ib~Holm Sorensen, and Jim woodcock.
+\newblock Z: Grammar and concrete and abstract syntaxes (version 2.0).
+\newblock Technical Report PRG68, OUCL, July 1988.
 
 \bibitem[Mil99]{milner}
-R.~Milner.
-\newblock {Communicating and Mobile Systems: the $\pi$-Calculus}.
-\newblock {\em{Cambridge University Press, Cambridge, England,} 1999}.
+R~Milner.
+\newblock {\em Communicating and mobile systems : the $\pi$-calculus}.
+\newblock Cambridge University Press, Cambridge England New York, 1999.
 
-\bibitem[SW01]{sangiorgi}
-D.~Sangiorgi and D.~Walker.
-\newblock {The $\pi$-Calculus: a Theory of Mobile Processes}.
-\newblock {\em{Cambridge University Press, Cambridge, England,} 2001}.
+\bibitem[OD08]{olderog08}
+Ernst-Rüdiger Olderog and Henning Dierks.
+\newblock {\em Real-Time Systems: Formal Specification and Automatic
+  Verification}.
+\newblock 01 2008.
 
-\bibitem[Gi14]{gieseking}
-M.~Gieseking.
-\newblock {Refinement of $\pi$-Calculus processes}.
-\newblock {\em{Master thesis, Carl von Ossietzky Universität Oldenburg,} 2014}.
+\bibitem[Old19]{olderog}
+Ernst-Rüdiger Olderog.
+\newblock {\em Kombination von Spezifikationstechniken}.
+\newblock Carl von Ossietzky Universität, Oldenburg, 2018/19.
 
-\bibitem[En99]{ene}
-C.~Ene, T.~Muntean
-\newblock {Expressiveness of point-to-point versus broadcast communications}.
-\newblock {\em{In: FCT. Lecture Notes in Computer Science, vol 1684. Springer, Berlin, Heidelberg,} 1999.}
-
-\bibitem[Ol08]{olderog08}
-E.~Olderog, H.~Dierks.
-\newblock {Real-Time Systems: Formal Specification and Automatic Verification}.
-\newblock {ISBN: 9781139474603, \em{Cambridge University Press}, 2008.}
-
-\bibitem[Star]{stargazer}
-E.~D'Osualdo.
-\newblock {Stargazer: A $\pi$-Calculus simulator}.\\
-\newblock {\url {http://www.emanueledosualdo.com/stargazer/}}
-
-\bibitem[ABC]{abc}
-S.~Briais.
-\newblock {Another Bisimilarity Checker}.\\
-\newblock {\url {http://sbriais.free.fr/tools/abc/}}
-
-\bibitem[Ol18]{olderog}
-E.~Olderog.
-\newblock {Kombination von Spezifikationstechniken}.
-\newblock {\em{Vorlesungsskript, Carl von Ossietzky Universität Oldenburg,} 2018/19.}
-
-\bibitem[SIJ88]{woodcock}
-S.~King and I.~Sorensen and J.~Woodcock.
-\newblock {Z: grammar and concrete and abstract syntax (Version 2.0)}.
-\newblock {\em{Oxford University Computing Laboratory, England}, 1988.}
+\bibitem[TD02]{Kenji2}
+Kenji Taguchi and Jin Dong.
+\newblock An overview of mobile object-z.
+\newblock pages 144--155, 10 2002.
 
 \bibitem[TDC04]{kenji}
-T.~Kenji and D.~Jin and C.~Gabriel.
-\newblock {Relating $\pi$-Calculus to Object-Z}.
-\newblock {\em{Engineering of Complex Computer Systems, IEEE International Conference on} 97-106, 2004.}
+Kenji Taguchi, Jin Dong, and Gabriel Ciobanu.
+\newblock Relating pi-calculus to object-z.
+\newblock pages 97--106, 01 2004.
 
-\bibitem[TDC02]{Kenji2}
-T.~Kenji and D.~Jin.
-\newblock {An Overview of Mobile Object-Z}.
-\newblock {144-155. 10.1007/3-540-36103-0\_17.}
 \end{thebibliography}
-
