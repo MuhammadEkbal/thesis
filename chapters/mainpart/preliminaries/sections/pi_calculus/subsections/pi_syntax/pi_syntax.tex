@@ -1,7 +1,7 @@
 % mainfile: ../../Refinement.tex
 \begin{definition}[Process syntax]
 \label{def_process_syntax}
-The syntax of a \picalc{} process \textit[process]{P} is defined by: 
+The syntax of a \picalc{} process \textit{P} is defined by: 
 \begin{align*}
  P & \syntdef \procsum \ebnf \procpar{P_1}{P_2} \ebnf \procres{\vec{y}}{P} \ebnf \proccall{A}{\vec{v}}
 \end{align*}
@@ -30,6 +30,11 @@ where:
 \item $\tau$ represents an internal non observable action.
 \end{itemize}
 \end{definition}
+
+We use the symbols $\alpha$ or $\beta$ to denote an action. Furthermore, we call $x$ the subject and $\vec{y}$ the object of a an action $\out{x}{\vec{y}}$ or $\inp{x}{\vec{y}}$. The functions  $\sub{\alpha}$ and $\sub{\alpha}$ returns the subject and object of an action $\alpha$. More formally:
+\[\sub{\alpha} \text{: returns the channel name through which the exchange occurs.}\]
+\[\obj{\alpha} \text{: return the exchanged names across the channe.l}\]
+
 The set of all actions is defined as $\actions\define\outA\cup\inA\cup\set{\tau}$, where:
 \begin{itemize}
 \item $\outA$ is the set of all output actions, defined as $\outA\define\set[x\in\names]{\out{x}{\vec{y}}}$.
