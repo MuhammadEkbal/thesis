@@ -1,12 +1,12 @@
 % mainfile: ../../Refinement.tex
-The \findex[simulation!strong]{strong simulation} is comparison of processes based on their behavior. To understand this let us start with a simple example:
-Let $P\define\tau.\tau.\proczero$ and $Q\define\tau.\proczero$. We can notice that $P$ can do two $\tau$ transitions, but $Q$ can do only one. Thus $Q$ doesn't strongly simulates $P$. The word \textit{strongly} refers to the point that: the strong simulation comparison takes the internal transition $\tau$ into account. There is another kind of comparison called the  \findex[simulation!weak]{weak simulation}, which doesn't consider the internal transition $\tau$, but this kind of comparison is not considered in this thesis. The formal definition of the strong simulation is given in \refDef{def_strong_sim}, which is adapted from \cite{gieseking} page 32 with some changes.
-
+The \findex[simulation!strong]{strong simulation} is a comparison of processes based on their behavior. To understand this let us start with a simple example:
+Let $P\define\tau.\tau.\proczero$ and $Q\define\tau.\proczero$. We can notice that $P$ can do two $\tau$ transitions, but $Q$ can do only one. Thus $Q$ does not strongly simulates $P$. The word \textit{strongly} refers to the point that: the strong simulation comparison takes the internal transition $\tau$ into account. There is another kind of comparison called the  \findex[simulation!weak]{weak simulation}, which does not consider the internal transition $\tau$, but this kind of comparison is not considered in this thesis. The formal definition of the strong simulation is given in \refDef{def_strong_sim}.
 
 \begin{definition}[Strong simulation]
 \label{def_strong_sim}
 A relation $\mathcal{S}\subseteq\procs\times\procs$ is called a \findex[simulation!strong]{strong simulation}, if $(P,Q)\in\mathcal{S}$ implies that
 \[\text{if } P \transs{\alpha} P' \text{ then }Q'\in\procs \text{ exists such that } Q \transs{\alpha} Q' \text{ and } (P',Q')\in\mathcal{S}.\]
+where $\alpha$ is an input, output or $\tau$ action.
 \end{definition}
 
 An example of checking the strong simulation is:
