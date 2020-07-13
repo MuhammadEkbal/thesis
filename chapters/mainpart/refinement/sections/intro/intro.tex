@@ -1,4 +1,4 @@
-Due to performance issue, we will limit the refeimnet check to $\pi$ processes without data. Additionaly, we only consider procees without the \textit{new} operator\footnote{Processes transparent to the enviroment.}.To study the refinement of \picalc{} processes we will use the results of the big-step trace semantics defined in \cite{gieseking}, with some simplifications. 
+Due to performance issues, we will limit the refinement check to $\pi$ processes without data. Additionaly, we only consider procees without the \textit{new} operator\footnote{Processes transparent to the enviroment.}.To study the refinement of \picalc{} processes we will use the results of the big-step trace semantics defined in \cite{gieseking}, with some simplifications. 
 The main result in \cite{gieseking} is the following property:
 \begin{align}
     (\ec{P},\ec{Q})\in{}\simu \Rightarrow \ec{Q} \refi \ec{P} \label{property1}
@@ -16,7 +16,7 @@ We ignore the concept of equivalence classes. Thus:
 \[\outA\define\set[x\in\names]{\out{x}{\vec{y}}}\]
 \[\inA\define\set[x\in\names]{\inp{x}{\vec{y}}}\]
 
-However, the work in \cite{gieseking} was limited to recursion-free processes: ``The limitation to recursion-free processes depends on the circumstances that we neither have any fix-point algorithm up to now nor showed that one existse''\footnote{\cite{gieseking}, page $80$.}. In this work we assume the existence of a fix-point algorithm and that \refPro{property1} also applies to recursive processes.
+However, the work in \cite{gieseking} was limited to recursion-free processes: ``The limitation to recursion-free processes depends on the circumstances that we neither have any fix-point algorithm up to now nor showed that one exists''\footnote{\cite{gieseking}, page $80$.}. In this work we assume the existence of a fix-point algorithm and that \refPro{property1} also applies to recursive processes.
 
 
-Since, the trace refinement does not say too much about the behavior of processes, we propose to use the Failure-Refinement model, originally introduced for CSP. In the next section we will define the failure-refinement for \picalc{} processes and show that the strong simulation does not imply failure-refinement. Thus, later in \refSec{sec_acceptance-refinement} we will introduce the Success-Refinement model for \picalc{} processes and show that the strong simulation implies acceptance-refinement.
+Since the trace refinement does not say too much about the behavior of processes, we propose to use the Failure-Refinement model, originally introduced for CSP. In the next section we will define the failure-refinement for \picalc{} processes and show that the strong simulation does not imply the failure-refinement. Thus, later in \refSec{sec_acceptance-refinement} we will introduce the Success-Refinement model for \picalc{} processes and show that the strong simulation implies the success-refinement.

@@ -1,10 +1,10 @@
-We check whether the strong simulation implies failure-refinement. We found that this is not the case. We start by defining the failure of a process.
+We checked whether the strong simulation implies failure-refinement. We found that this is not the case. We start by defining the failure of a process.
 The pair $(t, X)$ is called a \textit{failure pair}, where $t$ is a trace and $X$ is a set of refused next actions after $t$. Formally, $P \bigstep{t} Q$ and $Q$ ref $X$. Any process
 $P$ is assigned a set of failures $\Failures[]$. Formally, this means:
 \begin{align}
     \Failures[P] \define \{(t,X) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Q \text{ ref } X \wedge X\in Refusals\}
 \end{align}
-where: $Refusals \define \pom{\actions}$
+where: $Refusals \define \pom{\actions}$.
 \\The the special inclusion of failures sets is defined as follow:
 \begin{definition}[special inclusion of failures set]
 \label{def_failure_inclutuion_ref}
@@ -17,7 +17,7 @@ Let $P,Q\in\procs$, then:
 \end{equation*}
 \ 
 \end{definition}
-Notice, we are nither focusing on how to calculate the $\Traces[P]$, since it has been studied in \cite{gieseking} nor on how to calculate the refusal set $X$ of a trace $t$, since the failure-refinement is not useful as we will show later in \refRem{cor_sim_failure_refinement}. Later in \refSec{sec_acceptance-refinement} we will focus on calculating the acceptance set of a trace.
+Notice, we are neither focusing on how to calculate the $\Traces[P]$, since it has been studied in \cite{gieseking} nor on how to calculate the refusal set $X$ of a trace $t$, since the failure-refinement is not useful as we will show later in \refRem{cor_sim_failure_refinement}. Later in \refSec{sec_acceptance-refinement} we will focus on calculating the acceptance set of a trace.
 For now, let us go ahead and define the failure-refinement of \picalc{} processes as follow: 
 \begin{definition}[Failure refinement]
 \label{def_failure_ref}
@@ -33,7 +33,7 @@ Let $P,Q\in\procs$. If $Q$ strongly simulates $P$, this does not imply that $P$ 
     \[(P,Q)\in{}\simu  \not\Rightarrow Q \refiF P\]
 \end{rem}%%
 \begin{prf}
-by counter example. Assume that $(P,Q)\in{}\simu \Rightarrow Q \refiF P$ and let $P\define\out{a}{}.P$ and $Q\define\out{a}{}.Q + \out{b}{}.Q$, shown in \refFig{vm_and_vmHalf}.
+by counter-example. Assume that $(P,Q)\in{}\simu \Rightarrow Q \refiF P$ and let $P\define\out{a}{}.P$ and $Q\define\out{a}{}.Q + \out{b}{}.Q$, shown in \refFig{vm_and_vmHalf}.
 \begin{figure}[H]%
 \centering
 \subcaptionbox{}{\fbox{{

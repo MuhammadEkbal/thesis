@@ -1,4 +1,4 @@
-\begin{thebibliography}{TDC04}
+\begin{thebibliography}{MPW92}
 
 \bibitem[Bri]{abc}
 Sebastien Briais.
@@ -29,6 +29,11 @@ Steve King, Ib~Holm Sorensen, and Jim woodcock.
 R~Milner.
 \newblock {\em Communicating and mobile systems : the $\pi$-calculus}.
 \newblock Cambridge University Press, Cambridge England New York, 1999.
+
+\bibitem[MPW92]{milner1992calculus}
+Robin Milner, Joachim Parrow, and David Walker.
+\newblock A calculus of mobile processes, i.
+\newblock {\em Information and computation}, 100(1):1--40, 1992.
 
 \bibitem[OD08]{olderog08}
 Ernst-Rüdiger Olderog and Henning Dierks.
