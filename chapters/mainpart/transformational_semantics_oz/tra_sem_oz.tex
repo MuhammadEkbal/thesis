@@ -18,10 +18,7 @@ where:
 \item $c.v\_out_{c}$ refers to the occurrence of the operation $c$, where $v\_out_{c}$ represents the values of the output parameters of $c$.
 \end{itemize}
 
-What is the benefit of transforming an \oz{} class into \picalc{} process? The main advantage is that it can be combined using the
-parallel operator with a second, explicit pi-calculus
-process that represents the desired sequencing of the operations
-of the OZ class. This will enable us to study the behavior of an entity as will be shown later in the next chapter.
+What is the benefit of transforming an \oz{} class into a \picalc{} process? The main advantage is that it can be combined using the parallel operator with a second explicit \picalc{} process that represents the desired sequencing of the operations of the OZ class. This will enable us to study the behavior of an entity as will be shown later in the next chapter.
 
 To transform an \oz{} class into a \picalc{} process we need to remember that the \picalc{} has only names and processes, and nothing else. A $name$ in \picalc{} can be seen as a \findex{channel} or a \textit{memory location}. Thus, in this work when we use the word \findex{channel} we refer to a \picalc{} \textit{name}. We need to use the names and processes to represent: value, state variable, state schema, initial state schema and operation schema in \picalc{}.
 
