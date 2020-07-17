@@ -1,7 +1,10 @@
+/* The process (*@\textcolor{green}{VM\_OZ\_PI\_Init}@*) mimics the intitial state schema 
+	of the OZ-part of VM.*/
 agent VM_OZ_PI_Init(in_coffee,in_tea,done_in_cofee,done_in_tea,in_talk,done_in_talk) = 
  (^self,cv,tv,message) (VM_OZ_PI(self,in_coffee,in_tea,done_in_cofee,done_in_tea,in_talk,done_in_talk,cv,tv,message) | Zero(self) | Three(cv) | Three(tv) | One(message))
 
-
+/* The process (*@\textcolor{green}{VM\_OZ\_PI}@*) mimic the behaviour of the OZ-part
+	of VM.*/
 agent VM_OZ_PI(self,in_coffee,in_tea,done_in_cofee,done_in_tea,in_talk,done_in_talk,cv,tv,message) = 
 
  in_coffee.(^res_t,res_f) (VM_Condition_coffee(self,in_coffee,in_tea,in_talk,cv,tv,message,res_t,res_f) | VM_Condition_IF_Else_coffee(self,in_coffee,in_tea,done_in_cofee,done_in_tea,in_talk,done_in_talk,cv,tv,message,res_t,res_f)) 

@@ -1,3 +1,7 @@
+/* The process (*@\textcolor{green}{IdleShop\_OZ\_PI}@*) mimic the behaviour of the class
+    IdleShop.*/
 agent IdleShop_OZ_PI(self,switch,transferableOperation,vmId,message) = switch(talk_new).((^n,c) ('transferableOperation<n,c>.'c<talk_new>.ActiveShop_OZ(self,switch,transferableOperation,talk_new,vmId,message)))
 
+/* The process (*@\textcolor{green}{IdleShop\_OZ\_PI\_Init\_Null}@*) mimics the intitial state
+	schema of the class IdleShop.*/
 agent IdleShop_OZ_PI_Init_Null(switch) = (^self,transferableOperation,vmId,message) (IdleShop_OZ_PI(self,switch,transferableOperation,vmId,message) | One(self) | Nullref(transferableOperation) | Nill(vmId) | Nill(message))

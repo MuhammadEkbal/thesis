@@ -1,11 +1,21 @@
+/* The process (*@\textcolor{green}{VM\_OZ\_PI\_Init}@*) mimics the intitial state schema
+	of the class VM.*/
 agent VM_OZ_PI_Init(coffee,tea,talk) = (^self,cv,tv,message) (VM_OZ_PI(self,coffee,tea,talk,cv,tv,message) | Zero(self) | Three(cv) | Three(tv) | One(message))
 
+// The process (*@\textcolor{green}{VM\_OZ\_PI}@*) mimic the behaviour of the class VM. 
 agent VM_OZ_PI(self,coffee,tea,talk,cv,tv,message) = 
 coffee.(^res_t,res_f) (VM_Condition_coffee(self,coffee,tea,talk,cv,tv,message,res_t,res_f) | VM_Condition_IF_Else_coffee(self,coffee,tea,talk,cv,tv,message,res_t,res_f)) \
 + tea.(^res_t,res_f) (VM_Condition_tea(self,coffee,tea,talk,cv,tv,message,res_t,res_f) | VM_Condition_IF_Else_tea(self,coffee,tea,talk,cv,tv,message,res_t,res_f)) \
 + (^m_c,m_done,r_c,r_done) ( (m_done.r_done.'talk<r_c,m_c>.VM_OZ_PI(self,coffee,tea,talk,cv,tv,message)) | Copy(message,m_c,m_done) | Copy(self,r_c,r_done))
 
+/* The processes (*@\textcolor{green}{VM\_Condition\_coffee}@*) and (*@\textcolor{green}{VM\_Condition\_IF\_Else\_coffee}@*)
+	mimic checking if the values of the state variables 
+	fullfils the pre and post condtions of the operation
+	schema (*@\textit{\textcolor{green}{coffee}}@*).*/
 agent VM_Condition_coffee(self,coffee,tea,talk,cv,tv,message,res_t,res_f) = (^b,g,e,l) (Zero(b) | Compare(cv,b,g,e,l) | CleanAndTF(g,e,l,res_t,res_f,b))
 agent VM_Condition_IF_Else_coffee(self,coffee,tea,talk,cv,tv,message,res_t,res_f) = res_t.(VM_State_Transition_coffee(self,coffee,tea,talk,cv,tv,message)) + res_f.VM_PleaseFillMe
+
+/* The process (*@\textcolor{green}{VM\_State\_Transition\_coffee}@*) to mimic the state
+	transtion to decrease the amount of coffee by one.*/
 agent VM_State_Transition_coffee(self,coffee,tea,talk,cv,tv,message) = (^sub_done, b,c,done) ((One(b) | Sub(cv,b,c,done) | ClearThenCopy(cv,b,c,done,sub_done)) | (sub_done.'coffee.VM_OZ_PI(self,coffee,tea,talk,cv,tv,message)) )
 

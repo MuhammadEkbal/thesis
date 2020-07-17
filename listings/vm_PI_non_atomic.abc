@@ -1,3 +1,4 @@
+// The process (*@\textcolor{green}{VM\_PI}@*) represents the (*@\textcolor{green}{$\pi$}@*)-part of VM.
 agent VM_PI(ex_coffee,in_coffee,ex_tea,in_tea,done_ex_cofee,done_ex_tea,done_in_cofee,done_in_tea,ex_talk,in_talk,done_ex_talk,done_in_talk) = 
  
  ex_coffee.'in_coffee.done_in_cofee.'done_ex_cofee.VM_PI(ex_coffee,in_coffee,ex_tea,in_tea,done_ex_cofee,done_ex_tea,done_in_cofee,done_in_tea,ex_talk,in_talk,done_ex_talk,done_in_talk) 

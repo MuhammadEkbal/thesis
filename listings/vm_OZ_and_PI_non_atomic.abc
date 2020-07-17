@@ -1,3 +1,4 @@
+// The process VM represents the combination (*@\textcolor{green}{$\pi$}@*)-part (*@\textcolor{green}{$\mid$}@*) OZ-part
 agent VM(ex_coffee,ex_tea,done_ex_cofee,done_ex_tea,ex_talk,done_ex_talk) =
 (^in_coffee,in_tea,done_in_cofee,done_in_tea,in_talk,done_in_talk)
 (

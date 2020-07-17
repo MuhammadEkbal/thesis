@@ -12,13 +12,21 @@
 % Settings
 \input{settings/pre-settings}
 \input{glossar}%%%  =============================================== Preamble END ======================================================================
-
-
+\definecolor{huntergreen}{rgb}{0.21, 0.37, 0.23}
 %%%  =============================================== Document BEGINN ===================================================================
 \begin{document}
 
 %% to have straight Apostrophe in listing
-\lstset{upquote=true}
+\lstset{upquote=true, comment=[l]{//},
+      	moredelim=[s][\color{green}]{/*}{*/},
+		commentstyle=\color{green},
+    	otherkeywords = {=},
+    	keywordstyle = [2]{\color{blue}},
+    	morekeywords = [2]{agent},
+    	keywordstyle = [3]{\color{blue}},
+    	morekeywords = [3]{=},
+		escapeinside={(*@}{@*)}
+       }
 	%% ------------------------------------------------- Main ----------------------------------------------------------------------
 	%% Titel
 	\selectlanguage{ngerman}
