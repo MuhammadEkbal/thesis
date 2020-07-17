@@ -1,6 +1,6 @@
 To compare \picalc{} processes we define the \findex[refinement!success]success refinement and relate it to the strong simulation. We start by defining the \textit{success pair} of a process.
 
-The pair $(t, Y)$ is called an \textit{success pair}, where $t$ is a trace and $Y$ is a set of acceptable next actions after $t$. Formally, $P \bigstep{t} Q$ and $Q$ acp $X$. Any process
+The pair $(t, Y)$ is called an \textit{success pair}, where $t$ is a trace and $Y$ is a set of acceptable next actions after $t$. Formally, $P \bigstep{t} Q$ and $Q$ acp $Y$. Any process
 $P$ is assigned a set of success pairs $\Successes[]$. Formally, this means:
 \begin{align}
     \Successes[P] \define \{(t,Y) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Q \text{ acp } Y \wedge Y\in Acceptances\}
@@ -175,9 +175,9 @@ Let $(P,Q)\in{}\simuv$, then $\Traces[P]\subseteq\Traces[Q] \wedge \Successes[P]
 \end{itemize}
 \end{prf}
 \subsubsection{Success-Refinement use case:}
-Let us take an example to inspect if \refCor{cor_sim_acceptance_refinement} and our approach of calculating the acceptance set works. let:\\
-$P\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).P$ and 
-$Q\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).Q + \tau.Q$
+Let us take an example to inspect if \refCor{cor_sim_acceptance_refinement} and our approach of calculating the acceptance set works. Let:\\
+\[P\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).P\]  
+\[Q\define(\inp{a}{x}.\out{x}{a} \mid \inp{b}{y}).Q + \tau.Q\]
 It is clear that $Q$ strongly simulates $P$. This result implies, according to \refCor{cor_sim_acceptance_refinement}, that $P$ refines $Q$ in the success-refinement model. In other words, after a common trace $t$, the acceptance set $Y_P$ of the process $P$ is included in the acceptance set $Y_Q$ of the process $Q$. More formally:
 \[\forall (t, Y_P) \in \Successes[P] \textit{ then } \exists (t, Y_Q) \in \Successes[Q]: Y_P \subseteq Y_Q\]
 We will show that this holds for the empty trace $\out{}{}$ using our approach of determining the acceptance set $Y$.
