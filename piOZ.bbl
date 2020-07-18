@@ -5,6 +5,11 @@ Sebastien Briais.
 \newblock Abc: Another bisimilarity checker.
 \newblock \url{http://sbriais.free.fr/tools/abc/}.
 
+\bibitem[com]{comparator}
+Comparator circuit.
+\newblock
+  \url{https://media.geeksforgeeks.org/wp-content/uploads/comparator-1.jpg}.
+
 \bibitem[D'O]{stargazer}
 Emanuele D'Osualdo.
 \newblock Stargazer: A $\pi$-calculus simulator.
