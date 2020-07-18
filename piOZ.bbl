@@ -20,6 +20,11 @@ Cristian Ene and Traian Muntean.
 \newblock Expressiveness of point-to-point versus broadcast communications.
 \newblock 07 2000.
 
+\bibitem[Gam94]{erichgamma1994}
+Erich Gamma.
+\newblock {\em Design Patterns: Elements of Reusable Object-Oriented Software}.
+\newblock Addison-Wesley Professional, nov 1994.
+
 \bibitem[Gie14]{gieseking}
 Manuel Gieseking.
 \newblock {\em Refinement of $\pi$-calculus processes}.
