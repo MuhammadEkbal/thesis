@@ -1,4 +1,4 @@
-This chapter studies the syntactic transformation of an \oz{} class into an \picalc{} process. The resulting process is intuitively defined as follow:
+This chapter studies the syntactic transformation of an \oz{} class into an \picalc{} process. The resulting process is intuitively defined as follows:
 \[P_{OZ\_PI} = \sum_{v\_st\in Init}^{} \tau. Q(v\_st,v\_self)\]
 \begin{equation*}
 \begin{aligned}
@@ -6,7 +6,7 @@ Q(v\_st,v\_self) ={} & (\sum_{c\in \text{In}}^{} c(v\_in_{c}) \ +\ \sum_{c\in \t
       &  \sum_{v\_st'}^{} \tau.Q(v\_st',v\_self)
 \end{aligned}
 \end{equation*}
-where:
+Where:
 \begin{itemize}
 \item $\inA$ the set of all input actions, defined as $\inA\define\set[x\in\names]{\inp{x}{\vec{y}}}$.
 \item $\outA$ is the set of all output actions, defined as $\outA\define\set[x\in\names]{\out{x}{\vec{y}}}$.

@@ -1,15 +1,15 @@
 The class \textit{VM} shown in \refFig{tra_vm_OZ} is mapped to a \picalc{} process \textit{VM\_OZ\_PI} shown in \refLis{tra_vm_OZ_listing}. The processes \textbf{VM\_OZ} has six parameters
 \begin{itemize}
-\item \textit{self,message,cv} and \textit{tv} represent the state variables.
-\item \textit{coffee,tea} and \textit{talk} represent the operations.
+\item \textit{self, message, cv} and \textit{tv} represent the state variables.
+\item \textit{coffee, tea} and \textit{talk} represent the operations.
 \end{itemize}
 The processes \textit{VM\_OZ\_PI} mimics the behaviour of $VM$:
 \begin{itemize}
 \item On receiving a signal via \textit{coffee}, then \textit{VM\_Condition\_IF\_Else\_coffee} checks if the condition \textit{VM\_Condition\_coffee} is fulfilled. If it is fulfilled it makes a state transition \textit{VM\_State\_Transition\_coffee} to decrease the value of \textit{cv} by one \textit{One(b) }| \textit{Sub(cv,b,c,done)}.
-\item the same goes for \textit{tea}.
+\item The same goes for \textit{tea}.
 \item  \textit{VM\_OZ\_PI} can send a copy of the value of  \textit{self,message} via  \textit{talk}
 \end{itemize}
-The processes \textit{VM\_OZ\_PI\_Init} creates an instance of \textit{VM\_OZ\_PI} and initialize its state variables \textit{self,cv,tv} and \textit{message} with the values \textit{Zero,Three,Three,One}. The full implementation can be found in the appendix.
+The processes \textit{VM\_OZ\_PI\_Init} creates an instance of \textit{VM\_OZ\_PI} and initialize its state variables \textit{self, cv, tv} and \textit{message} with the values \textit{Zero, Three, Three, One}. The full implementation can be found in the appendix.
 \begin{figure}[H]
 \begin{subfigure}{.6\textwidth}
 \centering

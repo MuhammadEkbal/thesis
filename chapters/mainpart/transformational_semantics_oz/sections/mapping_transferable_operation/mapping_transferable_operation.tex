@@ -1,11 +1,11 @@
 As mentioned in \refSec{sec_oz_dynamic_oz}, the mobility in Dynamic \oz{} is achieved
 by attaching a distinguished variable transferableOperation for location. Location transferring
-is mimicked by assigning a new location to that variable. To translate the variable \emph{transferableOperation} into the \picalc{} we cannot use \picalc{} channel as in \refSec{sec_tra_mapping_state_variables}, since the value of \emph{transferableOperation} will be a channel name and not a processes representing a value like $Zero$. Thus, we map the variable transferableOperation to a channel named transferableOperation, where:
+is mimicked by assigning a new location to that variable. To translate the variable \emph{transferableOperation} into the \picalc{} we cannot use \picalc{} channel as in \refSec{sec_tra_mapping_state_variables}, since the value of \emph{transferableOperation} will be a channel name and not a process representing a value like $Zero$. Thus, we map the variable transferableOperation to a channel named transferableOperation, where:
 
 \begin{itemize}
-\item transferableOperation = nil is mapped to Nullref(transferableOperation),
+\item transferableOperation = nil is mapped to Nullref(transferableOperation).
 
-\item transferableOperation = talk is mapped to Ref(transferableOperation,talk),
+\item transferableOperation = talk is mapped to Ref(transferableOperation,talk).
 \end{itemize}
 as shown in \refFig{tra_ref} and \refLis{tra_ref_listing}.
 \input{chapters/mainpart/transformational_semantics_oz/sections/mapping_transferable_operation/ref}

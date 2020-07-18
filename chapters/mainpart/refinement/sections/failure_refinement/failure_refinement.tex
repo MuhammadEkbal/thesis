@@ -5,7 +5,7 @@ $P$ is assigned a set of failures $\Failures[]$. Formally, this means:
     \Failures[P] \define \{(t,X) \mid \exists Q\in\procs: P \bigstep{t} Q \wedge Q \text{ ref } X \wedge X\in Refusals\}
 \end{align}
 where: $Refusals \define \pom{\actions}$.
-\\The the special inclusion of failures sets is defined as follow:
+\\The special inclusion of failures sets is defined as follows:
 \begin{definition}[special inclusion of failures set]
 \label{def_failure_inclutuion_ref}
 Let $P,Q\in\procs$, then:
@@ -18,7 +18,7 @@ Let $P,Q\in\procs$, then:
 \ 
 \end{definition}
 Notice, we are neither focusing on how to calculate the $\Traces[P]$, since it has been studied in \cite{gieseking} nor on how to calculate the refusal set $X$ of a trace $t$, since the failure-refinement is not useful as we will show later in \refRem{cor_sim_failure_refinement}. Later in \refSec{sec_acceptance-refinement} we will focus on calculating the acceptance set of a trace.
-For now, let us go ahead and define the failure-refinement of \picalc{} processes as follow: 
+For now, let us go ahead and define the failure-refinement of \picalc{} processes as follows: 
 \begin{definition}[Failure refinement]
 \label{def_failure_ref}
 	Let $P,Q\in\procs$, then $P$ is a \findex[refinement!failure]{failure refinement} of $Q$ iff the inverse set inclusion of traces and failures holds:
